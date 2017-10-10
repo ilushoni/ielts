@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="61" viewBox="0 0 54 61">
+    <g fill="none" fill-rule="evenodd">
+        <rect width="1.955" height="29.339" x=".045" y="16.536" fill="#E61130" fill-opacity=".111" rx=".978"/>
+        <rect width="3.743" height="45.917" x="3.788" y="8.247" fill="#E61130" fill-opacity=".309" rx="1.872"/>
+        <rect width="44.384" height="61" x="9.616" fill="#DBDBDB" rx="4"/>
+        <path fill="#E61130" d="M40.913 14.63c4.813 0 8.714-3.876 8.714-8.657 0-1.91-.623-3.677-1.678-5.109-2.49-.079-4.835-.079-7.036 0-1.491 0-3.804-.043-6.938-.13a8.583 8.583 0 0 0-1.775 5.24c0 4.78 3.901 8.656 8.713 8.656z"/>
+        <path fill="#C2C2C2" d="M44.427 13.277c0 2.998 2.415 5.429 5.394 5.429 1.19 0 2.29-.388 3.183-1.046.08 0 .08-8.706.08-8.706a5.348 5.348 0 0 0-3.263-1.106c-2.98 0-5.394 2.43-5.394 5.429z" style="mix-blend-mode:multiply"/>
+        <text fill="#E61130" font-family="Lato-Bold, Lato" font-size="13" font-weight="bold">
+            <tspan x="15.849" y="34.138">5000</tspan> <tspan x="48.238" y="37.591" font-family="Lato-Medium, Lato" font-size="10" font-weight="400"> </tspan> <tspan x="23.556" y="48.431" font-family="Lato-Medium, Lato" font-size="8" font-weight="400">students</tspan>
+        </text>
+    </g>
+</svg>
