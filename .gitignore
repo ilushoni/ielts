@@ -1,2 +1,4 @@
 deploy.php
 deployments.log
+wp-config.php
+phpMyAdmin/
