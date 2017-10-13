@@ -1,4 +1,3 @@
-deploy.php
-deployments.log
-wp-config.php
-phpMyAdmin/
+/*
+!.gitignore
+!.wp-content/
