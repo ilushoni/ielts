@@ -436,7 +436,7 @@ add_action( 'pre_get_posts', 'wcs_exclude_category_search', 1 );
 //exclude pages from post search results
 function exclude_pages_from_search($query) {
     if ( $query->is_main_query() && is_search() ) {
-        $exclude_ids = array( 634, 135, 596, 483 ); // Array of the ID's to exclude
+        $exclude_ids = array( 69, 135, 596, 483 ); // Array of the ID's to exclude
         $query->set( 'post__not_in', $exclude_ids );
     }
     return $query;
