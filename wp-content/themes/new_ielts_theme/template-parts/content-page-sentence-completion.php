@@ -17,6 +17,7 @@ $menu_name = 'reading_section_completion';
 $locations = get_nav_menu_locations();
 
 if( $locations && isset($locations[ $menu_name ]) ){
+
     $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
     $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
 
@@ -29,6 +30,7 @@ if( $locations && isset($locations[ $menu_name ]) ){
     $menu_list .= '</nav>';
 
     echo $menu_list;
+
 }
 
 echo '<div class="section-completion-plan">'. _("Starting with the next page this Table is in the left upper corner of each page (like a plan)") .'</div>';

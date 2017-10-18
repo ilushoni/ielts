@@ -5,7 +5,6 @@
 
 global $current_user;
 wp_get_current_user();
-
 ?>
 
 <footer class="container footer-wrapper<? if(is_front_page()) { echo " front-end"; } ?>">

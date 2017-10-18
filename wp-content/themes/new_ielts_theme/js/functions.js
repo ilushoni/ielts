@@ -645,93 +645,110 @@ $( document ).ready(function() {
     });
 
     //work with audio records
-    $('.btn-record').click(function(){
-        startRecording(this);
-    });
+    if( $("#log").length ) {
 
-    $('.btn-stop').click(function(){
-        stopRecording(this);
-    });
-
-    function __log(e, data) {
-        log.innerHTML += "\n" + e + " " + (data || '');
-    }
-
-    var audio_context;
-    var recorder;
-
-    function startUserMedia(stream) {
-        var input = audio_context.createMediaStreamSource(stream);
-        __log('Media stream created.');
-
-        // Uncomment if you want the audio to feedback directly
-        //input.connect(audio_context.destination);
-        //__log('Input connected to audio context destination.');
-
-        recorder = new Recorder(input);
-        __log('Recorder initialised.');
-    }
-
-    function startRecording(button) {
-        recorder && recorder.record();
-        button.disabled = true;
-        // button.nextElementSibling.disabled = false;
-        $('.btn-stop').removeAttr('disabled');
-        __log('Recording...');
-    }
-
-    function stopRecording(button) {
-        recorder && recorder.stop();
-        button.disabled = true;
-        // button.previousElementSibling.disabled = false;
-        $('.btn-record').removeAttr('disabled');
-        __log('Stopped recording.');
-
-        // create WAV download link using audio data blob
-        createDownloadLink();
-
-        recorder.clear();
-    }
-
-    function createDownloadLink() {
-        recorder && recorder.exportWAV(function(blob) {
-            console.log('create Download Link');
-            // console.dir(blob);
-            var url = URL.createObjectURL(blob);
-            var li = document.createElement('li');
-            var au = document.createElement('audio');
-            var hf = document.createElement('a');
-
-            au.controls = true;
-            au.src = url;
-            hf.href = url;
-            var date = new Date();
-            hf.download = 'audio-' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '-' + date.getDate() +'-'+ date.getMonth() + '-' + date.getFullYear() + '.wav';
-            // hf.download = new Date().toISOString() + '.wav';
-            hf.innerHTML = hf.download;
-            li.appendChild(au);
-            li.appendChild(hf);
-            recordingslist.appendChild(li);
+        $('.btn-record').click(function(){
+            startRecording(this);
         });
-    }
 
-    window.onload = function init() {
-        try {
-            console.log('window.onload');
-            // webkit shim
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-            window.URL = window.URL || window.webkitURL;
+        $('.btn-stop').click(function(){
+            stopRecording(this);
+        });
 
-            audio_context = new AudioContext;
-            __log('Audio context set up.');
-            __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-        } catch (e) {
-            alert('No web audio support in this browser!');
+        function __log(e, data) {
+            log.innerHTML += "\n" + e + " " + (data || '');
         }
 
-        navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-            __log('No live audio input: ' + e);
-        });
-    };
+        var audio_context;
+        var recorder;
+
+        function startUserMedia(stream) {
+            var input = audio_context.createMediaStreamSource(stream);
+            __log('Media stream created.');
+
+            // Uncomment if you want the audio to feedback directly
+            //input.connect(audio_context.destination);
+            //__log('Input connected to audio context destination.');
+
+            recorder = new Recorder(input);
+            __log('Recorder initialised.');
+        }
+
+        function startRecording(button) {
+            recorder && recorder.record();
+            button.disabled = true;
+            // button.nextElementSibling.disabled = false;
+            $('.btn-stop').removeAttr('disabled');
+            __log('Recording...');
+        }
+
+        function stopRecording(button) {
+            recorder && recorder.stop();
+            button.disabled = true;
+            // button.previousElementSibling.disabled = false;
+            $('.btn-record').removeAttr('disabled');
+            __log('Stopped recording.');
+
+            // create WAV download link using audio data blob
+            createDownloadLink();
+
+            recorder.clear();
+        }
+
+        function createDownloadLink() {
+            recorder && recorder.exportWAV(function(blob) {
+                var url = URL.createObjectURL(blob);
+
+                $('#recordingslist').append('<li></li>');
+                $('#recordingslist li:last-child').append('<audio controls src="' + url + '"></audio>');
+
+                $('<a href="' + url + '" class="btn btn-save-audio">save</button>')
+                    .appendTo( $('#recordingslist li:last-child') )
+                    .click(function(){
+
+                        var data = new FormData();
+                        data.append('file', blob);
+
+                        $.ajax({
+                            url :  wnm_custom.template_url+"/upload-audio.php",
+                            type: 'POST',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            success: function(data) {
+                                console.log("boa! I can save file!");
+                            },
+                            error: function() {
+                                console.log("not so boa!");
+                            }
+                        });
+
+                        return false;
+                    });
+            });
+        }
+
+        window.onload = function init() {
+            try {
+                console.log('window.onload');
+                // webkit shim
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+                window.URL = window.URL || window.webkitURL;
+
+                audio_context = new AudioContext;
+                __log('Audio context set up.');
+                __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+            } catch (e) {
+                // alert('No web audio support in this browser!');
+                console.log('No web audio support in this browser!');
+            }
+
+            navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+                __log('No live audio input: ' + e);
+            });
+        };
+
+    }
+
 });

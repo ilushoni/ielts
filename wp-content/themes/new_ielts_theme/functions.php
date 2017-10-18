@@ -213,22 +213,19 @@ function ielts_scripts() {
 
 	// Theme stylesheet.
     wp_enqueue_style( 'ielts-normalize', get_template_directory_uri() . '/css/normalize.css', array(), '7.0.0' );
-//    wp_enqueue_style( 'ielts-jqueryuicss', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
+
 	wp_enqueue_style( 'ielts-style', get_stylesheet_uri());
 
 	wp_enqueue_script( 'ielts-jquery', get_template_directory_uri() . '/js/jquery-3.2.1.js', array('jquery'), '3.2.1');
 	wp_enqueue_script( 'ielts-jqueryui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery'), '1.12.1');
 	wp_enqueue_script( 'ielts-jqueryuitouch', get_template_directory_uri() . '/js/jquery.ui.touch-punch.min.js', array('jquery'));
-//	wp_enqueue_script( 'ielts-jqueryaudiodisplay', get_template_directory_uri() . '/js/audiodisplay.js', array('jquery'));
-//	wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'));
-//	wp_enqueue_script( 'ielts-jqueryrecordmain', get_template_directory_uri() . '/js/main.js', array('jquery'));
-
-    
 
 	wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', array('jquery'));
 
     if ( is_page( 'Task voice record' ) ) {
         wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'));
+        $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
+        wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
     }
 
 	wp_localize_script( 'ielts-script', 'screenReaderText', array(
@@ -395,7 +392,8 @@ function dev_set_context_based_page_on_front( $value ) {
     if( ! is_user_logged_in() ) {
         return $value;
     }
-    return 634;//change with your own page id.
+    return 69;//change with your own page id.
+//    return 634;//change with your own page id.
 }
 add_filter( 'pre_option_page_on_front', 'dev_set_context_based_page_on_front' );
 //end different pages for registered and unregistered users
@@ -679,5 +677,4 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 
 add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
-//audio record
 /*---end added by ira.che---*/
