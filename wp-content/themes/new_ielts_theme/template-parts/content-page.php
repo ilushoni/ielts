@@ -28,6 +28,45 @@ switch ( $page_slug ):
         echo '</article>';
         break;
 
+    case "action-points":
+
+        echo '<main class="container page section-front-page" id="page-' . get_the_ID() . '" role="main">';
+            if(get_the_title()) {
+                echo '<header class="entry-header">';
+                    the_title( '<h1 class="entry-title">', '</h1>' );
+                echo '</header>';
+            }
+
+            echo '<div class="entry-content">';
+                the_content();
+
+                $menu_name = 'action_points';
+                $locations = get_nav_menu_locations();
+
+                if( $locations && isset($locations[ $menu_name ]) ){
+                    $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
+                    $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
+
+                    $menu_list = '<ul id="menu-' . $menu_name . '">';
+                    foreach ( $menu_items as $key => $menu_item ){
+                        $menu_list .= '<li><a href="' . $menu_item->url . '">' . $menu_item->title . '</a></li>';
+                    }
+                    $menu_list .= '</ul>';
+
+                    echo $menu_list;
+                }
+            echo '</div>';
+
+            echo '<nav class="page-nav-wrapper">';
+                echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
+                if( $page_slug !== "action-points" ) {
+                    echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
+                }
+            echo '</nav>';
+
+        echo '</main>';
+        break;
+
     default:
 
         $post_parent = get_post($direct_parent);

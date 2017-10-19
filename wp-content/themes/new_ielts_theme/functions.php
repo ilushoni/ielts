@@ -62,6 +62,7 @@ function ielts_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'ielts' ),
 		'reading_section_completion' => __( 'Reading: Sentence  Completion Menu', 'ielts' ),
+		'action_points' => __( 'Action Points Menu', 'ielts' ),
 		'social'  => __( 'Social Links Menu', 'ielts' ),
 	) );
 
