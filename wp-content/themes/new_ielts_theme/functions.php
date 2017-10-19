@@ -436,7 +436,7 @@ add_action( 'pre_get_posts', 'wcs_exclude_category_search', 1 );
 //exclude pages from post search results
 function exclude_pages_from_search($query) {
     if ( $query->is_main_query() && is_search() ) {
-        $exclude_ids = array( 69, 135, 596, 483 ); // Array of the ID's to exclude
+        $exclude_ids = array( 69, 98, 66, 64 ); // Array of the ID's to exclude (IELTS test sections, Reading. Question types, Home page, page Under Construction)
         $query->set( 'post__not_in', $exclude_ids );
     }
     return $query;
@@ -452,7 +452,8 @@ function redirect_to_home() {
     global $current_user;
     wp_get_current_user();
 
-    if( (!is_user_logged_in()) && (!is_front_page()) && (!is_home()) && (!is_404()) && (!is_login_page()) ) {
+    //redirect from all pages excerpt page Under Construction, login page and front pages
+    if( (!is_user_logged_in()) && (!is_front_page()) && (!is_home()) && (!is_404()) && (!is_login_page()) && ( get_queried_object_id() !== 64 ) ) {
         wp_redirect(home_url());
         exit();
     }

@@ -708,6 +708,7 @@ $( document ).ready(function() {
 
                         var data = new FormData();
                         data.append('file', blob);
+                        // data.append('file', blob, 'filename.wav');
 
                         $.ajax({
                             url :  wnm_custom.template_url+"/upload-audio.php",

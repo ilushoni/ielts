@@ -1,6 +1,10 @@
 <?php
 if(isset($_FILES['file']) and !$_FILES['file']['error']){
-    $fname = "User-".get_current_user() . "-audio.wav";
+
+//    $fname = $_FILES['file']['tmp_name']."-audio.wav";
+//    $fname = $_FILES['file']['tmp_name'];
+//    var_dump( $_FILES )
+    $fname = "User-username-task-audio.wav";
 
     if (strpos($_SERVER['DOCUMENT_ROOT'], 'localhost') !== false) {
         move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/wordpress/wp-content/uploads/audio/" . $fname);
