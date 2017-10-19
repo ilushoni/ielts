@@ -131,9 +131,27 @@ if(is_user_logged_in()) {
     wp_reset_postdata();
 
     echo '<main class="front-page-text">';
-        while (have_posts()) : the_post();
-            the_content();
-        endwhile;
+        $menu_name = 'reading_section_completion';
+        $locations = get_nav_menu_locations();
+
+        if( $locations && isset($locations[ $menu_name ]) ){
+            $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
+            $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
+
+            $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu">';
+            foreach ( $menu_items as $key => $menu_item ){
+                $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.( ($menu_item->object_id == $direct_parent) ? 'active' : '' ).'">' . $menu_item->title;
+                $menu_list .= '</a>';
+            }
+            $menu_list .= '</nav>';
+
+            echo $menu_list;
+        }
+
+//        while (have_posts()) : the_post();
+//            the_content();
+//        endwhile;
+
     echo '</main>';
 
     echo '<div class="front-page-reasons">';
