@@ -47,7 +47,11 @@ echo '<main id="post-' . get_the_ID() . '" class="container page page-section-in
                 the_title('<h3 class="entry-title">','</h3>');
             echo '</header>';
             echo '<div class="entry-content" available="'.$user_data[ get_the_title() ].'">';
-             the_content();
+                the_content();
+
+                if( get_the_ID() == 51 ) {
+                    echo '<nav class="page-nav-wrapper"><a class="page-next" href="' . get_permalink( get_page_by_path( "reading-question-types/sentence-completion/" )) . '">'._("Next").'</a></nav>';
+                }
             echo '</div>';
 
         endforeach;
