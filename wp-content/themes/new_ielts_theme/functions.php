@@ -236,6 +236,23 @@ function ielts_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'ielts_scripts' );
 
+function show_my_recorder_func() {
+
+    wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'));
+    $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
+    wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
+
+    $recorder = '<button class="btn btn-record">Record Myself</button>';
+    $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
+    $recorder .= '<div class="record-duration"></div>';
+    $recorder .= '<ul id="recordingslist" class="record-list"></ul>';
+    $recorder .= '<pre id="log"></pre>';
+
+    return $recorder;
+
+}
+add_shortcode('my_recorder', 'show_my_recorder_func');
+
 /**
  * Adds custom classes to the array of body classes.
  *

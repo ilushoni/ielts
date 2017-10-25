@@ -51,7 +51,6 @@
                     "use strict";
 
                     module.exports = require("./recorder").Recorder;
-                    console.dir(module.exports); //ira.che
 
                     },
                     {"./recorder":2}

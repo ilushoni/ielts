@@ -647,12 +647,37 @@ $( document ).ready(function() {
     //work with audio records
     if( $("#log").length ) {
 
+        var timerId = null;
+
+        function formatDuration(seconds) {
+            var sec = Math.floor( seconds );
+            var min = Math.floor( sec / 60 );
+            min = min >= 10 ? min : '0' + min;
+            sec = Math.floor( sec % 60 );
+            sec = sec >= 10 ? sec : '0' + sec;
+            return min + ':' + sec;
+        }
+
         $('.btn-record').click(function(){
             startRecording(this);
+            var i=0;
+            timerId = null;
+            timerId = setTimeout(function tick() {
+                $(".record-duration").text(formatDuration(i));
+                i++;
+                timerId = setTimeout(tick, 1000);
+            }, 1000);
         });
 
         $('.btn-stop').click(function(){
             stopRecording(this);
+            if( $(".btn-record").text() == "Record Myself" ) {
+                $(".btn-record").text("Re-record");
+            }
+            if (timerId) {
+                clearTimeout(timerId); //cancel the previous timer.
+                timerId = null;
+            }
         });
 
         function __log(e, data) {
@@ -661,6 +686,8 @@ $( document ).ready(function() {
 
         var audio_context;
         var recorder;
+        var record_i = 0; //recorder counter
+        var durations = [];
 
         function startUserMedia(stream) {
             var input = audio_context.createMediaStreamSource(stream);
@@ -677,7 +704,6 @@ $( document ).ready(function() {
         function startRecording(button) {
             recorder && recorder.record();
             button.disabled = true;
-            // button.nextElementSibling.disabled = false;
             $('.btn-stop').removeAttr('disabled');
             __log('Recording...');
         }
@@ -685,25 +711,61 @@ $( document ).ready(function() {
         function stopRecording(button) {
             recorder && recorder.stop();
             button.disabled = true;
-            // button.previousElementSibling.disabled = false;
             $('.btn-record').removeAttr('disabled');
             __log('Stopped recording.');
-
             // create WAV download link using audio data blob
             createDownloadLink();
 
             recorder.clear();
         }
 
+        function returnMusic(el){
+            var $this = el.parents("li");
+            var music_id = $this.find("audio").attr("id");
+            var music = document.getElementById(music_id);
+
+            return music;
+        }
+
         function createDownloadLink() {
             recorder && recorder.exportWAV(function(blob) {
                 var url = URL.createObjectURL(blob);
+                record_i++;
 
-                $('#recordingslist').append('<li></li>');
-                $('#recordingslist li:last-child').append('<audio controls src="' + url + '"></audio>');
+                $('.record-list').append(
+                    '<li>'+
+                        '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
+                        '<div id="audioplayer'+record_i+'" class="audioplayer">' +
+                            '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
+                            '<p class="audio-text">'+
+                                '<span class="audio-name">Your answer to the question '+record_i+'</span>' +
+                                '<span class="duration"></span>' +
+                            '</p>'+
+                            '<div id="timeline'+record_i+'" class="timeline">' +
+                                '<div id="playhead'+record_i+'" class="playhead"></div>' +
+                            '</div>' +
+                        '</div>'+
+                    '</li>'
+                );
+
+                $('audio[src="'+url+'"]').on("canplay", function () {
+                    var d = formatDuration(this.duration);
+                    $(this).parents("li").find(".duration").text( d );
+                    durations.push(d);
+                });
+
+                $("audio").on('timeupdate', function(){
+                    $(this).parents("li").find('.duration').text( formatDuration( Math.floor(this.currentTime) ) );
+                });
+
+                $('audio').on('ended', function() {
+                    var music = returnMusic( $(this) );
+                    $(this).toggleClass("play").toggleClass("pause");
+                    $(this).parents("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
+                });
 
                 $('<a href="' + url + '" class="btn btn-save-audio">save</button>')
-                    .appendTo( $('#recordingslist li:last-child') )
+                    .appendTo( $('.record-list li:last-child') )
                     .click(function(){
 
                         var data = new FormData();
@@ -729,9 +791,35 @@ $( document ).ready(function() {
             });
         }
 
+        $(document).on('click', '.btn-play', function(){
+
+            var music = returnMusic( $(this) );
+            var duration = music.duration;
+            var timeline_id = $(this).parents("li").find(".timeline").attr("id");
+            var timeline = document.getElementById(timeline_id);
+
+            if( music.paused ) {
+                music.play();
+                switch( $(this).parents("li").find(".playhead").width() ){
+                    case $(this).parents("li").find(".timeline").width() :
+                        $(this).parents("li").find(".playhead").width(3);
+                        break;
+                    default:
+                        var w = $(this).parents("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
+                        duration -= w;
+                }
+                $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000) );
+            }else {
+                music.pause();
+                $(this).parents("li").find(".playhead").stop();
+            }
+
+            $(this).toggleClass("play").toggleClass("pause");
+
+        });
+
         window.onload = function init() {
             try {
-                console.log('window.onload');
                 // webkit shim
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
                 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
@@ -741,7 +829,6 @@ $( document ).ready(function() {
                 __log('Audio context set up.');
                 __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
             } catch (e) {
-                // alert('No web audio support in this browser!');
                 console.log('No web audio support in this browser!');
             }
 

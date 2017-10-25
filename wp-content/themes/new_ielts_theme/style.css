@@ -81,6 +81,7 @@ input[type="submit"],
 button[type="submit"],
 button {
     border: 0;
+    font-family: 'Lato', sans-serif;
 }
 
 .btn,
@@ -91,6 +92,7 @@ button {
     width: 150px;
     height: 40px;
     border-radius: 4px;
+    font-family: 'Lato', sans-serif;
     font-size: .777777777em;
     line-height: 1.43em;
     font-weight: 600;
@@ -1119,6 +1121,10 @@ ol li:before {
     clear: both;
     font-size: 1.666666em;
     color: #e61130;
+}
+
+.entry-header + .entry-content .task-name:first-child {
+    padding-top: 0;
 }
 
 .task-name-condition {
@@ -2232,48 +2238,48 @@ p.no-margin {
 /*---end page task choose select---*/
 
 /*---page task with voice record---*/
-#recordingslist {
+#log {
+    display: none;
+}
+
+.record-list {
     position: relative;
-    margin: 0 0 65px;
+    margin: 80px 0 135px;
     padding: 0;
     list-style: none;
     counter-reset: recCounter;
 }
 
-#recordingslist li {
+.record-list:not(:empty):before {
+    content: "6. Listen the Recorded Answer";
+    position: relative;
+    display: block;
+    margin-bottom: 50px;
+    font-size: 1.666666em;
+    font-weight: 600;
+    color: #e61130;
+}
+
+.record-list li {
     position: relative;
     display: inherit;
-    margin-bottom: 20px;
+    margin: 30px 0 50px;
     font-size: .7777em;
     line-height: 1.43em;
     counter-increment: recCounter;
 }
 
-#recordingslist li:last-child {
+.record-list li:last-child {
     margin-bottom: 0;
 }
 
-#recordingslist li * {
-    vertical-align: top;
-}
-
-#recordingslist li:before {
-    content: "Record "counter(recCounter);
-    position: relative;
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 1.2857142857142em;
-    line-height: 1.5em;
-    font-weight: 600;
-}
-
-#recordingslist audio {
+.record-list audio {
     display: inline-block;
     margin-bottom: 10px;
 }
 
 .btn-save-audio {
+    display: none;
     margin-top: -4px;
     margin-left: 30px;
     width: 70px;
@@ -2290,22 +2296,64 @@ p.no-margin {
     margin-bottom: 40px;
     padding: 0;
     border: 1px solid transparent;
-    width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="141.732" height="141.732"><g><rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/></g><g><title>Layer 1</title><path fill="#e61130" id="svg_1" d="m91.192,59.623l0,-37.677c0.043,-0.534 0.068,-1.073 0.068,-1.618c0.002,-11.226 -9.099,-20.328 -20.325,-20.328c-11.229,0 -20.33,9.104 -20.33,20.328c0,0.545 0.024,1.084 0.066,1.618l0,37.677c-0.042,0.535 -0.066,1.073 -0.066,1.621c0,11.229 9.103,20.326 20.329,20.326c11.227,0 20.327,-9.1 20.327,-20.326c0.001,-0.548 -0.026,-1.086 -0.069,-1.621m29.75,-9.404c0,-3.084 -2.5,-5.584 -5.584,-5.584c-3.082,0 -5.582,2.5 -5.582,5.584c0,0.047 0.004,0.092 0.008,0.139c-0.076,21.43 -17.471,38.779 -38.917,38.779c-21.448,0 -38.842,-17.353 -38.917,-38.779c0.002,-0.047 0.008,-0.092 0.008,-0.139c0,-3.084 -2.5,-5.584 -5.584,-5.584s-5.585,2.5 -5.585,5.584c0,25.714 19.388,46.896 44.339,49.743l0,28.648l-26.348,0c-2.96,0 -5.358,2.402 -5.358,5.361c0,2.961 2.398,5.355 5.358,5.355l26.35,0l11.61,0l26.35,0c2.959,0 5.357,-2.396 5.357,-5.355c0,-2.959 -2.398,-5.361 -5.357,-5.361l-26.35,0l0,-28.665c24.888,-2.906 44.202,-24.06 44.202,-49.726"/></g></svg>') center center no-repeat rgba(230,17,48,.1);
+    width: 150px;
+    border-radius: 4px;
+    background: linear-gradient(to bottom, rgba(230,17,48,.1), rgba(253,21,55,.1));
     color: #e61130;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
     overflow: hidden;
     box-sizing: border-box;
     cursor: pointer;
 }
 
-.btn-record {
-    margin-right: 30px;
+.btn-stop {
+    border-color: #e61130;
+    background: #fff;
 }
 
-.btn-stop {
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><g><title>background</title><rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/></g><g><title>Layer 1</title> <rect id="svg_1" width="32" height="32" fill="none"/><rect fill="#e61130" id="svg_2" y="4" x="4" width="24" height="24"/></g></svg>') center center no-repeat rgba(230,17,48,.1);
+.btn-stop:before,
+.btn-record:before {
+    content:"";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    margin-top: -5px;
+    display: block;
+    height: 10px;
+    width: 10px;
+    background: #e61130;
+}
+
+.btn-record:before {
+    border-radius: 50%;
+}
+
+.btn-stop:disabled,
+.btn-record:disabled {
+    display: none;
+}
+
+.btn-stop:hover,
+.btn-stop:active,
+.btn-stop:focus,
+.btn-record:hover,
+.btn-record:active,
+.btn-record:focus {
+    background: linear-gradient(to bottom, rgba(230,17,48,1), rgba(253,21,55,1));
+    color: #fff;
+}
+
+.btn-stop:hover::before,
+.btn-stop:active::before,
+.btn-stop:focus::before,
+.btn-record:hover::before,
+.btn-record:active::before,
+.btn-record:focus::before {
+    background: #fff;
 }
 
 .btn-stop + br,
@@ -2313,48 +2361,89 @@ p.no-margin {
     display: none;
 }
 
-.btn-stop:hover,
-.btn-stop:active,
-.btn-stop:focus {
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><g><title>background</title><rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/></g><g><title>Layer 1</title> <rect id="svg_1" width="32" height="32" fill="none"/><rect fill="#fff" id="svg_2" y="4" x="4" width="24" height="24"/></g></svg>') center center no-repeat #e61130;
+.audioplayer {
+    position: relative;
+    width: 439px;
+    height: 40px;
 }
 
-.btn-record:hover,
-.btn-record:active,
-.btn-record:focus {
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="141.732" height="141.732"><g><rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/></g><g><title>Layer 1</title><path fill="#fff" id="svg_1" d="m91.192,59.623l0,-37.677c0.043,-0.534 0.068,-1.073 0.068,-1.618c0.002,-11.226 -9.099,-20.328 -20.325,-20.328c-11.229,0 -20.33,9.104 -20.33,20.328c0,0.545 0.024,1.084 0.066,1.618l0,37.677c-0.042,0.535 -0.066,1.073 -0.066,1.621c0,11.229 9.103,20.326 20.329,20.326c11.227,0 20.327,-9.1 20.327,-20.326c0.001,-0.548 -0.026,-1.086 -0.069,-1.621m29.75,-9.404c0,-3.084 -2.5,-5.584 -5.584,-5.584c-3.082,0 -5.582,2.5 -5.582,5.584c0,0.047 0.004,0.092 0.008,0.139c-0.076,21.43 -17.471,38.779 -38.917,38.779c-21.448,0 -38.842,-17.353 -38.917,-38.779c0.002,-0.047 0.008,-0.092 0.008,-0.139c0,-3.084 -2.5,-5.584 -5.584,-5.584s-5.585,2.5 -5.585,5.584c0,25.714 19.388,46.896 44.339,49.743l0,28.648l-26.348,0c-2.96,0 -5.358,2.402 -5.358,5.361c0,2.961 2.398,5.355 5.358,5.355l26.35,0l11.61,0l26.35,0c2.959,0 5.357,-2.396 5.357,-5.355c0,-2.959 -2.398,-5.361 -5.357,-5.361l-26.35,0l0,-28.665c24.888,-2.906 44.202,-24.06 44.202,-49.726"/></g></svg>') center center no-repeat #e61130;
-    color: #fff;
+.btn-play {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0;
+    height: 35px;
+    width: 23px;
+    border: none;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: 7px center;
+    background-color: transparent;
+    outline:none;
+    cursor: pointer;
+    z-index: 1000;
 }
 
-.btn-record:disabled {
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="141.732" height="141.732"><g><rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/></g><g><title>Layer 1</title><path fill="#d8d8d8" id="svg_1" d="m91.192,59.623l0,-37.677c0.043,-0.534 0.068,-1.073 0.068,-1.618c0.002,-11.226 -9.099,-20.328 -20.325,-20.328c-11.229,0 -20.33,9.104 -20.33,20.328c0,0.545 0.024,1.084 0.066,1.618l0,37.677c-0.042,0.535 -0.066,1.073 -0.066,1.621c0,11.229 9.103,20.326 20.329,20.326c11.227,0 20.327,-9.1 20.327,-20.326c0.001,-0.548 -0.026,-1.086 -0.069,-1.621m29.75,-9.404c0,-3.084 -2.5,-5.584 -5.584,-5.584c-3.082,0 -5.582,2.5 -5.582,5.584c0,0.047 0.004,0.092 0.008,0.139c-0.076,21.43 -17.471,38.779 -38.917,38.779c-21.448,0 -38.842,-17.353 -38.917,-38.779c0.002,-0.047 0.008,-0.092 0.008,-0.139c0,-3.084 -2.5,-5.584 -5.584,-5.584s-5.585,2.5 -5.585,5.584c0,25.714 19.388,46.896 44.339,49.743l0,28.648l-26.348,0c-2.96,0 -5.358,2.402 -5.358,5.361c0,2.961 2.398,5.355 5.358,5.355l26.35,0l11.61,0l26.35,0c2.959,0 5.357,-2.396 5.357,-5.355c0,-2.959 -2.398,-5.361 -5.357,-5.361l-26.35,0l0,-28.665c24.888,-2.906 44.202,-24.06 44.202,-49.726"/></g></svg>') center center no-repeat #fff;
+.play {
+    background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='11' viewBox='0 0 10 11'><path fill='#fee7eb' fill-rule='evenodd' d='M9.485 6.374l-7.994 4.502A1 1 0 0 1 0 10.005V1A1 1 0 0 1 1.49.129L9.486 4.63a1 1 0 0 1 0 1.743z'/></svg>");
 }
 
-.btn-stop:disabled {
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><g><title>background</title><rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/></g><g><title>Layer 1</title> <rect id="svg_1" width="32" height="32" fill="none"/><rect fill="#d8d8d8" id="svg_2" y="4" x="4" width="24" height="24"/></g></svg>') center center no-repeat #fff;
+.play:focus,
+.play:hover {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='11' viewBox='0 0 10 11'><path fill='#E61130' fill-rule='evenodd' d='M9.485 6.374l-7.994 4.502A1 1 0 0 1 0 10.005V1A1 1 0 0 1 1.49.129L9.486 4.63a1 1 0 0 1 0 1.743z'/></svg>");
 }
 
-.btn-stop:disabled,
-.btn-record:disabled {
-    border-color: #d8d8d8;
-    cursor: inherit;
+.pause {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='32px' viewBox='0 0 24 32' width='24px'><rect height='32' style='fill:#e61130;' width='8'/><rect height='32' style='fill:#e61130;' width='8' x='16'/></svg>");
 }
 
-.btn-record,
-.btn-record:hover,
-.btn-record:active,
-.btn-record:focus,
-.btn-record:disabled {
-    background-size: 24px 24px;
+.timeline {
+    position: relative;
+    margin-top: 2px;
+    margin-left: 7px;
+    width: 419px;
+    height: 3px;
+    background: #fee7eb;
 }
 
-.btn-stop,
-.btn-stop:hover,
-.btn-stop:active,
-.btn-stop:focus,
-.btn-stop:disabled {
-    background-size: 18px 18px;
+.playhead {
+    width: 3px;
+    height: 3px;
+    background: #e61130;
 }
+
+.audio-text {
+    position: relative;
+    margin: 0;
+    padding: 0 13px 0 23px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 36px;
+    font-weight: bold;
+    color: #e61130;
+}
+
+.audio-name {
+    position: relative;
+}
+
+.audioplayer .duration {
+    position: relative;
+    float: right;
+    text-align: right;
+}
+
+.record-duration {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    color: #e61130;
+}
+
 /*---end page task with voice record---*/
 
 /*---page under construction---*/

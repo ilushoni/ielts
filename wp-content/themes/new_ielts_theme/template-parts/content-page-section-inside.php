@@ -69,7 +69,7 @@ if( $task_text_array ) {
         }
     }
 
-    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') ) ? $class = "task-column-not-full" : $class ='';
+    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') ) ? $class = "task-column-not-full" : $class ='';
 
     echo '<div class="entry-content '.$class.'">';
 
@@ -87,26 +87,21 @@ if( $task_text_array ) {
                 echo(content_to_drop_words( $text ));
                 break;
 
-            case 'task-voice-record':
-
-//                $audio_files = get_all_audio(get_the_ID());
-//                var_dump($audio_files);
-
-                the_content();
-
-                echo '<button class="btn-record"></button>';
-                echo '<button class="btn-stop" disabled></button>';
-                echo '<ul id="recordingslist"></ul>';
-                echo '<h2>Log</h2>';
-                echo '<pre id="log"></pre>';
-
-//                $session_id = '1';
-//                if( $_POST['audiosrc'] && !empty($session_id) ) {
-//                    $audiosrc=$_POST['audiosrc'];
-//                    $query=mysqli_query($db,"INSERT INTO `newsfeed` (`user_id_fk`, `audioMessage`) VALUES ( '$session_id', '$audiosrc')")or die(mysqli_error($db));
-//                }
+//            case 'task-voice-record':
 //
-                break;
+//                the_content();
+//
+//                echo '<button class="btn btn-record"></button>';
+//                echo '<button class="btn btn-stop" disabled></button>';
+//                echo '<ul id="recordingslist"></ul>';
+//                echo '<h2>Log</h2>';
+//                echo '<pre id="log"></pre>';
+//                break;
+
+//            case 'types-of-questions-for-ielts-online':
+//
+//                the_content();
+//                break;
 
 //            case 'task-6':
 //
