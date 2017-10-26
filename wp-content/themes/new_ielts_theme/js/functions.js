@@ -661,10 +661,11 @@ $( document ).ready(function() {
         $('.btn-record').click(function(){
             startRecording(this);
             var i=0;
+            $(".record-duration").text(formatDuration(i));
             timerId = null;
             timerId = setTimeout(function tick() {
-                $(".record-duration").text(formatDuration(i));
                 i++;
+                $(".record-duration").text(formatDuration(i));
                 timerId = setTimeout(tick, 1000);
             }, 1000);
         });
@@ -759,8 +760,9 @@ $( document ).ready(function() {
                 });
 
                 $('audio').on('ended', function() {
+                    console.log('ended');
                     var music = returnMusic( $(this) );
-                    $(this).toggleClass("play").toggleClass("pause");
+                    $(this).parents("li").find('.btn-play').toggleClass("play").toggleClass("pause");
                     $(this).parents("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
                 });
 
@@ -808,7 +810,7 @@ $( document ).ready(function() {
                         var w = $(this).parents("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
                         duration -= w;
                 }
-                $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000) );
+                $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
             }else {
                 music.pause();
                 $(this).parents("li").find(".playhead").stop();
