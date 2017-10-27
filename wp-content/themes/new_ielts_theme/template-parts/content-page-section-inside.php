@@ -87,28 +87,6 @@ if( $task_text_array ) {
                 echo(content_to_drop_words( $text ));
                 break;
 
-//            case 'task-voice-record':
-//
-//                the_content();
-//
-//                echo '<button class="btn btn-record"></button>';
-//                echo '<button class="btn btn-stop" disabled></button>';
-//                echo '<ul id="recordingslist"></ul>';
-//                echo '<h2>Log</h2>';
-//                echo '<pre id="log"></pre>';
-//                break;
-
-//            case 'types-of-questions-for-ielts-online':
-//
-//                the_content();
-//                break;
-
-//            case 'task-6':
-//
-//                $text = get_the_content();
-//                echo(content_select_modificate( $text ));
-//                break;
-
             default:
 
                 the_content();

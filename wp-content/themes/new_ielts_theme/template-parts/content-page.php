@@ -8,7 +8,7 @@ $direct_parent = $post->post_parent;
 $page_slug = $post->post_name;
 
 $prev = get_permalink(get_adjacent_post(false,'',true));
-$next = get_permalink(get_adjacent_post(false,'',false));
+$next = get_permalink(get_adjacent_post(false,'',false)->ID);
 
 switch ( $page_slug ):
     case "reading-question-types":
@@ -16,10 +16,30 @@ switch ( $page_slug ):
         get_template_part( 'template-parts/content', 'page-reading-question-types' );
         break;
 
+    case "speaking":
+
+        get_template_part( 'template-parts/content', 'page-speaking' );
+        break;
+
     case "sentence-completion":
 
         echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
             get_template_part( 'template-parts/content', 'page-sentence-completion' );
+
+            echo '<nav class="page-nav-wrapper">';
+                echo '<a href="'.get_home_url().'" class="page-prev">'._("Back").'</a>';
+                echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
+            echo '</nav>';
+        echo '</article>';
+        break;
+
+    case "speaking-part1":
+        echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
+            get_template_part( 'template-parts/content', 'page-speaking-part1' );
+
+            $children = get_pages("child_of=".$post->ID."&sort_column=menu_order");
+            $first_child = $children[0];
+            $next = get_permalink( $first_child->ID );
 
             echo '<nav class="page-nav-wrapper">';
                 echo '<a href="'.get_home_url().'" class="page-prev">'._("Back").'</a>';
@@ -72,7 +92,7 @@ switch ( $page_slug ):
         $post_parent = get_post($direct_parent);
         $parent_page_slug = $post_parent->post_name;
 
-        if( (!($direct_parent)) or ( $parent_page_slug == "sentence-completion" ) ) {
+        if( (!($direct_parent)) or ( $parent_page_slug == "sentence-completion" ) or ( $parent_page_slug == "speaking-part1" ) ) {
 
             echo '<main class="container page section-front-page" id="page-' . get_the_ID() . '" role="main">';
                 get_template_part( 'template-parts/content', 'page-section-inside' );

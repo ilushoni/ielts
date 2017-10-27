@@ -519,11 +519,16 @@ input[type="phone"]::-webkit-input-placeholder{
 /*end reasons zone*/
 
 /*video zone*/
+.page-video,
 .front-page-video {
     position: relative;
     padding: 29px 0 35px;
     width: 100%;
     background: #e61130;
+}
+
+.page-video{
+    background: transparent;
 }
 
 .player {
@@ -534,6 +539,11 @@ input[type="phone"]::-webkit-input-placeholder{
      border: 1px solid #ff2444;
      color: #fff;
  }
+
+.page-video .player {
+    border: 0;
+    background-color: #d8d8d8;
+}
 
 .el-play {
     position: absolute;
@@ -2244,20 +2254,29 @@ p.no-margin {
 
 .record-list {
     position: relative;
-    margin: 80px 0 135px;
+    margin: 0;
     padding: 0;
     list-style: none;
     counter-reset: recCounter;
 }
 
+.record-list:not(:empty) {
+    margin: 80px 0 135px;
+}
+
 .record-list:not(:empty):before {
-    content: "6. Listen the Recorded Answer";
+    content: "Listen the Recorded Answer";
+    /*content: "6. Listen the Recorded Answer";*/
     position: relative;
     display: block;
     margin-bottom: 50px;
     font-size: 1.666666em;
     font-weight: 600;
     color: #e61130;
+}
+
+.record-list.audio-only:not(:empty):before {
+    display: none;
 }
 
 .record-list li {
@@ -2497,6 +2516,11 @@ p.no-margin {
 .section-completion-menu.top-line {
     margin-left: 0;
     margin-right: 0;
+}
+
+.speaking-part {
+    margin: 0 33px 0 2px;
+    padding: 10px 0;
 }
 /*---end section-completion inner page---*/
 
@@ -2930,6 +2954,7 @@ p.no-margin {
         grid-column-gap: 68px;
     }
 
+    .page-video,
     .front-page-video {
         padding: 30px 0 34px;
     }

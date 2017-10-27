@@ -10,16 +10,35 @@ $parent_id = $ancestors[$root];
 $section_parent = get_post($parent_id);
 $parent_section_slug = $section_parent->post_name;
 
+$page_nav = false;
+
 if( $parent_section_slug == "reading-question-types") {
+
     //task pages menu for READING section ONLY
+    $page_nav = true;
 
     $parent_page = get_page_by_path('/reading-question-types/sentence-completion/');
     echo '<a href="'.get_permalink($parent_page).'" class="section-completion-parent-page">'.get_the_title($parent_page).'</a>';
 
+    $menu_name = 'reading_section_completion';
+
+} else if ( $parent_section_slug == "speaking") {
+
+    //task pages menu for SPEAKING section ONLY
+    $page_nav = true;
+
+    $parent_page = get_page_by_path('/speaking/speaking-part1/');
+    echo '<a href="'.get_permalink($parent_page).'" class="section-completion-parent-page speaking-part">'.get_the_title($parent_page).'</a>';
+
+    $menu_name = 'speaking_part1';
+
+}
+
+if($page_nav) {
+
     global $post;
     $direct_parent = $post->post_parent;
 
-    $menu_name = 'reading_section_completion';
     $locations = get_nav_menu_locations();
 
     if( $locations && isset($locations[ $menu_name ]) ){
@@ -35,7 +54,7 @@ if( $parent_section_slug == "reading-question-types") {
 
         echo $menu_list;
     }
-
+    
 }
 
 get_template_part( 'template-parts/content', 'page-section-inside' );

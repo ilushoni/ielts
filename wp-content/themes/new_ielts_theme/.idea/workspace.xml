@@ -11,38 +11,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="812" column="132" lean-forward="false" selection-start-line="812" selection-start-column="132" selection-end-line="812" selection-end-column="132" />
+            <state relative-caret-position="-7835">
+              <caret line="56" column="19" lean-forward="true" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/style.css">
+      <file leaf-file-name="content-page.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/template-parts/content-page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51114">
-              <caret line="2434" column="1" lean-forward="false" selection-start-line="2434" selection-start-column="1" selection-end-line="2434" selection-end-column="1" />
-              <folding>
-                <element signature="e#49109#49379#2" expanded="true" />
-                <element signature="e#49433#49695#2" expanded="true" />
-                <element signature="e#49731#49964#2" expanded="true" />
-              </folding>
+            <state relative-caret-position="494">
+              <caret line="111" column="82" lean-forward="true" selection-start-line="111" selection-start-column="82" selection-end-line="111" selection-end-column="82" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/functions.php">
+      <file leaf-file-name="content-page-sentence-completion-inner.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5124">
-              <caret line="246" column="45" lean-forward="false" selection-start-line="246" selection-start-column="30" selection-end-line="246" selection-end-column="45" />
+            <state relative-caret-position="749">
+              <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
               <folding>
-                <marker date="1508952755864" expanded="true" signature="14300:14307" ph="»" />
-                <marker date="1508952755864" expanded="true" signature="17148:17154" ph=" " />
+                <element signature="e#6#93#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,9 +46,23 @@
       <file leaf-file-name="content-page-section-inside.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1974">
-              <caret line="96" column="38" lean-forward="false" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
+            <state relative-caret-position="798">
+              <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="607">
+              <caret line="2520" column="16" lean-forward="true" selection-start-line="2520" selection-start-column="16" selection-end-line="2520" selection-end-column="16" />
+              <folding>
+                <element signature="e#49397#49667#2" expanded="true" />
+                <element signature="e#49721#49983#2" expanded="true" />
+                <element signature="e#50019#50252#2" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,22 +79,13 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>audio_count</find>
-      <find>#recordingslist audio</find>
-      <find>getBuffer</find>
-      <find>\</find>
-      <find>exportWAV</find>
-      <find>redire</find>
-      <find>logged</find>
       <find>front</find>
       <find>69</find>
       <find>64</find>
       <find>fron</find>
       <find>front-page-text</find>
-      <find>menu</find>
       <find>offer</find>
       <find>btn-record</find>
-      <find>task-name</find>
       <find>recorder</find>
       <find>marginl</find>
       <find>.play</find>
@@ -98,6 +98,17 @@
       <find>readableDuration</find>
       <find>console</find>
       <find>window.onload</find>
+      <find>front-page-video</find>
+      <find>.front-page-video</find>
+      <find>vi</find>
+      <find>my_r</find>
+      <find>&quot;6. Listen the Recorded Answer&quot;</find>
+      <find>list-checkbox</find>
+      <find>task-name</find>
+      <find>record-list</find>
+      <find>page-task</find>
+      <find>.section-completion-parent-page</find>
+      <find>menu</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -113,17 +124,20 @@
         <option value="$USER_HOME$/Documents/carbon/IELTS_theme/wordpress-18-10-2017/wp-content/themes/new_ielts_theme/upload-audio.php" />
         <option value="$USER_HOME$/Documents/carbon/IELTS_theme/wordpress-18-10-2017/wp-content/themes/new_ielts_theme/functions.php" />
         <option value="$PROJECT_DIR$/upload-audio.php" />
-        <option value="$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php" />
-        <option value="$PROJECT_DIR$/template-parts/content-page.php" />
         <option value="$PROJECT_DIR$/template-parts/content-page-reading-question-types.php" />
         <option value="$PROJECT_DIR$/front-page.php" />
-        <option value="$PROJECT_DIR$/template-parts/content-page-section-inside.php" />
         <option value="$PROJECT_DIR$/js/jsplay_help.js" />
         <option value="$PROJECT_DIR$/js/play.html" />
         <option value="$PROJECT_DIR$/js/recorder.js" />
+        <option value="$PROJECT_DIR$/template-parts/page-speaking.php" />
+        <option value="$PROJECT_DIR$/template-parts/content-page-section-inside.php" />
+        <option value="$PROJECT_DIR$/template-parts/page-speaking-part1.php" />
         <option value="$PROJECT_DIR$/functions.php" />
-        <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/template-parts/content-page.php" />
         <option value="$PROJECT_DIR$/js/functions.js" />
+        <option value="$PROJECT_DIR$/template-parts/content-page-speaking.php" />
+        <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php" />
       </list>
     </option>
   </component>
@@ -134,7 +148,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1378" />
@@ -215,15 +229,15 @@
       <workItem from="1508494925025" duration="18484000" />
       <workItem from="1508755172084" duration="35699000" />
       <workItem from="1508930945471" duration="24253000" />
-      <workItem from="1509007182999" duration="3117000" />
+      <workItem from="1509007182999" duration="15676000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120870000" />
+    <option name="totallyTimeSpent" value="133429000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17708333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -253,46 +267,19 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/functions.php</url>
-          <line>220</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14868">
-          <caret line="708" column="31" lean-forward="false" selection-start-line="708" selection-start-column="20" selection-end-line="708" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/jsplay_help.js" />
-    <entry file="file://$PROJECT_DIR$/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5208">
-          <caret line="248" column="0" lean-forward="true" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
-          <folding>
-            <marker date="1508952755864" expanded="true" signature="14300:14307" ph="»" />
-            <marker date="1508952755864" expanded="true" signature="17148:17154" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50547">
           <caret line="2407" column="10" lean-forward="true" selection-start-line="2407" selection-start-column="10" selection-end-line="2407" selection-end-column="10" />
           <folding>
-            <element signature="e#49109#49379#2" expanded="true" />
-            <element signature="e#49433#49695#2" expanded="true" />
-            <element signature="e#49731#49964#2" expanded="true" />
+            <element signature="e#49397#49667#2" expanded="true" />
+            <element signature="e#49721#49983#2" expanded="true" />
+            <element signature="e#50019#50252#2" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -325,8 +312,8 @@
         <state relative-caret-position="5040">
           <caret line="240" column="37" lean-forward="false" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
           <folding>
-            <marker date="1508952755864" expanded="true" signature="14300:14307" ph="»" />
-            <marker date="1508952755864" expanded="true" signature="17148:17154" ph=" " />
+            <marker date="1509106962254" expanded="true" signature="14869:14876" ph="»" />
+            <marker date="1509106962254" expanded="true" signature="17717:17723" ph=" " />
           </folding>
         </state>
       </provider>
@@ -336,9 +323,9 @@
         <state relative-caret-position="50421">
           <caret line="2401" column="24" lean-forward="true" selection-start-line="2401" selection-start-column="24" selection-end-line="2401" selection-end-column="24" />
           <folding>
-            <element signature="e#49109#49379#2" expanded="true" />
-            <element signature="e#49433#49695#2" expanded="true" />
-            <element signature="e#49731#49964#2" expanded="true" />
+            <element signature="e#49397#49667#2" expanded="true" />
+            <element signature="e#49721#49983#2" expanded="true" />
+            <element signature="e#50019#50252#2" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -388,9 +375,9 @@
         <state relative-caret-position="48930">
           <caret line="2330" column="16" lean-forward="false" selection-start-line="2330" selection-start-column="16" selection-end-line="2330" selection-end-column="16" />
           <folding>
-            <element signature="e#49109#49379#2" expanded="true" />
-            <element signature="e#49433#49695#2" expanded="true" />
-            <element signature="e#49731#49964#2" expanded="true" />
+            <element signature="e#49397#49667#2" expanded="true" />
+            <element signature="e#49721#49983#2" expanded="true" />
+            <element signature="e#50019#50252#2" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -408,8 +395,8 @@
         <state relative-caret-position="9513">
           <caret line="453" column="0" lean-forward="true" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
           <folding>
-            <marker date="1508952755864" expanded="true" signature="14300:14307" ph="»" />
-            <marker date="1508952755864" expanded="true" signature="17148:17154" ph=" " />
+            <marker date="1509106962254" expanded="true" signature="14869:14876" ph="»" />
+            <marker date="1509106962254" expanded="true" signature="17717:17723" ph=" " />
           </folding>
         </state>
       </provider>
@@ -484,46 +471,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page-sentence-completion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page-reading-question-types.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="43" column="26" lean-forward="false" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/front-page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="243" column="1" lean-forward="true" selection-start-line="243" selection-start-column="1" selection-end-line="243" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="91" column="73" lean-forward="false" selection-start-line="91" selection-start-column="73" selection-end-line="91" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-28">
-          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documents/carbon/IELTS_theme/source/lib/ui-green-audio-player/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -582,38 +529,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1974">
-          <caret line="96" column="38" lean-forward="false" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5124">
-          <caret line="246" column="45" lean-forward="false" selection-start-line="246" selection-start-column="30" selection-end-line="246" selection-end-column="45" />
-          <folding>
-            <marker date="1508952755864" expanded="true" signature="14300:14307" ph="»" />
-            <marker date="1508952755864" expanded="true" signature="17148:17154" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51114">
-          <caret line="2434" column="1" lean-forward="false" selection-start-line="2434" selection-start-column="1" selection-end-line="2434" selection-end-column="1" />
-          <folding>
-            <element signature="e#49109#49379#2" expanded="true" />
-            <element signature="e#49433#49695#2" expanded="true" />
-            <element signature="e#49731#49964#2" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/header.php">
+    <entry file="file://$PROJECT_DIR$/page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -621,11 +537,112 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-reading-question-types.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding>
+            <element signature="e#6#89#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-speaking-part1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="39" column="99" lean-forward="false" selection-start-line="39" selection-start-column="99" selection-end-line="39" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-sentence-completion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="12" column="7" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="155" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-252">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/front-page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="177" column="35" lean-forward="true" selection-start-line="176" selection-start-column="32" selection-end-line="177" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-speaking.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+          <folding>
+            <element signature="e#6#75#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="2520" column="16" lean-forward="true" selection-start-line="2520" selection-start-column="16" selection-end-line="2520" selection-end-column="16" />
+          <folding>
+            <element signature="e#49397#49667#2" expanded="true" />
+            <element signature="e#49721#49983#2" expanded="true" />
+            <element signature="e#50019#50252#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="65" column="23" lean-forward="false" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="23" />
+          <folding>
+            <marker date="1509106962254" expanded="true" signature="14869:14876" ph="»" />
+            <marker date="1509106962254" expanded="true" signature="17717:17723" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="812" column="132" lean-forward="false" selection-start-line="812" selection-start-column="132" selection-end-line="812" selection-end-column="132" />
+        <state relative-caret-position="-7835">
+          <caret line="56" column="19" lean-forward="true" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="111" column="82" lean-forward="true" selection-start-line="111" selection-start-column="82" selection-end-line="111" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="749">
+          <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
+          <folding>
+            <element signature="e#6#93#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -597,8 +597,6 @@ $( document ).ready(function() {
 
                 default:
                     //other tasks
-                    console.log('1111other tasks');
-
                     $(".list-questions-ul").each(function(){
 
                         $(this).find("li").addClass("wrong");

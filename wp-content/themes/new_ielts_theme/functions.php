@@ -63,6 +63,7 @@ function ielts_setup() {
 		'primary' => __( 'Primary Menu', 'ielts' ),
 		'reading_section_completion' => __( 'Reading: Sentence  Completion Menu', 'ielts' ),
 		'action_points' => __( 'Action Points Menu', 'ielts' ),
+        'speaking_part1' => __( 'Speaking: Part 1 Menu', 'ielts' ),
 		'social'  => __( 'Social Links Menu', 'ielts' ),
 	) );
 
@@ -252,6 +253,21 @@ function show_my_recorder_func() {
 
 }
 add_shortcode('my_recorder', 'show_my_recorder_func');
+
+function show_my_video_func() {
+
+    $video = '<div class="page-video">';
+    $video .= '<div class="player">';
+//    $video .= '<p class="video-name">' . _("Explore what you’ll get with Grade IELTS On-line Preparation Course") . '</p>';
+//    $video .= '<p class="video-content">' . _('Tasks, tests and checkpoint reviews') . '</p>';
+    $video .= '<div class="el-play"></div>';
+    $video .= '</div>';
+    $video .= '</div>';
+
+    return $video;
+
+}
+add_shortcode('my_video', 'show_my_video_func');
 
 /**
  * Adds custom classes to the array of body classes.
