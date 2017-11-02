@@ -32,6 +32,9 @@ if( $parent_section_slug == "reading-question-types") {
 
     $menu_name = 'speaking_part1';
 
+    $postlist = mytheme_list_pages('title_li=&sort_column=menu_order');
+    $children_order = array();
+
 }
 
 if($page_nav) {
@@ -43,18 +46,53 @@ if($page_nav) {
 
     if( $locations && isset($locations[ $menu_name ]) ){
         $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
+
         $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
 
-        $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-four collapse section-completion-menu top-line">';
+        $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-'.$menu->count.' collapse section-completion-menu top-line">';
+//        $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-four collapse section-completion-menu top-line">';
         foreach ( $menu_items as $key => $menu_item ){
-            $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.( ($menu_item->object_id == $direct_parent) ? 'active' : '' ).'">' . $menu_item->title;
+
+            $class = ( $menu_item->object_id == $direct_parent ) ? 'active' : '';
+
+            if( ( $menu_name == 'speaking_part1' ) && ( $class ) ) {
+
+                $i=0;
+                if( count($children_order) > 0 ){
+                    unset( $children_order );
+                }
+
+                $children = get_pages('child_of='.$menu_item->object_id);
+
+                if( count($children) > 0 ) {
+
+                    foreach ( $children as $child ) {
+                        $child_key = array_search ( $child->ID, $postlist  );
+                        $children_order[$i] = $child_key;
+                        $i++;
+                        if( $child->ID == $post->ID )
+                            break;
+                    }
+
+                    $class .= " fill-part";
+                    $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.'">' . $menu_item->title;
+                    $menu_list .= "<div style='width:".(count($children_order) / count($children) * 100)."%;'></div>";
+
+                }
+
+            } else {
+
+                $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.'">' . $menu_item->title;
+
+            }
+
             $menu_list .= '</a>';
         }
         $menu_list .= '</nav>';
 
         echo $menu_list;
     }
-    
+
 }
 
 get_template_part( 'template-parts/content', 'page-section-inside' );

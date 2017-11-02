@@ -230,19 +230,46 @@ input[type="phone"]::-webkit-input-placeholder{
 /*---end general classes---*/
 
 /*---general grid elements---*/
+.column-2,
 .column-two {
     display: grid;
     grid-template-columns: repeat(2,1fr);
 }
 
+.column-3,
 .column-three {
     display: grid;
     grid-template-columns: repeat(3,1fr);
 }
 
+.column-4,
 .column-four {
     display: grid;
     grid-template-columns: repeat(4,1fr);
+}
+
+.column-5,
+.column-five {
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+}
+
+.column-6,
+.column-six {
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+}
+
+.column-7,
+.column-seven {
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+}
+
+.column-8,
+.column-eight {
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
 }
 /*---end general grid elements---*/
 
@@ -545,6 +572,11 @@ input[type="phone"]::-webkit-input-placeholder{
     background-color: #d8d8d8;
 }
 
+.column-2 .page-video .player {
+    width: 100%;
+    height: 186px;
+}
+
 .el-play {
     position: absolute;
     top: 50%;
@@ -759,6 +791,7 @@ input[type="phone"]::-webkit-input-placeholder{
     text-align: center;
 }
 
+.front-page-recent-posts .column-4,
 .front-page-recent-posts .column-four {
     grid-column-gap: 39px;
 }
@@ -1139,8 +1172,8 @@ ol li:before {
 
 .task-name-condition {
     margin-bottom: 17px;
-    /*font-size: .777em;*/
-    /*line-height: 1.43em;*/
+    font-size: 14px;
+    line-height: 1.43em;
 }
 
 .task-reason {
@@ -1289,6 +1322,7 @@ ol li:before {
 
 .list-checkbox label {
     position: relative;
+    display: inline-block;
     padding-left: 47px;
     width: 100%;
     cursor: pointer;
@@ -2248,7 +2282,12 @@ p.no-margin {
 /*---end page task choose select---*/
 
 /*---page task with voice record---*/
-#log {
+.recorder {
+    position: relative;
+    width: 100%;
+}
+
+.log {
     display: none;
 }
 
@@ -2420,7 +2459,8 @@ p.no-margin {
     position: relative;
     margin-top: 2px;
     margin-left: 7px;
-    width: 419px;
+    /*width: 419px;*/
+    width: 420px;
     height: 3px;
     background: #fee7eb;
 }
@@ -2465,6 +2505,159 @@ p.no-margin {
 
 /*---end page task with voice record---*/
 
+/*---page task width list recorder---*/
+.hide-task {
+    display: none;
+}
+
+.record-questions-wrapper {
+    position: relative;
+    margin: 47px auto 53px;
+    width: 640px;
+}
+
+.record-questions-wrapper h5 {
+    margin-bottom: 18px;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.record-questions-list {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.record-questions-list li {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 18px;
+    padding: 11px 0 11px 40px;
+    width: 100%;
+    border: solid 1px #eaeaea;
+    box-sizing: border-box;
+}
+
+.record-questions-list li br {
+    display: none;
+}
+
+.record-questions-list li span {
+    font-size: 14px;
+    line-height: 1.43;
+}
+
+.record-questions-list li span br {
+    display: inline;
+}
+
+.record-questions-list .recorder {
+    text-align: right;
+}
+
+.record-questions-list .btn,
+.record-questions-list .record-duration {
+    display: inline-block;
+}
+
+.record-questions-list .btn:disabled {
+    display: none;
+}
+
+.record-questions-list .record-duration {
+    width: 45px;
+    text-align: left;
+}
+
+.record-questions-list .btn-stop,
+.record-questions-list .btn-record {
+    margin-bottom: 0;
+}
+
+.record-questions-list .record-list {
+    display: none;
+}
+/*---end page task width list recorder---*/
+
+/*---page task with text in border before---*/
+.no-list-style {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.task-prev-text {
+    position: relative;
+    margin: 23px auto 41px;
+    padding: 24px 40px 41px;
+    width: 640px;
+    border: solid 1px #eaeaea;
+    box-sizing: border-box;
+}
+
+.task-prev-text h5 {
+    margin-bottom: 18px;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.task-prev-text  ul {
+    font-size: 14px;
+    line-height: 1.43;
+}
+
+.task-prev-text  ul li {
+    margin-bottom: 18px;
+}
+
+.task-prev-text  ul li:last-child {
+    margin-bottom: 0;
+}
+
+.task-prev-text + .task-name-condition {
+    margin-bottom: 29px;
+}
+
+.check-answers-now {
+    max-width: 720px;
+}
+/*---end page task with text in border before---*/
+
+/*---page task width audios---*/
+.insert-record-questions-list {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.insert-record-questions-list li {
+    position: relative;
+    margin-bottom: 18px;
+    padding: 11px 0 11px 40px;
+    width: 100%;
+    border: solid 1px #eaeaea;
+    box-sizing: border-box;
+}
+
+.insert-record-questions-list li br {
+    display: none;
+}
+
+.insert-record-questions-list .audio-name {
+    position: relative;
+    display : inline-block;
+}
+/*---end page task width audios---*/
+
 /*---page under construction---*/
 .page-under-construction {
     position: absolute;
@@ -2498,6 +2691,22 @@ p.no-margin {
 
 .section-completion-menu .menu-item.active:before {
     background: #e61130;
+}
+
+.section-completion-menu .menu-item.active.fill-part:before {
+    background: #ededed;
+}
+
+.section-completion-menu .menu-item.active.fill-part div {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background: #e61130;
+}
+
+.section-menu.column-8.section-completion-menu .menu-item {
+    padding: 11px 0;
 }
 /*---end section-completion menu---*/
 
@@ -2843,6 +3052,7 @@ p.no-margin {
         padding: 73px 0 91px;
     }
 
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-template-columns: repeat(3,1fr);
         grid-column-gap: 78px;
@@ -2950,6 +3160,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 760px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 68px;
     }
@@ -3018,6 +3229,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 730px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 58px;
     }
@@ -3028,6 +3240,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 700px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 48px;
     }
@@ -3059,6 +3272,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 680px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 39px;
     }
@@ -3088,6 +3302,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 650px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-template-columns: repeat(2,1fr);
         grid-column-gap: 78px;
@@ -3131,6 +3346,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 620px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 68px;
     }
@@ -3170,6 +3386,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 600px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 58px;
     }
@@ -3285,6 +3502,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 560px) {
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 48px;
     }
@@ -3315,6 +3533,7 @@ p.no-margin {
 }
 
 @media screen and (max-width: 530px){
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         grid-column-gap: 39px;
     }
@@ -3350,6 +3569,7 @@ p.no-margin {
         max-width: inherit;
     }
 
+    .front-page-recent-posts .column-4,
     .front-page-recent-posts .column-four {
         display: block;
     }

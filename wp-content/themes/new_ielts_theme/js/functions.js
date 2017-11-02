@@ -50,10 +50,6 @@ $( document ).ready(function() {
             event.preventDefault();
     });
 
-    // if( ( $(".task-name").text() == "Task 3" ) ||  ( $(".task-name").text() == "Task 4" ) || ( $(".task-name").text() == "Task 5" ) || ( $(".task-name").text() == "Task 6" ) ||  ( $(".task-name").text() == "1. Choose" ) ) {
-    //     $(".page-nav-wrapper .page-next").addClass("disabled");
-    // }
-
     if( $(".nav-exercise").length ) {
         $(".page-nav-wrapper .page-next").addClass("disabled");
     }
@@ -485,42 +481,87 @@ $( document ).ready(function() {
                         //other tasks
                         console.log('other tasks');
 
-                        $(".list-questions-ul").each(function(){
+                        var check_btn_for_tasks = $(this).parents(".nav-exercise").attr("for");
 
-                            $(this).find("li").addClass("wrong");
+                        if( check_btn_for_tasks ) {
 
-                            switch( true ) {
+                            $('.'+check_btn_for_tasks).each(function(){
 
-                                case ( $(this).hasClass("list-checkbox") ):
-                                    $(this).find("input").each(function(){
-                                        if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
-                                            $(this).parents("li").removeClass("wrong");
-                                        }
-                                        if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
-                                            $(this).parents("li").removeClass("wrong");
-                                        }
-                                    });
-                                    break;
+                                $(this).find("li").addClass("wrong");
 
-                                case ( $(this).hasClass("list-one-character") ):
-                                    $(this).find("input").each(function(){
-                                        if( $(this).val() == $(this).attr("correct_answer") ) {
-                                            $(this).parents("li").removeClass("wrong");
-                                        }
-                                    });
-                                    break;
+                                switch( true ) {
 
-                                case ( $(this).hasClass("list-radiobutton") ):
-                                    $(this).find("li").each(function(){
-                                        if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
-                                            $(this).removeClass('wrong');
-                                        }
-                                    });
-                                    break;
+                                    case ( $(this).hasClass("list-checkbox") ):
+                                        $(this).find("input").each(function(){
+                                            if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
+                                                $(this).parents("li").removeClass("wrong");
+                                            }
+                                            if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
+                                                $(this).parents("li").removeClass("wrong");
+                                            }
+                                        });
+                                        break;
 
-                            }
+                                    case ( $(this).hasClass("list-one-character") ):
+                                        $(this).find("input").each(function(){
+                                            if( $(this).val() == $(this).attr("correct_answer") ) {
+                                                $(this).parents("li").removeClass("wrong");
+                                            }
+                                        });
+                                        break;
 
-                        });
+                                    case ( $(this).hasClass("list-radiobutton") ):
+                                        $(this).find("li").each(function(){
+                                            if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
+                                                $(this).removeClass('wrong');
+                                            }
+                                        });
+                                        break;
+
+                                }
+
+                            });
+
+                        } else {
+
+                            $(".list-questions-ul").each(function(){
+
+                                $(this).find("li").addClass("wrong");
+
+                                switch( true ) {
+
+                                    case ( $(this).hasClass("list-checkbox") ):
+                                        $(this).find("input").each(function(){
+                                            if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
+                                                $(this).parents("li").removeClass("wrong");
+                                            }
+                                            if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
+                                                $(this).parents("li").removeClass("wrong");
+                                            }
+                                        });
+                                        break;
+
+                                    case ( $(this).hasClass("list-one-character") ):
+                                        $(this).find("input").each(function(){
+                                            if( $(this).val() == $(this).attr("correct_answer") ) {
+                                                $(this).parents("li").removeClass("wrong");
+                                            }
+                                        });
+                                        break;
+
+                                    case ( $(this).hasClass("list-radiobutton") ):
+                                        $(this).find("li").each(function(){
+                                            if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
+                                                $(this).removeClass('wrong');
+                                            }
+                                        });
+                                        break;
+
+                                }
+
+                            });
+
+                        }
 
                 }
 
@@ -643,44 +684,63 @@ $( document ).ready(function() {
     });
 
     //work with audio records
-    if( $("#log").length ) {
+    if( $(".log").length ) { //TODO change logo id
 
+        var $log_el;
         var timerId = null;
 
         function formatDuration(seconds) {
+
             var sec = Math.floor( seconds );
             var min = Math.floor( sec / 60 );
             min = min >= 10 ? min : '0' + min;
             sec = Math.floor( sec % 60 );
             sec = sec >= 10 ? sec : '0' + sec;
             return min + ':' + sec;
+
         }
 
         $('.btn-record').click(function(){
-            startRecording(this);
+
+            $log_el = $(this).parents(".recorder").find(".log");
+
+            // startRecording(this);
+            startRecording($(this));
             var i=0;
-            $(".record-duration").text(formatDuration(i));
+
+            var $el = $(this).parents(".recorder").find(".record-duration");
+
+            $el.text(formatDuration(i));
             timerId = null;
             timerId = setTimeout(function tick() {
                 i++;
-                $(".record-duration").text(formatDuration(i));
+                $el.text(formatDuration(i));
                 timerId = setTimeout(tick, 1000);
             }, 1000);
+
         });
 
         $('.btn-stop').click(function(){
-            stopRecording(this);
-            if( $(".btn-record").text() == "Record Myself" ) {
-                $(".btn-record").text("Re-record");
+
+            stopRecording($(this));
+            // stopRecording(this);
+
+            var $el = $(this).parents(".recorder").find(".btn-record");
+
+            if( $el.text() == "Record Myself" ) {
+                $el.text("Re-record");
             }
             if (timerId) {
                 clearTimeout(timerId); //cancel the previous timer.
                 timerId = null;
             }
+
         });
 
         function __log(e, data) {
-            log.innerHTML += "\n" + e + " " + (data || '');
+            var oldHtml = $log_el.html();
+            $log_el.html(oldHtml + "\n" + e + " " + (data || ''));
+            // log.innerHTML += "\n" + e + " " + (data || '');
         }
 
         var audio_context;
@@ -702,18 +762,35 @@ $( document ).ready(function() {
 
         function startRecording(button) {
             recorder && recorder.record();
-            button.disabled = true;
-            $('.btn-stop').removeAttr('disabled');
+            // button.disabled = true;
+            button.attr("disabled","disabled");
+
+            var $el = button.parents(".recorder").find(".btn-stop");
+
+            $el.removeAttr('disabled');
             __log('Recording...');
         }
 
         function stopRecording(button) {
             recorder && recorder.stop();
-            button.disabled = true;
-            $('.btn-record').removeAttr('disabled');
+
+            // button.disabled = true;
+            button.attr("disabled","disabled");
+
+            var $el = button.parents(".recorder").find(".btn-record");
+
+            $el.removeAttr('disabled');
             __log('Stopped recording.');
             // create WAV download link using audio data blob
-            createDownloadLink();
+
+            if( $(".load-task-by-task").length ) {
+                var el_text = button.parents("li").find(".short").parent("span").clone();
+                el_text.find(".short").text( "..." );
+                var index = button.parents("li").index();
+                createDownloadLink( $(".insert-record-questions-list"), el_text.text(), index );
+            } else {
+                createDownloadLink( button.parents(".recorder") );
+            }
 
             recorder.clear();
         }
@@ -726,26 +803,66 @@ $( document ).ready(function() {
             return music;
         }
 
-        function createDownloadLink() {
+        function createDownloadLink(parent_el, text, index) {
             recorder && recorder.exportWAV(function(blob) {
                 var url = URL.createObjectURL(blob);
                 record_i++;
 
-                $('.record-list').append(
-                    '<li>'+
-                        '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                        '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                            '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                            '<p class="audio-text">'+
-                                '<span class="audio-name">Your answer to the question '+record_i+'</span>' +
-                                '<span class="duration"></span>' +
-                            '</p>'+
-                            '<div id="timeline'+record_i+'" class="timeline">' +
-                                '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                            '</div>' +
-                        '</div>'+
-                    '</li>'
-                );
+                if( parent_el.hasClass(".recorder") ) {
+                    parent_el.find('.record-list').attr("id","record-list-"+record_i);
+
+                    $('#record-list-'+record_i).append(
+                        '<li>'+
+                            '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
+                            '<div id="audioplayer'+record_i+'" class="audioplayer">' +
+                                '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
+                                '<p class="audio-text">'+
+                                    '<span class="audio-name">Your answer to the question '+record_i+'</span>' +
+                                    '<span class="duration"></span>' +
+                                '</p>'+
+                                '<div id="timeline'+record_i+'" class="timeline">' +
+                                    '<div id="playhead'+record_i+'" class="playhead"></div>' +
+                                '</div>' +
+                            '</div>'+
+                        '</li>'
+                    );
+                } else {
+                    if( $('#record-play-item-'+index).length ) {
+
+                        $('#record-play-item-'+index).html('');
+                        $('#record-play-item-'+index).append(
+                            '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
+                            '<div id="audioplayer'+record_i+'" class="audioplayer">' +
+                                '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
+                                '<p class="audio-text">'+
+                                    '<span class="audio-name">'+text+'</span>' +
+                                    '<span class="duration"></span>' +
+                                '</p>'+
+                                '<div id="timeline'+record_i+'" class="timeline">' +
+                                    '<div id="playhead'+record_i+'" class="playhead"></div>' +
+                                '</div>' +
+                            '</div>'
+                        );
+
+                    } else {
+                        parent_el.append(
+                            '<li id="record-play-item-'+index+'">'+
+                                '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
+                                '<div id="audioplayer'+record_i+'" class="audioplayer">' +
+                                    '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
+                                    '<p class="audio-text">'+
+                                        '<span class="audio-name">'+text+'</span>' +
+                                        '<span class="duration"></span>' +
+                                    '</p>'+
+                                    '<div id="timeline'+record_i+'" class="timeline">' +
+                                        '<div id="playhead'+record_i+'" class="playhead"></div>' +
+                                    '</div>' +
+                                '</div>'+
+                            '</li>'
+                        );
+                    }
+
+                }
 
                 $('audio[src="'+url+'"]').on("canplay", function () {
                     var d = formatDuration(this.duration);
@@ -758,14 +875,14 @@ $( document ).ready(function() {
                 });
 
                 $('audio').on('ended', function() {
-                    console.log('ended');
                     var music = returnMusic( $(this) );
-                    $(this).parents("li").find('.btn-play').toggleClass("play").toggleClass("pause");
+                    $(this).parents("li").find('.btn-play').removeClass("pause").addClass("play");
                     $(this).parents("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
                 });
 
                 $('<a href="' + url + '" class="btn btn-save-audio">save</button>')
-                    .appendTo( $('.record-list li:last-child') )
+                    .appendTo( $('#record-list-'+record_i+' li:last-child') )
+                    // .appendTo( $('.record-list li:last-child') )
                     .click(function(){
 
                         var data = new FormData();
@@ -809,16 +926,27 @@ $( document ).ready(function() {
                         duration -= w;
                 }
                 $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
+                $(this).removeClass("play").addClass("pause");
             }else {
                 music.pause();
                 $(this).parents("li").find(".playhead").stop();
+                $(this).removeClass("pause").addClass("play");
             }
 
-            $(this).toggleClass("play").toggleClass("pause");
+            // $(this).toggleClass("play").toggleClass("pause");
 
         });
 
         window.onload = function init() {
+            var i = 0;
+
+            $(".log").each(function(){
+                i++;
+                $(this).attr("id","log-"+i);
+            });
+
+            $log_el = $(".log");
+
             try {
                 // webkit shim
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -835,8 +963,85 @@ $( document ).ready(function() {
             navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
                 __log('No live audio input: ' + e);
             });
+
         };
 
     }
+
+    function taskSwitch(next){
+
+        var $el_task_wrap = $(".visible-task");
+        $el_task_wrap.removeClass("visible-task").addClass("hide-task");
+        $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
+        $el_task_wrap.addClass("visible-task").removeClass("hide-task");
+
+        nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
+        $(".page-next").text(nextBtnText);
+
+    }
+
+    if( $(".load-task-by-task").length ) {
+
+        var nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
+        $(".page-next").removeClass("disabled").text( nextBtnText );
+
+        $(".task-content").addClass("hide-task");
+        $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
+
+        $(".page-prev").click(function(){
+            if( $(".task-content:first-child").hasClass("hide-task") ) {
+                taskSwitch();
+                return false;
+            }
+        });
+
+        $(".page-next").click(function(){
+            if( $(".task-content:last-child").hasClass("hide-task") ) {
+                taskSwitch('next');
+                return false;
+            }
+        });
+
+    }
+
+    $(".check-answers-now input").click(function(){
+
+        var $parent_el = $(this).parents(".list-questions-ul");
+        $parent_el.find("li").addClass("wrong");
+
+        switch( true ) {
+
+            case ( $parent_el.hasClass("list-checkbox") ):
+                $parent_el.find("input").each(function(){
+                    if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
+                        $(this).parents("li").removeClass("wrong");
+                    }
+                    if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
+                        $(this).parents("li").removeClass("wrong");
+                    }
+                });
+                break;
+
+            case ( $parent_el.hasClass("list-one-character") ):
+                $parent_el.find("input").each(function(){
+                    if( $(this).val() == $(this).attr("correct_answer") ) {
+                        $(this).parents("li").removeClass("wrong");
+                    }
+                });
+                break;
+
+            case ( $parent_el.hasClass("list-radiobutton") ):
+                $parent_el.find("li").each(function(){
+                    if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
+                        $(this).removeClass('wrong');
+                    }
+                });
+                break;
+
+        }
+
+    });
+
+
 
 });

@@ -63,7 +63,7 @@ function ielts_setup() {
 		'primary' => __( 'Primary Menu', 'ielts' ),
 		'reading_section_completion' => __( 'Reading: Sentence  Completion Menu', 'ielts' ),
 		'action_points' => __( 'Action Points Menu', 'ielts' ),
-        'speaking_part1' => __( 'Speaking: Part 1 Menu', 'ielts' ),
+        'speaking-part1' => __( 'Speaking: Part 1 Menu', 'ielts' ),
 		'social'  => __( 'Social Links Menu', 'ielts' ),
 	) );
 
@@ -243,16 +243,37 @@ function show_my_recorder_func() {
     $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
     wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
 
-    $recorder = '<button class="btn btn-record">Record Myself</button>';
-    $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
-    $recorder .= '<div class="record-duration"></div>';
-    $recorder .= '<ul id="recordingslist" class="record-list"></ul>';
-    $recorder .= '<pre id="log"></pre>';
+    $recorder = '<div class="recorder">';
+        $recorder .= '<button class="btn btn-record">Record Myself</button>';
+        $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
+        $recorder .= '<div class="record-duration"></div>';
+        $recorder .= '<ul class="record-list"></ul>';
+        $recorder .= '<pre class="log"></pre>';
+    $recorder .= '</div>';
 
     return $recorder;
 
 }
 add_shortcode('my_recorder', 'show_my_recorder_func');
+
+function show_check_btn_func($atts) {
+
+    $class = '';
+
+    extract(shortcode_atts(array(
+        'class' => 'no-default',
+    ), $atts));
+
+    $check_btn = '<div class="nav-exercise" for="'.$class.'">';
+    $check_btn .= '<div class="wrong-text"></div>';
+    $check_btn .= '<div class="success-text">'._("All correct, well done!").'</div>';
+    $check_btn .= '<input type="button" class="check-btn" value="'._("Check answers").'" />';
+    $check_btn .= '</div>';
+
+    return $check_btn;
+
+}
+add_shortcode('check-btn', 'show_check_btn_func');
 
 function show_my_video_func() {
 
@@ -712,4 +733,15 @@ function my_login_redirect( $redirect_to, $request, $user ) {
 
 add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
 
+//add new navigation
+function mytheme_list_pages($param) {
+    $pages = get_pages($param);
+    $li = array();
+    $i=0;
+    foreach ( $pages as $page ) {
+        $li[ $i ] = $page->ID;
+        $i++;
+    }
+    return $li;
+}
 /*---end added by ira.che---*/

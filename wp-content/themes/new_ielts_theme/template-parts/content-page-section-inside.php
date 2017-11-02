@@ -6,6 +6,25 @@
 global $post;
 $page_slug = $post->post_name;
 
+$ancestors = get_post_ancestors($post->ID);
+$root = count($ancestors)-1;
+$parent_id = $ancestors[$root];
+
+$post_parent_top = get_post($parent_id);
+$slug_parent_top = $post_parent_top->post_name; //get slug SPEAKING
+
+$post_data = get_post($post->post_parent);
+$slug_parent = $post_data->post_name; //get SPEAKING Focus page slug
+
+$post_data_parent = get_post($post_data->post_parent);
+$slug_parent_parent = $post_data_parent->post_name; //get SPEAKING Part page slug
+
+$speaking_part1_rule = 0;
+
+if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" ) && ( $slug_parent == "focus-1" ) ) {
+    $speaking_part1_rule = 1;
+}
+
 global $task_text;
 $args = array(
     'posts_per_page'   => 1,
@@ -58,18 +77,30 @@ if( $task_text_array ) {
 } else {
     //there is no text for task
 
-    if(get_the_title()) {
-        if( strpos( $page_slug, 'task-' ) !== false ) {
-            //task pages
-            the_title( '<h3 class="task-name">', '</h3>' );
-        } else {
-            echo '<header class="entry-header">';
-                the_title( '<h1 class="entry-title">', '</h1>' );
-            echo '</header>';
-        }
+    if( get_the_title() && (!($speaking_part1_rule)) ) {
+
+//        if( $speaking_part1_rule ) {
+//            echo '<header class="entry-header">';
+//                echo '<h1 class="entry-title">'.get_the_title( $post_data->ID ).'</h1>';
+//            echo '</header>';
+//        } else{
+
+            if( strpos( $page_slug, 'task-' ) !== false ){
+                the_title( '<h3 class="task-name">', '</h3>' );
+            } else {
+                echo '<header class="entry-header">';
+                    the_title( '<h1 class="entry-title">', '</h1>' );
+                echo '</header>';
+            }
+//        }
     }
 
-    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') ) ? $class = "task-column-not-full" : $class ='';
+//    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') or ( $speaking_part1_rule )) ? $class = "task-column-not-full" : $class ='';
+    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online')) ? $class = "task-column-not-full" : $class ='';
+
+    if($speaking_part1_rule) {
+        $class = 'load-task-by-task';
+    }
 
     echo '<div class="entry-content '.$class.'">';
 
