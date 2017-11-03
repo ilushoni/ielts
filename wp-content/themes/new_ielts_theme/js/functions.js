@@ -702,12 +702,14 @@ $( document ).ready(function() {
 
         $('.btn-record').click(function(){
 
+            if( $('.btn-stop:visible').length ){
+                $('.btn-stop:visible').click();
+            }
+
             $log_el = $(this).parents(".recorder").find(".log");
 
-            // startRecording(this);
             startRecording($(this));
             var i=0;
-
             var $el = $(this).parents(".recorder").find(".record-duration");
 
             $el.text(formatDuration(i));
@@ -723,10 +725,7 @@ $( document ).ready(function() {
         $('.btn-stop').click(function(){
 
             stopRecording($(this));
-            // stopRecording(this);
-
             var $el = $(this).parents(".recorder").find(".btn-record");
-
             if( $el.text() == "Record Myself" ) {
                 $el.text("Re-record");
             }
@@ -740,7 +739,6 @@ $( document ).ready(function() {
         function __log(e, data) {
             var oldHtml = $log_el.html();
             $log_el.html(oldHtml + "\n" + e + " " + (data || ''));
-            // log.innerHTML += "\n" + e + " " + (data || '');
         }
 
         var audio_context;
@@ -762,7 +760,6 @@ $( document ).ready(function() {
 
         function startRecording(button) {
             recorder && recorder.record();
-            // button.disabled = true;
             button.attr("disabled","disabled");
 
             var $el = button.parents(".recorder").find(".btn-stop");
