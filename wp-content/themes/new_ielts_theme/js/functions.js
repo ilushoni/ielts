@@ -965,6 +965,8 @@ $( document ).ready(function() {
 
     }
 
+
+    //section SPEAK - load task by task on page
     function taskSwitch(next){
 
         var $el_task_wrap = $(".visible-task");
@@ -1039,6 +1041,116 @@ $( document ).ready(function() {
 
     });
 
+    function moveMenuCarousel(next){
+        var x = 0;
+        if(next){
+            x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").width()+8;
+            x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(3)").width()+8;
+            x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(4)").width()+8;
+            x += 5;//TODO why 5px? because inline-block?
+        }
+        $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").css("margin-left", x );
+    }
 
+    if( $(".section-menu.top-line.column-8.active-6").length || $(".section-menu.top-line.column-8.active-7").length || $(".section-menu.top-line.column-8.active-8").length ){
+        $(".section-menu.top-line.column-8").addClass("visible_6-8");
+        moveMenuCarousel('next');
+    }
+
+    // $(window).resize(function(){ //TODO resize problem
+    //     if( $(window).width()>860 ) {
+    //         $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").removeAttr("style");
+    //     }else{
+    //         if( $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").attr("style")!='' ){
+    //             var x = 0;
+    //             x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").width()+8;
+    //             x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(3)").width()+8;
+    //             x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(4)").width()+8;
+    //             x += 5;
+    //             $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").css("margin-left", x );
+    //         }
+    //     }
+    // });
+
+    $(".section-menu.top-line.column-8 .show-more").click(function(){
+        var $elParent = $(this).parents(".section-menu");
+        ( $(this).hasClass("next")) ? $elParent.addClass("visible_6-8") : $elParent.removeClass("visible_6-8");
+        moveMenuCarousel($(this).hasClass("next"));
+        return false;
+    });
+
+    //sort phrases to two columns
+    $(".sort-phrase li").mousedown(function(){
+        $(this).addClass("focus");
+    });
+
+    $(".sort-phrase li") .click(function(){
+        if(!( $(this).parents(".sort-phrase").hasClass('drop-list') )) {
+            $( "#"+ $(this).attr('id')+"-clone").after($(this));
+            $( "#"+ $(this).attr('id')+"-clone").remove();
+            $( "#"+ $(this).attr('id')).attr("style","");
+            $( "#"+ $(this).attr('id')).removeClass("wrong");
+        }
+    });
+
+    $(".sort-phrase li").mouseup(function(){
+        $(this).removeClass("focus");
+    });
+
+    $('.sort-phrase').sortable({
+
+        placeholder: 'placeholder',
+        connectWith: '.sort-phrase',
+        items: "li:not(.in-use)",
+        start: function(event, ui) {
+            if( $(this).hasClass("drop-list") ) {  //ul-parent list
+                var id = ui.item[0]["id"]; //get moved element id
+                var $elem = ui.item.clone();
+                $elem.attr("style","");
+                $elem[0]["id"] = id + "-clone";
+                $elem.addClass("in-use");
+                $(this).find(".focus").after( $elem );
+            } else {
+                $('#'+ui.item[0]["id"]).removeClass("wrong");
+            }
+        },
+        stop: function(event, ui) {
+
+            //$parentUl where element stopped (it's new area)
+            //$droppedEl element moved
+            //$(this) where element from
+
+            var $parentUl = $(ui.item["0"].offsetParent);
+            var $droppedEl = $(ui.item["0"]);
+            if( $parentUl.hasClass("drop-list") ) {
+                // $droppedEl.removeClass("old");
+                $droppedEl.removeClass("wrong");
+                $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
+                $( "#"+ ui.item[0]["id"]+"-clone").remove();
+                $( "#"+ ui.item[0]["id"]).attr("style","");
+            } else {
+                var correctAns = $parentUl.attr("answers_correct").split(",");
+                console.log( $.inArray( $droppedEl.attr("id"), correctAns ));
+                if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
+                    $droppedEl.addClass("wrong");
+                } else {
+                    $droppedEl.removeClass("wrong");
+                }
+                // $droppedEl.addClass("old");
+            }
+            $("li.focus").removeClass("focus");
+        },
+
+        receive: function(event, ui) {
+            $(ui.item["0"]).removeClass("old");
+            // if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
+            //     var $elem = $(this).find("li.old");
+            //     $( "#"+ $elem.attr('id')+"-clone").after($elem);
+            //     $( "#"+ $elem.attr('id')+"-clone").remove();
+            //     $( "#"+ $elem.attr('id')).attr("style","");
+            //     $(".sort-phrase.drop-list li.old").removeClass("old");
+            // }
+        }
+    });
 
 });

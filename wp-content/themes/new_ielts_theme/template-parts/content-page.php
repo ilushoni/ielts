@@ -105,7 +105,8 @@ switch ( $page_slug ):
 
         } else {
 
-            if( (!($direct_parent)) or ( $parent_page_slug == "sentence-completion" ) or ( $parent_page_slug == "speaking-part1" ) ) {
+//            if( (!($direct_parent)) or ( $parent_page_slug == "sentence-completion" ) or ( $parent_page_slug == "speaking-part1" ) ) {
+            if( (!($direct_parent)) or ( $parent_page_slug == "sentence-completion" ) ) {
 
                 echo '<main class="container page section-front-page" id="page-' . get_the_ID() . '" role="main">';
                     get_template_part('template-parts/content', 'page-section-inside');
@@ -121,26 +122,46 @@ switch ( $page_slug ):
 
             } else {
 
-                //this page has parent page and it is NOT SENTENCE  COMPLETION. It may be task pages, because has section navigation MENU
+                if( $parent_page_slug == "speaking-part1" ){
 
-                echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
-                    get_template_part( 'template-parts/content', 'page-sentence-completion-inner' );
+                    echo '<main class="container page section-front-page" id="page-' . get_the_ID() . '" role="main">';
+                        get_template_part('template-parts/content', 'page-sentence-completion-inner');
 
-                    if( ( ($page_slug == 'task-3') or ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-6') or ($page_slug == 'types-of-questions-for-ielts-online') ) ) {
-                        echo '<div class="nav-exercise">';
-                            echo '<div class="wrong-text"></div>';
-                            echo '<div class="success-text">'._("All correct, well done!").'</div>';
-                            echo '<input type="button" class="check-btn" value="'._("Check answers").'" />';
-                        echo '</div>';
-                    }
+                        echo '<nav class="page-nav-wrapper">';
+                            if ($prev)
+                                echo '<a href="' . $prev . '" class="page-prev">' . _("Back") . '</a>';
+                            if (($page_slug !== "action-points") && ($next)) {
+                                echo '<a href="' . $next . '" class="page-next">' . _("Next") . '</a>';
+                            }
+                        echo '</nav>';
+                    echo '</main>';
 
-                    echo '<nav class="page-nav-wrapper">';
-                        if( $prev )
-                            echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
-                        if( $next )
-                            echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
-                    echo '</nav>';
-                echo '</article>';
+                }else {
+
+                    //this page has parent page and it is NOT SENTENCE  COMPLETION. It may be task pages, because has section navigation MENU
+
+                    echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
+                        get_template_part( 'template-parts/content', 'page-sentence-completion-inner' );
+
+                        if( ( ($page_slug == 'task-3') or ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-6') or ($page_slug == 'types-of-questions-for-ielts-online') ) ) {
+                            echo '<div class="nav-exercise">';
+                                echo '<div class="wrong-text"></div>';
+                                echo '<div class="success-text">'._("All correct, well done!").'</div>';
+                                echo '<input type="button" class="check-btn" value="'._("Check answers").'" />';
+                            echo '</div>';
+                        }
+
+                        echo '<nav class="page-nav-wrapper">';
+                            if( $prev )
+                                echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
+                            if( $next )
+                                echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
+                        echo '</nav>';
+                    echo '</article>';
+
+                }
+
+
 
             }
 

@@ -45,50 +45,73 @@ if($page_nav) {
     $locations = get_nav_menu_locations();
 
     if( $locations && isset($locations[ $menu_name ]) ){
+
+        $active_index = 1;
         $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
 
         $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
 
-        $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-'.$menu->count.' collapse section-completion-menu top-line">';
-//        $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-four collapse section-completion-menu top-line">';
+        $menu_list = '';
+
         foreach ( $menu_items as $key => $menu_item ){
 
-            $class = ( $menu_item->object_id == $direct_parent ) ? 'active' : '';
+            $class = ( ( $menu_item->object_id == $direct_parent ) or ( $menu_item->object_id == $post->ID ) ) ? 'active' : '';
 
-            if( ( $menu_name == 'speaking_part1' ) && ( $class ) ) {
+            if( $menu_name == 'speaking_part1' ) {
 
-                $i=0;
-                if( count($children_order) > 0 ){
-                    unset( $children_order );
-                }
+                if( $class )
+                    $class_menu = $class.'-'.$active_index;
 
-                $children = get_pages('child_of='.$menu_item->object_id);
-
-                if( count($children) > 0 ) {
-
-                    foreach ( $children as $child ) {
-                        $child_key = array_search ( $child->ID, $postlist  );
-                        $children_order[$i] = $child_key;
-                        $i++;
-                        if( $child->ID == $post->ID )
-                            break;
+                if( $menu_item->object_id == $direct_parent ){
+                    if( count($children_order) > 0 ){
+                        unset( $children_order );
                     }
 
-                    $class .= " fill-part";
-                    $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.'">' . $menu_item->title;
-                    $menu_list .= "<div style='width:".(count($children_order) / count($children) * 100)."%;'></div>";
+                    $children = get_pages('child_of='.$menu_item->object_id);
 
+                    if( count($children) > 0 ) {
+                        $i=0;
+                        foreach ( $children as $child ) {
+                            $child_key = array_search ( $child->ID, $postlist  );
+                            $children_order[$i] = $child_key;
+                            $i++;
+                            if( $child->ID == $post->ID )
+                                break;
+                        }
+                        $class .= " fill-part";
+                    }
                 }
 
-            } else {
+                if (strpos( $menu_item->title, 'Focus' ) !== false) {
+                    $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.'"><span>' . $menu_item->title . '</span><span class="short">'.$active_index.'</span>';
+                } else {
+//                    $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.' large">' . $menu_item->title;
+                    $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.'">' . $menu_item->title;
+                }
 
+                if( $menu_item->object_id == $direct_parent ){
+                    $menu_list .= '<div style="width:'.(count($children_order) / count($children) * 100).'%;"></div>';
+                }
+
+            }else{
                 $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$class.'">' . $menu_item->title;
-
             }
 
             $menu_list .= '</a>';
+            $active_index++;
         }
-        $menu_list .= '</nav>';
+
+        if( $menu_name == 'speaking_part1' ){
+//            $menu_list .= '</div><a href="#" class="show-more next"></a></nav>';
+//            $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-'.$menu->count.' collapse section-completion-menu top-line '.$class_menu.'"><a href="#" class="show-more prev"></a><div class="section-carousel">'.$menu_list;
+//
+            $menu_list .= '<a href="#" class="show-more next"></a></nav>';
+            $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-'.$menu->count.' collapse section-completion-menu top-line '.$class_menu.'"><a href="#" class="show-more prev"></a>'.$menu_list;
+        }else {
+            $menu_list .= '</nav>';
+            $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-'.$menu->count.' collapse section-completion-menu top-line '.$class_menu.'">'.$menu_list;
+        }
+
 
         echo $menu_list;
     }

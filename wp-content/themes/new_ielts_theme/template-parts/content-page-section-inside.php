@@ -21,7 +21,8 @@ $slug_parent_parent = $post_data_parent->post_name; //get SPEAKING Part page slu
 
 $speaking_part1_rule = 0;
 
-if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" ) && ( $slug_parent == "focus-1" ) ) {
+//if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" ) && ( $slug_parent == "focus-1" ) ) {
+if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" )) {
     $speaking_part1_rule = 1;
 }
 
@@ -77,22 +78,14 @@ if( $task_text_array ) {
 } else {
     //there is no text for task
 
-    if( get_the_title() && (!($speaking_part1_rule)) ) {
-
-//        if( $speaking_part1_rule ) {
-//            echo '<header class="entry-header">';
-//                echo '<h1 class="entry-title">'.get_the_title( $post_data->ID ).'</h1>';
-//            echo '</header>';
-//        } else{
-
-            if( strpos( $page_slug, 'task-' ) !== false ){
-                the_title( '<h3 class="task-name">', '</h3>' );
-            } else {
-                echo '<header class="entry-header">';
-                    the_title( '<h1 class="entry-title">', '</h1>' );
-                echo '</header>';
-            }
-//        }
+    if( get_the_title() && ( !($speaking_part1_rule) ) ) {
+        if( strpos( $page_slug, 'task-' ) !== false ){
+            the_title( '<h3 class="task-name">', '</h3>' );
+        } else {
+            echo '<header class="entry-header">';
+                the_title( '<h1 class="entry-title">', '</h1>' );
+            echo '</header>';
+        }
     }
 
 //    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') or ( $speaking_part1_rule )) ? $class = "task-column-not-full" : $class ='';
