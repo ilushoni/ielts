@@ -10,21 +10,33 @@ $ancestors = get_post_ancestors($post->ID);
 $root = count($ancestors)-1;
 $parent_id = $ancestors[$root];
 
-$post_parent_top = get_post($parent_id);
-$slug_parent_top = $post_parent_top->post_name; //get slug SPEAKING
-
-$post_data = get_post($post->post_parent);
-$slug_parent = $post_data->post_name; //get SPEAKING Focus page slug
-
-$post_data_parent = get_post($post_data->post_parent);
-$slug_parent_parent = $post_data_parent->post_name; //get SPEAKING Part page slug
-
+//$post_parent_top = get_post($parent_id);
+//$slug_parent_top = $post_parent_top->post_name; //get slug SPEAKING
+$parents = get_post_ancestors( $post->ID );
+//var_dump($parents);
+//echo get_post($parent_id)->post_name."<br/>";
+//echo get_post($post->post_parent)->post_name."<br/>";
 $speaking_part1_rule = 0;
-
-//if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" ) && ( $slug_parent == "focus-1" ) ) {
-if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" )) {
+if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
     $speaking_part1_rule = 1;
 }
+
+//echo $slug_parent_top."<br/>";
+//
+//$post_data = get_post($post->post_parent);
+//$slug_parent = $post_data->post_name; //get SPEAKING Focus page slug
+//echo $slug_parent."<br/>";
+//
+//$post_data_parent = get_post($post_data->post_parent);
+//$slug_parent_parent = $post_data_parent->post_name; //get SPEAKING Part page slug
+//echo $slug_parent_parent."<br/>";
+
+//$speaking_part1_rule = 0;
+
+//if( ( $slug_parent_top == "speaking") && ( $slug_parent_parent == "speaking-part1" ) && ( $slug_parent == "focus-1" ) ) {
+//if( ( get_post($parent_id)->post_name == "speaking") && ( $slug_parent_parent == "speaking-part1" )) {
+//    $speaking_part1_rule = 1;
+//}
 
 global $task_text;
 $args = array(
@@ -77,7 +89,7 @@ if( $task_text_array ) {
 
 } else {
     //there is no text for task
-
+//echo $slug_parent_top."/".$slug_parent_parent."/".$slug_parent;
     if( get_the_title() && ( !($speaking_part1_rule) ) ) {
         if( strpos( $page_slug, 'task-' ) !== false ){
             the_title( '<h3 class="task-name">', '</h3>' );
@@ -87,6 +99,12 @@ if( $task_text_array ) {
             echo '</header>';
         }
     }
+
+//    if( $slug_parent=="speaking" ){
+//        echo '<header class="entry-header">';
+//            the_title( '<h1 class="entry-title">', '</h1>' );
+//        echo '</header>';
+//    }
 
 //    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') or ( $speaking_part1_rule )) ? $class = "task-column-not-full" : $class ='';
     $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online')) ? $class = "task-column-not-full" : $class ='';

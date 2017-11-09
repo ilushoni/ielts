@@ -1088,7 +1088,7 @@ $( document ).ready(function() {
         if(!( $(this).parents(".sort-phrase").hasClass('drop-list') )) {
             $( "#"+ $(this).attr('id')+"-clone").after($(this));
             $( "#"+ $(this).attr('id')+"-clone").remove();
-            $( "#"+ $(this).attr('id')).attr("style","");
+            $( "#"+ $(this).attr('id')).removeAttr("style");
             $( "#"+ $(this).attr('id')).removeClass("wrong");
         }
     });
@@ -1142,7 +1142,7 @@ $( document ).ready(function() {
         },
 
         receive: function(event, ui) {
-            $(ui.item["0"]).removeClass("old");
+            // $(ui.item["0"]).removeClass("old");
             // if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
             //     var $elem = $(this).find("li.old");
             //     $( "#"+ $elem.attr('id')+"-clone").after($elem);

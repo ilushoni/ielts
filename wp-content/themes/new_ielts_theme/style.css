@@ -2762,7 +2762,9 @@ p.no-margin {
 
 .sort-phrase-drop {
     position: relative;
-    display: block;
+    /*display: block;*/
+    display: flex;
+    flex-flow: row wrap;
     margin: 0 20px;
     /*padding: 20px 20px;*/
     padding: 20px 0;
@@ -2774,28 +2776,35 @@ p.no-margin {
 }
 
 .sort-phrase-drop li {
-    display: inline-block;
+    display: block;
+    flex: 0 0 100%;
+    /*margin: auto;*/
+    /*display: inline-block;*/
     margin-bottom: 10px;
     width: calc( 100% - 40px );
     font-size: 14px;
     line-height: 1.43em;
 }
 
+.sort-phrase-drop > li:nth-child(1):last-child {
+    margin: auto;
+}
+
 .sort-phrase-drop li:last-child{
-    margin: 0;
+    margin-bottom: 0;
 }
 
 /*#sortable-phrase-main > li:nth-child(1):last-child{*/
-.sort-phrase-drop > li:not(.focus):nth-child(1):last-child{
-    position: absolute !important;
-    left: auto !important;
-    top: 50% !important;
-    margin: 0;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-}
+/*.sort-phrase-drop > li:not(.focus):nth-child(1):last-child{*/
+    /*position: absolute !important;*/
+    /*left: auto !important;*/
+    /*top: 50% !important;*/
+    /*margin: 0;*/
+    /*transform: translateY(-50%);*/
+    /*-webkit-transform: translateY(-50%);*/
+    /*-o-transform: translateY(-50%);*/
+    /*-ms-transform: translateY(-50%);*/
+/*}*/
 /*---end page width task drag and drop phrases---*/
 
 /*---page under construction---*/

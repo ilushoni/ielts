@@ -92,6 +92,7 @@ switch ( $page_slug ):
         $parent_page_slug = $post_parent->post_name;
 
         if( $parent_page_slug == "speaking" ) {
+//            echo "here";
 
             echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
                 get_template_part('template-parts/content', 'page-speaking-part1');
