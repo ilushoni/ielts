@@ -2835,6 +2835,12 @@ p.no-margin {
     line-height: 26px;
 }
 
+.show-checklist-link:hover,
+.show-checklist-link:focus,
+.show-checklist-link:active{
+    color: #000;
+}
+
 .show-checklist {
     position: relative;
     display: none;
