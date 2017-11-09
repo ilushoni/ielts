@@ -1151,4 +1151,27 @@ $( document ).ready(function() {
         return false;
     });
 
+    $(".video-checkbox").click(function(){
+        $(this).parents(".list-video-checkbox").find(".video-checkbox").each(function(){
+            $(this).removeClass("wrong");
+        });
+        if( $(this).attr("correct_answer") !== "1" ) {
+            $(this).addClass("wrong");
+        }
+    });
+
+    $(".choose-one-checkbox input[type='checkbox']").click(function(){
+        var $this = $(this);
+        if( $this.is(":checked") ) {
+            $(this).parents(".choose-one-checkbox").find("input[type='checkbox']").each(function(){
+                if(!( $(this).is($this) ) ){
+                    $(this).prop( "checked", false );
+                }
+            });
+        }
+    });
+
+    $(".el-play").click(function(){
+        $(this).toggleClass("el-pause");
+    });
 });

@@ -2895,6 +2895,72 @@ p.no-margin {
 }
 /*---end page with questions on page like sheet---*/
 
+/*---task with checkboxes on video---*/
+.list-video-checkbox {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 40px;
+}
+
+.entry-question + .list-video-checkbox {
+    margin-top: 40px;
+}
+
+.list-video-checkbox li {
+    position: relative;
+    margin: 0;
+}
+
+.list-video-checkbox li br {
+    display: none;
+}
+
+.video-checkbox {
+    display: none;
+}
+
+.video-checkbox + br + label,
+.video-checkbox + label {
+    position: absolute;
+    top: 11px;
+    left: 12px;
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    background-color: #fff;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.video-checkbox.checked + label,
+.video-checkbox.checked + br + label,
+.video-checkbox:checked + br + label,
+.video-checkbox:checked + label {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#E61130" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.video-checkbox.wrong + br + label,
+.video-checkbox.wrong + label {
+    border-color: #e61130;
+}
+
+.list-video-checkbox .page-video {
+    padding: 0;
+}
+
+.list-video-checkbox .page-video .player {
+    height: 428px;
+}
+/*---end of task with checkboxes on video---*/
+
 /*---page under construction---*/
 .page-under-construction {
     position: absolute;
@@ -3646,6 +3712,14 @@ p.no-margin {
         width: 100%;
         height: 100%;
         background-size: calc( 6.986301vw ) calc( 7.9452054vw );
+    }
+
+    .el-pause{
+
+    }
+
+    .el-pause:after{
+        display: none;
     }
 
     .video-name {
