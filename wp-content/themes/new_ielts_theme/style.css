@@ -1085,6 +1085,12 @@ input[type="phone"]::-webkit-input-placeholder{
     height: calc(100% - 10px);
     background: #e61130;
 }
+
+.entry-question.bigger {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.42;
+}
 /*end task text style*/
 
 /*text to task styles*/
@@ -2775,11 +2781,8 @@ p.no-margin {
 
 .sort-phrase-drop li {
     display: block;
-    /*flex: 0 0 100%;*/
     margin: auto 0 10px;
-    /*margin-bottom: 10px;*/
     max-width: calc( 100% - 40px );
-    /*width: calc( 100% - 40px );*/
     font-size: 14px;
     line-height: 1.43em;
 }
@@ -2794,6 +2797,92 @@ p.no-margin {
     margin-bottom: 0;
 }
 /*---end page width task drag and drop phrases---*/
+
+/*---page with questions on page like sheet---*/
+.sheet-of-paper {
+    position: relative;
+    padding: 54px 163px 69px 123px;
+    width: 960px;
+    box-shadow: 0 2px 40px 0 #e9e9e9;
+    box-sizing: border-box;
+}
+
+.questions-wrap {
+    margin: 27px 0 41px;
+}
+
+.questions-wrap ol {
+    margin: 0;
+}
+
+.questions-wrap ol li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    margin-bottom: 12px;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.questions-wrap ol li:last-child {
+    margin: 0;
+}
+
+.questions-wrap ol li:before{
+    content: counter(myCounter)" ";
+    display: block;
+    margin: 0;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.show-checklist {
+    position: relative;
+    padding: 40px 97px 64px;
+    width: 960px;
+    border-radius: 12px;
+    border: solid 1px rgba(230, 17, 48, 0.3);
+}
+
+.show-checklist h3 {
+    margin-bottom: 47px;
+    text-align: center;
+}
+
+.show-checklist ul {
+    padding: 0 0 0 20px;
+}
+
+.show-checklist *:last-child {
+    margin-bottom: 0;
+}
+
+.one-line-recorder {
+    position: relative;
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    margin-bottom: 100px;
+}
+
+.one-line-recorder .btn {
+    margin-bottom: 0;
+}
+
+.one-line-recorder .insert-record-questions-list{
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+
+.one-line-recorder .insert-record-questions-list li {
+    border: 0;
+    width: auto;
+    padding: 0;
+}
+
+.one-line-recorder .insert-record-questions-list li:last-child {
+    margin-bottom: 0;
+}
+/*---end page with questions on page like sheet---*/
 
 /*---page under construction---*/
 .page-under-construction {
