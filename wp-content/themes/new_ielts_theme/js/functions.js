@@ -784,7 +784,10 @@ $( document ).ready(function() {
                 var el_text = button.parents("li").find(".short").parent("span").clone();
                 el_text.find(".short").text( "..." );
                 var index = button.parents("li").index();
-                createDownloadLink( $(".insert-record-questions-list"), el_text.text(), index );
+                var text = el_text.text();
+                if( index === -1 ) index = 1;
+                if( text === '' ) text = 'Your Recording';
+                createDownloadLink( $(".insert-record-questions-list"), text, index );
             } else {
                 createDownloadLink( button.parents(".recorder") );
             }
@@ -1123,7 +1126,6 @@ $( document ).ready(function() {
             var $parentUl = $(ui.item["0"].offsetParent);
             var $droppedEl = $(ui.item["0"]);
             if( $parentUl.hasClass("drop-list") ) {
-                // $droppedEl.removeClass("old");
                 $droppedEl.removeClass("wrong");
                 $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
                 $( "#"+ ui.item[0]["id"]+"-clone").remove();
@@ -1136,21 +1138,17 @@ $( document ).ready(function() {
                 } else {
                     $droppedEl.removeClass("wrong");
                 }
-                // $droppedEl.addClass("old");
             }
             $("li.focus").removeClass("focus");
         },
 
         receive: function(event, ui) {
-            // $(ui.item["0"]).removeClass("old");
-            // if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
-            //     var $elem = $(this).find("li.old");
-            //     $( "#"+ $elem.attr('id')+"-clone").after($elem);
-            //     $( "#"+ $elem.attr('id')+"-clone").remove();
-            //     $( "#"+ $elem.attr('id')).attr("style","");
-            //     $(".sort-phrase.drop-list li.old").removeClass("old");
-            // }
         }
+    });
+
+    $(".show-checklist-link").click(function(){
+        $(".show-checklist").toggleClass("open");
+        return false;
     });
 
 });
