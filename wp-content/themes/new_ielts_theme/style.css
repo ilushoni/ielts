@@ -2775,15 +2775,19 @@ p.no-margin {
 
 .sort-phrase-drop li {
     display: block;
-    flex: 0 0 100%;
-    margin-bottom: 10px;
-    width: calc( 100% - 40px );
+    /*flex: 0 0 100%;*/
+    margin: auto 0 10px;
+    /*margin-bottom: 10px;*/
+    max-width: calc( 100% - 40px );
+    /*width: calc( 100% - 40px );*/
     font-size: 14px;
     line-height: 1.43em;
 }
 
+.sort-phrase-drop > li.placeholder:nth-child(1) + li:last-child,
+.sort-phrase-drop > li:nth-child(1) + li.placeholder:last-child,
 .sort-phrase-drop > li:nth-child(1):last-child {
-    margin: auto;
+    margin: auto 0;
 }
 
 .sort-phrase-drop li:last-child{
