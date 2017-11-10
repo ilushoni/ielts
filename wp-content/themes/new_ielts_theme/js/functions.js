@@ -966,6 +966,24 @@ $( document ).ready(function() {
 
         };
 
+
+        // //allow microphone
+        // // success callback when requesting audio input stream
+        // function successCallback(stream) {
+        //     var audioContext = new (window.webkitAudioContext)();
+        //
+        //     // Create an AudioNode from the stream.
+        //     var mediaStreamSource = audioContext.createMediaStreamSource( stream );
+        //
+        //     // Connect it to the destination to hear yourself (or any other node for processing!)
+        //     mediaStreamSource.connect( audioContext.destination );
+        // }
+        //
+        // function errorCallback() {
+        //     console.log("The following error occurred: " + err);
+        // }
+        // navigator.webkitGetUserMedia( {audio:true}, successCallback, errorCallback );
+
     }
 
 
@@ -982,13 +1000,34 @@ $( document ).ready(function() {
 
     }
 
+    //get url parameter
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
     if( $(".load-task-by-task").length ) {
 
+        var show = getUrlParameter('show-last');
         var nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
         $(".page-next").removeClass("disabled").text( nextBtnText );
 
         $(".task-content").addClass("hide-task");
-        $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
+        if(show){
+            $(".task-content:last-child").removeClass("hide-task").addClass("visible-task");
+        }else {
+            $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
+        }
 
         $(".page-prev").click(function(){
             if( $(".task-content:first-child").hasClass("hide-task") ) {

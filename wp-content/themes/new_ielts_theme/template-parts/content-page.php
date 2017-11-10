@@ -6,9 +6,6 @@
 global $post;
 $direct_parent = $post->post_parent;
 $page_slug = $post->post_name;
-//
-//$prev = get_permalink(get_adjacent_post(false,'',true));
-//$next = get_permalink(get_adjacent_post(false,'',false)->ID);
 
 //get prev and next post url
 $postlist = mytheme_list_pages('title_li=&sort_column=menu_order');
@@ -130,7 +127,7 @@ switch ( $page_slug ):
 
                         echo '<nav class="page-nav-wrapper">';
                             if ($prev)
-                                echo '<a href="' . $prev . '" class="page-prev">' . _("Back") . '</a>';
+                                echo '<a href="' . $prev . '?show-last=1" class="page-prev">' . _("Back") . '</a>';
                             if (($page_slug !== "action-points") && ($next)) {
                                 echo '<a href="' . $next . '" class="page-next">' . _("Next") . '</a>';
                             }
@@ -154,19 +151,14 @@ switch ( $page_slug ):
 
                         echo '<nav class="page-nav-wrapper">';
                             if( $prev )
-                                echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
+                                echo '<a href="'.$prev.'?show-last=1" class="page-prev">'._("Back").'</a>';
                             if( $next )
                                 echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
                         echo '</nav>';
                     echo '</article>';
 
                 }
-
-
-
             }
-
         }
-
 endswitch;
 ?>
