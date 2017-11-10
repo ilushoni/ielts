@@ -987,19 +987,6 @@ $( document ).ready(function() {
     }
 
 
-    //section SPEAK - load task by task on page
-    function taskSwitch(next){
-
-        var $el_task_wrap = $(".visible-task");
-        $el_task_wrap.removeClass("visible-task").addClass("hide-task");
-        $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
-        $el_task_wrap.addClass("visible-task").removeClass("hide-task");
-
-        nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
-        $(".page-next").text(nextBtnText);
-
-    }
-
     //get url parameter
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -1016,10 +1003,27 @@ $( document ).ready(function() {
         }
     };
 
+    //section SPEAK - load task by task on page
+    function taskSwitch(next){
+        // var show = getUrlParameter('show-last');
+        // console.log("here");
+        // console.log(show);
+        var $el_task_wrap = $(".visible-task");
+        $el_task_wrap.removeClass("visible-task").addClass("hide-task");
+        $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
+        $el_task_wrap.addClass("visible-task").removeClass("hide-task");
+
+        nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
+        // if(show) nextBtnText = "Next";
+        $(".page-next").text(nextBtnText);
+
+    }
+
     if( $(".load-task-by-task").length ) {
 
         var show = getUrlParameter('show-last');
         var nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
+        if(show) nextBtnText = "Next";
         $(".page-next").removeClass("disabled").text( nextBtnText );
 
         $(".task-content").addClass("hide-task");
