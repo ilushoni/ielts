@@ -967,6 +967,24 @@ $( document ).ready(function() {
         };
 
 
+        // //work with allow microphone
+        // function hasGetUserMedia() {
+        //     // Note: Opera builds are unprefixed.
+        //     return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+        //         navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        // }
+        //
+        //
+        // $(window).load(function(){
+        //     if (hasGetUserMedia()) {
+        //         // Good to go!
+        //     } else {
+        //         alert('getUserMedia() is not supported in your browser');
+        //     }
+        // });
+
+
+
         // //allow microphone
         // // success callback when requesting audio input stream
         // function successCallback(stream) {
@@ -1003,51 +1021,159 @@ $( document ).ready(function() {
         }
     };
 
+    // //section SPEAK - load task by task on page
+    // function taskSwitch(next){
+    //     // var show = getUrlParameter('show-last');
+    //     // console.log("here");
+    //     // console.log(show);
+    //     var $el_task_wrap = $(".visible-task");
+    //     $el_task_wrap.removeClass("visible-task").addClass("hide-task");
+    //     $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
+    //     $el_task_wrap.addClass("visible-task").removeClass("hide-task");
+    //
+    //     ( $(".task-content:last-child").hasClass("visible-task") ) ? $(".page-next").addClass("last"): $(".page-next").removeClass("last");
+    //
+    //     nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
+    //     // if(show) nextBtnText = "Next";
+    //     $(".page-next").text(nextBtnText);
+    //
+    // }
+    //
+    // if( $(".load-task-by-task").length ) {
+    //
+    //     var show = getUrlParameter('show-last');
+    //     var nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
+    //     if(show) nextBtnText = "Next";
+    //     $(".page-next").removeClass("disabled").text( nextBtnText );
+    //
+    //     $(".task-content").addClass("hide-task");
+    //     if(show){
+    //         $(".task-content:last-child").removeClass("hide-task").addClass("visible-task");
+    //     }else {
+    //         $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
+    //     }
+    //
+    //     $(".page-prev").click(function(){
+    //         if( $(".task-content:first-child").hasClass("hide-task") ) {
+    //             taskSwitch();
+    //             return false;
+    //         }
+    //     });
+    //
+    //     $(".page-next:not(.last)").click(function(){
+    //         if( $(".task-content:last-child").hasClass("hide-task") ) {
+    //             taskSwitch('next');
+    //             return false;
+    //         }
+    //     });
+    //
+    // }
+
+    //
+
+
+    $.ajaxSetup({cache:false});
     //section SPEAK - load task by task on page
-    function taskSwitch(next){
-        // var show = getUrlParameter('show-last');
-        // console.log("here");
-        // console.log(show);
+    function switchVisibleTask(next){
         var $el_task_wrap = $(".visible-task");
         $el_task_wrap.removeClass("visible-task").addClass("hide-task");
         $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
         $el_task_wrap.addClass("visible-task").removeClass("hide-task");
-
-        nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
-        // if(show) nextBtnText = "Next";
-        $(".page-next").text(nextBtnText);
-
     }
 
-    if( $(".load-task-by-task").length ) {
+    function taskSwitch(){
+        var nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
+        $(".page-next").text(nextBtnText);
+    }
 
-        var show = getUrlParameter('show-last');
-        var nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
-        if(show) nextBtnText = "Next";
-        $(".page-next").removeClass("disabled").text( nextBtnText );
+    if( ( $(".load-task-by-task").length ) ) {
+        $(".task-content:not(:first-child)").addClass("hide-task");
+        $(".task-content:first-child").addClass("visible-task");
+        taskSwitch();
+    }
 
-        $(".task-content").addClass("hide-task");
-        if(show){
-            $(".task-content:last-child").removeClass("hide-task").addClass("visible-task");
-        }else {
-            $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
-        }
-
-        $(".page-prev").click(function(){
+    $(".page-prev").on('click',function(){
+        if( ( $(".load-task-by-task").length ) && (!( ( $(".task-content:first-child").hasClass("visible-task") ) && ( $(".fill-part-first ").length ) ))){
             if( $(".task-content:first-child").hasClass("hide-task") ) {
+                switchVisibleTask();
                 taskSwitch();
                 return false;
-            }
-        });
-
-        $(".page-next").click(function(){
-            if( $(".task-content:last-child").hasClass("hide-task") ) {
-                taskSwitch('next');
+            } else {
+                var post_id = $(this).attr("href");
+                $.get(post_id, function(data){ // Loads content into the 'data' variable.
+                    $("#menu-speaking_part1").replaceWith($(data).filter("#menu-speaking_part1"));
+                    $(".entry-content").prepend($(data).filter(".entry-content").contents());
+                    $(".task-content").not('.hide-task, .visible-task').addClass("hide-task");
+                    switchVisibleTask();
+                    $(".page-next").attr("href", $(data).find("a.page-next").attr("href"));
+                    $(".page-prev").attr("href", $(data).find("a.page-prev").attr("href"));
+                    taskSwitch();
+                });
                 return false;
             }
-        });
+        }
+    });
 
-    }
+    $(".page-next").on('click',function(){
+        if( ( $(".load-task-by-task").length ) && (!( ( $(".fill-part-red").length ) && ( $(".task-content:last-child").hasClass("visible-task") ) ) ) ){
+            if($(".task-content:last-child").hasClass("hide-task") ) {
+                switchVisibleTask('next');
+                taskSwitch();
+                return false;
+            } else {
+                var post_id = $(this).attr("href");
+                $.get(post_id, function(data){ // Loads content into the 'data' variable.
+                    $("#menu-speaking_part1").replaceWith($(data).filter("#menu-speaking_part1"));
+                    $(".entry-content").append($(data).filter(".entry-content").contents());
+                    $(".task-content").not('.hide-task, .visible-task').addClass("hide-task");
+                    switchVisibleTask('next');
+                    $(".page-next").attr("href", $(data).find("a.page-next").attr("href"));
+                    $(".page-prev").attr("href", $(data).find("a.page-prev").attr("href"));
+                    taskSwitch();
+                });
+                return false;
+            }
+        }
+    });
+
+    // if( $(".load-task-by-task").length ) {
+    //
+    //     // var show = getUrlParameter('show-last');
+    //     var nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
+    //     // if(show) nextBtnText = "Next";
+    //     $(".page-next").removeClass("disabled").text( nextBtnText );
+    //
+    //     $(".task-content").addClass("hide-task");
+    //     // if(show){
+    //     //     $(".task-content:last-child").removeClass("hide-task").addClass("visible-task");
+    //     // }else {
+    //         $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
+    //     // }
+    //
+    //     $(".page-prev").click(function(){
+    //         if( $(".task-content:first-child").hasClass("hide-task") ) {
+    //             taskSwitch();
+    //             return false;
+    //         }
+    //     });
+    //
+    //     $(".page-next").click(function(){
+    //         if( $(".task-content:last-child").hasClass("hide-task") ) {
+    //             taskSwitch('next');
+    //             return false;
+    //         } else { //load without page reload
+    //             console.log("log without reload");
+    //             var post_id = $(this).attr("href");
+    //             $("article.container").load(post_id,{id:post_id});
+    //             nextBtnText = ( $(".task-content:nth-child(2)").find(".task-name").length ) ? $(".task-content:nth-child(2)").find(".task-name").text() : "Next";
+    //             $(".page-next").removeClass("disabled").text( nextBtnText );
+    //             $(".task-content").addClass("hide-task");
+    //             $(".task-content:first-child").removeClass("hide-task").addClass("visible-task");
+    //             return false;
+    //         }
+    //     });
+    //
+    // }
 
     $(".check-answers-now input").click(function(){
 

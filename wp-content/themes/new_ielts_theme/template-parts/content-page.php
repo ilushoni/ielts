@@ -127,7 +127,8 @@ switch ( $page_slug ):
 
                         echo '<nav class="page-nav-wrapper">';
                             if ($prev)
-                                echo '<a href="' . $prev . '?show-last=1" class="page-prev">' . _("Back") . '</a>';
+                                echo '<a href="' . $prev . '" class="page-prev">' . _("Back") . '</a>';
+//                                echo '<a href="' . $prev . '?show-last=1" class="page-prev">' . _("Back") . '</a>';
                             if (($page_slug !== "action-points") && ($next)) {
                                 echo '<a href="' . $next . '" class="page-next">' . _("Next") . '</a>';
                             }
@@ -151,7 +152,8 @@ switch ( $page_slug ):
 
                         echo '<nav class="page-nav-wrapper">';
                             if( $prev )
-                                echo '<a href="'.$prev.'?show-last=1" class="page-prev">'._("Back").'</a>';
+                                echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
+//                                echo '<a href="'.$prev.'?show-last=1" class="page-prev">'._("Back").'</a>';
                             if( $next )
                                 echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
                         echo '</nav>';

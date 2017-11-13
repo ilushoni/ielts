@@ -90,7 +90,14 @@ if($page_nav) {
                 }
 
                 if( $menu_item->object_id == $direct_parent ){
-                    $menu_list .= '<div style="width:'.(count($children_order) / count($children) * 100).'%;"></div>';
+                    $menu_list .= '<div class="';
+                    if( count($children_order) / count($children) == 1 ){
+                        $menu_list .= 'fill-part-red ';
+                    }
+                    if( count($children_order) == 1 ) {
+                        $menu_list .= 'fill-part-first ';
+                    }
+                    $menu_list .= '" style="width:'.(count($children_order) / count($children) * 100).'%;"></div>';
                 }
 
             }else{
