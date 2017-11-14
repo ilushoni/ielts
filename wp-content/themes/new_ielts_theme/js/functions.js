@@ -700,7 +700,8 @@ $( document ).ready(function() {
 
         }
 
-        $('.btn-record').click(function(){
+        $(document).on('click', '.btn-record', function(){
+        // $('.btn-record').click(function(){
 
             if( $('.btn-stop:visible').length ){
                 $('.btn-stop:visible').click();
@@ -722,7 +723,8 @@ $( document ).ready(function() {
 
         });
 
-        $('.btn-stop').click(function(){
+        $(document).on("click", ".btn-stop", function(){
+        // $('.btn-stop').click(function(){
 
             stopRecording($(this));
             var $el = $(this).parents(".recorder").find(".btn-record");
