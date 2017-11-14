@@ -12,11 +12,50 @@ $postlist = mytheme_list_pages('title_li=&sort_column=menu_order');
 $key = array_search ($post->ID, $postlist);
 
 if( $postlist[ $key-1 ] ){
+    $prev_rel = $postlist[ $key-1 ];
     $prev = get_permalink( $postlist[ $key-1 ] );
 }
 
 if( $postlist[ $key+1 ] ){
+    $next_rel = $postlist[ $key+1 ];
     $next = get_permalink( $postlist[ $key+1 ] );
+}
+
+$ancestors = get_post_ancestors($post->ID);
+$root = count($ancestors)-1;
+$parent_id = $ancestors[$root];
+$parents = get_post_ancestors( $post->ID );
+
+$page_nav_class = '';
+if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
+    //page tasks only for Focuses on Part on SPEAKING
+    $children_order = array();
+    if( count($children_order) > 0 ){
+        unset( $children_order );
+    }
+
+    $children = get_pages('child_of='.wp_get_post_parent_id( $post->ID ));
+    if( count($children) > 0 ) {
+        $i=0;
+        foreach ( $children as $child ) {
+            $child_key = array_search ( $child->ID, $postlist  );
+            $children_order[$i] = $child_key;
+            $i++;
+            if( $child->ID == $post->ID )
+                break;
+        }
+    }
+
+    switch( count($children_order) ):
+        case(1):
+            $page_nav_class = 'load item-is-first';
+            break;
+        case(count($children)):
+            $page_nav_class = 'load item-is-last';
+            break;
+        default:
+            $page_nav_class = 'load';
+    endswitch;
 }
 
 switch ( $page_slug ):
@@ -38,7 +77,7 @@ switch ( $page_slug ):
             echo '<nav class="page-nav-wrapper">';
                 echo '<a href="'.get_home_url().'" class="page-prev">'._("Back").'</a>';
                 if( $next )
-                    echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
+                    echo '<a href="'.$next.'" class="page-next" rel="'.$next_rel.'">'._("Next").'</a>';
             echo '</nav>';
         echo '</article>';
         break;
@@ -74,9 +113,9 @@ switch ( $page_slug ):
 
             echo '<nav class="page-nav-wrapper">';
                 if( $prev )
-                    echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
+                    echo '<a href="'.$prev.'" class="page-prev" rel="'.$prev_rel.'">'._("Back").'</a>';
                 if(( $page_slug !== "action-points" ) && ( $next ) ) {
-                    echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
+                    echo '<a href="'.$next.'" class="page-next" rel="'.$next_rel.'">'._("Next").'</a>';
                 }
             echo '</nav>';
 
@@ -89,7 +128,6 @@ switch ( $page_slug ):
         $parent_page_slug = $post_parent->post_name;
 
         if( $parent_page_slug == "speaking" ) {
-//            echo "here";
 
             echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
                 get_template_part('template-parts/content', 'page-speaking-part1');
@@ -97,7 +135,7 @@ switch ( $page_slug ):
                 echo '<nav class="page-nav-wrapper">';
                     echo '<a href="' . get_home_url() . '" class="page-prev">' . _("Back") . '</a>';
                     if ($next)
-                        echo '<a href="' . $next . '" class="page-next">' . _("Next") . '</a>';
+                        echo '<a href="' . $next . '" class="page-next" rel="'.$next_rel.'">' . _("Next") . '</a>';
                 echo '</nav>';
             echo '</article>';
 
@@ -111,9 +149,9 @@ switch ( $page_slug ):
 
                     echo '<nav class="page-nav-wrapper">';
                         if ($prev)
-                            echo '<a href="' . $prev . '" class="page-prev">' . _("Back") . '</a>';
+                            echo '<a href="' . $prev . '" class="page-prev" rel="'.$prev_rel.'">' . _("Back") . '</a>';
                         if (($page_slug !== "action-points") && ($next)) {
-                            echo '<a href="' . $next . '" class="page-next">' . _("Next") . '</a>';
+                            echo '<a href="' . $next . '" class="page-next" rel="'.$next_rel.'">' . _("Next") . '</a>';
                         }
                     echo '</nav>';
                 echo '</main>';
@@ -127,10 +165,9 @@ switch ( $page_slug ):
 
                         echo '<nav class="page-nav-wrapper">';
                             if ($prev)
-                                echo '<a href="' . $prev . '" class="page-prev">' . _("Back") . '</a>';
-//                                echo '<a href="' . $prev . '?show-last=1" class="page-prev">' . _("Back") . '</a>';
+                                echo '<a href="' . $prev . '" class="page-prev" rel="'.$prev_rel.'">' . _("Back") . '</a>';
                             if (($page_slug !== "action-points") && ($next)) {
-                                echo '<a href="' . $next . '" class="page-next">' . _("Next") . '</a>';
+                                echo '<a href="' . $next . '" class="page-next" rel="'.$next_rel.'">' . _("Next") . '</a>';
                             }
                         echo '</nav>';
                     echo '</main>';
@@ -150,12 +187,11 @@ switch ( $page_slug ):
                             echo '</div>';
                         }
 
-                        echo '<nav class="page-nav-wrapper">';
+                        echo '<nav class="page-nav-wrapper '.$page_nav_class.'">';
                             if( $prev )
-                                echo '<a href="'.$prev.'" class="page-prev">'._("Back").'</a>';
-//                                echo '<a href="'.$prev.'?show-last=1" class="page-prev">'._("Back").'</a>';
+                                echo '<a href="'.$prev.'" class="page-prev" rel="'.$prev_rel.'">'._("Back").'</a>';
                             if( $next )
-                                echo '<a href="'.$next.'" class="page-next">'._("Next").'</a>';
+                                echo '<a href="'.$next.'" class="page-next" rel="'.$next_rel.'">'._("Next").'</a>';
                         echo '</nav>';
                     echo '</article>';
 

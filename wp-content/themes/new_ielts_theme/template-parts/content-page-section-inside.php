@@ -83,7 +83,7 @@ if( $task_text_array ) {
         $class = 'load-task-by-task';
     }
 
-    echo '<div class="entry-content '.$class.'">';
+    echo '<div class="entry-content '.$class.'" id="post-content-'. get_the_ID() .'">';
 
         switch( $page_slug ):
 
