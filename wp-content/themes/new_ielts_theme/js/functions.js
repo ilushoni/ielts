@@ -140,6 +140,7 @@ $( document ).ready(function() {
 
     }
 
+    // $(document).on('mousedown', ".sort li", function(){
     $(".sort li").mousedown(function(){
         if( $(".nav-exercise").hasClass("disabled") )  {
             $('.sort').sortable('disable');
@@ -158,6 +159,7 @@ $( document ).ready(function() {
         $(".word-drop.has-li").parents("li").addClass("open");
     }
 
+    // $(document).on('click', ".sort li", function(){
     $(".sort li") .click(function(){
         if( $(".nav-exercise").hasClass("disabled") )  {
             return false;
@@ -178,6 +180,7 @@ $( document ).ready(function() {
 
     });
 
+    // $(document).on('mouseup', ".sort li", function(){
     $(".sort li").mouseup(function(){
         $(this).parents('.word-drop').removeClass("focus-wrapper");
         $(this).removeClass("focus");
@@ -391,6 +394,7 @@ $( document ).ready(function() {
         });
     }
 
+    // $(document).on('click', ".list-questions-ul li", function(){
     $(".list-questions-ul li").click(function(){
 
         if( $(".nav-exercise").hasClass("disabled") )  {
@@ -986,69 +990,6 @@ $( document ).ready(function() {
         }
     };
 
-    $.ajaxSetup({cache:false});
-    //section SPEAK - load task by task on page
-    var part_name = 0;
-
-    function switchVisibleTask(next){
-        var $el_task_wrap = $(".visible-task");
-        $el_task_wrap.removeClass("visible-task").addClass("hide-task");
-        $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
-        $el_task_wrap.addClass("visible-task").removeClass("hide-task");
-    }
-
-    function taskSwitch(){
-        var nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
-        $(".page-next").text(nextBtnText);
-    }
-
-    if( ( $(".load-task-by-task").length ) ) {
-        $(".task-content:not(:first-child)").addClass("hide-task");
-        $(".task-content:first-child").addClass("visible-task");
-        taskSwitch();
-    }
-
-    $(document).on("click", ".page-nav-wrapper.load .page-prev", function(){
-        if( $(".task-content:first-child").hasClass("hide-task") ) {
-            switchVisibleTask();
-            taskSwitch();
-            return false;
-        } else {
-            if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-first") ) ) {
-                var post_link = $(this).attr("href");
-                $.get(post_link, function(data){ // Loads content into the 'data' variable.
-                    var html = $.parseHTML( data );
-                    $("article").replaceWith( $($(html)).filter("article") );
-                    $(".task-content:not(:last-child)").addClass("hide-task");
-                    $(".task-content:last-child").addClass("visible-task");
-                    taskSwitch();
-                });
-                return false;
-            }
-        }
-    });
-
-    $(document).on("click", ".page-nav-wrapper.load .page-next", function(){
-        if($(".task-content:last-child").hasClass("hide-task") ) {
-            switchVisibleTask('next');
-            taskSwitch();
-            return false;
-        } else {
-            if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-last") ) ) {
-                var post_link = $(this).attr("href");
-                $.get(post_link, function(data){ // Loads content into the 'data' variable.
-                    var html = $.parseHTML( data );
-                    $("article").replaceWith( $($(html)).filter("article") );
-                    $(".task-content:not(:first-child)").addClass("hide-task");
-                    $(".task-content:first-child").addClass("visible-task");
-                    taskSwitch();
-                });
-                return false;
-            }
-        }
-    });
-
-
     $(".check-answers-now input").click(function(){
 
         var $parent_el = $(this).parents(".list-questions-ul");
@@ -1126,11 +1067,13 @@ $( document ).ready(function() {
     });
 
     //sort phrases to two columns
-    $(".sort-phrase li").mousedown(function(){
+    $(document).on('mousedown', ".sort-phrase li", function(){
+    // $(".sort-phrase li").mousedown(function(){
         $(this).addClass("focus");
     });
 
-    $(".sort-phrase li") .click(function(){
+    $(document).on('click', ".sort-phrase li", function(){
+    // $(".sort-phrase li") .click(function(){
         if(!( $(this).parents(".sort-phrase").hasClass('drop-list') )) {
             $( "#"+ $(this).attr('id')+"-clone").after($(this));
             $( "#"+ $(this).attr('id')+"-clone").remove();
@@ -1139,55 +1082,60 @@ $( document ).ready(function() {
         }
     });
 
-    $(".sort-phrase li").mouseup(function(){
+    $(document).on('mouseup', ".sort-phrase li", function(){
+    // $(".sort-phrase li").mouseup(function(){
         $(this).removeClass("focus");
     });
 
-    $('.sort-phrase').sortable({
+    startSortOfPhrases();
 
-        placeholder: 'placeholder',
-        connectWith: '.sort-phrase',
-        items: "li:not(.in-use)",
-        start: function(event, ui) {
-            if( $(this).hasClass("drop-list") ) {  //ul-parent list
-                var id = ui.item[0]["id"]; //get moved element id
-                var $elem = ui.item.clone();
-                $elem.attr("style","");
-                $elem[0]["id"] = id + "-clone";
-                $elem.addClass("in-use");
-                $(this).find(".focus").after( $elem );
-            } else {
-                $('#'+ui.item[0]["id"]).removeClass("wrong");
-            }
-        },
-        stop: function(event, ui) {
+    function startSortOfPhrases(){
+        $('.sort-phrase').sortable({
 
-            //$parentUl where element stopped (it's new area)
-            //$droppedEl element moved
-            //$(this) where element from
-
-            var $parentUl = $(ui.item["0"].offsetParent);
-            var $droppedEl = $(ui.item["0"]);
-            if( $parentUl.hasClass("drop-list") ) {
-                $droppedEl.removeClass("wrong");
-                $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
-                $( "#"+ ui.item[0]["id"]+"-clone").remove();
-                $( "#"+ ui.item[0]["id"]).attr("style","");
-            } else {
-                var correctAns = $parentUl.attr("answers_correct").split(",");
-                console.log( $.inArray( $droppedEl.attr("id"), correctAns ));
-                if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
-                    $droppedEl.addClass("wrong");
+            placeholder: 'placeholder',
+            connectWith: '.sort-phrase',
+            items: "li:not(.in-use)",
+            start: function(event, ui) {
+                if( $(this).hasClass("drop-list") ) {  //ul-parent list
+                    var id = ui.item[0]["id"]; //get moved element id
+                    var $elem = ui.item.clone();
+                    $elem.attr("style","");
+                    $elem[0]["id"] = id + "-clone";
+                    $elem.addClass("in-use");
+                    $(this).find(".focus").after( $elem );
                 } else {
-                    $droppedEl.removeClass("wrong");
+                    $('#'+ui.item[0]["id"]).removeClass("wrong");
                 }
-            }
-            $("li.focus").removeClass("focus");
-        },
+            },
+            stop: function(event, ui) {
 
-        receive: function(event, ui) {
-        }
-    });
+                //$parentUl where element stopped (it's new area)
+                //$droppedEl element moved
+                //$(this) where element from
+
+                var $parentUl = $(ui.item["0"].offsetParent);
+                var $droppedEl = $(ui.item["0"]);
+                if( $parentUl.hasClass("drop-list") ) {
+                    $droppedEl.removeClass("wrong");
+                    $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
+                    $( "#"+ ui.item[0]["id"]+"-clone").remove();
+                    $( "#"+ ui.item[0]["id"]).attr("style","");
+                } else {
+                    var correctAns = $parentUl.attr("answers_correct").split(",");
+                    // console.log( $.inArray( $droppedEl.attr("id"), correctAns ));
+                    if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
+                        $droppedEl.addClass("wrong");
+                    } else {
+                        $droppedEl.removeClass("wrong");
+                    }
+                }
+                $("li.focus").removeClass("focus");
+            },
+
+            receive: function(event, ui) {
+            }
+        });
+    }
 
     $(document).on("click", ".show-checklist-link", function(){
     // $(".show-checklist-link").click(function(){
@@ -1218,4 +1166,72 @@ $( document ).ready(function() {
     $(".el-play").click(function(){
         $(this).toggleClass("el-pause");
     });
+
+
+    $.ajaxSetup({cache:false});
+    //section SPEAK - load task by task on page
+    function switchVisibleTask(next){
+        var $el_task_wrap = $(".visible-task");
+        $el_task_wrap.removeClass("visible-task").addClass("hide-task");
+        $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
+        $el_task_wrap.addClass("visible-task").removeClass("hide-task");
+    }
+
+    function taskSwitch(){
+        var nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
+        $(".page-next").text(nextBtnText);
+    }
+
+    if( ( $(".load-task-by-task").length ) ) {
+        $(".task-content:not(:first-child)").addClass("hide-task");
+        $(".task-content:first-child").addClass("visible-task");
+        taskSwitch();
+    }
+
+    $(document).on("click", ".page-nav-wrapper.load .page-prev", function(){
+        if( $(".task-content:first-child").hasClass("hide-task") ) {
+            switchVisibleTask();
+            taskSwitch();
+            return false;
+        } else {
+            if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-first") ) ) {
+                var post_link = $(this).attr("href");
+                $.get(post_link, function(data){ // Loads content into the 'data' variable.
+                    var html = $.parseHTML( data );
+                    $("article").replaceWith( $($(html)).filter("article") );
+                    $(".task-content:not(:last-child)").addClass("hide-task");
+                    $(".task-content:last-child").addClass("visible-task");
+                    taskSwitch();
+                    if( $(".sort-phrase").length ){
+                        startSortOfPhrases();
+                    }
+                });
+                return false;
+            }
+        }
+    });
+
+    $(document).on("click", ".page-nav-wrapper.load .page-next", function(){
+        if($(".task-content:last-child").hasClass("hide-task") ) {
+            switchVisibleTask('next');
+            taskSwitch();
+            return false;
+        } else {
+            if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-last") ) ) {
+                var post_link = $(this).attr("href");
+                $.get(post_link, function(data){ // Loads content into the 'data' variable.
+                    var html = $.parseHTML( data );
+                    $("article").replaceWith( $($(html)).filter("article") );
+                    $(".task-content:not(:first-child)").addClass("hide-task");
+                    $(".task-content:first-child").addClass("visible-task");
+                    taskSwitch();
+                    if( $(".sort-phrase").length ){
+                        startSortOfPhrases();
+                    }
+                });
+                return false;
+            }
+        }
+    });
+
 });
