@@ -1189,7 +1189,8 @@ $( document ).ready(function() {
         }
     });
 
-    $(".show-checklist-link").click(function(){
+    $(document).on("click", ".show-checklist-link", function(){
+    // $(".show-checklist-link").click(function(){
         $(".show-checklist").toggleClass("open");
         return false;
     });
