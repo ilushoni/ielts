@@ -1354,7 +1354,13 @@ ol li:before {
     display: inline-block;
 }
 
-.list-checkbox li.wrong:before {
+.list-checkbox li:hover:before{
+/*.list-checkbox li.wrong:before {*/
+    color: #e61130;
+}
+
+.list-checkbox li.wrong label:after {
+    content: " <-wrong";
     color: #e61130;
 }
 /*end checkbox-questions*/

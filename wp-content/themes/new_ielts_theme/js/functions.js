@@ -990,7 +990,9 @@ $( document ).ready(function() {
         }
     };
 
-    $(".check-answers-now input").click(function(){
+    $(document).on('click', ".check-answers-now input", function(){
+    // $(".check-answers-now input").click(function(){
+        console.log($(this).prop('checked'));
 
         var $parent_el = $(this).parents(".list-questions-ul");
         $parent_el.find("li").addClass("wrong");
@@ -1002,9 +1004,12 @@ $( document ).ready(function() {
                     if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
                         $(this).parents("li").removeClass("wrong");
                     }
-                    if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
+                    if( ( $(this).prop('checked') == false ) && ( $(this).parents("li").hasClass("wrong") ) ) {
                         $(this).parents("li").removeClass("wrong");
                     }
+                    // if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
+                    //     $(this).parents("li").removeClass("wrong");
+                    // }
                 });
                 break;
 
@@ -1143,7 +1148,8 @@ $( document ).ready(function() {
         return false;
     });
 
-    $(".video-checkbox").click(function(){
+    $(document).on("click", ".video-checkbox", function(){
+    // $(".video-checkbox").click(function(){
         $(this).parents(".list-video-checkbox").find(".video-checkbox").each(function(){
             $(this).removeClass("wrong");
         });
@@ -1152,7 +1158,8 @@ $( document ).ready(function() {
         }
     });
 
-    $(".choose-one-checkbox input[type='checkbox']").click(function(){
+    $(document).on("click", ".choose-one-checkbox input[type='checkbox']", function(){
+    // $(".choose-one-checkbox input[type='checkbox']").click(function(){
         var $this = $(this);
         if( $this.is(":checked") ) {
             $(this).parents(".choose-one-checkbox").find("input[type='checkbox']").each(function(){
@@ -1163,7 +1170,8 @@ $( document ).ready(function() {
         }
     });
 
-    $(".el-play").click(function(){
+    $(document).on("click", ".el-play", function(){
+    // $(".el-play").click(function(){
         $(this).toggleClass("el-pause");
     });
 
