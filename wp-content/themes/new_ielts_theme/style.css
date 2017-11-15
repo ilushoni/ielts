@@ -3025,6 +3025,10 @@ p.no-margin {
 .list-video-checkbox .page-video .player {
     height: 428px;
 }
+
+.list-video-checkbox .video-iframe-wrapper {
+    width: auto;
+}
 /*---end of task with checkboxes on video---*/
 
 /*---page under construction---*/

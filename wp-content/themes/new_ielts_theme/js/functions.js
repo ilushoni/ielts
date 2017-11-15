@@ -992,7 +992,7 @@ $( document ).ready(function() {
 
     $(document).on('click', ".check-answers-now input", function(){
     // $(".check-answers-now input").click(function(){
-        console.log($(this).prop('checked'));
+    //     console.log($(this).prop('checked'));
 
         var $parent_el = $(this).parents(".list-questions-ul");
         $parent_el.find("li").addClass("wrong");
@@ -1213,6 +1213,21 @@ $( document ).ready(function() {
                     if( $(".sort-phrase").length ){
                         startSortOfPhrases();
                     }
+                    if( $(".video-iframe-wrapper").length ){
+                        $(".video-iframe-wrapper iframe").each(function(){
+                            var frameId = this.id;
+                            console.log(this.id);
+                            if( frameId ){
+                                player = new YT.Player( frameId, {
+                                    events: {
+                                        // call this function when player is ready to use
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange
+                                    }
+                                });
+                            }
+                        });
+                    }
                 });
                 return false;
             }
@@ -1236,6 +1251,21 @@ $( document ).ready(function() {
                     if( $(".sort-phrase").length ){
                         startSortOfPhrases();
                     }
+                    if( $(".video-iframe-wrapper").length ){
+                        $(".video-iframe-wrapper iframe").each(function(){
+                            var frameId = this.id;
+                            console.log(this.id);
+                            if( frameId ){
+                                player = new YT.Player( frameId, {
+                                    events: {
+                                        // call this function when player is ready to use
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange
+                                    }
+                                });
+                            }
+                        });
+                    }
                     // if( $('.btn-stop:visible').length ){
                     //     $('.btn-stop:visible').click();
                     // }
@@ -1244,15 +1274,9 @@ $( document ).ready(function() {
             }
         }
     });
-
-
-    //make css for iframe YouTube
-    if( $(".video-iframe-wrapper").length ) {
-
-    }
-
 });
 
+//make css for YouTube video iframe
 // Inject YouTube API script
 var tag = document.createElement('script');
 tag.src = "//www.youtube.com/player_api";
@@ -1261,41 +1285,48 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 
 // this function gets called when API is ready to use
+// function onYouTubePlayerAPIReady() {
 function onYouTubePlayerAPIReady() {
     // create the global player from the specific iframe (#video)
-    player = new YT.Player('video', {
-        events: {
-            // call this function when player is ready to use
-            'onReady': onPlayerReady,
-            'showinfo': 0,
-            'rel': 0,
-            'controls': 0,
-            'onStateChange': onPlayerStateChange
+    $(".video-iframe-wrapper iframe").each(function(){
+        var frameId = this.id;
+        console.log(this.id);
+        if( frameId ){
+            player = new YT.Player( frameId, {
+                events: {
+                    // call this function when player is ready to use
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
     });
 }
 
 function onPlayerReady(event) {
     // bind events
-    $(".btn-video").click(function(){
+    console.dir(event);
+    $(event.target.a).parents(".video-iframe-wrapper").find(".btn-video").click(function(){
         $(this).parents(".video-iframe-wrapper").toggleClass("is-playing");
         if( $(this).parents(".video-iframe-wrapper").hasClass("is-playing") ){
-            player.playVideo();
+            event.target.playVideo();
         } else{
-            player.pauseVideo();
+            event.target.pauseVideo();
         }
     });
 }
 
 // when video ends
 function onPlayerStateChange(event) {
+    console.dir(event);
+    // console.dir($(event.target.a));
     if (event.data == YT.PlayerState.PLAYING){
-        $(".video-iframe-wrapper").addClass("is-playing");
+        $(event.target.a).parents(".video-iframe-wrapper").addClass("is-playing");
     } else{
         if (event.data == YT.PlayerState.PAUSED){
-            $(".video-iframe-wrapper").removeClass("is-playing");
+            $(event.target.a).parents(".video-iframe-wrapper").removeClass("is-playing");
         } else
         //Buffering/Video Ended
-            $(".video-iframe-wrapper").removeClass("is-playing");
-        }
+            $(event.target.a).parents(".video-iframe-wrapper").removeClass("is-playing");
+    }
 }
