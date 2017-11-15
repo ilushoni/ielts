@@ -1269,7 +1269,8 @@ function onYouTubePlayerAPIReady() {
             'onReady': onPlayerReady,
             'showinfo': 0,
             'rel': 0,
-            'controls': 0
+            'controls': 0,
+            'onStateChange': onPlayerStateChange
         }
     });
 }
@@ -1284,4 +1285,17 @@ function onPlayerReady(event) {
             player.pauseVideo();
         }
     });
+}
+
+// when video ends
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING){
+        $(".video-iframe-wrapper").addClass("is-playing");
+    } else{
+        if (event.data == YT.PlayerState.PAUSED){
+            $(".video-iframe-wrapper").removeClass("is-playing");
+        } else
+        //Buffering/Video Ended
+            $(".video-iframe-wrapper").removeClass("is-playing");
+        }
 }
