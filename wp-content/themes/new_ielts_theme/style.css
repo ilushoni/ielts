@@ -558,6 +558,66 @@ input[type="phone"]::-webkit-input-placeholder{
     background: transparent;
 }
 
+/*---if video from YouTube---*/
+.video-iframe-wrapper{
+    position: relative;
+    margin: 0 auto;
+    width: 730px;
+}
+
+.btn-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: calc( -126px / 2 );
+    margin-left: calc( -126px / 2 );
+    width: 126px;
+    height: 126px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: rgba(255, 36, 68, 1);
+    background-repeat: no-repeat;
+    /*transition: background-image .1s;*/
+}
+
+.btn-video:hover{
+    background-color: rgba(255, 36, 68, .8);
+}
+
+.btn-video.play {
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="51" height="58" viewBox="0 0 51 58"><path fill="#FFF" fill-rule="evenodd" d="M49.002 32.455L6.011 57.453A4 4 0 0 1 0 53.995V4A4 4 0 0 1 6.01.542l42.992 24.997a4 4 0 0 1 0 6.916z"/></svg>');
+    background-position: 43px center;
+}
+
+.btn-video.play:hover {
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="67" height="77" viewBox="0 0 67 77"><path fill="#FFF" fill-rule="evenodd" d="M65.02 41.953L6.02 76.45A4 4 0 0 1 0 72.998V4.001A4 4 0 0 1 6.019.548L65.02 35.047a4 4 0 0 1 0 6.906z"/></svg>');
+    background-position: 38px center;
+}
+
+.btn-video.pause {
+    display: none;
+    opacity: 0;
+    background-color: rgba(255, 36, 68, .8);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="60" viewBox="0 0 11 60"> <path fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-width="10" d="M5.5 5.5V55"/> </svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="60" viewBox="0 0 11 60"> <path fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-width="10" d="M5.5 5.5V55"/> </svg>');
+    background-position: 41px center, 72px center;
+}
+
+.video-iframe-wrapper.is-playing .btn-video.play {
+    display: none;
+}
+
+.video-iframe-wrapper.is-playing .btn-video.pause {
+    display: block;
+}
+
+.video-iframe-wrapper.is-playing:hover .btn-video.pause {
+    opacity: 1;
+}
+/*---end if video from YouTube---*/
+
 .player {
      position: relative;
      margin: 0 auto;

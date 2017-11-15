@@ -1236,10 +1236,52 @@ $( document ).ready(function() {
                     if( $(".sort-phrase").length ){
                         startSortOfPhrases();
                     }
+                    // if( $('.btn-stop:visible').length ){
+                    //     $('.btn-stop:visible').click();
+                    // }
                 });
                 return false;
             }
         }
     });
 
+
+    //make css for iframe YouTube
+    if( $(".video-iframe-wrapper").length ) {
+
+    }
+
 });
+
+// Inject YouTube API script
+var tag = document.createElement('script');
+tag.src = "//www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var player;
+
+// this function gets called when API is ready to use
+function onYouTubePlayerAPIReady() {
+    // create the global player from the specific iframe (#video)
+    player = new YT.Player('video', {
+        events: {
+            // call this function when player is ready to use
+            'onReady': onPlayerReady,
+            'showinfo': 0,
+            'rel': 0,
+            'controls': 0
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    // bind events
+    $(".btn-video").click(function(){
+        $(this).parents(".video-iframe-wrapper").toggleClass("is-playing");
+        if( $(this).parents(".video-iframe-wrapper").hasClass("is-playing") ){
+            player.playVideo();
+        } else{
+            player.pauseVideo();
+        }
+    });
+}
