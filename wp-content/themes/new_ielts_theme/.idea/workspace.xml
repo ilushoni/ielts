@@ -14,8 +14,8 @@
       <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
-              <caret line="1267" column="21" lean-forward="false" selection-start-line="1267" selection-start-column="21" selection-end-line="1267" selection-end-column="21" />
+            <state relative-caret-position="665">
+              <caret line="1232" column="0" lean-forward="true" selection-start-line="1232" selection-start-column="0" selection-end-line="1232" selection-end-column="0" />
               <folding>
                 <element signature="e#40423#40894#0" expanded="false" />
                 <element signature="e#43164#45092#0" expanded="false" />
@@ -27,64 +27,15 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="287" column="50" lean-forward="false" selection-start-line="287" selection-start-column="30" selection-end-line="287" selection-end-column="50" />
+            <state relative-caret-position="662">
+              <caret line="787" column="9" lean-forward="true" selection-start-line="787" selection-start-column="9" selection-end-line="787" selection-end-column="9" />
               <folding>
-                <marker date="1510734389879" expanded="true" signature="15927:15934" ph="»" />
-                <marker date="1510734389879" expanded="true" signature="18775:18781" ph=" " />
+                <marker date="1510841457134" expanded="true" signature="16077:16084" ph="»" />
+                <marker date="1510841457134" expanded="true" signature="18925:18931" ph=" " />
+                <marker date="1510841457134" expanded="true" signature="26117:26163" ph="SELECT * FRO... ${$table_name}" />
+                <marker date="1510841457134" expanded="true" signature="26275:26372" ph="UPDATE ${$ta... " />
+                <marker date="1510841457134" expanded="true" signature="26873:26903" ph="/*---end add... " />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="content-page-section-inside.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="15" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="content-page-sentence-completion-inner.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="96" column="51" lean-forward="false" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="3030" column="1" lean-forward="true" selection-start-line="3030" selection-start-column="1" selection-end-line="3030" selection-end-column="1" />
-              <folding>
-                <element signature="e#13138#13402#2" expanded="true" />
-                <element signature="e#13490#13755#2" expanded="true" />
-                <element signature="e#13919#14151#1" expanded="true" />
-                <element signature="e#14153#14385#1" expanded="true" />
-                <element signature="e#28794#29017#1" expanded="true" />
-                <element signature="e#52416#52686#2" expanded="true" />
-                <element signature="e#52740#53002#2" expanded="true" />
-                <element signature="e#53038#53271#2" expanded="true" />
-                <element signature="e#62008#62231#2" expanded="true" />
-                <element signature="e#71874#72083#2" expanded="true" />
-                <element signature="e#72332#72541#2" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="content-page.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/template-parts/content-page.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="188" column="0" lean-forward="true" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -101,11 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>insert-record-questions-list</find>
-      <find>entry-question</find>
-      <find>list-checkbox-task-4</find>
-      <find>:checked</find>
-      <find>.checked</find>
       <find>el-</find>
       <find>.correct</find>
       <find>list-checkbox</find>
@@ -131,6 +77,11 @@
       <find>btn-stop</find>
       <find>onPlayerReady</find>
       <find>stopCycle</find>
+      <find>scrip</find>
+      <find>wp_enqueue_scripts</find>
+      <find>ielts-jqueryfunctions</find>
+      <find>console.l</find>
+      <find>sendUserData</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -164,8 +115,8 @@
         <option value="$PROJECT_DIR$/template-parts/content-page-section-inside.php" />
         <option value="$PROJECT_DIR$/template-parts/content-page.php" />
         <option value="$PROJECT_DIR$/js/youtube-custom.html" />
-        <option value="$PROJECT_DIR$/functions.php" />
         <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/functions.php" />
         <option value="$PROJECT_DIR$/js/functions.js" />
       </list>
     </option>
@@ -268,12 +219,12 @@
       <workItem from="1509961338976" duration="58340000" />
       <workItem from="1510223144426" duration="26912000" />
       <workItem from="1510386692901" duration="3724000" />
-      <workItem from="1510557236799" duration="54934000" />
+      <workItem from="1510557236799" duration="78556000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="353789000" />
+    <option name="totallyTimeSpent" value="377411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -306,49 +257,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#40423#40894#0" expanded="false" />
-            <element signature="e#43164#45092#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5040">
-          <caret line="240" column="37" lean-forward="false" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
-          <folding>
-            <marker date="1510734389879" expanded="true" signature="15927:15934" ph="»" />
-            <marker date="1510734389879" expanded="true" signature="18775:18781" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50421">
           <caret line="2401" column="24" lean-forward="true" selection-start-line="2401" selection-start-column="24" selection-end-line="2401" selection-end-column="24" />
           <folding>
-            <element signature="e#13138#13402#2" expanded="true" />
-            <element signature="e#13490#13755#2" expanded="true" />
-            <element signature="e#13919#14151#1" expanded="true" />
-            <element signature="e#14153#14385#1" expanded="true" />
-            <element signature="e#28794#29017#1" expanded="true" />
-            <element signature="e#52416#52686#2" expanded="true" />
-            <element signature="e#52740#53002#2" expanded="true" />
-            <element signature="e#53038#53271#2" expanded="true" />
-            <element signature="e#62008#62231#2" expanded="true" />
-            <element signature="e#71874#72083#2" expanded="true" />
-            <element signature="e#72332#72541#2" expanded="true" />
+            <element signature="e#13138#13402#2" expanded="false" />
+            <element signature="e#13490#13755#2" expanded="false" />
+            <element signature="e#13919#14151#1" expanded="false" />
+            <element signature="e#14153#14385#1" expanded="false" />
+            <element signature="e#28794#29017#1" expanded="false" />
+            <element signature="e#52416#52686#2" expanded="false" />
+            <element signature="e#52740#53002#2" expanded="false" />
+            <element signature="e#53038#53271#2" expanded="false" />
+            <element signature="e#62008#62231#2" expanded="false" />
+            <element signature="e#71874#72083#2" expanded="false" />
+            <element signature="e#72332#72541#2" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -401,17 +330,17 @@
         <state relative-caret-position="48930">
           <caret line="2330" column="16" lean-forward="false" selection-start-line="2330" selection-start-column="16" selection-end-line="2330" selection-end-column="16" />
           <folding>
-            <element signature="e#13138#13402#2" expanded="true" />
-            <element signature="e#13490#13755#2" expanded="true" />
-            <element signature="e#13919#14151#1" expanded="true" />
-            <element signature="e#14153#14385#1" expanded="true" />
-            <element signature="e#28794#29017#1" expanded="true" />
-            <element signature="e#52416#52686#2" expanded="true" />
-            <element signature="e#52740#53002#2" expanded="true" />
-            <element signature="e#53038#53271#2" expanded="true" />
-            <element signature="e#62008#62231#2" expanded="true" />
-            <element signature="e#71874#72083#2" expanded="true" />
-            <element signature="e#72332#72541#2" expanded="true" />
+            <element signature="e#13138#13402#2" expanded="false" />
+            <element signature="e#13490#13755#2" expanded="false" />
+            <element signature="e#13919#14151#1" expanded="false" />
+            <element signature="e#14153#14385#1" expanded="false" />
+            <element signature="e#28794#29017#1" expanded="false" />
+            <element signature="e#52416#52686#2" expanded="false" />
+            <element signature="e#52740#53002#2" expanded="false" />
+            <element signature="e#53038#53271#2" expanded="false" />
+            <element signature="e#62008#62231#2" expanded="false" />
+            <element signature="e#71874#72083#2" expanded="false" />
+            <element signature="e#72332#72541#2" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -432,8 +361,11 @@
         <state relative-caret-position="9513">
           <caret line="453" column="0" lean-forward="true" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
           <folding>
-            <marker date="1510734389879" expanded="true" signature="15927:15934" ph="»" />
-            <marker date="1510734389879" expanded="true" signature="18775:18781" ph=" " />
+            <marker date="1510841457134" expanded="true" signature="16077:16084" ph="»" />
+            <marker date="1510841457134" expanded="true" signature="18925:18931" ph=" " />
+            <marker date="1510841457134" expanded="true" signature="26117:26163" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1510841457134" expanded="true" signature="26275:26372" ph="UPDATE ${$ta... " />
+            <marker date="1510841457134" expanded="true" signature="26873:26903" ph="/*---end add... " />
           </folding>
         </state>
       </provider>
@@ -664,18 +596,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="15" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/template-parts/content-page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
           <caret line="188" column="0" lean-forward="true" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../wp-config-sample.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="49" column="63" lean-forward="true" selection-start-line="49" selection-start-column="63" selection-end-line="49" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="15" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -685,36 +633,39 @@
         <state relative-caret-position="577">
           <caret line="3030" column="1" lean-forward="true" selection-start-line="3030" selection-start-column="1" selection-end-line="3030" selection-end-column="1" />
           <folding>
-            <element signature="e#13138#13402#2" expanded="true" />
-            <element signature="e#13490#13755#2" expanded="true" />
-            <element signature="e#13919#14151#1" expanded="true" />
-            <element signature="e#14153#14385#1" expanded="true" />
-            <element signature="e#28794#29017#1" expanded="true" />
-            <element signature="e#52416#52686#2" expanded="true" />
-            <element signature="e#52740#53002#2" expanded="true" />
-            <element signature="e#53038#53271#2" expanded="true" />
-            <element signature="e#62008#62231#2" expanded="true" />
-            <element signature="e#71874#72083#2" expanded="true" />
-            <element signature="e#72332#72541#2" expanded="true" />
+            <element signature="e#13138#13402#2" expanded="false" />
+            <element signature="e#13490#13755#2" expanded="false" />
+            <element signature="e#13919#14151#1" expanded="false" />
+            <element signature="e#14153#14385#1" expanded="false" />
+            <element signature="e#28794#29017#1" expanded="false" />
+            <element signature="e#52416#52686#2" expanded="false" />
+            <element signature="e#52740#53002#2" expanded="false" />
+            <element signature="e#53038#53271#2" expanded="false" />
+            <element signature="e#62008#62231#2" expanded="false" />
+            <element signature="e#71874#72083#2" expanded="false" />
+            <element signature="e#72332#72541#2" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="287" column="50" lean-forward="false" selection-start-line="287" selection-start-column="30" selection-end-line="287" selection-end-column="50" />
+        <state relative-caret-position="662">
+          <caret line="787" column="9" lean-forward="true" selection-start-line="787" selection-start-column="9" selection-end-line="787" selection-end-column="9" />
           <folding>
-            <marker date="1510734389879" expanded="true" signature="15927:15934" ph="»" />
-            <marker date="1510734389879" expanded="true" signature="18775:18781" ph=" " />
+            <marker date="1510841457134" expanded="true" signature="16077:16084" ph="»" />
+            <marker date="1510841457134" expanded="true" signature="18925:18931" ph=" " />
+            <marker date="1510841457134" expanded="true" signature="26117:26163" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1510841457134" expanded="true" signature="26275:26372" ph="UPDATE ${$ta... " />
+            <marker date="1510841457134" expanded="true" signature="26873:26903" ph="/*---end add... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="1267" column="21" lean-forward="false" selection-start-line="1267" selection-start-column="21" selection-end-line="1267" selection-end-column="21" />
+        <state relative-caret-position="665">
+          <caret line="1232" column="0" lean-forward="true" selection-start-line="1232" selection-start-column="0" selection-end-line="1232" selection-end-column="0" />
           <folding>
             <element signature="e#40423#40894#0" expanded="false" />
             <element signature="e#43164#45092#0" expanded="false" />

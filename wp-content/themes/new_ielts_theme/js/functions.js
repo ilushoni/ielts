@@ -1190,16 +1190,69 @@ $( document ).ready(function() {
         $(".page-next").text(nextBtnText);
     }
 
+
     if( ( $(".load-task-by-task").length ) ) {
         $(".task-content:not(:first-child)").addClass("hide-task");
         $(".task-content:first-child").addClass("visible-task");
-        taskSwitch();
+        sendUserData( 0, 0, 0 );
+        // $(".task-content:not(:first-child)").addClass("hide-task");
+        // $(".task-content:first-child").addClass("visible-task");
+        // taskSwitch();
     }
+
+    function sendUserData( task, page_id, record_data ){
+        $.ajax({
+            url: myVars.ajaxUrl, // Notice the AJAX URL here!
+            type: 'post',
+            data: {
+                action: 'my_action',
+                current_task: task,
+                page_id: page_id,
+                record_data: record_data
+            }, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
+            cache: false,
+            success: function ( response ) {
+                // Parse ajax response here
+                // Do something with the response
+                if( record_data == 0 ){
+                    response = response.split(' ');
+                    // var response = JSON.parse(response);
+                    var page_id  = response[0];
+                    var current_task  = response[1];
+
+                    if( page_id ){
+                        if( page_id == $("article.container").attr('id').replace('post-', '') ){
+                            var $el = $( ".task-name:contains('Task "+current_task+"')" ).parents(".task-content");
+                            $(".task-content.visible-task").removeClass("visible-task");
+                            $(".task-content").addClass("hide-task");
+                            $el.removeClass("hide-task");
+                            $el.addClass("visible-task");
+                        }else {
+                            window.location.href = response[2];
+                        }
+
+                    }
+                    taskSwitch();
+                }
+
+            },
+            error: function ( response ) {
+                // Handle error response here
+                console.log( response );
+            }
+        });
+    }
+    //
+    // function showTaskIfRefresh() {
+    //     var page_info = sendUserData( 0, 0, 0 );
+    //     console.dir(page_info);
+    // }
 
     $(document).on("click", ".page-nav-wrapper.load .page-prev", function(){
         if( $(".task-content:first-child").hasClass("hide-task") ) {
             switchVisibleTask();
             taskSwitch();
+            sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
             return false;
         } else {
             if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-first") ) ) {
@@ -1216,7 +1269,6 @@ $( document ).ready(function() {
                     if( $(".video-iframe-wrapper").length ){
                         $(".video-iframe-wrapper iframe").each(function(){
                             var frameId = this.id;
-                            console.log(this.id);
                             if( frameId ){
                                 player = new YT.Player( frameId, {
                                     events: {
@@ -1228,6 +1280,7 @@ $( document ).ready(function() {
                             }
                         });
                     }
+                    sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
                 });
                 return false;
             }
@@ -1238,6 +1291,7 @@ $( document ).ready(function() {
         if($(".task-content:last-child").hasClass("hide-task") ) {
             switchVisibleTask('next');
             taskSwitch();
+            sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
             return false;
         } else {
             if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-last") ) ) {
@@ -1254,7 +1308,6 @@ $( document ).ready(function() {
                     if( $(".video-iframe-wrapper").length ){
                         $(".video-iframe-wrapper iframe").each(function(){
                             var frameId = this.id;
-                            console.log(this.id);
                             if( frameId ){
                                 player = new YT.Player( frameId, {
                                     events: {
@@ -1266,6 +1319,7 @@ $( document ).ready(function() {
                             }
                         });
                     }
+                    sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
                     // if( $('.btn-stop:visible').length ){
                     //     $('.btn-stop:visible').click();
                     // }
@@ -1290,7 +1344,7 @@ function onYouTubePlayerAPIReady() {
     // create the global player from the specific iframe (#video)
     $(".video-iframe-wrapper iframe").each(function(){
         var frameId = this.id;
-        console.log(this.id);
+        // console.log(this.id);
         if( frameId ){
             player = new YT.Player( frameId, {
                 events: {
@@ -1305,7 +1359,6 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerReady(event) {
     // bind events
-    console.dir(event);
     $(event.target.a).parents(".video-iframe-wrapper").find(".btn-video").click(function(){
         $(this).parents(".video-iframe-wrapper").toggleClass("is-playing");
         if( $(this).parents(".video-iframe-wrapper").hasClass("is-playing") ){
@@ -1318,8 +1371,6 @@ function onPlayerReady(event) {
 
 // when video ends
 function onPlayerStateChange(event) {
-    console.dir(event);
-    // console.dir($(event.target.a));
     if (event.data == YT.PlayerState.PLAYING){
         $(event.target.a).parents(".video-iframe-wrapper").addClass("is-playing");
     } else{

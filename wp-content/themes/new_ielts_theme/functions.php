@@ -223,6 +223,8 @@ function ielts_scripts() {
 	wp_enqueue_script( 'ielts-jqueryuitouch', get_template_directory_uri() . '/js/jquery.ui.touch-punch.min.js', array('jquery'));
 
 	wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', array('jquery'));
+    $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+    wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
 
     if ( is_page( 'Task voice record' ) ) {
         wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'));
@@ -758,5 +760,36 @@ function mytheme_list_pages($param) {
         $i++;
     }
     return $li;
+}
+
+//mark task id on page width come tasks for current user SPEAKING->PART1->FOCUS1
+add_action('wp_ajax_my_action', 'my_action_callback');
+add_action('wp_ajax_nopriv_my_action', 'my_action_callback');
+function my_action_callback() {
+    // Do your processing here (save to database etc.)
+    // All WP API functions are available for you here
+    $table_name = 'user_progress';
+    $user_id = get_current_user_id();
+    $current_task = intval( $_POST['current_task'] );
+    $page_id = intval( $_POST['page_id'] );
+    $record_data = intval( $_POST['record_data'] );
+    global $wpdb;
+    $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id);
+    if( $record_data > 0 ){
+        if(count($datum)>0){
+            $wpdb->query( $wpdb->prepare("UPDATE $table_name SET page_id = ".$page_id.", current_index = ".$current_task." WHERE user_id = ".$user_id) );
+        }else {
+            $wpdb->insert( $table_name, array( 'user_id' => $user_id, 'page_id' => $page_id, 'current_index' => $current_task ) );
+        }
+    }else {
+        $link = '';
+        if( $datum[0]->page_id ){
+            $link = get_page_link( $datum[0]->page_id );
+        }
+        echo $datum[0]->page_id." ".$datum[0]->current_index." ".$link;
+    }
+
+    // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+    wp_die();
 }
 /*---end added by ira.che---*/
