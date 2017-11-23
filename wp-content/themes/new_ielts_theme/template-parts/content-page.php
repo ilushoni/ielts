@@ -128,7 +128,6 @@ switch ( $page_slug ):
         $parent_page_slug = $post_parent->post_name;
 
         if( $parent_page_slug == "speaking" ) {
-
             echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
                 get_template_part('template-parts/content', 'page-speaking-part1');
 
@@ -175,7 +174,6 @@ switch ( $page_slug ):
                 }else {
 
                     //this page has parent page and it is NOT SENTENCE  COMPLETION. It may be task pages, because has section navigation MENU
-
                     echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
                         get_template_part( 'template-parts/content', 'page-sentence-completion-inner' );
 

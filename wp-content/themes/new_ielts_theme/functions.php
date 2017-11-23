@@ -222,15 +222,17 @@ function ielts_scripts() {
 	wp_enqueue_script( 'ielts-jqueryui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery'), '1.12.1');
 	wp_enqueue_script( 'ielts-jqueryuitouch', get_template_directory_uri() . '/js/jquery.ui.touch-punch.min.js', array('jquery'));
 
-	wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', array('jquery'));
+    wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'), '1.0', 'in_footer');
+    $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
+    wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
+
+    wp_enqueue_script( 'ielts-jqueryrecordfunctions', get_template_directory_uri() . '/js/record-functions.js', 'ielts-jqueryrecorderjs', '1.0', 'in_footer');
+    $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+    wp_localize_script( 'ielts-jqueryrecordfunctions', 'myVars', $localizations );
+
+    wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', 'ielts-jqueryrecordfunctions', '1.0', 'in_footer');
     $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
     wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
-
-    if ( is_page( 'Task voice record' ) ) {
-        wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'));
-        $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
-        wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
-    }
 
 	wp_localize_script( 'ielts-script', 'screenReaderText', array(
 		'expand'   => __( 'expand child menu', 'ielts' ),
@@ -239,22 +241,24 @@ function ielts_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'ielts_scripts' );
 
-function show_my_recorder_func() {
-
-    wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'));
-    $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
-    wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
-
+function show_my_recorder_func($atts) {
+    $add = "";
+    extract(shortcode_atts(array(
+        'add' => 'no-default',
+    ), $atts));
     $recorder = '<div class="recorder">';
         $recorder .= '<button class="btn btn-record">Record Myself</button>';
         $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
         $recorder .= '<div class="record-duration"></div>';
-        $recorder .= '<ul class="record-list"></ul>';
+        if( $add != "add-after" ){
+            $recorder .= '<ul class="record-list"></ul>';
+        }
         $recorder .= '<pre class="log"></pre>';
     $recorder .= '</div>';
-
+    if( $add == "add-after" ){
+        $recorder .= '<ul class="record-list"></ul>';
+    }
     return $recorder;
-
 }
 add_shortcode('my_recorder', 'show_my_recorder_func');
 
@@ -306,6 +310,43 @@ function show_my_video_func( $atts) {
 
 }
 add_shortcode('my_video', 'show_my_video_func');
+
+function show_my_audio_func( $atts) {
+    $get_audio_from_page_id = '';
+    extract(shortcode_atts(array(
+        'get_audio_from_page_id' => 'no-default',
+    ), $atts));
+
+    $table_name = 'user_audio';
+    $user_id = get_current_user_id();
+    $page_id = $get_audio_from_page_id;
+
+    global $wpdb;
+    $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
+
+    if(count($datum)>0){
+        $audio = '<ul class="insert-record-questions-list">';
+        foreach( $datum as $data ){
+            $id = $data->page_question_number;
+            $audio .= '<li id="record-play-item-'.$id.'">';
+                $audio .= '<audio id="music'.$id.'" class="audio-el" src="'.wp_upload_dir()["baseurl"].$data->audio_link.'"></audio>';
+                $audio .= '<div id="audioplayer'.$id.'" class="audioplayer">';
+                    $audio .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
+                    $audio .= '<p class="audio-text">';
+                        $audio .= '<span class="audio-name">'.$data->question_text_short.'</span>';
+                        $audio .= '<span class="duration"></span>';
+                    $audio .= '</p>';
+                    $audio .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
+                $audio .= '</div>';
+            $audio .= '</li>';
+        }
+        $audio .= '</ul>';
+    }else {
+        $audio = 'no records';
+    }
+    return $audio;
+}
+add_shortcode('my_audio', 'show_my_audio_func');
 
 /**
  * Adds custom classes to the array of body classes.
@@ -521,51 +562,54 @@ function is_login_page() {
 }
 
 function redirect_to_home() {
-    global $current_user;
-    wp_get_current_user();
-
     //redirect from all pages excerpt page Under Construction, login page and front pages
     if( (!is_user_logged_in()) && (!is_front_page()) && (!is_home()) && (!is_404()) && (!is_login_page()) && ( get_queried_object_id() !== 64 ) ) {
         wp_redirect(home_url());
         exit();
+    } else {
+        //redirect if refresh on tasks pages in SPEAKING
+        global $post;
+        $ancestors = get_post_ancestors($post->ID);
+        $root = count($ancestors)-1;
+        $parent_id = $ancestors[$root];
+        $parents = get_post_ancestors( $post->ID );
+        if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
+            $table_name = "user_progress";
+            $user_id = get_current_user_id();
+            global $wpdb;
+            $query = "SELECT current_index FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$post->post_parent;
+            $datum = $wpdb->get_results( $query );
+            if( $datum[0]->{"current_index"} != $post->ID ){
+//                wp_redirect( get_the_permalink( $datum[0]->{'current_index'}), 301 );
+//                exit();
+            }
+        }
     }
 }
 add_action('template_redirect', 'redirect_to_home');
 
 //check if page is parent of current page
 function is_tree($pid) {
-
     global $post;
-
     $ancestors = get_post_ancestors($post->$pid);
     $root = count($ancestors) - 1;
     $parent = $ancestors[$root];
 
     if(is_page() && (is_page($pid) || $post->post_parent == $pid || in_array($pid, $ancestors))) {
-
         return true;
-
     } else {
-
         return false;
-
     }
 };
 
 //get page id by slug
 function get_id_by_slug($page_slug) {
-
     $page = get_page_by_path($page_slug);
     if ($page) {
-
         return $page->ID;
-
     } else {
-
         return null;
-
     }
-
 }
 /**
  * Remove empty paragraphs created by wpautop()
@@ -770,26 +814,122 @@ function my_action_callback() {
     // All WP API functions are available for you here
     $table_name = 'user_progress';
     $user_id = get_current_user_id();
+    $post_id = intval( $_POST['page_id'] );
+    $post = get_post( $post_id );
+    $page_id = $post->post_parent;
     $current_task = intval( $_POST['current_task'] );
-    $page_id = intval( $_POST['page_id'] );
-    $record_data = intval( $_POST['record_data'] );
     global $wpdb;
-    $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id);
-    if( $record_data > 0 ){
-        if(count($datum)>0){
-            $wpdb->query( $wpdb->prepare("UPDATE $table_name SET page_id = ".$page_id.", current_index = ".$current_task." WHERE user_id = ".$user_id) );
-        }else {
-            $wpdb->insert( $table_name, array( 'user_id' => $user_id, 'page_id' => $page_id, 'current_index' => $current_task ) );
-        }
+    $query = "SELECT current_index FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id;
+    $datum = $wpdb->get_results( $query );
+    if( count($datum) ){
+        $wpdb->update(
+            $table_name,
+            array(
+                'current_index' => $current_task
+            ),
+            array(
+                'user_id' => $user_id,
+                'page_id' => $page_id
+            ));
     }else {
-        $link = '';
-        if( $datum[0]->page_id ){
-            $link = get_page_link( $datum[0]->page_id );
-        }
-        echo $datum[0]->page_id." ".$datum[0]->current_index." ".$link;
+        $wpdb->insert(
+            $table_name,
+            array(
+                'user_id' => $user_id,
+                'page_id' => $page_id,
+                'current_index' => $current_task
+            )
+        );
     }
-
     // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
     wp_die();
 }
+
+//save user audio file
+add_action('wp_ajax_my_save_audio_file', 'my_save_audio_file_callback');
+add_action('wp_ajax_nopriv_my_save_audio_file', 'my_save_audio_file_callback');
+function my_save_audio_file_callback() {
+    // Do your processing here (save to database etc.)
+    // All WP API functions are available for you here
+    $table_name = 'user_audio';
+    $user_id = get_current_user_id();
+    $page_id = intval( $_POST['page_id'] );
+    $page_question_number = intval( $_POST['page_question_number'] );
+    $question_text = $_POST['question_text'];
+    $question_text_short = $_POST['question_text_short'];
+    $date = "-time-".date("G-i-s");
+    $file = $_FILES['file']['tmp_name'];
+    $fname_old = $user_id . "-" . $page_id . "-" . $page_question_number . "-audio";
+    $fname = $fname_old.$date.".wav";
+    $audio_link = "/audio/" . $fname;
+    $mask = wp_upload_dir()['basedir'] . "/audio/" .$user_id . "-" . $page_id . "-" . $page_question_number . "-audio*.wav";
+    array_map('unlink', glob($mask));
+    move_uploaded_file($file, wp_upload_dir()["basedir"] . $audio_link);
+    global $wpdb;
+    $query = "SELECT audio_id FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id." AND page_question_number = ".$page_question_number;
+    $datum = $wpdb->get_results( $query );
+    if(count($datum)>0){
+        $wpdb->update(
+            $table_name,
+            array(
+                'audio_link' => $audio_link,
+                'question_text' => $question_text,
+                'question_text_short' => $question_text_short
+            ),
+            array(
+                'audio_id' => $datum[0]->{"audio_id"}
+            ));
+    }else {
+        $query =  array(
+            'user_id' => $user_id,
+            'page_id' => $page_id,
+            'page_question_number' => $page_question_number ,
+            'question_text' => $question_text,
+            'question_text_short' => $question_text_short,
+            'audio_link' => $audio_link
+        );
+        $wpdb -> insert( $table_name, $query );
+    }
+    // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+    wp_die();
+}
+
+//redirect on page with correct url on pages with ajax load
+//function redirect_correct_url() {
+//    global $post;
+//    $ancestors = get_post_ancestors($post->ID);
+//    $root = count($ancestors)-1;
+//    $parent_id = $ancestors[$root];
+//    $parents = get_post_ancestors( $post->ID );
+//    if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
+//        $table_name = "user_progress";
+//        $user_id = get_current_user_id();
+//        global $wpdb;
+//        $query = "SELECT current_index FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$post->post_parent;
+//        $datum = $wpdb->get_results( $query );
+//        if( $datum[0]->{"current_index"} != $post->ID ){
+//            wp_redirect( get_the_permalink( $datum[0]->{'current_index'}, 301 ));
+//            exit();
+//        }
+//    }
+//}
+//add_action('template_redirect', 'redirect_correct_url');
+
+////add scripts for audio and record
+//add_action('wp_ajax_my_add_scripts', 'my_add_scripts_callback');
+//add_action('wp_ajax_nopriv_my_add_scripts', 'my_add_scripts_callback');
+//function my_add_scripts_callback() {
+//    // Do your processing here (save to database etc.)
+//    // All WP API functions are available for you here
+//    $add = $_POST['add'];
+//    echo "add ".$add;
+//    if( $add ){
+//        echo "here";
+//        wp_enqueue_script( 'ielts-jqueryrecordfunctions', get_template_directory_uri() . '/js/record-functions.js', array('jquery'));
+//        $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+//        wp_localize_script( 'ielts-jqueryrecordfunctions', 'myVars', $localizations );
+//    }
+//    // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+//    wp_die();
+//}
 /*---end added by ira.che---*/

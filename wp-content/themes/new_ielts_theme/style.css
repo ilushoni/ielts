@@ -2731,6 +2731,10 @@ p.no-margin {
 /*---end page task width audios---*/
 
 /*---page width task drag and drop phrases---*/
+.task-name.task-speaking {
+    padding: 75px 0 12px;
+}
+
 .task-content p.task-name-condition.before-question {
     margin-bottom: 7px;
 }
@@ -2958,6 +2962,30 @@ p.no-margin {
 
 .one-line-recorder .insert-record-questions-list li:last-child {
     margin-bottom: 0;
+}
+
+.one-line-recorder br {
+    display: none;
+}
+
+.one-line-recorder .record-list{
+    margin: 0;
+}
+
+.one-line-recorder .record-list:before {
+    display: none;
+}
+
+.one-line-recorder .record-list li{
+    margin: 0;
+}
+
+.one-line-recorder .record-list li{
+    display: none;
+}
+
+.one-line-recorder .record-list li:last-child{
+    display: block;
 }
 /*---end page with questions on page like sheet---*/
 

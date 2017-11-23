@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body class="<?php global $post; echo "page-".$post->ID; ?>">
 
     <?php
 

@@ -674,321 +674,28 @@ $( document ).ready(function() {
                                     }
                                 });
                                 break;
-
                         }
-
                     });
-
             }
-
             showMessage( ( $(".wrong").length + $(".empty").length ) );
-
         }
-
     });
 
-    //work with audio records
-    if( $(".log").length ) { //TODO change logo id
-
-        var $log_el;
-        var timerId = null;
-
-        function formatDuration(seconds) {
-
-            var sec = Math.floor( seconds );
-            var min = Math.floor( sec / 60 );
-            min = min >= 10 ? min : '0' + min;
-            sec = Math.floor( sec % 60 );
-            sec = sec >= 10 ? sec : '0' + sec;
-            return min + ':' + sec;
-
-        }
-
-        $(document).on('click', '.btn-record', function(){
-        // $('.btn-record').click(function(){
-
-            if( $('.btn-stop:visible').length ){
-                $('.btn-stop:visible').click();
-            }
-
-            $log_el = $(this).parents(".recorder").find(".log");
-
-            startRecording($(this));
-            var i=0;
-            var $el = $(this).parents(".recorder").find(".record-duration");
-
-            $el.text(formatDuration(i));
-            timerId = null;
-            timerId = setTimeout(function tick() {
-                i++;
-                $el.text(formatDuration(i));
-                timerId = setTimeout(tick, 1000);
-            }, 1000);
-
-        });
-
-        $(document).on("click", ".btn-stop", function(){
-        // $('.btn-stop').click(function(){
-
-            stopRecording($(this));
-            var $el = $(this).parents(".recorder").find(".btn-record");
-            if( $el.text() == "Record Myself" ) {
-                $el.text("Re-record");
-            }
-            if (timerId) {
-                clearTimeout(timerId); //cancel the previous timer.
-                timerId = null;
-            }
-
-        });
-
-        function __log(e, data) {
-            var oldHtml = $log_el.html();
-            $log_el.html(oldHtml + "\n" + e + " " + (data || ''));
-        }
-
-        var audio_context;
-        var recorder;
-        var record_i = 0; //recorder counter
-        var durations = [];
-
-        function startUserMedia(stream) {
-            var input = audio_context.createMediaStreamSource(stream);
-            __log('Media stream created.');
-
-            // Uncomment if you want the audio to feedback directly
-            //input.connect(audio_context.destination);
-            //__log('Input connected to audio context destination.');
-
-            recorder = new Recorder(input);
-            __log('Recorder initialised.');
-        }
-
-        function startRecording(button) {
-            recorder && recorder.record();
-            button.attr("disabled","disabled");
-
-            var $el = button.parents(".recorder").find(".btn-stop");
-
-            $el.removeAttr('disabled');
-            __log('Recording...');
-        }
-
-        function stopRecording(button) {
-            recorder && recorder.stop();
-
-            // button.disabled = true;
-            button.attr("disabled","disabled");
-
-            var $el = button.parents(".recorder").find(".btn-record");
-
-            $el.removeAttr('disabled');
-            __log('Stopped recording.');
-            // create WAV download link using audio data blob
-
-            if( $(".load-task-by-task").length ) {
-                var el_text = button.parents("li").find(".short").parent("span").clone();
-                el_text.find(".short").text( "..." );
-                var index = button.parents("li").index();
-                var text = el_text.text();
-                if( index === -1 ) index = 1;
-                if( text === '' ) text = 'Your Recording';
-                createDownloadLink( $(".insert-record-questions-list"), text, index );
-            } else {
-                createDownloadLink( button.parents(".recorder") );
-            }
-
-            recorder.clear();
-        }
-
-        function returnMusic(el){
-            var $this = el.parents("li");
-            var music_id = $this.find("audio").attr("id");
-            var music = document.getElementById(music_id);
-
-            return music;
-        }
-
-        function createDownloadLink(parent_el, text, index) {
-            recorder && recorder.exportWAV(function(blob) {
-                var url = URL.createObjectURL(blob);
-                record_i++;
-
-                if( parent_el.hasClass(".recorder") ) {
-                    parent_el.find('.record-list').attr("id","record-list-"+record_i);
-
-                    $('#record-list-'+record_i).append(
-                        '<li>'+
-                            '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                            '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                                '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                                '<p class="audio-text">'+
-                                    '<span class="audio-name">Your answer to the question '+record_i+'</span>' +
-                                    '<span class="duration"></span>' +
-                                '</p>'+
-                                '<div id="timeline'+record_i+'" class="timeline">' +
-                                    '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                                '</div>' +
-                            '</div>'+
-                        '</li>'
-                    );
-                } else {
-                    if( $('#record-play-item-'+index).length ) {
-
-                        $('#record-play-item-'+index).html('');
-                        $('#record-play-item-'+index).append(
-                            '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                            '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                                '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                                '<p class="audio-text">'+
-                                    '<span class="audio-name">'+text+'</span>' +
-                                    '<span class="duration"></span>' +
-                                '</p>'+
-                                '<div id="timeline'+record_i+'" class="timeline">' +
-                                    '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                                '</div>' +
-                            '</div>'
-                        );
-
-                    } else {
-                        parent_el.append(
-                            '<li id="record-play-item-'+index+'">'+
-                                '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                                '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                                    '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                                    '<p class="audio-text">'+
-                                        '<span class="audio-name">'+text+'</span>' +
-                                        '<span class="duration"></span>' +
-                                    '</p>'+
-                                    '<div id="timeline'+record_i+'" class="timeline">' +
-                                        '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                                    '</div>' +
-                                '</div>'+
-                            '</li>'
-                        );
-                    }
-
-                }
-
-                $('audio[src="'+url+'"]').on("canplay", function () {
-                    var d = formatDuration(this.duration);
-                    $(this).parents("li").find(".duration").text( d );
-                    durations.push(d);
-                });
-
-                $("audio").on('timeupdate', function(){
-                    $(this).parents("li").find('.duration').text( formatDuration( Math.floor(this.currentTime) ) );
-                });
-
-                $('audio').on('ended', function() {
-                    var music = returnMusic( $(this) );
-                    $(this).parents("li").find('.btn-play').removeClass("pause").addClass("play");
-                    $(this).parents("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
-                });
-
-                $('<a href="' + url + '" class="btn btn-save-audio">save</button>')
-                    .appendTo( $('#record-list-'+record_i+' li:last-child') )
-                    // .appendTo( $('.record-list li:last-child') )
-                    .click(function(){
-
-                        var data = new FormData();
-                        data.append('file', blob);
-                        // data.append('file', blob, 'filename.wav');
-
-                        $.ajax({
-                            url :  wnm_custom.template_url+"/upload-audio.php",
-                            type: 'POST',
-                            data: data,
-                            contentType: false,
-                            processData: false,
-                            success: function(data) {
-                                console.log("boa! I can save file!");
-                            },
-                            error: function() {
-                                console.log("not so boa!");
-                            }
-                        });
-
-                        return false;
-                    });
-            });
-        }
-
-        $(document).on('click', '.btn-play', function(){
-
-            var music = returnMusic( $(this) );
-            var duration = music.duration;
-            var timeline_id = $(this).parents("li").find(".timeline").attr("id");
-            var timeline = document.getElementById(timeline_id);
-
-            if( music.paused ) {
-                music.play();
-                switch( $(this).parents("li").find(".playhead").width() ){
-                    case $(this).parents("li").find(".timeline").width() :
-                        $(this).parents("li").find(".playhead").width(3);
-                        break;
-                    default:
-                        var w = $(this).parents("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
-                        duration -= w;
-                }
-                $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
-                $(this).removeClass("play").addClass("pause");
-            }else {
-                music.pause();
-                $(this).parents("li").find(".playhead").stop();
-                $(this).removeClass("pause").addClass("play");
-            }
-
-            // $(this).toggleClass("play").toggleClass("pause");
-
-        });
-
-        window.onload = function init() {
-            var i = 0;
-
-            $(".log").each(function(){
-                i++;
-                $(this).attr("id","log-"+i);
-            });
-
-            $log_el = $(".log");
-
-            try {
-                // webkit shim
-                window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-                window.URL = window.URL || window.webkitURL;
-
-                audio_context = new AudioContext;
-                __log('Audio context set up.');
-                __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-            } catch (e) {
-                console.log('No web audio support in this browser!');
-            }
-
-            navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-                __log('No live audio input: ' + e);
-            });
-
-        };
-    }
-
-
     //get url parameter
-    var getUrlParameter = function getUrlParameter(sParam) {
-        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
-
-        for (i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
-
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : sParameterName[1];
-            }
-        }
-    };
+    // var getUrlParameter = function getUrlParameter(sParam) {
+    //     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+    //         sURLVariables = sPageURL.split('&'),
+    //         sParameterName,
+    //         i;
+    //
+    //     for (i = 0; i < sURLVariables.length; i++) {
+    //         sParameterName = sURLVariables[i].split('=');
+    //
+    //         if (sParameterName[0] === sParam) {
+    //             return sParameterName[1] === undefined ? true : sParameterName[1];
+    //         }
+    //     }
+    // };
 
     $(document).on('click', ".check-answers-now input", function(){
     // $(".check-answers-now input").click(function(){
@@ -1048,21 +755,6 @@ $( document ).ready(function() {
         $(".section-menu.top-line.column-8").addClass("visible_6-8");
         moveMenuCarousel('next');
     }
-
-    // $(window).resize(function(){ //TODO resize problem
-    //     if( $(window).width()>860 ) {
-    //         $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").removeAttr("style");
-    //     }else{
-    //         if( $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").attr("style")!='' ){
-    //             var x = 0;
-    //             x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").width()+8;
-    //             x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(3)").width()+8;
-    //             x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(4)").width()+8;
-    //             x += 5;
-    //             $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").css("margin-left", x );
-    //         }
-    //     }
-    // });
 
     $(".section-menu.top-line.column-8 .show-more").click(function(){
         var $elParent = $(this).parents(".section-menu");
@@ -1178,154 +870,113 @@ $( document ).ready(function() {
 
     $.ajaxSetup({cache:false});
     //section SPEAK - load task by task on page
-    function switchVisibleTask(next){
-        var $el_task_wrap = $(".visible-task");
-        $el_task_wrap.removeClass("visible-task").addClass("hide-task");
-        $el_task_wrap = (next) ? $el_task_wrap.next() : $el_task_wrap.prev();
-        $el_task_wrap.addClass("visible-task").removeClass("hide-task");
-    }
 
     function taskSwitch(){
-        var nextBtnText = ( $(".task-content:last-child").hasClass("visible-task") ) ? "Next" : $(".visible-task").next(".task-content").find(".task-name").text();
-        $(".page-next").text(nextBtnText);
+        if( $(".item-is-last").length ){
+            $(".page-next").text("Next");
+        } else {
+            var text = $(".task-name").text().replace(/(\d+)+/g, function(match, number) {
+                return parseInt(number)+1;
+            });
+            $(".page-next").text(text);
+        }
     }
 
-
-    if( ( $(".load-task-by-task").length ) ) {
-        $(".task-content:not(:first-child)").addClass("hide-task");
-        $(".task-content:first-child").addClass("visible-task");
-        sendUserData( 0, 0, 0 );
-        // $(".task-content:not(:first-child)").addClass("hide-task");
-        // $(".task-content:first-child").addClass("visible-task");
-        // taskSwitch();
+    if( $(".task-name.task-speaking").length ){
+        taskSwitch();
     }
 
-    function sendUserData( task, page_id, record_data ){
+    function sendUserData(page_id){
         $.ajax({
             url: myVars.ajaxUrl, // Notice the AJAX URL here!
             type: 'post',
             data: {
                 action: 'my_action',
-                current_task: task,
-                page_id: page_id,
-                record_data: record_data
+                page_id: $("body").attr("class").split(' ')[0].replace('page-', ''), //current page ID = it visible in URL
+                current_task: page_id //current page ID, it visible in <article>
             }, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
             cache: false,
             success: function ( response ) {
                 // Parse ajax response here
                 // Do something with the response
-                if( record_data == 0 ){
-                    response = response.split(' ');
-                    // var response = JSON.parse(response);
-                    var page_id  = response[0];
-                    var current_task  = response[1];
-
-                    if( page_id ){
-                        if( page_id == $("article.container").attr('id').replace('post-', '') ){
-                            var $el = $( ".task-name:contains('Task "+current_task+"')" ).parents(".task-content");
-                            $(".task-content.visible-task").removeClass("visible-task");
-                            $(".task-content").addClass("hide-task");
-                            $el.removeClass("hide-task");
-                            $el.addClass("visible-task");
-                        }else {
-                            window.location.href = response[2];
-                        }
-
-                    }
-                    taskSwitch();
-                }
-
+                console.log("success");
+                console.dir( response );
             },
             error: function ( response ) {
                 // Handle error response here
-                console.log( response );
+                console.log("error");
+                console.dir( response );
             }
         });
     }
-    //
-    // function showTaskIfRefresh() {
-    //     var page_info = sendUserData( 0, 0, 0 );
-    //     console.dir(page_info);
-    // }
 
     $(document).on("click", ".page-nav-wrapper.load .page-prev", function(){
-        if( $(".task-content:first-child").hasClass("hide-task") ) {
-            switchVisibleTask();
-            taskSwitch();
-            sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
+        if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-first") ) ) {
+            $('.btn-stop:visible').click();
+            var post_link = $(this).attr("href");
+            $.get(post_link, function(data){ // Loads content into the 'data' variable.
+                var html = $.parseHTML( data );
+                $("article").replaceWith( $($(html)).filter("article") );
+                taskSwitch();
+                if( $(".sort-phrase").length ){
+                    startSortOfPhrases();
+                }
+                if( $(".video-iframe-wrapper").length ){
+                    $(".video-iframe-wrapper iframe").each(function(){
+                        var frameId = this.id;
+                        if( frameId ){
+                            player = new YT.Player( frameId, {
+                                events: {
+                                    // call this function when player is ready to use
+                                    'onReady': onPlayerReady,
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        }
+                    });
+                }
+                if( $("audio").length || $(".recorder").length ){
+                    init();
+                    audioHandler();
+                }
+                sendUserData( $("article.container").attr('id').replace('post-', ''));
+            });
             return false;
-        } else {
-            if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-first") ) ) {
-                var post_link = $(this).attr("href");
-                $.get(post_link, function(data){ // Loads content into the 'data' variable.
-                    var html = $.parseHTML( data );
-                    $("article").replaceWith( $($(html)).filter("article") );
-                    $(".task-content:not(:last-child)").addClass("hide-task");
-                    $(".task-content:last-child").addClass("visible-task");
-                    taskSwitch();
-                    if( $(".sort-phrase").length ){
-                        startSortOfPhrases();
-                    }
-                    if( $(".video-iframe-wrapper").length ){
-                        $(".video-iframe-wrapper iframe").each(function(){
-                            var frameId = this.id;
-                            if( frameId ){
-                                player = new YT.Player( frameId, {
-                                    events: {
-                                        // call this function when player is ready to use
-                                        'onReady': onPlayerReady,
-                                        'onStateChange': onPlayerStateChange
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
-                });
-                return false;
-            }
         }
     });
 
     $(document).on("click", ".page-nav-wrapper.load .page-next", function(){
-        if($(".task-content:last-child").hasClass("hide-task") ) {
-            switchVisibleTask('next');
-            taskSwitch();
-            sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
+        if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-last") ) ) {
+            $('.btn-stop:visible').click();
+            var post_link = $(this).attr("href");
+            $.get(post_link, function(data){ // Loads content into the 'data' variable.
+                var html = $.parseHTML( data );
+                $("article").replaceWith( $($(html)).filter("article") );
+                taskSwitch();
+                if( $(".sort-phrase").length ){
+                    startSortOfPhrases();
+                }
+                if( $(".video-iframe-wrapper").length ){
+                    $(".video-iframe-wrapper iframe").each(function(){
+                        var frameId = this.id;
+                        if( frameId ){
+                            player = new YT.Player( frameId, {
+                                events: {
+                                    // call this function when player is ready to use
+                                    'onReady': onPlayerReady,
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        }
+                    });
+                }
+                if( $("audio").length || $(".recorder").length ){
+                    init();
+                    audioHandler();
+                }
+                sendUserData( $("article.container").attr('id').replace('post-', ''));
+            });
             return false;
-        } else {
-            if(!( $(this).parents(".page-nav-wrapper").hasClass("item-is-last") ) ) {
-                var post_link = $(this).attr("href");
-                $.get(post_link, function(data){ // Loads content into the 'data' variable.
-                    var html = $.parseHTML( data );
-                    $("article").replaceWith( $($(html)).filter("article") );
-                    $(".task-content:not(:first-child)").addClass("hide-task");
-                    $(".task-content:first-child").addClass("visible-task");
-                    taskSwitch();
-                    if( $(".sort-phrase").length ){
-                        startSortOfPhrases();
-                    }
-                    if( $(".video-iframe-wrapper").length ){
-                        $(".video-iframe-wrapper iframe").each(function(){
-                            var frameId = this.id;
-                            if( frameId ){
-                                player = new YT.Player( frameId, {
-                                    events: {
-                                        // call this function when player is ready to use
-                                        'onReady': onPlayerReady,
-                                        'onStateChange': onPlayerStateChange
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    sendUserData($(".task-content.visible-task .task-name").text().replace('Task ', ''), $("article.container").attr('id').replace('post-', ''), 1);
-                    // if( $('.btn-stop:visible').length ){
-                    //     $('.btn-stop:visible').click();
-                    // }
-                });
-                return false;
-            }
         }
     });
 });

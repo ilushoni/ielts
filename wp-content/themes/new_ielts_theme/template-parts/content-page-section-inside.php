@@ -66,9 +66,11 @@ if( $task_text_array ) {
 
 } else {
     //there is no text for task
-    if( get_the_title() && ( !($speaking_part1_rule) ) ) {
+    $class = ($speaking_part1_rule) ? 'task-speaking' : '';
+//    if( get_the_title() && ( !($speaking_part1_rule) ) ) {
+    if( get_the_title() ) {
         if( strpos( $page_slug, 'task-' ) !== false ){
-            the_title( '<h3 class="task-name">', '</h3>' );
+            the_title( '<h3 class="task-name '.$class.'">', '</h3>' );
         } else {
             echo '<header class="entry-header">';
                 the_title( '<h1 class="entry-title">', '</h1>' );
@@ -78,10 +80,7 @@ if( $task_text_array ) {
 
 //    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') or ( $speaking_part1_rule )) ? $class = "task-column-not-full" : $class ='';
     $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online')) ? $class = "task-column-not-full" : $class ='';
-
-    if($speaking_part1_rule) {
-        $class = 'load-task-by-task';
-    }
+    if ($speaking_part1_rule) $class = 'task-content';
 
     echo '<div class="entry-content '.$class.'" id="post-content-'. get_the_ID() .'">';
 
