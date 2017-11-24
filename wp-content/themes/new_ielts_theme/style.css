@@ -696,6 +696,57 @@ input[type="phone"]::-webkit-input-placeholder{
 .one-video-in-task .video-iframe-wrapper * {
     letter-spacing: normal;
 }
+
+.task-image-size-medium {
+    position: relative;
+    display: block;
+    margin: 22px 0 132px;
+    width: 379px;
+    height: auto;
+}
+
+.list-on-paper {
+    position: relative;
+    padding: 30px 48px 59px;
+    margin-bottom: 102px;
+    width: 735px;
+    background-color: #fff;
+    box-shadow: 0 2px 40px 0 #e9e9e9;
+}
+
+.list-on-paper h5 {
+    position: relative;
+    margin-bottom: 40px;
+    font-size: 30px;
+    line-height: 1.1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.list-on-paper ol {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    counter-reset: myCounter;
+}
+
+.list-on-paper ol li {
+    margin-bottom: 13px;
+    display: grid;
+    grid-template-columns: 23px 1fr;
+    list-style: none;
+}
+
+.list-on-paper ol li:last-child{
+    margin: 0;
+}
+
+.list-on-paper ol li:before{
+    counter-increment: myCounter;
+    content:counter(myCounter) ".";
+    display: inline-block;
+    font-weight: 600;
+}
 /*end video in tasks section speaking*/
 
 /*user reviews*/
