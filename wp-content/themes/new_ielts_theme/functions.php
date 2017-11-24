@@ -222,17 +222,28 @@ function ielts_scripts() {
 	wp_enqueue_script( 'ielts-jqueryui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery'), '1.12.1');
 	wp_enqueue_script( 'ielts-jqueryuitouch', get_template_directory_uri() . '/js/jquery.ui.touch-punch.min.js', array('jquery'));
 
-    wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'), '1.0', 'in_footer');
-    $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
-    wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
+    global $post;
+    $ancestors = get_post_ancestors($post->ID);
+    $root = count($ancestors)-1;
+    $parent_id = $ancestors[$root];
+    $parents = get_post_ancestors( $post->ID );
+    if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
+        wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'), '1.0', 'in_footer');
+        $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
+        wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
 
-    wp_enqueue_script( 'ielts-jqueryrecordfunctions', get_template_directory_uri() . '/js/record-functions.js', 'ielts-jqueryrecorderjs', '1.0', 'in_footer');
-    $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
-    wp_localize_script( 'ielts-jqueryrecordfunctions', 'myVars', $localizations );
+        wp_enqueue_script( 'ielts-jqueryrecordfunctions', get_template_directory_uri() . '/js/record-functions.js', 'ielts-jqueryrecorderjs', '1.0', 'in_footer');
+        $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+        wp_localize_script( 'ielts-jqueryrecordfunctions', 'myVars', $localizations );
 
-    wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', 'ielts-jqueryrecordfunctions', '1.0', 'in_footer');
-    $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
-    wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
+        wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', 'ielts-jqueryrecordfunctions', '1.0', 'in_footer');
+        $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+        wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
+    } else {
+        wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '1.0', 'in_footer');
+        $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+        wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
+    }
 
 	wp_localize_script( 'ielts-script', 'screenReaderText', array(
 		'expand'   => __( 'expand child menu', 'ielts' ),
