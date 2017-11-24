@@ -293,28 +293,23 @@ function show_check_btn_func($atts) {
 add_shortcode('check-btn', 'show_check_btn_func');
 
 function show_my_video_func( $atts) {
-
     if( $atts ) {
-
         $iframe = '';
-
         extract(shortcode_atts(array(
             'iframe' => 'no-default',
         ), $atts));
-
         $video = '<div class="video-iframe-wrapper">';
-        $video .= $iframe;
-        $video .= '<div id="play-button" class="btn-video play"></div>';
-        $video .= '<div id="pause-button" class="btn-video pause"></div>';
+            $video .= $iframe;
+            $video .= '<div id="play-button" class="btn-video play"></div>';
+            $video .= '<div id="pause-button" class="btn-video pause"></div>';
         $video .= '</div>';
-
     }else {
         $video = '<div class="page-video">';
-        $video .= '<div class="player">';
-//    $video .= '<p class="video-name">' . _("Explore what you’ll get with Grade IELTS On-line Preparation Course") . '</p>';
-//    $video .= '<p class="video-content">' . _('Tasks, tests and checkpoint reviews') . '</p>';
-        $video .= '<div class="el-play"></div>';
-        $video .= '</div>';
+            $video .= '<div class="player">';
+    //    $video .= '<p class="video-name">' . _("Explore what you’ll get with Grade IELTS On-line Preparation Course") . '</p>';
+    //    $video .= '<p class="video-content">' . _('Tasks, tests and checkpoint reviews') . '</p>';
+                $video .= '<div class="el-play"></div>';
+            $video .= '</div>';
         $video .= '</div>';
     }
     return $video;

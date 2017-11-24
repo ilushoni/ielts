@@ -685,6 +685,19 @@ input[type="phone"]::-webkit-input-placeholder{
 }
 /*end video zone*/
 
+/*video in tasks section speaking*/
+.one-video-in-task .video-iframe-wrapper{
+    margin: 20px 0 60px;
+    display: inline-block;
+    width: auto;
+    letter-spacing: -.36em;
+}
+
+.one-video-in-task .video-iframe-wrapper * {
+    letter-spacing: normal;
+}
+/*end video in tasks section speaking*/
+
 /*user reviews*/
 .front-page-reviews {
     position: relative;
