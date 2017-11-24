@@ -11,7 +11,8 @@ wp_get_current_user();
 if(is_user_logged_in()) {
 
     //registered user
-    while ( have_posts() ) : the_post();
+    while ( have_posts() ) :
+        the_post();
         echo '<main class="container page"  id="post-'.get_the_ID().'" role="main">';
 
             if(get_the_title()) {
