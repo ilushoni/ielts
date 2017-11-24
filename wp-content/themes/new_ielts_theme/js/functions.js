@@ -8,15 +8,6 @@ $( document ).ready(function() {
         footerFix();
     });
     function footerFix() {
-        // var h = $(".header-navigation-container").height() + $(".container.page").height() + $(".footer-wrapper").height();
-        // if( $("#wpadminbar").length ) {
-        //     h += $("#wpadminbar").height();
-        // }
-        // if( $(".front-page-recent-posts").length ) {
-        //     h += $(".front-page-recent-posts").height();
-        // }
-        // ( h < $(window).height() ) ? ($(".footer-wrapper").addClass("fixed-bottom")) : ($(".fixed-bottom").removeClass("fixed-bottom"));
-
         var h = 0;
         $("body").children().each(function(){
             h += $(this).height();
@@ -945,6 +936,7 @@ $( document ).ready(function() {
                 }
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
+            footerFix();
             return false;
         }
     });
@@ -980,6 +972,7 @@ $( document ).ready(function() {
                 }
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
+            footerFix();
             return false;
         }
     });
