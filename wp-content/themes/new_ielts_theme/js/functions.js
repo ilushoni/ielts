@@ -556,20 +556,20 @@ $( document ).ready(function() {
                                         });
                                         break;
 
+                                    case ( $(this).hasClass("list-radio") ):
+                                        $(this).find("li").each(function(){
+                                            if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
+                                                $(this).removeClass('wrong');
+                                            }
+                                        });
+                                        break;
                                 }
-
                             });
-
                         }
-
                 }
-
                 showMessage( ( $(".wrong").length + $(".empty").length ) );
-
             }
-
         });
-
     });
 
 
@@ -693,14 +693,10 @@ $( document ).ready(function() {
     // };
 
     $(document).on('click', ".check-answers-now input", function(){
-    // $(".check-answers-now input").click(function(){
-    //     console.log($(this).prop('checked'));
-
         var $parent_el = $(this).parents(".list-questions-ul");
+        var $el = $(this);
         $parent_el.find("li").addClass("wrong");
-
         switch( true ) {
-
             case ( $parent_el.hasClass("list-checkbox") ):
                 $parent_el.find("input").each(function(){
                     if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
@@ -709,12 +705,8 @@ $( document ).ready(function() {
                     if( ( $(this).prop('checked') == false ) && ( $(this).parents("li").hasClass("wrong") ) ) {
                         $(this).parents("li").removeClass("wrong");
                     }
-                    // if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
-                    //     $(this).parents("li").removeClass("wrong");
-                    // }
                 });
                 break;
-
             case ( $parent_el.hasClass("list-one-character") ):
                 $parent_el.find("input").each(function(){
                     if( $(this).val() == $(this).attr("correct_answer") ) {
@@ -722,7 +714,6 @@ $( document ).ready(function() {
                     }
                 });
                 break;
-
             case ( $parent_el.hasClass("list-radiobutton") ):
                 $parent_el.find("li").each(function(){
                     if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
@@ -730,9 +721,14 @@ $( document ).ready(function() {
                     }
                 });
                 break;
-
+            case ( $parent_el.hasClass("list-radio") ):
+                $parent_el.find("li").removeClass("wrong");
+                if( ( $(this).prop('checked') == true ) && ( $(this).attr('correct_answer') !== "1" ) ) {
+                    $(this).parents("li").addClass('wrong');
+                }
+                break;
         }
-
+        $('*[class=""]').removeAttr('class');
     });
 
     function moveMenuCarousel(next){

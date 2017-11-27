@@ -354,6 +354,33 @@ function show_my_audio_func( $atts) {
 }
 add_shortcode('my_audio', 'show_my_audio_func');
 
+function show_audio_func( $atts) {
+    $mp3 = '';
+    $name = '';
+    extract(shortcode_atts(array(
+        'mp3' => 'no-default',
+        'name' => 'no-default'
+    ), $atts));
+    global $wpdb;
+    $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$mp3'";
+    $id = $wpdb->get_var($query);
+    $audio = '<ul class="insert-record-questions-list">';
+        $audio .= '<li id="record-play-item-'.$id.'">';
+        $audio .= '<audio id="music'.$id.'" class="audio-el" src="'.$mp3.'"></audio>';
+        $audio .= '<div id="audioplayer'.$id.'" class="audioplayer">';
+        $audio .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
+        $audio .= '<p class="audio-text">';
+        $audio .= '<span class="audio-name">'.$name.'</span>';
+        $audio .= '<span class="duration"></span>';
+        $audio .= '</p>';
+        $audio .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
+        $audio .= '</div>';
+        $audio .= '</li>';
+    $audio .= '</ul>';
+    return $audio;
+}
+add_shortcode('audio', 'show_audio_func');
+
 /**
  * Adds custom classes to the array of body classes.
  *
