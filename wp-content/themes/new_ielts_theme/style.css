@@ -1569,16 +1569,21 @@ ol li:before {
     display: none;
 }
 
+.list-radio li.wrong:after{
+    content: "<-wrong";
+    position: absolute;
+    right: 21%;
+    top: 4px;
+    display: block;
+    color: #e61130;
+}
+
 .list-radio li:before{
     display: none;
 }
 
 .list-radio label{
     padding-left: 0;
-    /*cursor: pointer;*/
-}
-
-.list-radio label{
     display: grid;
     grid-template-columns: 36px 1fr;
 }
