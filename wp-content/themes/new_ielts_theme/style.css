@@ -3415,6 +3415,18 @@ p.no-margin {
 .game-results.done-wrong .text-show-answers{
     display: block;
 }
+
+.list-radiobutton .label.wrong .radiobutton[value="yes"] + br + label,
+.list-radiobutton .label.wrong .radiobutton[value="yes"] + label,
+.list-radiobutton .label.wrong label:first-child,
+.list-radiobutton .label.wrong .radiobutton:checked + br + label,
+.list-radiobutton .label.wrong .radiobutton:checked + label,
+.game-question .list-radiobutton .label.wrong .radiobutton[value="no"] + br + label,
+.game-question .list-radiobutton .label.wrong .radiobutton[value="no"] + label,
+.game-question .list-radiobutton .label.wrong label:last-child,
+.game-question .label.wrong label{
+    border-color: rgba(253,21,55,1);
+}
 /*---end page game with timer---*/
 
 /*---page under construction---*/

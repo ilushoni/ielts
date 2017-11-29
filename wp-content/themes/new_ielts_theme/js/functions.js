@@ -1068,9 +1068,13 @@ $( document ).ready(function() {
                 $(".game-results").addClass("done-wrong");
                 if( $(".last-try").length ){
                     $(".game-question").addClass("visible");
-                    // $(".game-question input").addClass("disabled");
                     $(".game-question input").prop( "disabled", true );
                     $(".page-next").removeAttr("style");
+                    $(".game-question input:checked").each(function(){
+                        if( $(this).attr("correct_answer") != 1 ){
+                            $(this).parents(".label").addClass("wrong");
+                        }
+                    });
                 }else {
                     chooseShowHints();
                 }
