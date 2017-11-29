@@ -1039,9 +1039,11 @@ $( document ).ready(function() {
     });
 
     function startGameSettings(){
-        // time_original = $(".timer .time-left").attr("duration");
-        // time_parts = time_original.split(":");
-        // time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
+        if( $(".timer .time-left").length ){
+            time_original = $(".timer .time-left").attr("duration");
+            time_parts = time_original.split(":");
+            time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
+        }
 
         $(".game-question input").prop('checked', false);
         $(".load-one-by-one .game-question:first-child").addClass("visible");
