@@ -854,7 +854,6 @@ $( document ).ready(function() {
     });
 
     $(document).on("click", ".el-play", function(){
-    // $(".el-play").click(function(){
         $(this).toggleClass("el-pause");
     });
 
@@ -930,6 +929,12 @@ $( document ).ready(function() {
                     init();
                     audioHandler();
                 }
+                if( $(".game-wrapper").length ){
+                    time_original = $(".timer .time-left").attr("duration");
+                    time_parts = time_original.split(":");
+                    time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
+                    startGameSettings();
+                }
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
             footerFix();
@@ -966,10 +971,182 @@ $( document ).ready(function() {
                     init();
                     audioHandler();
                 }
+                if( $(".game-wrapper").length ){
+                    time_original = $(".timer .time-left").attr("duration");
+                    time_parts = time_original.split(":");
+                    time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
+                    startGameSettings();
+                }
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
             footerFix();
             return false;
+        }
+    });
+
+    var timerId = null;
+
+    //create timer
+
+    var time_original;
+    var time_parts;
+    var time;
+
+    function stopTimer(stop){
+        $(".btn-start-time.btn-stop-time").removeClass("btn-stop-time");
+        $(".btn-start-time").text("START");
+        if (timerId) {
+            clearTimeout(timerId); //cancel the previous timer.
+            timerId = null;
+        }
+        if( (time == 0)||(stop) ){
+            //it is the end of time
+            checkGameQuestions();
+        }
+        time_parts = time_original.split(":");
+        time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
+        setTimeout( function(){
+            $(".timer .time-left").text( time_original );
+        }, 1000);
+    }
+
+    function makeTimer(){
+        $(".btn-start-time").addClass("btn-stop-time");
+        $(".btn-start-time").text("STOP");
+        $(".timer .time-left").text(formatDuration(time));
+        timerId = null;
+        timerId = setTimeout(function tick() {
+            time--;
+            if( time == 0 ){
+                $(".timer .time-left").text(formatDuration(time));
+                stopTimer();
+            }else {
+                $(".timer .time-left").text(formatDuration(time));
+                timerId = setTimeout(tick, 1000);
+            }
+        }, 1000);
+    }
+
+    $(document).on("click", ".btn-start-time", function(){
+        if( $(this).hasClass("btn-stop-time") ){
+            if( $(".game-question input:checked").length == 0 ){
+                //user can stop time if not started to answer
+                stopTimer();
+            }
+        } else {
+            makeTimer();
+        }
+    });
+
+    function startGameSettings(){
+        // time_original = $(".timer .time-left").attr("duration");
+        // time_parts = time_original.split(":");
+        // time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
+
+        $(".game-question input").prop('checked', false);
+        $(".load-one-by-one .game-question:first-child").addClass("visible");
+        $(".game-results").hide();
+        $(".game-results").attr("class", "game-results");
+        if( $(".load-one-by-one .game-question").length > 0 ) {
+            $(".page-next").hide();
+        }
+        $(".game-rules").show();
+        $(".timer-wrapper").show();
+    }
+
+    startGameSettings();
+
+    function chooseShowHints(){
+        var c;
+        $(".game-question input[correct_answer]").not(":checked").each(function(){
+            c = $(this).parents("li").attr("class");
+            $(".hints li." + c).addClass("visible");
+        });
+        $(".hint-item").each(function(){
+            if( $(this).find("li.visible").length > 0 ){
+                $(this).show();
+                if( $(this).find("li.visible").length == 1 ){
+                    $(this).find("ul").addClass("single-li");
+                }
+            }
+        });
+    }
+
+    function checkGameQuestions(){
+        $(".game-question.visible").removeClass("visible");
+        $(".game-results").show();
+        $(".game-rules").hide();
+        $(".timer-wrapper").hide();
+        //count correct answers
+        if( $(".game-question li").length == $(".game-question input:checked").length ){
+            //user click all answers
+            var count = $(".game-question li").length;
+            var el_correct = 0;
+            $(".game-question input:checked").each(function(){
+                if( $(this).attr("correct_answer") == 1 ){
+                    el_correct++;
+                }
+            });
+            if( count == el_correct ){
+                $(".show-count-answers").text(el_correct+"/"+count);
+                $(".game-results").addClass("done");
+                $(".page-next").removeAttr("style");
+            } else {
+                //not all answers is correct
+                $(".show-count-answers").text(el_correct+"/"+count);
+                $(".game-results").addClass("done-wrong");
+                if( $(".last-try").length ){
+                    $(".game-question").addClass("visible");
+                    // $(".game-question input").addClass("disabled");
+                    $(".game-question input").prop( "disabled", true );
+                    $(".page-next").removeAttr("style");
+                }else {
+                    chooseShowHints();
+                }
+            }
+
+        } else {
+            //time is over, but user give not all answers
+            $(".game-results").addClass("late");
+        }
+    }
+
+    $(document).on( "click", ".btn-show-hints", function(){
+        //show hints
+        $(this).hide();
+        $(".hints").show();
+        $(".game-content").addClass("last-try");
+    });
+
+    $(document).on( "click", ".btn-try-again", function(){
+        //clear all
+        startGameSettings();
+        makeTimer();
+        if( $(".last-try").length ){
+            $(".hints").hide();
+            $(".exercise-nav").hide();
+        }
+    });
+
+    $(document).on( "click", ".load-one-by-one .game-question input", function(){
+        if( !( $(".btn-start-time").hasClass("btn-stop-time") ) ){
+            //if user forgot to click button start timer
+            makeTimer();
+        }
+        if( $(".game-question.visible li").length == $(".game-question.visible input:checked").length ){
+            //user click on all answers in this question
+            if( $(".game-question.visible").is(":last-child") ){
+                //it was last question in game
+                setTimeout(function(){
+                    stopTimer(1);
+                }, 1000);
+            } else {
+                var $el = $(".game-question.visible");
+                setTimeout(function(){
+                    $el.removeClass("visible");
+                    $el.next(".game-question").addClass("visible");
+                }, 1000);
+            }
         }
     });
 });

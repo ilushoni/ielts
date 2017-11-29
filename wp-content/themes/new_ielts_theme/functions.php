@@ -381,6 +381,17 @@ function show_audio_func( $atts) {
 }
 add_shortcode('audio', 'show_audio_func');
 
+function show_timer( $atts ) {
+    $duration = '';
+    extract(shortcode_atts(array(
+        'duration' => 'no-default'
+    ), $atts));
+    $timer = '<p duration="'.$duration.'" class="time-left">'.$duration.'</p>';
+    $timer .= '<p class="timer-string">'._("Minutes left").'</p>';
+    return $timer;
+}
+add_shortcode('timer', 'show_timer');
+
 /**
  * Adds custom classes to the array of body classes.
  *

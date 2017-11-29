@@ -73,6 +73,11 @@ a:focus { color: #E61130; }
 .red { color: #E61130; }
 
 .center { text-align: center; }
+
+.h5-large {
+    font-size: 30px;
+    line-height: 36px;
+}
 /*---end text styles---*/
 
 /*---button styles---*/
@@ -1561,21 +1566,9 @@ ol li:before {
     margin: 0 0 66px;
 }
 
-.list-radio input{
+.list-radio input,
+.list-radio br {
     display: none;
-}
-
-.list-radio br{
-    display: none;
-}
-
-.list-radio li.wrong:after{
-    content: "<-wrong";
-    position: absolute;
-    right: 21%;
-    top: 4px;
-    display: block;
-    color: #e61130;
 }
 
 .list-radio li:before{
@@ -1607,17 +1600,18 @@ ol li:before {
     background-repeat: no-repeat;
 }
 
-.list-radio .insert-record-questions-list{
-
-}
-
 .list-radio .insert-record-questions-list li{
     border: 0;
     padding: 0;
 }
 
-.list-radio .insert-record-questions-list li:before{
-    /*display: none;*/
+.list-radio li.wrong:after{
+    content: "<-wrong";
+    position: absolute;
+    right: 21%;
+    top: 4px;
+    display: block;
+    color: #e61130;
 }
 /*end list of radio buttons*/
 
@@ -2861,9 +2855,9 @@ p.no-margin {
 /*---end page task width audios---*/
 
 /*---page width task drag and drop phrases---*/
-.task-name.task-speaking {
-    padding: 75px 0 12px;
-}
+/*.task-name.task-speaking {*/
+    /*padding: 75px 0 12px;*/
+/*}*/
 
 .task-content p.task-name-condition.before-question {
     margin-bottom: 7px;
@@ -3188,6 +3182,240 @@ p.no-margin {
     width: auto;
 }
 /*---end of task with checkboxes on video---*/
+
+/*---timer---*/
+.timer{
+    position: relative;
+    padding: 40px 40px;
+    width: 160px;
+    height: 181px;
+    border-radius: 11px;
+    border: solid 1px #eaeaea;
+    text-align: center;
+}
+
+.timer .time-left {
+    position: relative;
+    margin: 0 0 12px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #e61130;
+}
+
+.timer .timer-string {
+    margin: 0;
+}
+
+.timer-wrapper .btn-start-time{
+   margin-bottom: 40px;
+}
+
+.btn-start-time{
+    width: 100%;
+    text-align: center;
+}
+/*---end timer---*/
+
+/*---page game with timer---*/
+.column-2.game-wrapper {
+    grid-template-columns: 1fr 160px;
+    grid-column-gap: 40px;
+}
+
+.game-rules {
+    position: relative;
+    margin-bottom: 75px;
+    padding: 40px 160px 64px 100px;
+    width: 100%;
+    border-radius: 12px;
+    border: solid 1px #eaeaea;
+}
+
+.game-rules h5 {
+    position: relative;
+    margin-bottom: 40px;
+    font-size: 30px;
+    line-height: 1em;
+    text-align: center;
+}
+
+.game-rules ol{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.game-rules ol li{
+    margin-bottom: 14px;
+}
+
+.game-rules ol li:last-child{
+    margin: 0;
+}
+
+.game-questions-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.last-try .game-question{
+    margin-bottom: 50px;
+}
+
+.game-question h5{
+    position: relative;
+    margin-bottom: 40px;
+    font-size: 30px;
+    line-height: 1em;
+}
+
+.game-question .list-radiobutton{
+    margin: 0;
+}
+
+.game-question .list-radiobutton li {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    grid-column-gap: 14px;
+}
+
+.game-question .list-radiobutton .radiobutton[value="no"] + br + label,
+.game-question .list-radiobutton .radiobutton[value="no"] + label,
+.game-question .list-radiobutton label:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid #e1e1e1;
+    margin-right: 0;
+}
+
+.game-question .label {
+    letter-spacing: -.36em;
+}
+
+.game-question .label * {
+    letter-spacing: normal;
+}
+
+.game-question .text{
+    line-height: 29px;
+}
+
+.load-one-by-one .game-question{
+    display: none;
+}
+
+.load-one-by-one .game-question.visible{
+    display: block;
+}
+
+.game-results {
+    position: relative;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.game-results h5 {
+    margin-bottom: 45px;
+}
+
+.game-results .font-big{
+    margin-bottom: 15px;
+    font-size: 72px;
+    font-weight: bold;
+    line-height: 0.69;
+    letter-spacing: 4px;
+}
+
+.game-results .text-under {
+    margin-bottom: 26px;
+}
+
+.hints {
+    margin-bottom: 41px;
+}
+
+.hints .hint-item {
+    position: relative;
+    display: none;
+    margin-bottom: 46px;
+}
+
+.hints .question-for {
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.hints ul {
+    padding: 0;
+    margin: 0 0 0 1em;
+}
+
+.hints ul.single-li {
+    margin: 0;
+    list-style-type: none;
+}
+
+.hints li{
+    display: none;
+}
+
+.hints li.visible{
+    display: list-item;
+}
+
+.exercise-nav{
+    position: relative;
+}
+
+.exercise-nav br{
+    display: none;
+}
+
+.exercise-nav .btn-show-hints{
+    margin-left: 50px;
+}
+
+.game-results .font-big,
+.game-results .text-under,
+.game-results .hints{
+    display: none;
+}
+
+.game-results.late .show-time,
+.game-results.late .text-time-is-over{
+    display: block;
+}
+
+.game-results.late .btn-show-hints{
+    display: none;
+}
+
+.game-results.done .show-count-answers,
+.game-results.done .text-success {
+    display: block;
+}
+
+.game-results.done .exercise-nav{
+    display: none;
+}
+
+.game-results.done .show-count-answers:after {
+    content:"";
+    position: relative;
+    margin-left: 31px;
+    width: 45px;
+    height: 46px;
+    display: inline-block;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#E61130" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.game-results.done-wrong .show-count-answers,
+.game-results.done-wrong .text-show-answers{
+    display: block;
+}
+/*---end page game with timer---*/
 
 /*---page under construction---*/
 .page-under-construction {
