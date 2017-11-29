@@ -391,7 +391,6 @@ $( document ).ready(function() {
 
     // $(document).on('click', ".list-questions-ul li", function(){
     $(".list-questions-ul li").click(function(){
-
         if( $(".nav-exercise").hasClass("disabled") )  {
             $('.sort').sortable('disable');
             return false;
@@ -401,7 +400,6 @@ $( document ).ready(function() {
                 $(this).removeClass("wrong");
             }
         }
-
     });
 
     $(window).resize(function(){
@@ -415,22 +413,17 @@ $( document ).ready(function() {
         selectModification();
 
         $(".check-btn").click(function(){
-
             if( $(this).hasClass("disabled") ) {
                 return false;
             } else {
-
                 $(this).addClass("disabled");
                 switch( $(".list-questions-ol").attr("id") ){
-
                     case 'task3-text-insert':
-
                         $( ".text-field-group" ).attr( "class", "text-field-group" ); //remove all classes
                         $( ".open" ).removeClass("open");
                         $( ".btn-info" ).hide();
                         $( ".btn-explain" ).show();
                         showHintForExample();
-
                         $( ".text-field-group").each(function(){
                             switch ( $(this).find(".text-field").val() ) {
                                 case $(this).find(".text-field").attr("correct_answer"):
@@ -444,52 +437,37 @@ $( document ).ready(function() {
                             }
                         });
                         break;
-
                     case 'task4-select-words':
-
                         $( "li.example .word-select.key-word").addClass("selected");
                         $( ".word-select.selected").not(".key-word").addClass("wrong");
                         $( ".word-select.key-word").not(".selected").addClass("empty");
                         break;
-
                     case 'task5-drop-words':
-
                         $(".word-drop").addClass("wrong");
                         $(".word-drop.focus-wrapper").removeClass("focus-wrapper");
                         $("li.focus").removeClass("focus");
-
                         $(".wrong").each(function() {
                             if( $(this).find(".sort").attr("correct_answer") === $(this).find("li").attr("id") ) {
                                 $(this).removeClass("wrong");
                             }
                         });
                         break;
-
                     case 'task6-choose-select':
-
                         $(".select-field-group").removeClass("open").addClass("wrong");
-
                         $(".select-field-group").each(function(){
                             if( $(this).find('.select-menu .item[correct_answer="1"]').hasClass('selected') ) {
                                 $(this).removeClass('wrong');
                             }
                         });
                         break;
-
                     default:
                         //other tasks
                         console.log('other tasks');
-
                         var check_btn_for_tasks = $(this).parents(".nav-exercise").attr("for");
-
                         if( check_btn_for_tasks ) {
-
                             $('.'+check_btn_for_tasks).each(function(){
-
                                 $(this).find("li").addClass("wrong");
-
                                 switch( true ) {
-
                                     case ( $(this).hasClass("list-checkbox") ):
                                         $(this).find("input").each(function(){
                                             if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
@@ -500,7 +478,6 @@ $( document ).ready(function() {
                                             }
                                         });
                                         break;
-
                                     case ( $(this).hasClass("list-one-character") ):
                                         $(this).find("input").each(function(){
                                             if( $(this).val() == $(this).attr("correct_answer") ) {
@@ -508,7 +485,6 @@ $( document ).ready(function() {
                                             }
                                         });
                                         break;
-
                                     case ( $(this).hasClass("list-radiobutton") ):
                                         $(this).find("li").each(function(){
                                             if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
@@ -516,19 +492,14 @@ $( document ).ready(function() {
                                             }
                                         });
                                         break;
-
                                 }
-
                             });
-
                         } else {
 
                             $(".list-questions-ul").each(function(){
 
                                 $(this).find("li").addClass("wrong");
-
                                 switch( true ) {
-
                                     case ( $(this).hasClass("list-checkbox") ):
                                         $(this).find("input").each(function(){
                                             if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
@@ -539,7 +510,6 @@ $( document ).ready(function() {
                                             }
                                         });
                                         break;
-
                                     case ( $(this).hasClass("list-one-character") ):
                                         $(this).find("input").each(function(){
                                             if( $(this).val() == $(this).attr("correct_answer") ) {
@@ -547,7 +517,6 @@ $( document ).ready(function() {
                                             }
                                         });
                                         break;
-
                                     case ( $(this).hasClass("list-radiobutton") ):
                                         $(this).find("li").each(function(){
                                             if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
@@ -555,7 +524,6 @@ $( document ).ready(function() {
                                             }
                                         });
                                         break;
-
                                     case ( $(this).hasClass("list-radio") ):
                                         $(this).find("li").each(function(){
                                             if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
@@ -571,7 +539,6 @@ $( document ).ready(function() {
             }
         });
     });
-
 
     $(".check-btn").click(function(){
 
@@ -935,6 +902,7 @@ $( document ).ready(function() {
                     time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
                     startGameSettings();
                 }
+                footerFix();
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
             footerFix();
@@ -977,6 +945,7 @@ $( document ).ready(function() {
                     time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
                     startGameSettings();
                 }
+                footerFix();
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
             footerFix();

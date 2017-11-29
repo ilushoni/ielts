@@ -14,26 +14,28 @@
       <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="1046" column="0" lean-forward="true" selection-start-line="1046" selection-start-column="0" selection-end-line="1046" selection-end-column="0" />
+            <state relative-caret-position="650">
+              <caret line="947" column="28" lean-forward="false" selection-start-line="947" selection-start-column="28" selection-end-line="947" selection-end-column="28" />
               <folding>
-                <element signature="e#22352#26754#0" expanded="false" />
-                <element signature="e#29204#29675#0" expanded="false" />
-                <element signature="e#29851#29962#0" expanded="false" />
-                <element signature="e#30032#30283#0" expanded="false" />
-                <element signature="e#30535#30919#0" expanded="false" />
-                <element signature="e#30982#31075#0" expanded="false" />
-                <element signature="e#31139#33067#0" expanded="false" />
-                <element signature="e#33131#33261#0" expanded="false" />
-                <element signature="e#33322#33622#0" expanded="false" />
-                <element signature="e#33711#34101#0" expanded="false" />
-                <element signature="e#34314#34621#0" expanded="false" />
-                <element signature="e#34669#34698#0" expanded="false" />
-                <element signature="e#34734#35683#0" expanded="false" />
-                <element signature="e#39659#40247#0" expanded="false" />
-                <element signature="e#40273#40823#0" expanded="false" />
-                <element signature="e#41918#42439#0" expanded="false" />
-                <element signature="e#42474#44024#0" expanded="false" />
+                <element signature="e#14540#22279#0" expanded="false" />
+                <element signature="e#22319#26721#0" expanded="false" />
+                <element signature="e#27372#29132#0" expanded="false" />
+                <element signature="e#29171#29642#0" expanded="false" />
+                <element signature="e#29818#29929#0" expanded="false" />
+                <element signature="e#29999#30250#0" expanded="false" />
+                <element signature="e#30502#30886#0" expanded="false" />
+                <element signature="e#30949#31042#0" expanded="false" />
+                <element signature="e#31106#33034#0" expanded="false" />
+                <element signature="e#33098#33228#0" expanded="false" />
+                <element signature="e#33289#33589#0" expanded="false" />
+                <element signature="e#33678#34068#0" expanded="false" />
+                <element signature="e#34281#34588#0" expanded="false" />
+                <element signature="e#34636#34665#0" expanded="false" />
+                <element signature="e#34701#35650#0" expanded="false" />
+                <element signature="e#39684#40272#0" expanded="false" />
+                <element signature="e#40298#40848#0" expanded="false" />
+                <element signature="e#41943#42464#0" expanded="false" />
+                <element signature="e#42499#44049#0" expanded="false" />
                 <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
                 <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
                 <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
@@ -169,7 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>delegate</find>
       <find>toggle</find>
       <find>audio</find>
       <find>.btn-stop</find>
@@ -199,6 +200,7 @@
       <find>checked</find>
       <find>game-</find>
       <find>last-try</find>
+      <find>fixed-bottom</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -347,12 +349,12 @@
       <workItem from="1511548708497" duration="1408000" />
       <workItem from="1511627952847" duration="9725000" />
       <workItem from="1511785826048" duration="36146000" />
-      <workItem from="1511952253746" duration="22616000" />
+      <workItem from="1511952253746" duration="23373000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="547856000" />
+    <option name="totallyTimeSpent" value="548613000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -433,23 +435,25 @@
         <state relative-caret-position="14931">
           <caret line="711" column="63" lean-forward="false" selection-start-line="711" selection-start-column="63" selection-end-line="711" selection-end-column="63" />
           <folding>
-            <element signature="e#22352#26754#0" expanded="false" />
-            <element signature="e#29204#29675#0" expanded="false" />
-            <element signature="e#29851#29962#0" expanded="false" />
-            <element signature="e#30032#30283#0" expanded="false" />
-            <element signature="e#30535#30919#0" expanded="false" />
-            <element signature="e#30982#31075#0" expanded="false" />
-            <element signature="e#31139#33067#0" expanded="false" />
-            <element signature="e#33131#33261#0" expanded="false" />
-            <element signature="e#33322#33622#0" expanded="false" />
-            <element signature="e#33711#34101#0" expanded="false" />
-            <element signature="e#34314#34621#0" expanded="false" />
-            <element signature="e#34669#34698#0" expanded="false" />
-            <element signature="e#34734#35683#0" expanded="false" />
-            <element signature="e#39659#40247#0" expanded="false" />
-            <element signature="e#40273#40823#0" expanded="false" />
-            <element signature="e#41918#42439#0" expanded="false" />
-            <element signature="e#42474#44024#0" expanded="false" />
+            <element signature="e#14540#22279#0" expanded="false" />
+            <element signature="e#22319#26721#0" expanded="false" />
+            <element signature="e#27372#29132#0" expanded="false" />
+            <element signature="e#29171#29642#0" expanded="false" />
+            <element signature="e#29818#29929#0" expanded="false" />
+            <element signature="e#29999#30250#0" expanded="false" />
+            <element signature="e#30502#30886#0" expanded="false" />
+            <element signature="e#30949#31042#0" expanded="false" />
+            <element signature="e#31106#33034#0" expanded="false" />
+            <element signature="e#33098#33228#0" expanded="false" />
+            <element signature="e#33289#33589#0" expanded="false" />
+            <element signature="e#33678#34068#0" expanded="false" />
+            <element signature="e#34281#34588#0" expanded="false" />
+            <element signature="e#34636#34665#0" expanded="false" />
+            <element signature="e#34701#35650#0" expanded="false" />
+            <element signature="e#39684#40272#0" expanded="false" />
+            <element signature="e#40298#40848#0" expanded="false" />
+            <element signature="e#41943#42464#0" expanded="false" />
+            <element signature="e#42499#44049#0" expanded="false" />
             <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
@@ -490,23 +494,25 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#22352#26754#0" expanded="false" />
-            <element signature="e#29204#29675#0" expanded="false" />
-            <element signature="e#29851#29962#0" expanded="false" />
-            <element signature="e#30032#30283#0" expanded="false" />
-            <element signature="e#30535#30919#0" expanded="false" />
-            <element signature="e#30982#31075#0" expanded="false" />
-            <element signature="e#31139#33067#0" expanded="false" />
-            <element signature="e#33131#33261#0" expanded="false" />
-            <element signature="e#33322#33622#0" expanded="false" />
-            <element signature="e#33711#34101#0" expanded="false" />
-            <element signature="e#34314#34621#0" expanded="false" />
-            <element signature="e#34669#34698#0" expanded="false" />
-            <element signature="e#34734#35683#0" expanded="false" />
-            <element signature="e#39659#40247#0" expanded="false" />
-            <element signature="e#40273#40823#0" expanded="false" />
-            <element signature="e#41918#42439#0" expanded="false" />
-            <element signature="e#42474#44024#0" expanded="false" />
+            <element signature="e#14540#22279#0" expanded="false" />
+            <element signature="e#22319#26721#0" expanded="false" />
+            <element signature="e#27372#29132#0" expanded="false" />
+            <element signature="e#29171#29642#0" expanded="false" />
+            <element signature="e#29818#29929#0" expanded="false" />
+            <element signature="e#29999#30250#0" expanded="false" />
+            <element signature="e#30502#30886#0" expanded="false" />
+            <element signature="e#30949#31042#0" expanded="false" />
+            <element signature="e#31106#33034#0" expanded="false" />
+            <element signature="e#33098#33228#0" expanded="false" />
+            <element signature="e#33289#33589#0" expanded="false" />
+            <element signature="e#33678#34068#0" expanded="false" />
+            <element signature="e#34281#34588#0" expanded="false" />
+            <element signature="e#34636#34665#0" expanded="false" />
+            <element signature="e#34701#35650#0" expanded="false" />
+            <element signature="e#39684#40272#0" expanded="false" />
+            <element signature="e#40298#40848#0" expanded="false" />
+            <element signature="e#41943#42464#0" expanded="false" />
+            <element signature="e#42499#44049#0" expanded="false" />
             <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
@@ -519,23 +525,25 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#22352#26754#0" expanded="false" />
-            <element signature="e#29204#29675#0" expanded="false" />
-            <element signature="e#29851#29962#0" expanded="false" />
-            <element signature="e#30032#30283#0" expanded="false" />
-            <element signature="e#30535#30919#0" expanded="false" />
-            <element signature="e#30982#31075#0" expanded="false" />
-            <element signature="e#31139#33067#0" expanded="false" />
-            <element signature="e#33131#33261#0" expanded="false" />
-            <element signature="e#33322#33622#0" expanded="false" />
-            <element signature="e#33711#34101#0" expanded="false" />
-            <element signature="e#34314#34621#0" expanded="false" />
-            <element signature="e#34669#34698#0" expanded="false" />
-            <element signature="e#34734#35683#0" expanded="false" />
-            <element signature="e#39659#40247#0" expanded="false" />
-            <element signature="e#40273#40823#0" expanded="false" />
-            <element signature="e#41918#42439#0" expanded="false" />
-            <element signature="e#42474#44024#0" expanded="false" />
+            <element signature="e#14540#22279#0" expanded="false" />
+            <element signature="e#22319#26721#0" expanded="false" />
+            <element signature="e#27372#29132#0" expanded="false" />
+            <element signature="e#29171#29642#0" expanded="false" />
+            <element signature="e#29818#29929#0" expanded="false" />
+            <element signature="e#29999#30250#0" expanded="false" />
+            <element signature="e#30502#30886#0" expanded="false" />
+            <element signature="e#30949#31042#0" expanded="false" />
+            <element signature="e#31106#33034#0" expanded="false" />
+            <element signature="e#33098#33228#0" expanded="false" />
+            <element signature="e#33289#33589#0" expanded="false" />
+            <element signature="e#33678#34068#0" expanded="false" />
+            <element signature="e#34281#34588#0" expanded="false" />
+            <element signature="e#34636#34665#0" expanded="false" />
+            <element signature="e#34701#35650#0" expanded="false" />
+            <element signature="e#39684#40272#0" expanded="false" />
+            <element signature="e#40298#40848#0" expanded="false" />
+            <element signature="e#41943#42464#0" expanded="false" />
+            <element signature="e#42499#44049#0" expanded="false" />
             <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
@@ -550,23 +558,25 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#22352#26754#0" expanded="false" />
-            <element signature="e#29204#29675#0" expanded="false" />
-            <element signature="e#29851#29962#0" expanded="false" />
-            <element signature="e#30032#30283#0" expanded="false" />
-            <element signature="e#30535#30919#0" expanded="false" />
-            <element signature="e#30982#31075#0" expanded="false" />
-            <element signature="e#31139#33067#0" expanded="false" />
-            <element signature="e#33131#33261#0" expanded="false" />
-            <element signature="e#33322#33622#0" expanded="false" />
-            <element signature="e#33711#34101#0" expanded="false" />
-            <element signature="e#34314#34621#0" expanded="false" />
-            <element signature="e#34669#34698#0" expanded="false" />
-            <element signature="e#34734#35683#0" expanded="false" />
-            <element signature="e#39659#40247#0" expanded="false" />
-            <element signature="e#40273#40823#0" expanded="false" />
-            <element signature="e#41918#42439#0" expanded="false" />
-            <element signature="e#42474#44024#0" expanded="false" />
+            <element signature="e#14540#22279#0" expanded="false" />
+            <element signature="e#22319#26721#0" expanded="false" />
+            <element signature="e#27372#29132#0" expanded="false" />
+            <element signature="e#29171#29642#0" expanded="false" />
+            <element signature="e#29818#29929#0" expanded="false" />
+            <element signature="e#29999#30250#0" expanded="false" />
+            <element signature="e#30502#30886#0" expanded="false" />
+            <element signature="e#30949#31042#0" expanded="false" />
+            <element signature="e#31106#33034#0" expanded="false" />
+            <element signature="e#33098#33228#0" expanded="false" />
+            <element signature="e#33289#33589#0" expanded="false" />
+            <element signature="e#33678#34068#0" expanded="false" />
+            <element signature="e#34281#34588#0" expanded="false" />
+            <element signature="e#34636#34665#0" expanded="false" />
+            <element signature="e#34701#35650#0" expanded="false" />
+            <element signature="e#39684#40272#0" expanded="false" />
+            <element signature="e#40298#40848#0" expanded="false" />
+            <element signature="e#41943#42464#0" expanded="false" />
+            <element signature="e#42499#44049#0" expanded="false" />
             <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
@@ -858,26 +868,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="1046" column="0" lean-forward="true" selection-start-line="1046" selection-start-column="0" selection-end-line="1046" selection-end-column="0" />
+        <state relative-caret-position="650">
+          <caret line="947" column="28" lean-forward="false" selection-start-line="947" selection-start-column="28" selection-end-line="947" selection-end-column="28" />
           <folding>
-            <element signature="e#22352#26754#0" expanded="false" />
-            <element signature="e#29204#29675#0" expanded="false" />
-            <element signature="e#29851#29962#0" expanded="false" />
-            <element signature="e#30032#30283#0" expanded="false" />
-            <element signature="e#30535#30919#0" expanded="false" />
-            <element signature="e#30982#31075#0" expanded="false" />
-            <element signature="e#31139#33067#0" expanded="false" />
-            <element signature="e#33131#33261#0" expanded="false" />
-            <element signature="e#33322#33622#0" expanded="false" />
-            <element signature="e#33711#34101#0" expanded="false" />
-            <element signature="e#34314#34621#0" expanded="false" />
-            <element signature="e#34669#34698#0" expanded="false" />
-            <element signature="e#34734#35683#0" expanded="false" />
-            <element signature="e#39659#40247#0" expanded="false" />
-            <element signature="e#40273#40823#0" expanded="false" />
-            <element signature="e#41918#42439#0" expanded="false" />
-            <element signature="e#42474#44024#0" expanded="false" />
+            <element signature="e#14540#22279#0" expanded="false" />
+            <element signature="e#22319#26721#0" expanded="false" />
+            <element signature="e#27372#29132#0" expanded="false" />
+            <element signature="e#29171#29642#0" expanded="false" />
+            <element signature="e#29818#29929#0" expanded="false" />
+            <element signature="e#29999#30250#0" expanded="false" />
+            <element signature="e#30502#30886#0" expanded="false" />
+            <element signature="e#30949#31042#0" expanded="false" />
+            <element signature="e#31106#33034#0" expanded="false" />
+            <element signature="e#33098#33228#0" expanded="false" />
+            <element signature="e#33289#33589#0" expanded="false" />
+            <element signature="e#33678#34068#0" expanded="false" />
+            <element signature="e#34281#34588#0" expanded="false" />
+            <element signature="e#34636#34665#0" expanded="false" />
+            <element signature="e#34701#35650#0" expanded="false" />
+            <element signature="e#39684#40272#0" expanded="false" />
+            <element signature="e#40298#40848#0" expanded="false" />
+            <element signature="e#41943#42464#0" expanded="false" />
+            <element signature="e#42499#44049#0" expanded="false" />
             <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
