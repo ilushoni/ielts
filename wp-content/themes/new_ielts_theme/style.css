@@ -3427,6 +3427,13 @@ p.no-margin {
 .game-question .label.wrong label{
     border-color: rgba(253,21,55,1);
 }
+
+.page-next.disabled {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="40" viewBox="0 0 150 40"><defs><path id="a" d="M0 4v32a4 4 0 0 0 4 4h133.528a4 4 0 0 0 3.578-2.211L150 20l-8.894-17.789A4 4 0 0 0 137.528 0H4a4 4 0 0 0-4 4z"/></defs><g fill="none" fill-rule="evenodd"><use fill="#FFF" xlink:href="#a"/><path stroke="#D8D8D8" d="M149.441 20l-8.783-17.565A3.5 3.5 0 0 0 137.528.5H4A3.5 3.5 0 0 0 .5 4v32A3.5 3.5 0 0 0 4 39.5h133.528a3.5 3.5 0 0 0 3.13-1.935L149.441 20z"/></g></svg>');
+    color: #D8D8D8;
+    pointer-events: none;
+    cursor: default;
+}
 /*---end page game with timer---*/
 
 /*---page under construction---*/

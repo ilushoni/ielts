@@ -1019,7 +1019,8 @@ $( document ).ready(function() {
         $(".game-results").hide();
         $(".game-results").attr("class", "game-results");
         if( $(".load-one-by-one .game-question").length > 0 ) {
-            $(".page-next").hide();
+            $(".page-next").addClass("disabled");
+            // $(".page-next").hide();
         }
         $(".game-rules").show();
         $(".timer-wrapper").show();
@@ -1061,7 +1062,8 @@ $( document ).ready(function() {
             if( count == el_correct ){
                 $(".show-count-answers").text(el_correct+"/"+count);
                 $(".game-results").addClass("done");
-                $(".page-next").removeAttr("style");
+                $(".page-next").removeClass("disabled");
+                // $(".page-next").removeAttr("style");
             } else {
                 //not all answers is correct
                 $(".show-count-answers").text(el_correct+"/"+count);
@@ -1069,7 +1071,8 @@ $( document ).ready(function() {
                 if( $(".last-try").length ){
                     $(".game-question").addClass("visible");
                     $(".game-question input").prop( "disabled", true );
-                    $(".page-next").removeAttr("style");
+                    $(".page-next").removeClass("disabled");
+                    // $(".page-next").removeAttr("style");
                     $(".game-question input:checked").each(function(){
                         if( $(this).attr("correct_answer") != 1 ){
                             $(this).parents(".label").addClass("wrong");
