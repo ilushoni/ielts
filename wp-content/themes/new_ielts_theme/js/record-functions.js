@@ -101,9 +101,10 @@ function stopRecording(button) {
         }
         if( button.parents(".one-line-recorder").length ){
             createDownloadLink( button.parents(".recorder") );
-        } else {
-            SaveAudioFile( button.parents("li").index(), el_text , el_text_short);
         }
+        // else {
+            SaveAudioFile( button.parents("li").index(), el_text , el_text_short);
+        // }
     }else {
         createDownloadLink( button.parents(".recorder") );
     }

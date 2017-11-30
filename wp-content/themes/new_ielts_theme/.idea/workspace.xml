@@ -46,12 +46,12 @@
       <file leaf-file-name="record-functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/record-functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="116" column="53" lean-forward="false" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="53" />
+            <state relative-caret-position="251">
+              <caret line="109" column="5" lean-forward="true" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
               <folding>
                 <element signature="n#!!block;n#startRecording#0" expanded="false" />
-                <element signature="e#4828#5949#0" expanded="false" />
-                <element signature="e#6012#6826#0" expanded="false" />
+                <element signature="e#4842#5963#0" expanded="false" />
+                <element signature="e#6026#6840#0" expanded="false" />
                 <element signature="n#!!block;n#returnMusic#0" expanded="false" />
               </folding>
             </state>
@@ -61,19 +61,19 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="898" column="37" lean-forward="true" selection-start-line="898" selection-start-column="37" selection-end-line="898" selection-end-column="37" />
+            <state relative-caret-position="391">
+              <caret line="908" column="32" lean-forward="true" selection-start-line="908" selection-start-column="32" selection-end-line="908" selection-end-column="32" />
               <folding>
-                <marker date="1511953300976" expanded="true" signature="11616:11689" ph="SELECT * FRO... ${$table_name}" />
-                <marker date="1511953300976" expanded="true" signature="11616:11699" ph="SELECT * FRO... ${$table_name}" />
-                <marker date="1511953300976" expanded="true" signature="13068:13115" ph="SELECT ID FR... $" />
-                <marker date="1511953300976" expanded="true" signature="20062:20069" ph="»" />
-                <marker date="1511953300976" expanded="true" signature="22429:22514" ph="SELECT curre... ${$table_name}" />
-                <marker date="1511953300976" expanded="true" signature="23740:23746" ph=" " />
-                <marker date="1511953300976" expanded="true" signature="30930:31015" ph="SELECT curre... ${$table_name}" />
-                <marker date="1511953300976" expanded="true" signature="32814:32934" ph="SELECT audio... ${$table_name}" />
-                <marker date="1511953300976" expanded="true" signature="34399:34484" ph="SELECT curre... ${$table_name}" />
-                <marker date="1511953300976" expanded="true" signature="34399:34504" ph="SELECT curre... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="11616:11689" ph="SELECT * FRO... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="11616:11699" ph="SELECT * FRO... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="13068:13115" ph="SELECT ID FR... $" />
+                <marker date="1512050638953" expanded="true" signature="20062:20069" ph="»" />
+                <marker date="1512050638953" expanded="true" signature="22429:22514" ph="SELECT curre... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="23740:23746" ph=" " />
+                <marker date="1512050638953" expanded="true" signature="30930:31015" ph="SELECT curre... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="32831:32951" ph="SELECT audio... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="34416:34501" ph="SELECT curre... ${$table_name}" />
+                <marker date="1512050638953" expanded="true" signature="34416:34521" ph="SELECT curre... ${$table_name}" />
               </folding>
             </state>
           </provider>
@@ -232,12 +232,12 @@
         <option value="$PROJECT_DIR$/template-parts/content-page.php" />
         <option value="$PROJECT_DIR$/template-parts/content-page-section-inside.php" />
         <option value="$PROJECT_DIR$/header.php" />
-        <option value="$PROJECT_DIR$/js/record-functions.js" />
         <option value="$PROJECT_DIR$/front-page.php" />
-        <option value="$PROJECT_DIR$/functions.php" />
         <option value="$PROJECT_DIR$/js/functions.js" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/js/page-focus2.html" />
+        <option value="$PROJECT_DIR$/functions.php" />
+        <option value="$PROJECT_DIR$/js/record-functions.js" />
       </list>
     </option>
   </component>
@@ -348,12 +348,12 @@
       <workItem from="1511627952847" duration="9725000" />
       <workItem from="1511785826048" duration="36146000" />
       <workItem from="1511952253746" duration="25291000" />
-      <workItem from="1512039212551" duration="7500000" />
+      <workItem from="1512039212551" duration="8611000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="558031000" />
+    <option name="totallyTimeSpent" value="559142000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
@@ -464,16 +464,16 @@
         <state relative-caret-position="9513">
           <caret line="453" column="0" lean-forward="true" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
           <folding>
-            <marker date="1511953300976" expanded="true" signature="11616:11689" ph="SELECT * FRO... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="11616:11699" ph="SELECT * FRO... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="13068:13115" ph="SELECT ID FR... $" />
-            <marker date="1511953300976" expanded="true" signature="20062:20069" ph="»" />
-            <marker date="1511953300976" expanded="true" signature="22429:22514" ph="SELECT curre... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="23740:23746" ph=" " />
-            <marker date="1511953300976" expanded="true" signature="30930:31015" ph="SELECT curre... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="32814:32934" ph="SELECT audio... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="34399:34484" ph="SELECT curre... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="34399:34504" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="11616:11689" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="11616:11699" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="13068:13115" ph="SELECT ID FR... $" />
+            <marker date="1512050638953" expanded="true" signature="20062:20069" ph="»" />
+            <marker date="1512050638953" expanded="true" signature="22429:22514" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="23740:23746" ph=" " />
+            <marker date="1512050638953" expanded="true" signature="30930:31015" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="32831:32951" ph="SELECT audio... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="34416:34501" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="34416:34521" ph="SELECT curre... ${$table_name}" />
           </folding>
         </state>
       </provider>
@@ -859,12 +859,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/record-functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="116" column="53" lean-forward="false" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="53" />
+        <state relative-caret-position="251">
+          <caret line="109" column="5" lean-forward="true" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
           <folding>
             <element signature="n#!!block;n#startRecording#0" expanded="false" />
-            <element signature="e#4828#5949#0" expanded="false" />
-            <element signature="e#6012#6826#0" expanded="false" />
+            <element signature="e#4842#5963#0" expanded="false" />
+            <element signature="e#6026#6840#0" expanded="false" />
             <element signature="n#!!block;n#returnMusic#0" expanded="false" />
           </folding>
         </state>
@@ -872,19 +872,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="898" column="37" lean-forward="true" selection-start-line="898" selection-start-column="37" selection-end-line="898" selection-end-column="37" />
+        <state relative-caret-position="391">
+          <caret line="908" column="32" lean-forward="true" selection-start-line="908" selection-start-column="32" selection-end-line="908" selection-end-column="32" />
           <folding>
-            <marker date="1511953300976" expanded="true" signature="11616:11689" ph="SELECT * FRO... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="11616:11699" ph="SELECT * FRO... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="13068:13115" ph="SELECT ID FR... $" />
-            <marker date="1511953300976" expanded="true" signature="20062:20069" ph="»" />
-            <marker date="1511953300976" expanded="true" signature="22429:22514" ph="SELECT curre... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="23740:23746" ph=" " />
-            <marker date="1511953300976" expanded="true" signature="30930:31015" ph="SELECT curre... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="32814:32934" ph="SELECT audio... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="34399:34484" ph="SELECT curre... ${$table_name}" />
-            <marker date="1511953300976" expanded="true" signature="34399:34504" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="11616:11689" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="11616:11699" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="13068:13115" ph="SELECT ID FR... $" />
+            <marker date="1512050638953" expanded="true" signature="20062:20069" ph="»" />
+            <marker date="1512050638953" expanded="true" signature="22429:22514" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="23740:23746" ph=" " />
+            <marker date="1512050638953" expanded="true" signature="30930:31015" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="32831:32951" ph="SELECT audio... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="34416:34501" ph="SELECT curre... ${$table_name}" />
+            <marker date="1512050638953" expanded="true" signature="34416:34521" ph="SELECT curre... ${$table_name}" />
           </folding>
         </state>
       </provider>

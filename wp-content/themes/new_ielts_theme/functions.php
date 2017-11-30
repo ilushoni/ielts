@@ -895,6 +895,7 @@ add_action('wp_ajax_nopriv_my_save_audio_file', 'my_save_audio_file_callback');
 function my_save_audio_file_callback() {
     // Do your processing here (save to database etc.)
     // All WP API functions are available for you here
+    echo "here";
     $table_name = 'user_audio';
     $user_id = get_current_user_id();
     $page_id = intval( $_POST['page_id'] );
