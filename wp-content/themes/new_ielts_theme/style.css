@@ -1463,13 +1463,26 @@ ol li:before {
 }
 
 .list-checkbox li {
-    counter-increment: alphaCounter;}
+    counter-increment: alphaCounter;
+}
 
 .list-checkbox li:before {
     content: counter(alphaCounter, upper-alpha);
     position: absolute;
     left: 20px;
     font-weight: 600;
+}
+
+ol.list-checkbox{
+    counter-reset: customlistcounter;
+}
+
+ol.list-checkbox li {
+    counter-increment: customlistcounter;
+}
+
+ol.list-checkbox li:before{
+    content: counter(customlistcounter);
 }
 
 .list-checkbox br {
