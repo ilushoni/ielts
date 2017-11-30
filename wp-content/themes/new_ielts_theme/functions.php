@@ -257,18 +257,45 @@ function show_my_recorder_func($atts) {
     extract(shortcode_atts(array(
         'add' => 'no-default',
     ), $atts));
+
     $recorder = '<div class="recorder">';
         $recorder .= '<button class="btn btn-record">Record Myself</button>';
         $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
         $recorder .= '<div class="record-duration"></div>';
-        if( $add != "add-after" ){
-            $recorder .= '<ul class="record-list"></ul>';
-        }
+//        if( $add != "add-after" ){
+//            $recorder .= '<ul class="record-list"></ul>';
+//        }
         $recorder .= '<pre class="log"></pre>';
-    $recorder .= '</div>';
-    if( $add == "add-after" ){
-        $recorder .= '<ul class="record-list"></ul>';
-    }
+        $recorder .= '</div>';
+
+        if( $add == "add-after" ){
+            global $post;
+            $table_name = 'user_audio';
+            $user_id = get_current_user_id();
+            $page_id = $post->ID;
+
+            global $wpdb;
+            $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
+
+            $recorder .= '<ul class="record-list">';
+            if(count($datum)>0){
+                foreach( $datum as $data ){
+                    $id = $data->page_question_number;
+                    $recorder .= '<li id="record-play-item-'.$id.'">';
+                        $recorder .= '<audio id="music'.$id.'" class="audio-el" src="'.wp_upload_dir()["baseurl"].$data->audio_link.'"></audio>';
+                        $recorder .= '<div id="audioplayer'.$id.'" class="audioplayer">';
+                            $recorder .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
+                            $recorder .= '<p class="audio-text">';
+                                $recorder .= '<span class="audio-name">'.$data->question_text_short.'</span>';
+                                $recorder .= '<span class="duration"></span>';
+                            $recorder .= '</p>';
+                            $recorder .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
+                        $recorder .= '</div>';
+                    $recorder .= '</li>';
+                }
+            }
+            $recorder .= '</ul>';
+        }
     return $recorder;
 }
 add_shortcode('my_recorder', 'show_my_recorder_func');
