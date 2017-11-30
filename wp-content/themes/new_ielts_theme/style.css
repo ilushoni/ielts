@@ -712,7 +712,8 @@ input[type="phone"]::-webkit-input-placeholder{
 
 .list-on-paper {
     position: relative;
-    padding: 30px 48px 59px;
+    /*padding: 30px 48px 59px;*/
+    padding: 40px 100px 70px;
     margin-bottom: 102px;
     width: 735px;
     background-color: #fff;
@@ -722,8 +723,10 @@ input[type="phone"]::-webkit-input-placeholder{
 .list-on-paper h5 {
     position: relative;
     margin-bottom: 40px;
+    /*margin-bottom: 50px;*/
     font-size: 30px;
-    line-height: 1.1em;
+    /*line-height: 1.1em;*/
+    line-height: 36px;
     font-weight: bold;
     text-align: center;
 }
@@ -751,6 +754,23 @@ input[type="phone"]::-webkit-input-placeholder{
     content:counter(myCounter) ".";
     display: inline-block;
     font-weight: 600;
+}
+
+.list-on-paper .h5-large {
+    text-align: center;
+}
+
+.list-on-paper ul{
+    padding: 0;
+    margin: 0 0 0 1em;
+}
+
+.list-on-paper ul li{
+    margin-bottom: 12px;
+}
+
+.list-on-paper ul li:last-child{
+    margin-bottom: 0;
 }
 /*end video in tasks section speaking*/
 
@@ -3038,7 +3058,9 @@ p.no-margin {
 .show-checklist {
     position: relative;
     display: none;
-    padding: 40px 97px 64px;
+    margin-bottom: 44px;
+    padding: 46px 97px 43px;
+    /*padding: 40px 97px 64px;*/
     width: 960px;
     border-radius: 12px;
     border: solid 1px rgba(230, 17, 48, 0.3);
@@ -3049,7 +3071,8 @@ p.no-margin {
 }
 
 .show-checklist h3 {
-    margin-bottom: 47px;
+    margin-bottom: 38px;
+    /*margin-bottom: 47px;*/
     text-align: center;
 }
 
@@ -3058,6 +3081,22 @@ p.no-margin {
 }
 
 .show-checklist *:last-child {
+    margin-bottom: 0;
+}
+
+.show-checklist ol {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.show-checklist ol li{
+    margin-bottom: 12px;
+    grid-template-columns: 22px 1fr;
+    grid-column-gap: 5px;
+}
+
+.show-checklist ol li:last-child{
     margin-bottom: 0;
 }
 
@@ -3344,14 +3383,18 @@ p.no-margin {
     font-weight: bold;
 }
 
-.hints ul {
-    padding: 0;
-    margin: 0 0 0 1em;
-}
+/*.hints ul {*/
+    /*padding: 0;*/
+    /*margin: 0 0 0 1em;*/
+/*}*/
 
 .hints ul.single-li {
     margin: 0;
     list-style-type: none;
+}
+
+.hints ul li{
+    margin: 0;
 }
 
 .hints li{
@@ -3435,6 +3478,15 @@ p.no-margin {
     cursor: default;
 }
 /*---end page game with timer---*/
+
+/*---text styles for speaking section---*/
+.strong-large {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+/*---end text styles for speaking section---*/
 
 /*---page under construction---*/
 .page-under-construction {
