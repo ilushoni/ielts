@@ -72,6 +72,11 @@ a:focus { color: #E61130; }
 /*---text styles---*/
 .red { color: #E61130; }
 
+a.red:hover,
+a.red:active{
+    color: #000;
+}
+
 .center { text-align: center; }
 
 .h5-large {
