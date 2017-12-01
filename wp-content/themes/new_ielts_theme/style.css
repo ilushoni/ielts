@@ -1298,6 +1298,8 @@ input[type="phone"]::-webkit-input-placeholder{
 
 ol {
     counter-reset: myCounter;
+    margin: 0;
+    padding: 0;
 }
 
 ol li{
@@ -2303,6 +2305,8 @@ ol.list-checkbox li:before{
     cursor: pointer;
 }
 
+.icon-close:active,
+.icon-close:focus,
 .icon-close:hover {
     transform: scale(1.1);
 }
@@ -3536,6 +3540,11 @@ p.no-margin {
     line-height: 1.5;
 }
 
+.width-large {
+    max-width: none;
+    width: 100%;
+}
+
 .fieldset-large .select-field-group ul {
     margin: 0;
 }
@@ -3544,7 +3553,117 @@ p.no-margin {
 .fieldset-large .select-field-group .choose-result{
     width: 326px;
 }
+
+.text-field-group {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+
+.text-field-group br {
+    display: none;
+}
+
+.text-field-group input {
+    margin: 0;
+}
+
+.text-field-group input.field-small {
+    border-radius: 3px;
+    border: solid 1px #e7e7e7;
+    padding: 5px;
+    max-width: none;
+    min-width: 120px;
+    width: 120px;
+    height: 30px;
+}
+
+.text-field-group input.field-small:focus{
+    border-color: #000;
+}
+
+.text-field-group.wrong input.field-small{
+    border-color: #e61130;
+}
+
+ol.no-column li {
+    display: block;
+}
+
+ol.no-column li:before{
+    counter-increment: myCounter;
+    content: counter(myCounter) ". ";
+    margin-right: 10px;
+    font-size: 18px;
+    line-height: 35px;
+    font-weight: normal;
+}
+
+.list-text-fields {
+    margin-bottom: 40px;
+}
+
+.list-text-fields  li{
+    margin-bottom: 14px;
+}
+
+.list-text-fields li p {
+    display: inline;
+    line-height: 35px;
+}
+
+ol.no-column.font-smaller li:before{
+    font-size: 14px;
+    line-height: 9px;
+}
 /*---end text styles for speaking section---*/
+
+/*---popup window with video---*/
+.popup-window{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    padding: 150px 0;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    cursor: pointer;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.popup-body{
+    position: relative;
+    display: inline-block;
+}
+
+.popup-body .icon-close + p,
+.popup-body p:empty{
+    display: none;
+}
+
+.popup-window .video-iframe-wrapper {
+    width: 580px;
+}
+
+.popup-window .icon-close{
+    position: absolute;
+    right: 0;
+    margin-top: -41px;
+    margin-right: -46px;
+}
+
+.popup-window.open {
+    display: block;
+}
+/*---end popup window with video---*/
 
 /*---page under construction---*/
 .page-under-construction {
