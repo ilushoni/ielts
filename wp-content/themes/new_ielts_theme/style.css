@@ -77,11 +77,21 @@ a.red:active{
     color: #000;
 }
 
+.text-centered,
 .center { text-align: center; }
 
 .h5-large {
     font-size: 30px;
     line-height: 36px;
+}
+
+.h5-large-margin{
+    margin: 50px 0 30px;
+}
+
+.font-smaller {
+    font-size: 14px;
+    line-height: 1.43;
 }
 /*---end text styles---*/
 
@@ -2972,17 +2982,24 @@ p.no-margin {
     margin-bottom: 41px;
 }
 
+.phrase-wrap,
 .sort-phrase-wrap {
     position: relative;
     max-width: 960px;
 }
 
+.phrase-wrap{
+    margin-bottom: 30px;
+}
+
+.phrase-column,
 .sort-phrase-column {
     position: relative;
     box-shadow: 0 2px 40px 0 #e9e9e9;
     background: #ffffff;
 }
 
+.phrase-column h5,
 .sort-phrase-column h5 {
     position: relative;
     display: block;
@@ -3027,6 +3044,21 @@ p.no-margin {
 
 .sort-phrase-drop li:last-child{
     margin-bottom: 0;
+}
+
+.phrase-column ul {
+    margin: 0 50px;
+    padding: 20px 0 60px;
+    list-style-type: none;
+}
+
+.phrase-column li{
+    margin-bottom: 10px;
+    line-height: 1.94em;
+}
+
+.phrase-column li:last-child{
+    margin: 0;
 }
 /*---end page width task drag and drop phrases---*/
 
@@ -3504,6 +3536,14 @@ p.no-margin {
     line-height: 1.5;
 }
 
+.fieldset-large .select-field-group ul {
+    margin: 0;
+}
+
+.fieldset-large .select-field-group.open .select-menu,
+.fieldset-large .select-field-group .choose-result{
+    width: 326px;
+}
 /*---end text styles for speaking section---*/
 
 /*---page under construction---*/

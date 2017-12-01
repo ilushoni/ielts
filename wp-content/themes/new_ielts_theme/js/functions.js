@@ -409,7 +409,9 @@ $( document ).ready(function() {
 
     $(window).on('load', function(){
         showHintForExample();
-        selectModificationPosition();
+        if( $(".select-field-group").parents("#task6-choose-select").length ){
+            selectModificationPosition();
+        }
         selectModification();
 
         $(".check-btn").click(function(){
@@ -1127,6 +1129,7 @@ $( document ).ready(function() {
             }
         }
     });
+
 });
 
 //make css for YouTube video iframe
