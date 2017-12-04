@@ -2907,10 +2907,6 @@ p.no-margin {
 /*---end page task width audios---*/
 
 /*---page width task drag and drop phrases---*/
-/*.task-name.task-speaking {*/
-    /*padding: 75px 0 12px;*/
-/*}*/
-
 .task-content p.task-name-condition.before-question {
     margin-bottom: 7px;
 }
@@ -2921,17 +2917,27 @@ p.no-margin {
 
 .sort-phrase {
     position: relative;
-    display: block;
-    width: 100%;
-    list-style: none;
+}
+
+.sort-phrase li {
+    position: relative;
+    cursor: pointer;
+}
+
+.sort-phrase li.focus,
+.sort-phrase li:focus {
+    border-color: #fce7ea;
+    background-color: #fce7ea;
+}
+
+.sort-phrase li.ui-sortable-placeholder.placeholder {
+    display: none !important;
 }
 
 .sort-phrase.drop-list {
-    margin: 20px 0;
-    padding: 10px;
-    border: solid 1px #979797;
-    font-size: .7777em;
-    line-height: 1.43em;
+    margin: 20px 0 60px;
+    padding: 5px 0 6px;
+    max-width: 770px;
 }
 
 .sort-phrase.drop-list:after {
@@ -2940,50 +2946,21 @@ p.no-margin {
     clear: both;
 }
 
-.sort-phrase li {
-    position: relative;
-    padding: 0 2px 1px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .sort-phrase.drop-list li {
-    display: block;
-    float: left;
-    margin: 10px;
-    border-radius: 4px;
-}
-
-.sort-phrase li.ui-sortable-placeholder.placeholder {
-    display: none !important;
+    display: inline-block;
+    padding: 7px 14px;
+    margin: 5px 7px 6px 0;
+    border-radius: 11px;
+    border: solid 1px rgba(230, 17, 48, 0.33);
 }
 
 .sort-phrase.drop-list li.focus,
 .sort-phrase.drop-list li:focus {
-    margin: 12px 10px 8px;
-}
-
-.sort-phrase li.focus,
-.sort-phrase li:focus {
-    background-color: #d8d8d8;
-}
-
-.sort-phrase.drop-list li.in-use {
-    background: #f4f4f4;
-    color: #afafaf;
+    border-color: #fce7ea;
 }
 
 .sort-phrase li.wrong {
-    background: #e61130;
-    color: #fff;
-}
-
-.sortable-phrase-source {
-    max-width: 773px;
-}
-
-#sortable-source {
-    margin-bottom: 41px;
+    color: #e61130;
 }
 
 .phrase-wrap,
@@ -2992,8 +2969,19 @@ p.no-margin {
     max-width: 960px;
 }
 
-.phrase-wrap{
-    margin-bottom: 30px;
+.column-3.sort-phrase-wrap{
+    display: block;
+}
+
+.column-3.sort-phrase-wrap:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+
+.column-3.sort-phrase-wrap .sort-phrase-column{
+    float: left;
+    width: calc(100% / 3);
 }
 
 .phrase-column,
@@ -3001,6 +2989,7 @@ p.no-margin {
     position: relative;
     box-shadow: 0 2px 40px 0 #e9e9e9;
     background: #ffffff;
+    text-align: center;
 }
 
 .phrase-column h5,
@@ -3010,44 +2999,46 @@ p.no-margin {
     padding: 12px 10px 8px;
     width: 100%;
     border-bottom: solid 1px rgba(0, 0, 0, 0.07);
-    text-align: center;
     font-size: 14px;
     line-height: 1.43em;
     letter-spacing: 4px;
     color: rgba(0, 0, 0, 0.3);
     text-transform: uppercase;
-    box-sizing: border-box;
 }
 
 .sort-phrase-drop {
     position: relative;
-    display: flex;
-    flex-flow: row wrap;
-    margin: 0 20px;
-    padding: 20px 0;
-    width: calc( 100% - 40px );
-    min-height: 91px;
-    height: calc( 100% - 40px );
-    list-style-type: none;
-    vertical-align: middle;
+    padding: 23px 20px 33px;
+    margin: 0;
+    min-height: 180px;
 }
 
 .sort-phrase-drop li {
     display: block;
-    margin: auto 0 10px;
-    max-width: calc( 100% - 40px );
-    font-size: 14px;
-    line-height: 1.43em;
+    margin-bottom: 10px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .sort-phrase-drop > li.placeholder:nth-child(1) + li:last-child,
 .sort-phrase-drop > li:nth-child(1) + li.placeholder:last-child,
 .sort-phrase-drop > li:nth-child(1):last-child {
-    margin: auto 0;
+    margin: 0;
 }
 
 .sort-phrase-drop li:last-child{
     margin-bottom: 0;
+}
+
+.sort-phrase-drop li.focus{
+    background: none;
+}
+
+/*list with two columns on paper like sort phrases, but without sort*/
+.phrase-wrap{
+    margin-bottom: 30px;
 }
 
 .phrase-column ul {
@@ -3064,6 +3055,7 @@ p.no-margin {
 .phrase-column li:last-child{
     margin: 0;
 }
+/*end list with two columns on paper like sort phrases, but without sort*/
 /*---end page width task drag and drop phrases---*/
 
 /*---page with questions on page like sheet---*/
