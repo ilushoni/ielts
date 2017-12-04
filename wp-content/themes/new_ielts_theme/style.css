@@ -1349,6 +1349,10 @@ ol li:before {
     line-height: 1.43em;
 }
 
+.task-name-condition.after-record{
+    margin-bottom: 40px;
+}
+
 .task-reason {
     position: relative;
     display: grid;
@@ -3152,6 +3156,10 @@ p.no-margin {
     display: grid;
     grid-template-columns: 210px 1fr;
     margin-bottom: 100px;
+}
+
+.one-line-recorder.margin-smaller {
+    margin-bottom: 75px;
 }
 
 .one-line-recorder .btn {
