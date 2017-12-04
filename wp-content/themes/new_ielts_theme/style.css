@@ -585,6 +585,20 @@ input[type="phone"]::-webkit-input-placeholder{
     width: 730px;
 }
 
+.video.align-left{
+    width: auto;
+}
+
+.video.large-margin{
+    margin: 40px 0 35px;
+}
+
+.video.align-left .video-iframe-wrapper{
+    margin: 0;
+    width: auto;
+    display: inline-block;
+}
+
 .btn-video {
     position: absolute;
     top: 50%;
@@ -1353,6 +1367,10 @@ ol li:before {
     margin-bottom: 40px;
 }
 
+.task-name-condition.middle-margin{
+    margin-bottom: 25px;
+}
+
 .task-reason {
     position: relative;
     display: grid;
@@ -1795,6 +1813,18 @@ ol.list-checkbox li:before{
     text-align: center;
 }
 
+.in-task-center{
+    margin: 37px 0 71px;
+}
+
+.in-task-center .nav-exercise{
+    margin: 0
+}
+
+.check-btn-align-left .check-btn{
+    margin: 0;
+}
+
 .wrong-text,
 .success-text,
 .check-btn {
@@ -1818,6 +1848,11 @@ ol.list-checkbox li:before{
 .nav-exercise.has-wrong .wrong-text,
 .nav-exercise.disabled .success-text {
     display: block;
+}
+
+.no-message .nav-exercise.has-wrong .wrong-text,
+.no-message .nav-exercise.disabled .success-text {
+    display: none;
 }
 
 .check-btn {
@@ -3621,6 +3656,44 @@ ol.no-column.font-smaller li:before{
     line-height: 9px;
 }
 /*---end text styles for speaking section---*/
+
+/*---textarea styles---*/
+.textarea-middle{
+    position: relative;
+    display: block;
+    margin-bottom: 37px;
+    padding: 40px 60px 30px 41px;
+    border-radius: 3px;
+    border: solid 1px #e7e7e7;
+    width: 760px;
+    min-height: 126px;
+    background-color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    line-height: 1.2em;
+    text-align: left;
+    color: #000;
+    overflow:hidden;
+}
+
+.textarea-middle.wrong{
+    border-color: #e61130;
+}
+
+div.textarea-middle{
+    display: none;
+}
+
+div.textarea-middle.open{
+    display: block;
+}
+/*---end textarea styles---*/
+
+/*---switch task exercises---*/
+.hide{
+    display: none;
+}
+/*---end switch task exercises---*/
 
 /*---popup window with video---*/
 .popup-window{
