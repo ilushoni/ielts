@@ -1,12 +1,7 @@
 /**
  * Created by User on 09.08.2017.
  */
-$( document ).ready(function() {
-
-    footerFix();
-    $(window).resize(function(){
-        footerFix();
-    });
+$(document).ready(function() {
     function footerFix() {
         var h = 0;
         $("body").children().each(function(){
@@ -14,6 +9,7 @@ $( document ).ready(function() {
         });
         ( h < $(window).height() ) ? ($(".footer-wrapper").addClass("fixed-bottom")) : ($(".fixed-bottom").removeClass("fixed-bottom"));
     }
+    footerFix();
 
     $("#menu-primary .success-line").each( function(){
         var w = $(this).attr("user_success");
@@ -80,14 +76,12 @@ $( document ).ready(function() {
     });
 
     $(document).on("click", ".show-popup-btn", function(){
-    // $(".show-popup-btn").click(function(){
         $(".popup-text").addClass("open");
         $("body").addClass("no-scroll");
         return false;
     });
 
     $(document).on("click", ".popup-text .icon-close", function(){
-    // $(".popup-text .icon-close").click(function(){
         $(".popup-text").removeClass("open");
         $("body").removeClass("no-scroll");
     });
@@ -519,6 +513,7 @@ $( document ).ready(function() {
     }
 
     $(window).resize(function(){
+        footerFix();
         showHintForExample();
         selectModificationPosition();
     });
@@ -715,22 +710,6 @@ $( document ).ready(function() {
         $("body").removeClass("no-scroll");
     }
 
-    $(document).on("click", ".show-checklist-link", function(){
-        if( $(".show-checklist").length ){
-            $(".show-checklist").toggleClass("open");
-        } else {
-            if( $(".popup-window").length ){
-                $(".popup-window").addClass("open");
-                $("body").addClass("no-scroll");
-            } else {
-                if( $("div.textarea-middle").length ){
-                    $("div.textarea-middle").toggleClass("open");
-                }
-            }
-        }
-        return false;
-    });
-
     $(document).on("click", ".popup-window .icon-close", function(){
         closePopup();
     });
@@ -766,7 +745,6 @@ $( document ).ready(function() {
     $(document).on("click", ".el-play", function(){
         $(this).toggleClass("el-pause");
     });
-
 
     $.ajaxSetup({cache:false});
     //section SPEAK - load task by task on page
@@ -902,10 +880,8 @@ $( document ).ready(function() {
         }
     });
 
-    var timerId = null;
-
     //create timer
-
+    var timerId = null;
     var time_original;
     var time_parts;
     var time;
@@ -1105,6 +1081,7 @@ $( document ).ready(function() {
     });
 });
 
+//---work with iframe video---
 //make css for YouTube video iframe
 // Inject YouTube API script
 var tag = document.createElement('script');
@@ -1156,3 +1133,24 @@ function onPlayerStateChange(event) {
             $(event.target.a).parents(".video-iframe-wrapper").removeClass("is-playing");
     }
 }
+//---end work with iframe video---
+
+function showChecklistLink(){
+    if( $(".show-checklist").length ){
+        $(".show-checklist").toggleClass("open");
+    } else {
+        if( $(".popup-window").length ){
+            $(".popup-window").addClass("open");
+            $("body").addClass("no-scroll");
+        } else {
+            if( $("div.textarea-middle").length ){
+                $("div.textarea-middle").toggleClass("open");
+            }
+        }
+    }
+}
+
+$(document).on("click", ".show-checklist-link", function(){
+    showChecklistLink();
+    return false;
+});

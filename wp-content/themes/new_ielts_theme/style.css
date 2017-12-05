@@ -71,6 +71,7 @@ a:focus { color: #E61130; }
 
 /*---text styles---*/
 .red { color: #E61130; }
+.grey { color: #9b9b9b; }
 
 a.red:hover,
 a.red:active{
@@ -79,6 +80,10 @@ a.red:active{
 
 .text-centered,
 .center { text-align: center; }
+
+.text-align-left {
+    text-align: left;
+}
 
 .h5-large {
     font-size: 30px;
@@ -3007,6 +3012,10 @@ p.no-margin {
 .sort-phrase-wrap {
     position: relative;
     max-width: 960px;
+}
+
+.phrase-wrap.margin-large{
+    margin: 50px 0 100px;
 }
 
 .column-3.sort-phrase-wrap{

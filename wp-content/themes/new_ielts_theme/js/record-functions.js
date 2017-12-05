@@ -81,6 +81,10 @@ $(document).on("click", ".btn-stop", function(){
         clearTimeout(timerId); //cancel the previous timer.
         timerId = null;
     }
+
+    if( $(".show-after-record.hide").length ){
+        $(".show-after-record.hide").removeClass("hide");
+    }
 });
 
 function stopRecording(button) {
