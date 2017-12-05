@@ -1077,7 +1077,32 @@ $( document ).ready(function() {
         }
     });
 
+    $(document).on("click", ".safe-field", function(){
+        var $name = $(this).attr("for");
+        var $field = $("*[name='"+$name+"']").val();
+        var page_id = $("article.container").attr('id').replace('post-', '');
 
+        $.ajax({
+            url: myVars.ajaxUrl, // Notice the AJAX URL here!
+            type: 'post',
+            data: {
+                action: 'my_action_save_field',
+                page_id: page_id, //current page ID = it visible in URL
+                field_name: $name,
+                field_text: $field //current page ID, it visible in <article>
+            }, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
+            cache: false,
+            success: function ( response ) {
+                console.log("success");
+                console.dir( response );
+                $(".hide").removeClass("hide");
+            },
+            error: function ( response ) {
+                console.log("error");
+                console.dir( response );
+            }
+        });
+    });
 });
 
 //make css for YouTube video iframe

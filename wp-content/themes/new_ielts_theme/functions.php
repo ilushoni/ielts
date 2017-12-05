@@ -966,6 +966,38 @@ function my_save_audio_file_callback() {
     wp_die();
 }
 
+//save user text in tasks like focus 4 task 1
+add_action('wp_ajax_my_action_save_field', 'my_action_save_field_callback');
+add_action('wp_ajax_nopriv_my_action_save_field', 'my_action_save_field_callback');
+function my_action_save_field_callback() {
+    // Do your processing here (save to database etc.)
+    // All WP API functions are available for you here
+    $table_name = 'user_task_fields';
+    $user_id = get_current_user_id();
+    $page_id = intval( $_POST['page_id'] );
+    $field_name = $_POST['field_name'];
+    $field_text = $_POST['field_text'];
+    global $wpdb;
+    $query = "SELECT field_id FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id." AND field_name = '".$field_name."'";
+    $datum = $wpdb->get_results( $query );
+    if(count($datum)>0){
+        $wpdb->update(
+            $table_name,
+            array( 'field_text' => $field_text ),
+            array( 'field_id' => $datum[0]->{"field_id"} ));
+    }else {
+        $query =  array(
+            'user_id' => $user_id,
+            'page_id' => $page_id,
+            'field_name' => $field_name ,
+            'field_text' => $field_text
+        );
+        $wpdb -> insert( $table_name, $query );
+    }
+    // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+    wp_die();
+}
+
 //redirect on page with correct url on pages with ajax load
 //function redirect_correct_url() {
 //    global $post;
