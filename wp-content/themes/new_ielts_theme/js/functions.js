@@ -538,14 +538,16 @@ $(document).ready(function() {
         $(".check-btn").removeClass("disabled");
     });
 
-    var textarea = document.querySelector('textarea');
-    textarea.addEventListener('keydown', autosize);
-    function autosize(){
-        var el = this;
-        setTimeout(function(){
-            el.style.cssText = 'height:auto;';
-            el.style.cssText = 'height:' + el.scrollHeight + 'px';
-        },0);
+    if( $("textarea").length ){
+        var textarea = document.querySelector('textarea');
+        textarea.addEventListener('keydown', autosize);
+        function autosize(){
+            var el = this;
+            setTimeout(function(){
+                el.style.cssText = 'height:auto;';
+                el.style.cssText = 'height:' + el.scrollHeight + 'px';
+            },0);
+        }
     }
 
     //get url parameter
@@ -876,6 +878,7 @@ $(document).ready(function() {
                 sendUserData( $("article.container").attr('id').replace('post-', ''));
             });
             // footerFix();
+            saveUserAnswers();
             return false;
         }
     });
@@ -1154,3 +1157,24 @@ $(document).on("click", ".show-checklist-link", function(){
     showChecklistLink();
     return false;
 });
+
+//save all user answers in database for show user progress in main page
+function saveUserAnswers(){
+    $.ajax({
+        url: myVars.ajaxUrl, // Notice the AJAX URL here!
+        type: 'post',
+        data: {
+            action: 'my_action_section_progress',
+            page_id: $("article.container").attr("id").replace("post-", "") //current page ID = it visible in URL
+        }, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
+        cache: false,
+        success: function ( response ) {
+            console.log("success saveUserAnswers");
+            console.dir( response );
+        },
+        error: function ( response ) {
+            console.log("error");
+            console.dir( response );
+        }
+    });
+}

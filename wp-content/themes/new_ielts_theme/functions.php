@@ -998,6 +998,38 @@ function my_action_save_field_callback() {
     wp_die();
 }
 
+//save section progress for user
+add_action('wp_ajax_my_action_section_progress', 'my_action_section_progress_callback');
+add_action('wp_ajax_nopriv_my_action_section_progress', 'my_action_section_progress_callback');
+function my_action_section_progress_callback() {
+    // Do your processing here (save to database etc.)
+    // All WP API functions are available for you here
+    $table_name = 'section_progress';
+    $user_id = get_current_user_id();
+    $current_task_id = intval( $_POST['page_id'] );
+    $ancestors = get_post_ancestors( $current_task_id );
+    $root = count($ancestors)-1;
+    $section_id = $ancestors[$root];
+    global $wpdb;
+    $query = "SELECT id FROM ".$table_name." WHERE user_id = ".$user_id." AND section_id = ".$section_id;
+    $datum = $wpdb->get_results( $query );
+    if(count($datum)>0){
+        $wpdb->update(
+            $table_name,
+            array( 'current_task_id' => $current_task_id ),
+            array( 'id' => $datum[0]->{"id"} ));
+    }else {
+        $query =  array(
+            'user_id' => $user_id,
+            'section_id' => $section_id,
+            'current_task_id' => $current_task_id
+        );
+        $wpdb -> insert( $table_name, $query );
+    }
+    // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
+    wp_die();
+}
+
 //redirect on page with correct url on pages with ajax load
 //function redirect_correct_url() {
 //    global $post;

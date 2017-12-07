@@ -21,11 +21,45 @@ if(is_user_logged_in()) {
                 echo '</header>';
             }
 
+            $table_name = 'section_progress';
+            $user_id = get_current_user_id();
+
+            $page = get_page_by_path("speaking");
+            $section_id = $page->ID;
+
+            global $wpdb;
+            $query = "SELECT current_task_id FROM ".$table_name." WHERE user_id = ".$user_id." AND section_id = ".$section_id;
+            $datum = $wpdb->get_results( $query );
+            $current_task_id = $datum[0]->{"current_task_id"};
+
+            $postlist = mytheme_list_pages('title_li=&sort_column=menu_order');
+            $children_tasks = array();
+            if( count($children_tasks) > 0 ){
+                unset( $children_tasks );
+            }
+            $children = get_pages('child_of='.$section_id);
+            
+            if( count($children) > 0 ) {
+                $i=0;
+                foreach ( $children as $child ) {
+                    $parents = get_post_ancestors( $child->ID );
+                    if( count($parents) == 3 ){
+                        $child_key = array_search ( $child->ID, $postlist  );
+                        $children_tasks[$i] = $child_key;
+                        $i++;
+                        if( $child->ID == $current_task_id ){
+                            $n = $i;
+                        }
+                    }
+                }
+            }
+            $i = $n / count($children_tasks) * 100;
+
             //user success information
             $user_success = array(
                 'Reading' => 23,
                 'Listening' => 0,
-                'Speaking' => 0,
+                'Speaking' => $i,
                 'Writing' => 0
             );
 
