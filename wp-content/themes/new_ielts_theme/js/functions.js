@@ -177,14 +177,11 @@ $(document).ready(function() {
     });
 
     $('.sort').sortable({
-
         placeholder: 'placeholder',
         connectWith: '.sort',
         items: "li:not(.in-use)",
         start: function(event, ui) {
-
             if( $(this).hasClass("drop-list") ) {  //ul-parent list
-
                 var id = ui.item[0]["id"]; //get moved element id
                 var $elem = ui.item.clone();
                 $elem.attr("style","");
@@ -194,14 +191,11 @@ $(document).ready(function() {
             }
         },
         stop: function(event, ui) {
-
             //$parentUl where element stopped (it's new area)
             //$droppedEl element moved
             //$(this) where element from
-
             var $parentUl = $(ui.item["0"].offsetParent);
             var $droppedEl = $(ui.item["0"]);
-
             $(this).parents(".word-drop.wrong").removeClass("wrong");
             $parentUl.parents(".word-drop.wrong").removeClass("wrong");
             if( !( $(this).parents(".word-drop li").length ) ) {
@@ -661,7 +655,6 @@ $(document).ready(function() {
 
     function startSortOfPhrases(){
         $('.sort-phrase').sortable({
-
             placeholder: 'placeholder',
             connectWith: '.sort-phrase',
             items: "li:not(.in-use)",
@@ -678,11 +671,9 @@ $(document).ready(function() {
                 }
             },
             stop: function(event, ui) {
-
                 //$parentUl where element stopped (it's new area)
                 //$droppedEl element moved
                 //$(this) where element from
-
                 var $parentUl = $(ui.item["0"].offsetParent);
                 var $droppedEl = $(ui.item["0"]);
                 if( $parentUl.hasClass("drop-list") ) {
@@ -701,7 +692,6 @@ $(document).ready(function() {
                 }
                 $("li.focus").removeClass("focus");
             },
-
             receive: function(event, ui) {
             }
         });
@@ -1082,6 +1072,17 @@ $(document).ready(function() {
             }
         });
     });
+
+    //sort words from text
+    var removeElements = function(text, selector) {
+        var wrapped = $("<p>" + text + "</p>");
+        wrapped.find(selector).remove();
+        return wrapped.html();
+    }
+
+    if( $(".words-in-text").length ){
+        $(".words-in-text")
+    }
 });
 
 //---work with iframe video---

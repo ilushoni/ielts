@@ -2060,7 +2060,9 @@ ol.list-checkbox li:before{
 .sort.drop-list {
     margin: 20px 0;
     padding: 10px;
-    border: solid 1px #979797;
+    border-radius: 3px;
+    border: solid 1px #e7e7e7;
+    /*border: solid 1px #979797;*/
     font-size: .7777em;
     line-height: 1.43em;
 }
@@ -3747,6 +3749,112 @@ div.textarea-middle.open{
     display: block;
 }
 /*---end popup window with video---*/
+
+/*---sort elements just from text---*/
+.paste-words-from-text {
+    grid-template-columns: 258px 1fr;
+    max-width: 770px;
+}
+
+.paste-words-from-text h5 {
+    font-weight: 900;
+}
+
+.words-in-text{
+    max-width: 960px;
+}
+
+.sort.drop-list.words-in-text{
+    margin: 20px 0 75px;
+    padding: 30px 60px 30px 39px;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.words-in-text p{
+    margin: 0 0 10px 0;
+    display: inline;
+}
+
+.sort.drop-list.words-in-text li{
+    margin: 0 0 10px 0;
+    padding: 0 3px 1px;
+    display: inline-block;
+    float: none;
+    border-radius: 4px;
+    color: #000;
+    font-size: 18px;
+    line-height: 24px;
+    background-color: #d8d8d8;
+    border: 0;
+}
+
+.list-underlined {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.list-underlined:empty{
+    padding: 24px 0;
+    height: 57px;
+}
+
+.list-underlined:last-child{
+    border-bottom: 0;
+}
+
+.list-underlined li{
+    display: block;
+    padding: 24px 29px;
+    width: 100%;
+    height: 57px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    font-size: 14px;
+    line-height: 0.64;
+    letter-spacing: 4px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+}
+
+.row-underlined .sort-phrase li,
+.list-underlined li:last-child{
+    border: 0;
+}
+
+.row-underlined .sort-phrase-drop{
+    min-height: auto;
+    padding: 0;
+}
+
+.row-underlined .sort-phrase-drop:empty{
+    height: 56px;
+}
+
+.row-underlined .sort-phrase-drop li{
+    margin: 0;
+    padding: 24px 32px;
+    height: 56px;
+    font-size: 14px;
+    line-height: 0.64;
+    text-align: left;
+    color: #000000;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.row-underlined .sort-phrase-drop li.placeholder{
+    border: 0;
+    padding: 0;
+}
+
+.row-underlined {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+/*---end sort elements just from text---*/
 
 /*---page under construction---*/
 .page-under-construction {
