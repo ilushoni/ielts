@@ -3751,32 +3751,35 @@ div.textarea-middle.open{
 /*---end popup window with video---*/
 
 /*---sort elements just from text---*/
-.paste-words-from-text {
+.paste-sort-words-columns {
     grid-template-columns: 258px 1fr;
     max-width: 770px;
 }
 
-.paste-words-from-text h5 {
+.paste-sort-words-columns h5 {
     font-weight: 900;
 }
 
-.words-in-text{
-    max-width: 960px;
-}
-
-.sort.drop-list.words-in-text{
+.sort-words.drop-list{
+    position: relative;
+    display: block;
     margin: 20px 0 75px;
     padding: 30px 60px 30px 39px;
+    max-width: 770px;
+    border-radius: 3px;
+    border: solid 1px #e7e7e7;
     font-size: 18px;
     line-height: 24px;
+    list-style: none;
 }
 
-.words-in-text p{
+.sort-words.drop-list p{
     margin: 0 0 10px 0;
     display: inline;
 }
 
-.sort.drop-list.words-in-text li{
+.sort-words.drop-list li{
+    position: relative;
     margin: 0 0 10px 0;
     padding: 0 3px 1px;
     display: inline-block;
@@ -3787,31 +3790,27 @@ div.textarea-middle.open{
     line-height: 24px;
     background-color: #d8d8d8;
     border: 0;
+    cursor: pointer;
+}
+
+.sort-words.drop-list li.in-use{
+    background: #f4f4f4;
+    color: #afafaf;
 }
 
 .list-underlined {
+    position: relative;
+    display: block;
     margin: 0;
     padding: 0;
+    width: 100%;
     list-style-type: none;
     text-align: left;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-}
-
-.list-underlined:empty{
-    padding: 24px 0;
-    height: 57px;
-}
-
-.list-underlined:last-child{
-    border-bottom: 0;
 }
 
 .list-underlined li{
     display: block;
     padding: 24px 29px;
-    width: 100%;
-    height: 57px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     font-size: 14px;
     line-height: 0.64;
     letter-spacing: 4px;
@@ -3820,22 +3819,31 @@ div.textarea-middle.open{
     text-transform: uppercase;
 }
 
-.row-underlined .sort-phrase li,
+.list-underlined li,
+.row-underlined{
+    position: relative;
+    width: 100%;
+    height: 56px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
 .list-underlined li:last-child{
     border: 0;
 }
 
-.row-underlined .sort-phrase-drop{
-    min-height: auto;
+.row-underlined .sort-words{
+    position: relative;
+    display: block;
     padding: 0;
-}
-
-.row-underlined .sort-phrase-drop:empty{
-    height: 56px;
-}
-
-.row-underlined .sort-phrase-drop li{
     margin: 0;
+    height: 100%;
+    width: 100%;
+    list-style-type: none;
+}
+
+.row-underlined .sort-words li{
+    position: relative;
+    display: block;
     padding: 24px 32px;
     height: 56px;
     font-size: 14px;
@@ -3844,15 +3852,15 @@ div.textarea-middle.open{
     color: #000000;
     text-transform: none;
     letter-spacing: normal;
+    cursor: pointer;
 }
 
-.row-underlined .sort-phrase-drop li.placeholder{
-    border: 0;
-    padding: 0;
+.sort-words li.placeholder{
+    display: none;
 }
 
-.row-underlined {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+.sort-words li.wrong{
+    color: #e61130;
 }
 /*---end sort elements just from text---*/
 

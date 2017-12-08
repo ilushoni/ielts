@@ -1074,15 +1074,81 @@ $(document).ready(function() {
     });
 
     //sort words from text
-    var removeElements = function(text, selector) {
-        var wrapped = $("<p>" + text + "</p>");
-        wrapped.find(selector).remove();
-        return wrapped.html();
+    $(document).on('mousedown', ".sort-words li", function(){
+        $(this).addClass("focus");
+    });
+
+    $(document).on('click', ".sort-words li", function(){
+        if(!( $(this).parents(".sort-words").hasClass('drop-list') )) {
+            $( "#"+ $(this).attr('id')+"-clone").after($(this));
+            $( "#"+ $(this).attr('id')+"-clone").remove();
+            $( "#"+ $(this).attr('id')).removeAttr("style");
+            $( "#"+ $(this).attr('id')).removeClass("wrong");
+        }
+    });
+
+    $(document).on('mouseup', ".sort-words li", function(){
+        $(this).removeClass("focus");
+    });
+
+    startSortOfWordsFromText();
+
+    function startSortOfWordsFromText(){
+        $('.sort-words').sortable({
+            placeholder: 'placeholder',
+            connectWith: '.sort-words',
+            items: "li:not(.in-use)",
+            start: function(event, ui) {
+                if( $(this).hasClass("drop-list") ) {  //ul-parent list
+                    var id = ui.item[0]["id"]; //get moved element id
+                    var $elem = ui.item.clone();
+                    $elem.attr("style","");
+                    $elem[0]["id"] = id + "-clone";
+                    $elem.addClass("in-use");
+                    $(this).find(".focus").after( $elem );
+                } else {
+                    $('#'+ui.item[0]["id"]).removeClass("wrong");
+                }
+            },
+            stop: function(event, ui) {
+                //$parentUl where element stopped (it's new area)
+                //$droppedEl element moved
+                //$(this) where element from
+                var $parentUl = $(ui.item["0"].offsetParent);
+                var $droppedEl = $(ui.item["0"]);
+                if( $parentUl.hasClass("drop-list") ) {
+                    $droppedEl.removeClass("wrong");
+                    $droppedEl.removeClass("old");
+                    $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
+                    $( "#"+ ui.item[0]["id"]+"-clone").remove();
+                    $( "#"+ ui.item[0]["id"]).attr("style","");
+                } else {
+                    $droppedEl.addClass("old");
+                    var correctAns = $parentUl.attr("answers_correct").split(",");
+                    if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
+                        $droppedEl.addClass("wrong");
+                    } else {
+                        $droppedEl.removeClass("wrong");
+                    }
+                }
+                $("li.focus").removeClass("focus");
+            },
+            receive: function(event, ui) {
+                //if target list not empty, change old element to new and return old element to main list
+                //$(this) where element stopped (it's new area)
+                $(ui.item["0"]).removeClass("old");
+                if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
+                    var $elem = $(this).find("li.old");
+                    $( "#"+ $elem.attr('id')+"-clone").after($elem);
+                    $( "#"+ $elem.attr('id')+"-clone").remove();
+                    $( "#"+ $elem.attr('id')).attr("style","");
+                    $(".sort-words.drop-list li.old").removeClass("old");
+                    sortItemSize();
+                }
+            }
+        });
     }
 
-    if( $(".words-in-text").length ){
-        $(".words-in-text")
-    }
 });
 
 //---work with iframe video---

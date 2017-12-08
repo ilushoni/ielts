@@ -38,7 +38,7 @@ if(is_user_logged_in()) {
                 unset( $children_tasks );
             }
             $children = get_pages('child_of='.$section_id);
-            
+
             if( count($children) > 0 ) {
                 $i=0;
                 foreach ( $children as $child ) {
