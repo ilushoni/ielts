@@ -3753,19 +3753,25 @@ div.textarea-middle.open{
 /*---sort elements just from text---*/
 .paste-sort-words-columns {
     grid-template-columns: 258px 1fr;
-    max-width: 770px;
+}
+
+.paste-sort-words-columns.revert {
+    grid-template-columns: 1fr 258px;
+}
+
+.paste-sort-words-columns.margin-large {
+    margin: 40px 0 75px;
 }
 
 .paste-sort-words-columns h5 {
     font-weight: 900;
 }
 
-.sort-words.drop-list{
+.sort-words-text{
     position: relative;
     display: block;
     margin: 20px 0 75px;
     padding: 30px 60px 30px 39px;
-    max-width: 770px;
     border-radius: 3px;
     border: solid 1px #e7e7e7;
     font-size: 18px;
@@ -3773,17 +3779,19 @@ div.textarea-middle.open{
     list-style: none;
 }
 
-.sort-words.drop-list p{
-    margin: 0 0 10px 0;
+.paste-sort-words-columns,
+.sort-words-text{
+    max-width: 770px;
+}
+
+.sort-words-text p{
     display: inline;
 }
 
-.sort-words.drop-list li{
+.sort-words-text li{
     position: relative;
-    margin: 0 0 10px 0;
-    padding: 0 3px 1px;
     display: inline-block;
-    float: none;
+    padding: 0 3px 1px;
     border-radius: 4px;
     color: #000;
     font-size: 18px;
@@ -3793,10 +3801,11 @@ div.textarea-middle.open{
     cursor: pointer;
 }
 
-.sort-words.drop-list li.in-use{
-    background: #f4f4f4;
-    color: #afafaf;
+.sort-words-text p,
+.sort-words-text li{
+    margin: 0 0 10px 0;
 }
+
 
 .list-underlined {
     position: relative;
@@ -3853,6 +3862,89 @@ div.textarea-middle.open{
     text-transform: none;
     letter-spacing: normal;
     cursor: pointer;
+}
+
+.sort-in-text {
+    position: relative;
+    width: 100%;
+    padding: 28px 35px 33px 60px;
+    /*padding: 28px 50px 33px 60px;*/
+    text-align: left;
+    line-height: 30px;
+}
+
+.sort-in-text *{
+    vertical-align: top;
+}
+
+.sort-in-text p{
+    display: inline-block;
+}
+
+.sort-in-text br{
+    display: none;
+}
+
+.sort-in-text .sort-words.paste-list{
+    position: relative;
+    display: inline-block;
+    padding: 0 2px;
+    border: solid 1px #e7e7e7;
+    height: 30px;
+    min-width: 110px;
+    border-radius: 3px;
+    background-color: #eaeaea;
+    list-style-type: none;
+}
+
+.sort-in-text p,
+.sort-in-text .sort-words.paste-list{
+    margin: 0 0 9px 0;
+}
+
+.sort-in-text .sort-words.paste-list li{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    line-height: 27px;
+}
+
+.sort-word-list{
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 40px 43px;
+    width: 100%;
+    list-style-type: none;
+    text-align: left;
+}
+
+.sort-word-list:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.sort-word-list li{
+    position: relative;
+    display: inline-block;
+    float: left;
+    clear: both;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.sort-word-list li:last-child{
+    margin: 0;
+}
+
+.sort-words li.in-use{
+    margin-left: -3px;
+    margin-bottom: 9px;
+    padding: 0 3px 1px;
+    border-radius: 4px;
+    background: #f4f4f4;
+    color: #afafaf;
 }
 
 .sort-words li.placeholder{

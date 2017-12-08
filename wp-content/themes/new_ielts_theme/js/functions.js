@@ -1118,12 +1118,16 @@ $(document).ready(function() {
                 var $droppedEl = $(ui.item["0"]);
                 if( $parentUl.hasClass("drop-list") ) {
                     $droppedEl.removeClass("wrong");
-                    $droppedEl.removeClass("old");
+                    if( $(".only-one-paste").length ){
+                        $droppedEl.removeClass("old");
+                    }
                     $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
                     $( "#"+ ui.item[0]["id"]+"-clone").remove();
                     $( "#"+ ui.item[0]["id"]).attr("style","");
                 } else {
-                    $droppedEl.addClass("old");
+                    if( $parentUl.parents(".only-one-paste").length ){
+                        $droppedEl.addClass("old");
+                    }
                     var correctAns = $parentUl.attr("answers_correct").split(",");
                     if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
                         $droppedEl.addClass("wrong");
@@ -1136,14 +1140,17 @@ $(document).ready(function() {
             receive: function(event, ui) {
                 //if target list not empty, change old element to new and return old element to main list
                 //$(this) where element stopped (it's new area)
-                $(ui.item["0"]).removeClass("old");
-                if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
-                    var $elem = $(this).find("li.old");
-                    $( "#"+ $elem.attr('id')+"-clone").after($elem);
-                    $( "#"+ $elem.attr('id')+"-clone").remove();
-                    $( "#"+ $elem.attr('id')).attr("style","");
-                    $(".sort-words.drop-list li.old").removeClass("old");
-                    sortItemSize();
+                if( $(this).parents(".only-one-paste").length ){
+                    $(ui.item["0"]).removeClass("old");
+                    if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
+                        var $elem = $(this).find("li.old");
+                        $( "#"+ $elem.attr('id')+"-clone").after($elem);
+                        $( "#"+ $elem.attr('id')+"-clone").remove();
+                        $( "#"+ $elem.attr('id')).removeAttr("style");
+                        $( "#"+ $elem.attr('id')).removeClass("wrong");
+                        $(".sort-words.drop-list li.old").removeClass("old");
+                        sortItemSize();
+                    }
                 }
             }
         });
