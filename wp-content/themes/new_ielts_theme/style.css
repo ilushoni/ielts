@@ -3705,6 +3705,10 @@ div.textarea-middle.open{
 .hide{
     display: none;
 }
+
+.no-margin {
+    margin: 0;
+}
 /*---end switch task exercises---*/
 
 /*---popup window with video---*/
