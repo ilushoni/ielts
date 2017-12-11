@@ -14,8 +14,8 @@
       <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="1151" column="39" lean-forward="true" selection-start-line="1151" selection-start-column="39" selection-end-line="1151" selection-end-column="39" />
+            <state relative-caret-position="270">
+              <caret line="458" column="68" lean-forward="false" selection-start-line="458" selection-start-column="63" selection-end-line="458" selection-end-column="68" />
               <folding>
                 <element signature="e#98#354#0" expanded="false" />
                 <element signature="e#426#511#0" expanded="false" />
@@ -40,7 +40,6 @@
                 <element signature="e#11717#12240#0" expanded="false" />
                 <element signature="e#14172#14649#0" expanded="false" />
                 <element signature="e#14766#15095#0" expanded="false" />
-                <element signature="e#15141#22813#0" expanded="false" />
                 <element signature="e#15188#15225#0" expanded="false" />
                 <element signature="e#20398#22687#0" expanded="false" />
                 <element signature="e#22846#22942#0" expanded="false" />
@@ -86,8 +85,8 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="1018" column="35" lean-forward="true" selection-start-line="1018" selection-start-column="20" selection-end-line="1018" selection-end-column="35" />
+            <state relative-caret-position="231">
+              <caret line="1028" column="31" lean-forward="false" selection-start-line="1028" selection-start-column="31" selection-end-line="1028" selection-end-column="31" />
               <folding>
                 <element signature="e#11231#11722#0#PHP" expanded="false" />
                 <element signature="e#11775#12697#0#PHP" expanded="false" />
@@ -113,11 +112,26 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="record-functions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/record-functions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="249">
+              <caret line="84" column="29" lean-forward="true" selection-start-line="84" selection-start-column="12" selection-end-line="84" selection-end-column="29" />
+              <folding>
+                <element signature="n#!!block;n#startRecording#0" expanded="false" />
+                <element signature="e#4954#6075#0" expanded="false" />
+                <element signature="e#6138#6952#0" expanded="false" />
+                <element signature="n#!!block;n#returnMusic#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="page-focus4.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/page-focus4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="96" selection-end-column="6" />
+            <state relative-caret-position="556">
+              <caret line="117" column="37" lean-forward="true" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -126,8 +140,8 @@
       <file leaf-file-name="page-focus3.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/page-focus3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="154" selection-end-column="6" />
+            <state relative-caret-position="640">
+              <caret line="178" column="6" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="178" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -136,8 +150,8 @@
       <file leaf-file-name="page-focus2.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/page-focus2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="43" column="6" lean-forward="true" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
+            <state relative-caret-position="903">
+              <caret line="43" column="6" lean-forward="false" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
               <folding>
                 <element signature="n#div#0;n#div#1;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#2;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -149,8 +163,8 @@
       <file leaf-file-name="page.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="104" column="32" lean-forward="true" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="43" />
+            <state relative-caret-position="2184">
+              <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -159,8 +173,8 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="3869" column="32" lean-forward="false" selection-start-line="3869" selection-start-column="32" selection-end-line="3869" selection-end-column="32" />
+            <state relative-caret-position="354">
+              <caret line="3707" column="0" lean-forward="false" selection-start-line="3707" selection-start-column="0" selection-end-line="3707" selection-end-column="0" />
               <folding>
                 <element signature="e#33658#33885#2" expanded="true" />
                 <element signature="e#34094#34321#1" expanded="true" />
@@ -184,8 +198,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Answering Exam Questions</find>
-      <find>ifram</find>
       <find>iframe</find>
       <find>video</find>
       <find>video-if</find>
@@ -198,7 +210,6 @@
       <find>Check Answers</find>
       <find>IELTS Speaking Checklist</find>
       <find>stop</find>
-      <find>after-record</find>
       <find>phra</find>
       <find>focus-4-task-1-textarea</find>
       <find>a.re</find>
@@ -214,6 +225,9 @@
       <find>.sort</find>
       <find>sort</find>
       <find>sort-ph</find>
+      <find>after-record</find>
+      <find>show-after-record</find>
+      <find>&quot;hide</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -287,7 +301,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -310,6 +323,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -373,12 +387,13 @@
       <workItem from="1512321234578" duration="76000" />
       <workItem from="1512321415864" duration="654000" />
       <workItem from="1512387232045" duration="34638000" />
-      <workItem from="1512575573160" duration="46815000" />
+      <workItem from="1512575573160" duration="47414000" />
+      <workItem from="1512984402864" duration="1551000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="671461000" />
+    <option name="totallyTimeSpent" value="673611000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -459,7 +474,6 @@
             <element signature="e#11717#12240#0" expanded="false" />
             <element signature="e#14172#14649#0" expanded="false" />
             <element signature="e#14766#15095#0" expanded="false" />
-            <element signature="e#15141#22813#0" expanded="false" />
             <element signature="e#15188#15225#0" expanded="false" />
             <element signature="e#20398#22687#0" expanded="false" />
             <element signature="e#22846#22942#0" expanded="false" />
@@ -565,7 +579,6 @@
             <element signature="e#11717#12240#0" expanded="false" />
             <element signature="e#14172#14649#0" expanded="false" />
             <element signature="e#14766#15095#0" expanded="false" />
-            <element signature="e#15141#22813#0" expanded="false" />
             <element signature="e#15188#15225#0" expanded="false" />
             <element signature="e#20398#22687#0" expanded="false" />
             <element signature="e#22846#22942#0" expanded="false" />
@@ -635,7 +648,6 @@
             <element signature="e#11717#12240#0" expanded="false" />
             <element signature="e#14172#14649#0" expanded="false" />
             <element signature="e#14766#15095#0" expanded="false" />
-            <element signature="e#15141#22813#0" expanded="false" />
             <element signature="e#15188#15225#0" expanded="false" />
             <element signature="e#20398#22687#0" expanded="false" />
             <element signature="e#22846#22942#0" expanded="false" />
@@ -707,7 +719,6 @@
             <element signature="e#11717#12240#0" expanded="false" />
             <element signature="e#14172#14649#0" expanded="false" />
             <element signature="e#14766#15095#0" expanded="false" />
-            <element signature="e#15141#22813#0" expanded="false" />
             <element signature="e#15188#15225#0" expanded="false" />
             <element signature="e#20398#22687#0" expanded="false" />
             <element signature="e#22846#22942#0" expanded="false" />
@@ -880,7 +891,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1092">
           <caret line="54" column="14" lean-forward="true" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -902,7 +912,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-347">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -918,7 +927,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -942,13 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="39" column="48" lean-forward="false" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
-          <folding>
-            <element signature="e#356#549#0#PHP" expanded="false" />
-            <element signature="e#3410#3633#0#PHP" expanded="false" />
-            <element signature="e#3747#4705#0#PHP" expanded="false" />
-            <element signature="e#4780#5101#0#PHP" expanded="false" />
-            <marker date="1512660707779" expanded="true" signature="780:870" ph="SELECT id FR... ${$table_name}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -956,7 +957,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="76" column="33" lean-forward="true" selection-start-line="74" selection-start-column="28" selection-end-line="76" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -968,23 +968,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/record-functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="147" column="51" lean-forward="true" selection-start-line="147" selection-start-column="51" selection-end-line="147" selection-end-column="51" />
-          <folding>
-            <element signature="n#!!block;n#startRecording#0" expanded="false" />
-            <element signature="e#4954#6075#0" expanded="false" />
-            <element signature="e#6138#6952#0" expanded="false" />
-            <element signature="n#!!block;n#returnMusic#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/page-focus2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="43" column="6" lean-forward="true" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
+        <state relative-caret-position="903">
+          <caret line="43" column="6" lean-forward="false" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
           <folding>
             <element signature="n#div#0;n#div#1;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#2;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -992,10 +979,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2184">
+          <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/page-focus3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="178" column="6" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="178" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="1018" column="35" lean-forward="true" selection-start-line="1018" selection-start-column="20" selection-end-line="1018" selection-end-column="35" />
+        <state relative-caret-position="231">
+          <caret line="1028" column="31" lean-forward="false" selection-start-line="1028" selection-start-column="31" selection-end-line="1028" selection-end-column="31" />
           <folding>
             <element signature="e#11231#11722#0#PHP" expanded="false" />
             <element signature="e#11775#12697#0#PHP" expanded="false" />
@@ -1022,8 +1025,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="1151" column="39" lean-forward="true" selection-start-line="1151" selection-start-column="39" selection-end-line="1151" selection-end-column="39" />
+        <state relative-caret-position="270">
+          <caret line="458" column="68" lean-forward="false" selection-start-line="458" selection-start-column="63" selection-end-line="458" selection-end-column="68" />
           <folding>
             <element signature="e#98#354#0" expanded="false" />
             <element signature="e#426#511#0" expanded="false" />
@@ -1048,7 +1051,6 @@
             <element signature="e#11717#12240#0" expanded="false" />
             <element signature="e#14172#14649#0" expanded="false" />
             <element signature="e#14766#15095#0" expanded="false" />
-            <element signature="e#15141#22813#0" expanded="false" />
             <element signature="e#15188#15225#0" expanded="false" />
             <element signature="e#20398#22687#0" expanded="false" />
             <element signature="e#22846#22942#0" expanded="false" />
@@ -1090,34 +1092,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/page-focus3.html">
+    <entry file="file://$PROJECT_DIR$/js/record-functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="154" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="104" column="32" lean-forward="true" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="43" />
-          <folding />
+        <state relative-caret-position="249">
+          <caret line="84" column="29" lean-forward="true" selection-start-line="84" selection-start-column="12" selection-end-line="84" selection-end-column="29" />
+          <folding>
+            <element signature="n#!!block;n#startRecording#0" expanded="false" />
+            <element signature="e#4954#6075#0" expanded="false" />
+            <element signature="e#6138#6952#0" expanded="false" />
+            <element signature="n#!!block;n#returnMusic#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/page-focus4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="96" selection-end-column="6" />
+        <state relative-caret-position="556">
+          <caret line="117" column="37" lean-forward="true" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="3869" column="32" lean-forward="false" selection-start-line="3869" selection-start-column="32" selection-end-line="3869" selection-end-column="32" />
+        <state relative-caret-position="354">
+          <caret line="3707" column="0" lean-forward="false" selection-start-line="3707" selection-start-column="0" selection-end-line="3707" selection-end-column="0" />
           <folding>
             <element signature="e#33658#33885#2" expanded="true" />
             <element signature="e#34094#34321#1" expanded="true" />

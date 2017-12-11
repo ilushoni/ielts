@@ -3701,6 +3701,7 @@ div.textarea-middle.open{
 /*---end textarea styles---*/
 
 /*---switch task exercises---*/
+.show-after-record.hide,
 .hide{
     display: none;
 }
