@@ -127,11 +127,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page-focus5.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="page-focus5.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/page-focus5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="808">
-              <caret line="173" column="7" lean-forward="false" selection-start-line="173" selection-start-column="7" selection-end-line="173" selection-end-column="7" />
+            <state relative-caret-position="661">
+              <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -140,8 +140,8 @@
       <file leaf-file-name="page-focus4.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/page-focus4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="48" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="128" selection-end-column="7" />
+            <state relative-caret-position="63">
+              <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -180,17 +180,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="3709" column="14" lean-forward="false" selection-start-line="3709" selection-start-column="14" selection-end-line="3709" selection-end-column="14" />
+            <state relative-caret-position="438">
+              <caret line="159" column="36" lean-forward="false" selection-start-line="159" selection-start-column="36" selection-end-line="159" selection-end-column="36" />
               <folding>
-                <element signature="e#33658#33885#2" expanded="true" />
-                <element signature="e#34094#34321#1" expanded="true" />
-                <element signature="e#34323#34714#1" expanded="true" />
-                <element signature="e#67682#67905#2" expanded="true" />
-                <element signature="e#71916#72139#2" expanded="true" />
+                <element signature="e#3352#4188#2" expanded="true" />
+                <element signature="e#4339#5172#2" expanded="true" />
+                <element signature="e#5350#5909#2" expanded="true" />
+                <element signature="e#6043#6599#2" expanded="true" />
+                <element signature="e#6701#7257#2" expanded="true" />
+                <element signature="e#35635#35862#2" expanded="true" />
+                <element signature="e#36071#36298#1" expanded="true" />
+                <element signature="e#36300#36691#1" expanded="true" />
+                <element signature="e#69744#69967#2" expanded="true" />
+                <element signature="e#73978#74201#2" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -226,7 +231,6 @@
       <find>ajax</find>
       <find>$postlist</find>
       <find>This is largely because</find>
-      <find>check-btn</find>
       <find>sort-phrase-column</find>
       <find>sort-phrase</find>
       <find>list-un</find>
@@ -238,6 +242,7 @@
       <find>show-after-record</find>
       <find>&quot;hide</find>
       <find>h4</find>
+      <find>check-btn</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -279,8 +284,8 @@
         <option value="$PROJECT_DIR$/front-page.php" />
         <option value="$PROJECT_DIR$/js/functions.js" />
         <option value="$PROJECT_DIR$/js/page-focus4.html" />
-        <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/js/page-focus5.html" />
+        <option value="$PROJECT_DIR$/style.css" />
       </list>
     </option>
   </component>
@@ -312,6 +317,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -333,7 +339,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -400,12 +405,13 @@
       <workItem from="1512387232045" duration="34638000" />
       <workItem from="1512575573160" duration="47414000" />
       <workItem from="1512984402864" duration="1551000" />
-      <workItem from="1512990543704" duration="3079000" />
+      <workItem from="1512990543704" duration="3864000" />
+      <workItem from="1513074109404" duration="7498000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="676690000" />
+    <option name="totallyTimeSpent" value="684973000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -1096,33 +1102,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="3709" column="14" lean-forward="false" selection-start-line="3709" selection-start-column="14" selection-end-line="3709" selection-end-column="14" />
-          <folding>
-            <element signature="e#33658#33885#2" expanded="true" />
-            <element signature="e#34094#34321#1" expanded="true" />
-            <element signature="e#34323#34714#1" expanded="true" />
-            <element signature="e#67682#67905#2" expanded="true" />
-            <element signature="e#71916#72139#2" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/page-focus4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="48" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="128" selection-end-column="7" />
+        <state relative-caret-position="63">
+          <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/page-focus5.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="808">
-          <caret line="173" column="7" lean-forward="false" selection-start-line="173" selection-start-column="7" selection-end-line="173" selection-end-column="7" />
+        <state relative-caret-position="661">
+          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="159" column="36" lean-forward="false" selection-start-line="159" selection-start-column="36" selection-end-line="159" selection-end-column="36" />
+          <folding>
+            <element signature="e#3352#4188#2" expanded="true" />
+            <element signature="e#4339#5172#2" expanded="true" />
+            <element signature="e#5350#5909#2" expanded="true" />
+            <element signature="e#6043#6599#2" expanded="true" />
+            <element signature="e#6701#7257#2" expanded="true" />
+            <element signature="e#35635#35862#2" expanded="true" />
+            <element signature="e#36071#36298#1" expanded="true" />
+            <element signature="e#36300#36691#1" expanded="true" />
+            <element signature="e#69744#69967#2" expanded="true" />
+            <element signature="e#73978#74201#2" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
