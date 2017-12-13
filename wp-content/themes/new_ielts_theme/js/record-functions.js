@@ -51,7 +51,7 @@ function startRecording(button) {
 function formatDuration(seconds) {
     var sec = Math.floor( seconds );
     var min = Math.floor( sec / 60 );
-    min = min >= 10 ? min : '0' + min;
+    // min = min >= 10 ? min : '0' + min;
     sec = Math.floor( sec % 60 );
     sec = sec >= 10 ? sec : '0' + sec;
     return min + ':' + sec;
@@ -76,6 +76,7 @@ $(document).on("click", ".btn-stop", function(){
     var $el = $(this).parents(".recorder").find(".btn-record");
     if( $el.text() == "Record Myself" ) {
         $el.text("Re-record");
+        $el.addClass("btn-re-record");
     }
     if (timerId) {
         clearTimeout(timerId); //cancel the previous timer.
@@ -246,33 +247,35 @@ function pauseAudio(music, $this){
 }
 
 $(document).on('click', '.btn-play', function(){
-    var music = returnMusic( $(this) );
-    var duration = music.duration;
-    var timeline_id = $(this).parents("li").find(".timeline").attr("id");
-    var timeline = document.getElementById(timeline_id);
+    if( $(this).parents(".disabled").length == 0 ){
+        var music = returnMusic( $(this) );
+        var duration = music.duration;
+        var timeline_id = $(this).parents("li").find(".timeline").attr("id");
+        var timeline = document.getElementById(timeline_id);
 
-    if( ( $(".recorder").length ) && ( $(".record-duration").text() !== "" ) ){
-        $(".record-duration").empty();
-    }
+        if( ( $(".recorder").length ) && ( $(".record-duration").text() !== "" ) ){
+            $(".record-duration").empty();
+        }
 
-    if( music.paused ) {
-        if( $(".btn-play.pause").length ){
-            var $el = $(".btn-play.pause:not(.this)");
-            var $el_music = returnMusic( $el );
-            pauseAudio( $el_music , $el );
+        if( music.paused ) {
+            if( $(".btn-play.pause").length ){
+                var $el = $(".btn-play.pause:not(.this)");
+                var $el_music = returnMusic( $el );
+                pauseAudio( $el_music , $el );
+            }
+            music.play();
+            switch( $(this).parents("li").find(".playhead").width() ){
+                case $(this).parents("li").find(".timeline").width() :
+                    $(this).parents("li").find(".playhead").width(3);
+                    break;
+                default:
+                    var w = $(this).parents("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
+                    duration -= w;
+            }
+            $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
+            $(this).removeClass("play").addClass("pause");
+        }else {
+            pauseAudio(music, $(this));
         }
-        music.play();
-        switch( $(this).parents("li").find(".playhead").width() ){
-            case $(this).parents("li").find(".timeline").width() :
-                $(this).parents("li").find(".playhead").width(3);
-                break;
-            default:
-                var w = $(this).parents("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
-                duration -= w;
-        }
-        $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
-        $(this).removeClass("play").addClass("pause");
-    }else {
-        pauseAudio(music, $(this));
     }
 });

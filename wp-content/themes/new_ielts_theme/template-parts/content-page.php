@@ -59,6 +59,16 @@ if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($p
 }
 
 switch ( $page_slug ):
+    case "ui-kit":
+        echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
+            get_template_part( 'template-parts/content', 'page-section-inside' );
+
+            echo '<nav class="page-nav-wrapper">';
+                echo '<a href="'.get_home_url().'" class="page-prev">'._("Back").'</a>';
+            echo '</nav>';
+        echo '</article>';
+        break;
+
     case "reading-question-types":
 
         get_template_part( 'template-parts/content', 'page-reading-question-types' );

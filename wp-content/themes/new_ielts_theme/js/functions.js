@@ -231,19 +231,25 @@ $(document).ready(function() {
         }
     });
 
-    function showHintForExample(){
-        if( $("#task3-text-insert").length ) {
-            var el_pos_left = $("li.example .text-field-group").position().left;
-            var $el_btn = $( "li.example .btn-hint");
-            var $el_hint = $( "li.example .hint");
-
-            if( $(".check-btn").hasClass("disabled") ) {
-                $el_btn = $( "li.example .btn-explain");
-                $el_hint = $( "li.example .explain");
-            }
-            $el_btn.addClass("open");
-            $el_hint.addClass("open").css("padding-left", el_pos_left );
+    function showHintForExample($checkTask){
+        var id = ( $checkTask == undefined ) ? $(".list-questions-ol").attr("id") : $checkTask;
+        var $listTask = $("#"+id);
+        console.log(id);
+        var el_pos_left = $listTask.find("li.example").find(".text-field-group").position().left;
+        var $el_btn = $listTask.find("li.example").find(".btn-hint");
+        var $el_hint = $listTask.find("li.example").find(".hint");
+        var $btn = 0;
+        if( $(".nav-exercise[for='"+id+"']").length ){
+            $btn = $(".nav-exercise[for='"+id+"']").find(".check-btn");
+        } else{
+            $btn = $(".check-btn");
         }
+        if( $btn.hasClass("disabled") ) {
+            $el_btn = $listTask.find("li.example").find(".btn-explain");
+            $el_hint = $listTask.find("li.example").find(".explain");
+        }
+        $el_btn.addClass("open");
+        $el_hint.addClass("open").css("padding-left", el_pos_left );
     }
 
     function showMessage(sumWrongAnswers){
@@ -348,17 +354,19 @@ $(document).ready(function() {
     }
 
     function selectModificationPosition(){
-        $(".select-field-group").each(function(){
-            var el_pos_left = $(this).parents("li").find("strong").position().left;
-            var col_width = $(this).parents(".entry-content").width();
-            if( ( col_width - el_pos_left ) < 301 ) {
-                el_pos_left = col_width - 300;
-                $(this).css("margin-left", el_pos_left );
+        if( $(".select-field-group").parents("#task6-choose-select").length ){
+            $(".select-field-group").each(function(){
+                var el_pos_left = $(this).parents("li").find("strong").position().left;
+                var col_width = $(this).parents(".entry-content").width();
+                if( ( col_width - el_pos_left ) < 301 ) {
+                    el_pos_left = col_width - 300;
+                    $(this).css("margin-left", el_pos_left );
 
-            } else {
-                $(this).css("margin-left", el_pos_left );
-            }
-        });
+                } else {
+                    $(this).css("margin-left", el_pos_left );
+                }
+            });
+        }
     }
 
     // $(document).on('click', ".list-questions-ul li", function(){
@@ -378,24 +386,31 @@ $(document).ready(function() {
         if( $checkBtn.hasClass("disabled") ) {
             return false;
         } else {
+            var $checkTask = 0;
+            if( $checkBtn.parents(".nav-exercise").is('[for]') ){
+                $checkTask = $checkBtn.parents(".nav-exercise").attr("for");
+            } else{
+                $checkTask = $(".list-questions-ol").attr("id");
+            }
             $checkBtn.addClass("disabled");
-            switch( $(".list-questions-ol").attr("id") ){
+            var $parentList = $("#"+$checkTask);
+            switch( $checkTask ){
                 case 'task3-text-insert':
-                    $( ".text-field-group" ).attr( "class", "text-field-group" ); //remove all classes
-                    $(".open").removeClass("open");
-                    $(".btn-info").hide();
-                    $(".btn-explain").show();
-                    showHintForExample();
-                    $( ".text-field-group").each(function(){
-                        switch ( $checkBtn.find(".text-field").val() ) {
-                            case $checkBtn.find(".text-field").attr("correct_answer"):
-                                $checkBtn.addClass("correct-answer");
+                    $parentList.find( ".text-field-group" ).attr( "class", "text-field-group" ); //remove all classes
+                    $parentList.find(".open").removeClass("open");
+                    $parentList.find(".btn-info").hide();
+                    $parentList.find(".btn-explain").show();
+                    showHintForExample($checkTask);
+                    $parentList.find( ".text-field-group").each(function(){
+                        switch ( $(this).find(".text-field").val() ) {
+                            case $(this).find(".text-field").attr("correct_answer"):
+                                $(this).addClass("correct-answer");
                                 break;
                             case '':
-                                $checkBtn.addClass("empty");
+                                $(this).addClass("empty");
                                 break;
                             default:
-                                $checkBtn.addClass("wrong");
+                                $(this).addClass("wrong");
                         }
                     });
                     break;
@@ -506,15 +521,17 @@ $(document).ready(function() {
         }
     }
 
-    $(window).resize(function(){
-        footerFix();
-        showHintForExample();
-        selectModificationPosition();
-    });
+    // $(window).resize(function(){
+    //     footerFix();
+    //     showHintForExample();
+    //     selectModificationPosition();
+    // });
 
     $(window).on('load', function(){
-        showHintForExample();
-        if( $(".select-field-group").parents("#task6-choose-select").length ){
+        if( $(".hint").length ){
+            showHintForExample();
+        }
+        if(( $(".select-field-group").parents("#task6-choose-select").length) || ( $(".select-field-group").parents("#task3-text-insert").length) ){
             selectModificationPosition();
         }
         selectModification();
@@ -562,10 +579,9 @@ $(document).ready(function() {
 
     $(document).on('click', ".check-answers-now input", function(){
         var $parent_el = $(this).parents(".list-questions-ul");
-        var $el = $(this);
-        $parent_el.find("li").addClass("wrong");
         switch( true ) {
             case ( $parent_el.hasClass("list-checkbox") ):
+                $parent_el.find("li").addClass("wrong");
                 $parent_el.find("input").each(function(){
                     if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
                         $(this).parents("li").removeClass("wrong");
@@ -575,14 +591,8 @@ $(document).ready(function() {
                     }
                 });
                 break;
-            case ( $parent_el.hasClass("list-one-character") ):
-                $parent_el.find("input").each(function(){
-                    if( $(this).val() == $(this).attr("correct_answer") ) {
-                        $(this).parents("li").removeClass("wrong");
-                    }
-                });
-                break;
             case ( $parent_el.hasClass("list-radiobutton") ):
+                $parent_el.find("li").addClass("wrong");
                 $parent_el.find("li").each(function(){
                     if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
                         $(this).removeClass('wrong');
@@ -590,13 +600,21 @@ $(document).ready(function() {
                 });
                 break;
             case ( $parent_el.hasClass("list-radio") ):
-                $parent_el.find("li").removeClass("wrong");
-                if( ( $(this).prop('checked') == true ) && ( $(this).attr('correct_answer') !== "1" ) ) {
-                    $(this).parents("li").addClass('wrong');
+                $parent_el.find("li.wrong").removeClass("wrong");
+                if(!( ( $(this).prop('checked') == true ) && ( $(this).is("[correct_answer]") ) && ( $(this).attr("correct_answer") == '1' ) )){
+                    $(this).parents("li").addClass("wrong");
                 }
                 break;
         }
         $('*[class=""]').removeAttr('class');
+    });
+
+    $(document).on( "change paste keyup", ".check-answers-now input.one-character", function(){
+        if( $(this).val() == $(this).attr("correct_answer") ){
+            $(this).parents("li").removeClass("wrong");
+        }else {
+            $(this).parents("li").addClass("wrong");
+        }
     });
 
     $(document).on( "change paste keyup", ".check-answers-now input.text-field", function(){

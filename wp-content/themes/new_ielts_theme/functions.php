@@ -227,7 +227,7 @@ function ielts_scripts() {
     $root = count($ancestors)-1;
     $parent_id = $ancestors[$root];
     $parents = get_post_ancestors( $post->ID );
-    if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
+    if( ( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ) || ( $post->post_name == "ui-kit" ) ){
         wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'), '1.0', 'in_footer');
         $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
         wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
@@ -384,14 +384,17 @@ add_shortcode('my_audio', 'show_my_audio_func');
 function show_audio_func( $atts) {
     $mp3 = '';
     $name = '';
+    $disabled = '';
     extract(shortcode_atts(array(
         'mp3' => 'no-default',
-        'name' => 'no-default'
+        'name' => 'no-default',
+        'disabled' => 'no-default'
     ), $atts));
     global $wpdb;
     $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$mp3'";
     $id = $wpdb->get_var($query);
-    $audio = '<ul class="insert-record-questions-list">';
+    if( !($id) ) $disabled = "disabled";
+    $audio = '<ul class="insert-record-questions-list '.$disabled.'">';
         $audio .= '<li id="record-play-item-'.$id.'">';
         $audio .= '<audio id="music'.$id.'" class="audio-el" src="'.$mp3.'"></audio>';
         $audio .= '<div id="audioplayer'.$id.'" class="audioplayer">';
