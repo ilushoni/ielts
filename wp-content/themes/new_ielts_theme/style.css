@@ -1957,6 +1957,10 @@ ol.list-checkbox li:before{
     line-height: 26px;
 }
 
+.list-one-character .one-character:hover{
+    border-color: #ffc9d1;
+}
+
 .list-one-character .one-character:focus {
     border-color: #FF91A1;
 }

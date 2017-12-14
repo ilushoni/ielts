@@ -601,7 +601,7 @@ $(document).ready(function() {
     });
 
     $(document).on( "change paste keyup", ".check-answers-now input.one-character", function(){
-        if( $(this).val().toLowerCase() == $(this).attr("correct_answer") ){
+        if( ( ! ($(this).val())) || ( $(this).val().toLowerCase() == $(this).attr("correct_answer").toLowerCase() ) ){
             $(this).parents("li").removeClass("wrong");
         }else {
             $(this).parents("li").addClass("wrong");
@@ -609,7 +609,7 @@ $(document).ready(function() {
     });
 
     $(document).on( "change paste keyup", ".check-answers-now input.text-field", function(){
-        if( $(this).val() == $(this).attr("correct_answer") ){
+        if( (!($(this).val())) || ( $(this).val().toLowerCase() == $(this).attr("correct_answer").toLowerCase() ) ){
             $(this).parents(".text-field-group").removeClass("wrong");
         }else {
             $(this).parents(".text-field-group").addClass("wrong");
