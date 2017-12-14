@@ -141,8 +141,6 @@ ul{
 /*---end lists styles---*/
 
 /*---button styles---*/
-.btn-record,
-.btn-stop,
 .check-btn,
 .btn,
 a.page-prev,
@@ -165,8 +163,6 @@ a.page-next,
     cursor: pointer;
 }
 
-.btn-record.btn-re-record,
-.btn-stop,
 .check-btn,
 .btn,
 a.page-prev,
@@ -177,12 +173,6 @@ a.page-next,
     color: #e61130;
 }
 
-.btn-record.btn-re-record:hover,
-.btn-record.btn-re-record:active,
-.btn-record.btn-re-record:focus,
-.btn-stop:hover,
-.btn-stop:active,
-.btn-stop:focus,
 a.page-prev:hover,
 a.page-prev:active,
 a.page-prev:focus,
@@ -200,20 +190,6 @@ a.page-next:focus,
 .btn:focus {
     border-color: #fee7eb;
     background: #fee7eb;
-    color: #e61130;
-}
-
-.btn-record{
-    border: 1px solid #fee7eb;
-    background: #fee7eb;
-    color: #e61130;
-}
-
-.btn-record:hover,
-.btn-record:active,
-.btn-record:focus{
-    border-color: #FF91A1;
-    background: #fff;
     color: #e61130;
 }
 
@@ -236,10 +212,6 @@ button[type="submit"]:focus {
     color: #e61130;
 }
 
-.btn-record.disabled,
-.btn-record:disabled,
-.btn-stop.disabled,
-.btn-stop:disabled,
 a.page-prev.disabled,
 a.page-prev:disabled,
 a.page-next.disabled,
