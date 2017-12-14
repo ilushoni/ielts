@@ -376,11 +376,6 @@ input[type="phone"]::-webkit-input-placeholder{
     cursor: pointer;
 }
 
-.select-field-group .choose-result:hover{
-    border-color: #ffc9d1;
-    background: #ffc9d1;
-}
-
 .select-field-group .choose-result:after {
     content: "";
     position: absolute;
@@ -395,6 +390,11 @@ input[type="phone"]::-webkit-input-placeholder{
 
 .select-field-group.wrong .choose-result {
     border-color: #e61130;
+}
+
+.select-field-group .choose-result:hover{
+    border-color: #fce7ea;
+    background: #fce7ea;
 }
 
 .select-field-group.open .choose-result {
@@ -448,7 +448,7 @@ input[type="phone"]::-webkit-input-placeholder{
 .select-field-group .select-menu .item:hover,
 .select-field-group .select-menu .item:focus,
 .select-field-group .select-menu .item.focus {
-    background: #ffc9d1;
+    background: rgba(230, 17, 48, 0.1);
 }
 
 .select-field-group.correct-answer .choose-result {
@@ -3115,9 +3115,11 @@ p.no-margin {
     border: solid 1px rgba(230, 17, 48, 0.33);
 }
 
+.sort-phrase.drop-list li:hover,
 .sort-phrase.drop-list li.focus,
-.sort-phrase.drop-list li:focus {
+.sort-phrase.drop-list li:focus{
     border-color: #fce7ea;
+    background-color: #fce7ea;
 }
 
 .sort-phrase li.wrong {
