@@ -96,21 +96,15 @@ $(document).ready(function() {
     });
 
     function sortItemSize() {
-
         $(".word-drop").removeClass('make-ul-smaller');
         $(".word-drop").removeClass('make-out-of-ul');
-
         $(".word-drop.has-li").each(function(){
-
             var $el = $(this).find("li.ui-sortable-handle.old");
-
             if( $el.length ) {
-
                 $el.addClass('no-width');
                 var w_parent = Math.round( $(this).outerWidth() );
                 var w_el =  Math.round( $el.outerWidth() );
                 var sum = w_parent - w_el;
-
                 if( sum > 5 ) {
                     $(this).addClass('make-ul-smaller');
                 } else {
@@ -119,12 +113,9 @@ $(document).ready(function() {
                         $(this).addClass('make-out-of-ul');
                     }
                 }
-
                 $el.removeClass('no-width');
             }
-
         });
-
     }
 
     // $(document).on('mousedown', ".sort li", function(){
@@ -456,7 +447,7 @@ $(document).ready(function() {
                                     break;
                                 case ( $checkBtn.hasClass("list-one-character") ):
                                     $checkBtn.find("input").each(function(){
-                                        if( $checkBtn.val() == $checkBtn.attr("correct_answer") ) {
+                                        if( $checkBtn.val().toLowerCase() == $checkBtn.attr("correct_answer") ) {
                                             $checkBtn.parents("li").removeClass("wrong");
                                         }
                                     });
@@ -494,7 +485,7 @@ $(document).ready(function() {
                                     break;
                                 case ( $(this).hasClass("list-one-character") ):
                                     $(this).find("input").each(function(){
-                                        if( $(this).val() == $(this).attr("correct_answer") ) {
+                                        if( $(this).val().toLowerCase() == $(this).attr("correct_answer") ) {
                                             $(this).parents("li").removeClass("wrong");
                                         }
                                     });
@@ -610,7 +601,7 @@ $(document).ready(function() {
     });
 
     $(document).on( "change paste keyup", ".check-answers-now input.one-character", function(){
-        if( $(this).val() == $(this).attr("correct_answer") ){
+        if( $(this).val().toLowerCase() == $(this).attr("correct_answer") ){
             $(this).parents("li").removeClass("wrong");
         }else {
             $(this).parents("li").addClass("wrong");
