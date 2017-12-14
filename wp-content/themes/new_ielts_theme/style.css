@@ -1723,6 +1723,7 @@ ol.list-checkbox{
 }
 
 ol.list-checkbox li {
+    display: list-item;
     counter-increment: customlistcounter;
 }
 
@@ -1730,10 +1731,7 @@ ol.list-checkbox li:before{
     content: counter(customlistcounter);
 }
 
-.list-checkbox br {
-    display: none;
-}
-
+.list-checkbox br,
 .list-checkbox .checkbox {
     display: none;
 }
@@ -1953,7 +1951,7 @@ ol.list-checkbox li:before{
     position: relative;
     display: inherit;
     margin-bottom: 20px;
-    font-size: .7777em;
+    font-size: 14px;
     line-height: 1.43em;
 }
 
@@ -2015,6 +2013,14 @@ ol.list-checkbox li:before{
 
 .list-questions-ol .correct-answer .text-field {
     pointer-events: none;
+}
+
+.list-questions-ol li ul li:before{
+    display: none;
+}
+
+.list-questions-ol li ol li:before{
+    content: "counter(myCounter) ";
 }
 
 .nav-exercise {
@@ -3545,7 +3551,6 @@ p.no-margin {
 .game-question .list-radiobutton .radiobutton[value="no"] + label,
 .game-question .list-radiobutton label:last-child {
     border-radius: 0 4px 4px 0;
-    border-left: 1px solid #e1e1e1;
     margin-right: 0;
 }
 
@@ -4067,9 +4072,7 @@ div.textarea-middle.open{
 }
 
 .sort-words li.in-use{
-    /*margin-left: -3px;*/
-    /*margin-bottom: 9px;*/
-    padding: 0 3px 1px;
+    padding: 0 3px 0;
     border-radius: 4px;
     background: #f4f4f4;
     color: #afafaf;

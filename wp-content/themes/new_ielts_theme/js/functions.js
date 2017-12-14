@@ -243,14 +243,14 @@ $(document).ready(function() {
         $el_hint.addClass("open").css("padding-left", el_pos_left );
     }
 
-    function showMessage(sumWrongAnswers){
+    function showMessage($checkBtn, sumWrongAnswers){
         if ( sumWrongAnswers ) {
-            $(".nav-exercise").addClass("has-wrong");
-            $(".wrong-text").text('You’ve got '+ sumWrongAnswers +' mistakes. Correct them before continuing.');
-            $(".check-btn").addClass("disabled");
+            $checkBtn.parents(".nav-exercise").addClass("has-wrong");
+            $checkBtn.parents(".nav-exercise").find(".wrong-text").text('You’ve got '+ sumWrongAnswers +' mistakes. Correct them before continuing.');
+            $checkBtn.addClass("disabled");
         } else {
-            $(".nav-exercise").removeClass("has-wrong").addClass("disabled");
-            $(".check-btn").addClass("disabled");
+            $checkBtn.parents(".nav-exercise").removeClass("has-wrong").addClass("disabled");
+            $checkBtn.addClass("disabled");
             $(".page-nav-wrapper .page-next").removeClass("disabled");
         }
     }
@@ -373,150 +373,62 @@ $(document).ready(function() {
         }
     });
 
-    function checkButtonClick( $checkBtn ){
+    function checkButtonClick($checkBtn){
         if( $checkBtn.hasClass("disabled") ) {
             return false;
-        } else {
-            var $checkTask = 0;
-            if( $checkBtn.parents(".nav-exercise").is('[for]') ){
-                $checkTask = $checkBtn.parents(".nav-exercise").attr("for");
-            } else{
-                $checkTask = $(".list-questions-ol").attr("id");
-            }
+        } else{
+            var $parentList = ( $checkBtn.parents(".nav-exercise").is('[for]') ) ? $('#'+$checkBtn.parents(".nav-exercise").attr("for")) : $(".list-questions-ol");
             $checkBtn.addClass("disabled");
-            var $parentList = $("#"+$checkTask);
-            switch( $checkTask ){
-                case 'task3-text-insert':
-                    $parentList.find( ".text-field-group" ).attr( "class", "text-field-group" ); //remove all classes
-                    $parentList.find(".open").removeClass("open");
-                    $parentList.find(".btn-info").hide();
-                    $parentList.find(".btn-explain").show();
-                    showHintForExample($checkTask);
-                    $parentList.find( ".text-field-group").each(function(){
-                        switch ( $(this).find(".text-field").val() ) {
-                            case $(this).find(".text-field").attr("correct_answer"):
-                                $(this).addClass("correct-answer");
-                                break;
-                            case '':
-                                $(this).addClass("empty");
-                                break;
-                            default:
-                                $(this).addClass("wrong");
-                        }
-                    });
-                    break;
-                case 'task4-select-words':
-                    $( "li.example .word-select.key-word").addClass("selected");
-                    $( ".word-select.selected").not(".key-word").addClass("wrong");
-                    $( ".word-select.key-word").not(".selected").addClass("empty");
-                    break;
-                case 'task5-drop-words':
-                    $(".word-drop").addClass("wrong");
-                    $(".word-drop.focus-wrapper").removeClass("focus-wrapper");
-                    $("li.focus").removeClass("focus");
-                    $(".wrong").each(function() {
-                        if( $checkBtn.find(".sort").attr("correct_answer") === $checkBtn.find("li").attr("id") ) {
-                            $checkBtn.removeClass("wrong");
-                        }
-                    });
-                    break;
-                case 'task6-choose-select':
-                    $(".select-field-group").removeClass("open").addClass("wrong");
-                    $(".select-field-group").each(function(){
-                        if( $checkBtn.find('.select-menu .item[correct_answer="1"]').hasClass('selected') ) {
-                            $checkBtn.removeClass('wrong');
-                        }
-                    });
-                    break;
-                default:
-                    //other tasks
-                    var check_btn_for_tasks = $checkBtn.parents(".nav-exercise").attr("for");
-                    if( check_btn_for_tasks ) {
-                        $('.'+check_btn_for_tasks).each(function(){
-                            $checkBtn.find("li").addClass("wrong");
-                            switch( true ) {
-                                case ( $checkBtn.hasClass("list-checkbox") ):
-                                    $checkBtn.find("input").each(function(){
-                                        if( ( $checkBtn.prop('checked') ) && ( $checkBtn.attr("correct_answer") == "1" ) ) {
-                                            $checkBtn.parents("li").removeClass("wrong");
-                                        }
-                                        if( ( !($checkBtn.prop('checked') )  ) && ( !( $checkBtn.attr("correct_answer") == "1" ) ) ) {
-                                            $checkBtn.parents("li").removeClass("wrong");
-                                        }
-                                    });
+            $parentList.each(function(){
+                switch(true){
+                    case($(this).hasClass("task-text-insert")):    //task with text-insert fields and hints
+                        $(this).find(".text-field-group").attr("class", "text-field-group"); //remove all classes
+                        $(this).find(".open").removeClass("open");
+                        $(this).find(".btn-info").hide();
+                        $(this).find(".btn-explain").show();
+                        showHintForExample($(this).attr("id"));
+                        $(this).find( ".text-field-group").each(function(){
+                            switch ( $(this).find(".text-field").val().toLowerCase() ) {
+                                case $(this).find(".text-field").attr("correct_answer").toLowerCase():
+                                    $(this).addClass("correct-answer");
                                     break;
-                                case ( $checkBtn.hasClass("list-one-character") ):
-                                    $checkBtn.find("input").each(function(){
-                                        if( $checkBtn.val().toLowerCase() == $checkBtn.attr("correct_answer") ) {
-                                            $checkBtn.parents("li").removeClass("wrong");
-                                        }
-                                    });
+                                case '':
+                                    $(this).addClass("empty");
                                     break;
-                                case ( $checkBtn.hasClass("list-radiobutton") ):
-                                    $checkBtn.find("li").each(function(){
-                                        if( $checkBtn.find('input:checked').attr('correct_answer') == "1" ) {
-                                            $checkBtn.removeClass('wrong');
-                                        }
-                                    });
-                                    break;
-                                case ( check_btn_for_tasks == "textarea" ):
-                                    if( $("textarea.textarea-middle").val() == $("div.textarea-middle").text() ){
-                                        $("textarea.textarea-middle").removeClass("wrong");
-                                        $(".hide").removeClass("hide");
-                                    }else {
-                                        $("textarea.textarea-middle").addClass("wrong");
-                                    }
-                                    break;
+                                default:
+                                    $(this).addClass("wrong");
                             }
                         });
-                    } else {
-                        $(".list-questions-ul").each(function(){
-                            $(this).find("li").addClass("wrong");
-                            switch( true ) {
-                                case ( $(this).hasClass("list-checkbox") ):
-                                    $(this).find("input").each(function(){
-                                        if( ( $(this).prop('checked') ) && ( $(this).attr("correct_answer") == "1" ) ) {
-                                            $(this).parents("li").removeClass("wrong");
-                                        }
-                                        if( ( !($(this).prop('checked') )  ) && ( !( $(this).attr("correct_answer") == "1" ) ) ) {
-                                            $(this).parents("li").removeClass("wrong");
-                                        }
-                                    });
-                                    break;
-                                case ( $(this).hasClass("list-one-character") ):
-                                    $(this).find("input").each(function(){
-                                        if( $(this).val().toLowerCase() == $(this).attr("correct_answer") ) {
-                                            $(this).parents("li").removeClass("wrong");
-                                        }
-                                    });
-                                    break;
-                                case ( $(this).hasClass("list-radiobutton") ):
-                                    $(this).find("li").each(function(){
-                                        if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
-                                            $(this).removeClass('wrong');
-                                        }
-                                    });
-                                    break;
-                                case ( $(this).hasClass("list-radio") ):
-                                    $(this).find("li").each(function(){
-                                        if( $(this).find('input:checked').attr('correct_answer') == "1" ) {
-                                            $(this).removeClass('wrong');
-                                        }
-                                    });
-                                    break;
+                        break;
+                    case($(this).hasClass("task-select-words")):
+                        $(this).find("li.example").find(".word-select.key-word").addClass("selected");
+                        $(this).find(".word-select.selected").not(".key-word").addClass("wrong");
+                        $(this).find(".word-select.key-word").not(".selected").addClass("empty");
+                        break;
+                    case($(this).hasClass("task-drop-words")):
+                        $(this).find(".word-drop").addClass("wrong");
+                        $(this).find(".word-drop.focus-wrapper").removeClass("focus-wrapper");
+                        $(this).find("li.focus").removeClass("focus");
+                        $(this).find(".wrong").each(function() {
+                            if( $(this).find(".sort").attr("correct_answer") === $(this).find("li").attr("id") ) {
+                                $(this).removeClass("wrong");
                             }
                         });
-                    }
-            }
-            showMessage( ( $(".wrong").length + $(".empty").length ) );
+                        break;
+                    case($(this).hasClass("task-choose-select")):
+                        $(this).find(".select-field-group").removeClass("open").addClass("wrong");
+                        $(this).find(".select-field-group").each(function(){
+                            if( $(this).find('.select-menu .item[correct_answer="1"]').hasClass('selected') ) {
+                                $(this).removeClass('wrong');
+                            }
+                        });
+                        break;
+                    default:
+                }
+                showMessage( $checkBtn, ( $(this).find(".wrong").length + $(this).find(".empty").length ) );
+            });
         }
     }
-
-    // $(window).resize(function(){
-    //     footerFix();
-    //     showHintForExample();
-    //     selectModificationPosition();
-    // });
 
     $(window).on('load', function(){
         if( $(".hint").length ){
@@ -532,7 +444,6 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".check-btn", function(){
-    // $(".check-btn").click(function(){
         checkButtonClick( $(this) );
     });
 
