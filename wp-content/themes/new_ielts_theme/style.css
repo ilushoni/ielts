@@ -1838,8 +1838,9 @@ ol.list-checkbox li:before{
 }
 
 .list-radiobutton label:hover{
-    border-color: #ff91a1;
-    z-index: 100;
+    border-color: #fee7eb;
+    background: #fee7eb;
+    z-index: 10;
 }
 
 .list-radiobutton .radiobutton:checked + br + label,

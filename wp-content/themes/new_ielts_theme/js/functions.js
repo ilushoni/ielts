@@ -225,16 +225,10 @@ $(document).ready(function() {
     function showHintForExample($checkTask){
         var id = ( $checkTask == undefined ) ? $(".list-questions-ol").attr("id") : $checkTask;
         var $listTask = $("#"+id);
-        console.log(id);
         var el_pos_left = $listTask.find("li.example").find(".text-field-group").position().left;
         var $el_btn = $listTask.find("li.example").find(".btn-hint");
         var $el_hint = $listTask.find("li.example").find(".hint");
-        var $btn = 0;
-        if( $(".nav-exercise[for='"+id+"']").length ){
-            $btn = $(".nav-exercise[for='"+id+"']").find(".check-btn");
-        } else{
-            $btn = $(".check-btn");
-        }
+        var $btn = ( $(".nav-exercise[for='"+id+"']").length ) ? $(".nav-exercise[for='"+id+"']").find(".check-btn") : $(".check-btn");
         if( $btn.hasClass("disabled") ) {
             $el_btn = $listTask.find("li.example").find(".btn-explain");
             $el_hint = $listTask.find("li.example").find(".explain");
@@ -279,7 +273,6 @@ $(document).ready(function() {
 
     function selectModification(){
         var $select_wrap = $(".select-field-group");
-
         if( $select_wrap.length ) {
             $select_wrap.find("br").remove();
             $select_wrap.each(function(){
@@ -293,7 +286,6 @@ $(document).ready(function() {
                     selectCustomStyle( $(this), "<li />", $(this).parents(".select-menu"), 1 );
                 });
             });
-
             $(document).on("click", ".select-field-group .choose-result", function(){
                 if( $(".nav-exercise").hasClass("disabled") )  {
                     return false;
@@ -306,7 +298,6 @@ $(document).ready(function() {
                     }
                 }
             });
-
             $(document).on("click", ".select-menu", function(){
                 if( $(".nav-exercise").hasClass("disabled") )  {
                     return false;
@@ -314,13 +305,10 @@ $(document).ready(function() {
                     $(this).parents(".select-field-group").removeClass("open");
                 }
             });
-
             $(document).on("click", ".select-menu .item", function(){
                 if( $(".nav-exercise").hasClass("disabled") )  {
-                    console.log("nav-exercise");
                     return false;
                 } else {
-                    console.log("var "+$(this).attr('var'));
                     var var_numb = $(this).attr('var');
                     if( $(".check-btn").length ){
                         $(".check-btn.disabled").removeClass("disabled");
@@ -342,6 +330,25 @@ $(document).ready(function() {
                 }
             });
         }
+        closeIfClickOutside($(".select-field-group"));
+    }
+
+    function closeIfClickOutside($box){
+        var $win = $(window); // or $box parent container
+        $win.on("click.Bst", function(event){
+            //checks if descendants of $box was clicked  and checks if the $box itself was clicked
+            if ( $box.has(event.target).length == 0 && !$box.is(event.target) ){
+                //click outside of element
+                switch(true){
+                    case($box.hasClass("select-field-group")):
+                        $(".select-field-group.open").removeClass('open');
+                        break;
+                }
+            } else {
+                //click inside element
+                return false;
+            }
+        });
     }
 
     function selectModificationPosition(){
