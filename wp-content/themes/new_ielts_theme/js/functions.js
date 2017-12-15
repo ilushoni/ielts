@@ -330,23 +330,20 @@ $(document).ready(function() {
                 }
             });
         }
-        closeIfClickOutside($(".select-field-group"));
+        closeIfClickOutside($(".select-menu"));
     }
 
     function closeIfClickOutside($box){
         var $win = $(window); // or $box parent container
         $win.on("click.Bst", function(event){
             //checks if descendants of $box was clicked  and checks if the $box itself was clicked
-            if ( $box.has(event.target).length == 0 && !$box.is(event.target) ){
-                //click outside of element
-                switch(true){
-                    case($box.hasClass("select-field-group")):
-                        $(".select-field-group.open").removeClass('open');
-                        break;
-                }
-            } else {
-                //click inside element
-                return false;
+            if ( $box.parents(".select-field-group").has(event.target).length == 0 && !$box.parents(".select-field-group").is(event.target) ){
+                $(".select-field-group.open").removeClass("open");
+            }
+        });
+        $(".select-field-group").click(function(e){
+            if( $(e.target).closest('.choose-result').length == 0 ) {
+                $(".select-field-group.open").removeClass("open");
             }
         });
     }
