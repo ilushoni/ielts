@@ -543,6 +543,13 @@ input[type="radio"]+br{
     grid-column-gap: 36px;
 }
 
+/*!*for ie11 spartan*!*/
+/*_:-ms-lang(x),*/
+/*_:-webkit-full-screen,*/
+/*.header-top-nav {*/
+    /*background: blue;*/
+/*}*/
+
 .header-top-nav.registered-user {
     display: block;
 }
@@ -1832,7 +1839,7 @@ ol.list-checkbox li:before{
 
 .list-radiobutton label:hover{
     border-color: #ff91a1;
-    z-index: 10;
+    z-index: 100;
 }
 
 .list-radiobutton .radiobutton:checked + br + label,
@@ -1844,8 +1851,8 @@ ol.list-checkbox li:before{
 
 .list-radiobutton .radiobutton[correct_answer="1"]:checked + br + label,
 .list-radiobutton .radiobutton[correct_answer="1"]:checked + label {
-    border-color: #ff91a1;
-    background: #ff91a1;
+    border-color: #d8d8d8;
+    background: #d8d8d8;
     color: #fff;
 }
 /*end radiobutton-questions*/
