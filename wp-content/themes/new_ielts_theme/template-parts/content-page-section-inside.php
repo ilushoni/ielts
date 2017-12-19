@@ -42,7 +42,7 @@ if( $task_text_array ) {
 
     echo '<div class="popup-text">';
         foreach ($task_text_array as $task_text) : setup_postdata($task_text);
-            echo '<div class="book-page book-column-two">';
+            echo '<div class="sheet-of-paper column-2">';
                 echo '<input type="button" name="close-button" class="icon-close" value="" />';
                 echo '<h3>'.get_the_title($task_text->ID).'</h3>';
                 the_content();
@@ -67,7 +67,6 @@ if( $task_text_array ) {
 } else {
     //there is no text for task
     $class = ($speaking_part1_rule) ? 'task-speaking' : '';
-//    if( get_the_title() && ( !($speaking_part1_rule) ) ) {
     if( get_the_title() ) {
         if( strpos( $page_slug, 'task-' ) !== false ){
             the_title( '<h3 class="task-name '.$class.'">', '</h3>' );
@@ -78,32 +77,21 @@ if( $task_text_array ) {
         }
     }
 
-//    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online') or ( $speaking_part1_rule )) ? $class = "task-column-not-full" : $class ='';
     $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online')) ? $class = "task-column-not-full" : $class ='';
     if ($speaking_part1_rule) $class = 'task-content';
 
     echo '<div class="entry-content '.$class.'" id="post-content-'. get_the_ID() .'">';
-
         switch( $page_slug ):
-
             case 'task-4':
-
                 $text = get_the_content();
                 echo(content_to_select_words( $text ));
                 break;
-
             case 'task-5':
-
                 $text = get_the_content();
                 echo(content_to_drop_words( $text ));
                 break;
-
             default:
-
                 the_content();
-
         endswitch;
-
     echo '</div>';
-
 }

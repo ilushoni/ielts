@@ -301,23 +301,44 @@ function show_my_recorder_func($atts) {
 add_shortcode('my_recorder', 'show_my_recorder_func');
 
 function show_check_btn_func($atts) {
-
     $class = '';
-
     extract(shortcode_atts(array(
         'class' => 'no-default',
     ), $atts));
-
     $check_btn = '<div class="nav-exercise" for="'.$class.'">';
     $check_btn .= '<div class="wrong-text"></div>';
     $check_btn .= '<div class="success-text">'._("All correct, well done!").'</div>';
     $check_btn .= '<input type="button" class="check-btn" value="'._("Check answers").'" />';
     $check_btn .= '</div>';
-
     return $check_btn;
-
 }
 add_shortcode('check-btn', 'show_check_btn_func');
+
+function find_field_in_db($table_name, $user_id, $show_field){
+    global $wpdb;
+    $query = "SELECT field_name, field_text FROM ".$table_name." WHERE user_id=".$user_id." AND field_name LIKE '%".$show_field."%'";
+    return $wpdb->get_results( $query );
+}
+
+function show_field_func($atts) {
+    $show_field = '';
+    $wrap_tag = '';
+    $field = '';
+    extract(shortcode_atts(array(
+        'show_field' => 'no-default',
+        'wrap_tag' => 'no-default',
+    ), $atts));
+    $datum = find_field_in_db('user_task_fields', get_current_user_id(), $show_field);
+    foreach($datum as $data){
+        $field_name = $data->{"field_name"};
+        $field_text = $data->{"field_text"};
+        $field .= '<'.$wrap_tag.'><fieldset class="text-field-group width-full">';
+            $field .= '<input type="text" class="text-field width-full" id="'.$field_name.'" name="'.$field_name.'" value="'.$field_text.'" readonly/>';
+        $field .= '</fieldset></'.$wrap_tag.'>';
+    }
+    return $field;
+}
+add_shortcode('field', 'show_field_func');
 
 function show_my_video_func( $atts) {
     if( $atts ) {
@@ -972,14 +993,8 @@ function my_save_audio_file_callback() {
 //save user text in tasks like focus 4 task 1
 add_action('wp_ajax_my_action_save_field', 'my_action_save_field_callback');
 add_action('wp_ajax_nopriv_my_action_save_field', 'my_action_save_field_callback');
-function my_action_save_field_callback() {
-    // Do your processing here (save to database etc.)
-    // All WP API functions are available for you here
-    $table_name = 'user_task_fields';
-    $user_id = get_current_user_id();
-    $page_id = intval( $_POST['page_id'] );
-    $field_name = $_POST['field_name'];
-    $field_text = $_POST['field_text'];
+
+function save_field_in_db($table_name, $user_id, $page_id, $field_name, $field_text){
     global $wpdb;
     $query = "SELECT field_id FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id." AND field_name = '".$field_name."'";
     $datum = $wpdb->get_results( $query );
@@ -996,6 +1011,18 @@ function my_action_save_field_callback() {
             'field_text' => $field_text
         );
         $wpdb -> insert( $table_name, $query );
+    }
+}
+
+function my_action_save_field_callback() {
+    // Do your processing here (save to database etc.)
+    // All WP API functions are available for you here
+    $table_name = 'user_task_fields';
+    $user_id = get_current_user_id();
+    $page_id = intval( $_POST['page_id'] );
+    $fields = $_POST['field'];
+    foreach($fields as $field_name => $field_text){
+        save_field_in_db($table_name, $user_id, $page_id, $field_name, $field_text);
     }
     // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
     wp_die();

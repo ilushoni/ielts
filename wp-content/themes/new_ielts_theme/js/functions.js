@@ -88,7 +88,7 @@ $(document).ready(function() {
 
     $(".popup-text").mouseup(function(e) { //TODO:think about it
         // if the target of the click isn't the container not a child of the container
-        var container = $(".popup-text .book-page");
+        var container = $(".popup-text > div");
         if (!container.is(e.target) && container.has(e.target).length === 0) {
             $(".popup-text").removeClass("open");
             $("body").removeClass("no-scroll");
@@ -404,6 +404,21 @@ $(document).ready(function() {
                             }
                         });
                         break;
+                    case($(this).hasClass("list-text-fields")):    //task with text-insert fields
+                        $(this).find(".text-field-group").attr("class", "text-field-group"); //remove all classes
+                        $(this).find(".text-field-group").each(function(){
+                            switch ( $(this).find(".text-field").val().toLowerCase() ) {
+                                case $(this).find(".text-field").attr("correct_answer").toLowerCase():
+                                    $(this).addClass("correct-answer");
+                                    break;
+                                case '':
+                                    $(this).addClass("empty");
+                                    break;
+                                default:
+                                    $(this).addClass("wrong");
+                            }
+                        });
+                        break;
                     case($(this).hasClass("task-select-words")):
                         $(this).find("li.example").find(".word-select.key-word").addClass("selected");
                         $(this).find(".word-select.selected").not(".key-word").addClass("wrong");
@@ -431,6 +446,7 @@ $(document).ready(function() {
                 }
                 showMessage( $checkBtn, ( $(this).find(".wrong").length + $(this).find(".empty").length ) );
             });
+            $(".show-after-check").removeClass("hide");
         }
     }
 
@@ -442,9 +458,6 @@ $(document).ready(function() {
             selectModificationPosition();
         }
         selectModification();
-        $(".check-btn").click(function(){
-            checkButtonClick( $(this) );
-        });
     });
 
     $(document).on("click", ".check-btn", function(){
@@ -542,7 +555,7 @@ $(document).ready(function() {
         $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").css("margin-left", x );
     }
 
-    if( $(".section-menu.top-line.column-8.active-6").length || $(".section-menu.top-line.column-8.active-7").length || $(".section-menu.top-line.column-8.active-8").length ){
+    if( $(".section-menu.top-line.column-8.active-6, .section-menu.top-line.column-8.active-7,.section-menu.top-line.column-8.active-8").length){
         $(".section-menu.top-line.column-8").addClass("visible_6-8");
         moveMenuCarousel('next');
     }
@@ -970,31 +983,51 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on("click", ".safe-field", function(){
-        var $name = $(this).attr("for");
-        var $field = $("*[name='"+$name+"']").val();
+    $(document).on("click", ".save-field", function(){
+        var saveBtn = $(this);
         var page_id = $("article.container").attr('id').replace('post-', '');
-
+        var $field = {};
+        var $name = $(this).attr("for");
+        for( var i = 1; $("*[name="+$(this).attr('for')+i+"]").length > 0; i++ ){ //if there is some text fields on page for saving
+            $field[$(this).attr('for')+i] = $("*[name="+$(this).attr('for')+i+"]").val();
+        }
+        if( $("*[name='"+$name+"']").length ){ //if btn for textarea
+            $field[$name] = $("*[name='"+$name+"']").val();
+        }
         $.ajax({
             url: myVars.ajaxUrl, // Notice the AJAX URL here!
             type: 'post',
             data: {
-                action: 'my_action_save_field',
+                action: 'my_action_save_field',// Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
                 page_id: page_id, //current page ID = it visible in URL
-                field_name: $name,
-                field_text: $field //current page ID, it visible in <article>
+                field: $field //current page ID, it visible in <article>
             }, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
             cache: false,
             success: function ( response ) {
                 console.log("success");
                 console.dir( response );
                 $(".hide").removeClass("hide");
+                saveBtn.attr("disabled", "disabled");
+                $(".page-next.disabled").removeClass("disabled");
             },
             error: function ( response ) {
                 console.log("error");
                 console.dir( response );
             }
         });
+    });
+
+    $(document).on( "change paste keyup", "input[type=text], textarea", function(){
+        var $name = $(this).attr("name");
+        if( $(".save-field").is(":disabled") && ($name.indexOf( $(".save-field").attr("for") >= 0) )){
+            $(".save-field").removeAttr("disabled");
+        }
+        if( $(".check-btn.disabled").length && ($name.indexOf( $(".check-btn").parents(".nav-exercise").attr("for") >= 0) )){
+            $(".check-btn.disabled").removeClass("disabled");
+        }
+        if( $(this).parents(".wrong").length ){
+            $(this).parents(".wrong").removeClass("wrong");
+        }
     });
 
     //sort words from text
