@@ -247,7 +247,7 @@ $(document).ready(function() {
     }
 
     function showHint($checkBtn, sumWrongAnswers){
-        if( sumWrongAnswers ){
+        if( ($(".hints-if-mistake").length) && sumWrongAnswers ){
             var $parentList = ( $checkBtn.parents(".nav-exercise").is('[for]') ) ? $('#'+$checkBtn.parents(".nav-exercise").attr("for")) : $(".list-questions-ol");
             var $hintsList = ( $checkBtn.parents(".nav-exercise").is('[for]') ) ? $('.hints-if-mistake[for='+$checkBtn.parents(".nav-exercise").attr("for")+']') : $(".hints-if-mistake");
             $parentList.find(".empty").addClass("help-cl");
@@ -270,6 +270,10 @@ $(document).ready(function() {
             $checkBtn.parents(".nav-exercise").removeClass("has-wrong").addClass("disabled");
             $checkBtn.addClass("disabled");
             $(".page-nav-wrapper .page-next").removeClass("disabled");
+            if( $(".show-if-check-success").length ){
+                var elIfCheckSucces = ( $checkBtn.parents(".nav-exercise").is('[for]') ) ? $('.show-if-check-success[for='+$checkBtn.parents(".nav-exercise").attr("for")+']') : $(".show-if-check-success");
+                elIfCheckSucces.removeClass("hide");
+            }
         }
     }
 
@@ -411,10 +415,12 @@ $(document).ready(function() {
                 switch(true){
                     case($(this).hasClass("task-text-insert")):    //task with text-insert fields and hints
                         $(this).find(".text-field-group").attr("class", "text-field-group"); //remove all classes
-                        $(this).find(".open").removeClass("open");
-                        $(this).find(".btn-info").hide();
-                        $(this).find(".btn-explain").show();
-                        showHintForExample($(this).attr("id"));
+                        if( $(this).find(".hint").length ){ //if task has hints and explain fields for user
+                            $(this).find(".open").removeClass("open");
+                            $(this).find(".btn-info").hide();
+                            $(this).find(".btn-explain").show();
+                            showHintForExample($(this).attr("id"));
+                        }
                         $(this).find( ".text-field-group").each(function(){
                             switch ( $(this).find(".text-field").val().toLowerCase() ) {
                                 case $(this).find(".text-field").attr("correct_answer").toLowerCase():
@@ -1043,7 +1049,7 @@ $(document).ready(function() {
     });
 
     $(document).on( "change paste keyup", "input[type=text], textarea", function(){
-        var $name = $(this).attr("name");
+        var $name = ($(this).attr("name")) ? $(this).attr("name") : $(this).parents(".list-questions-ol").attr("id");
         if( $(".save-field").is(":disabled") && ($name.indexOf( $(".save-field").attr("for") >= 0) )){
             $(".save-field").removeAttr("disabled");
         }

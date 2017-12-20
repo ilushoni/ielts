@@ -375,6 +375,10 @@ input[type="phone"]::-webkit-input-placeholder{
     color: #000;
 }
 
+.text-field-group input.field-large{
+    width: 300px;
+}
+
 .text-field-group input.field-small {
     width: 120px;
 }
@@ -2258,16 +2262,13 @@ ol.list-checkbox li:before{
 /*---end task with select words---*/
 
 /*---task with drop words---*/
-/*elements with drag and drop*/
 .sort {
     position: relative;
     display: block;
     width: 100%;
     list-style: none;
 }
-/*end elements with drag and drop*/
 
-/*sort list for drop*/
 .sort.drop-list {
     margin: 20px 0;
     padding: 10px;
@@ -2477,10 +2478,7 @@ ol.list-checkbox li:before{
     overflow: hidden;
 }
 
-.task-drop-words .word-drop.focus-wrapper {
-    z-index: 100;
-}
-
+.task-drop-words .word-drop.focus-wrapper,
 .task-drop-words .word-drop .sort li.focus {
     z-index: 100;
 }
@@ -2524,7 +2522,6 @@ ol.list-checkbox li:before{
 }
 /*---end task with drop words---*/
 
-/*---page task with text for exercise---*/
 /*popup thumbnail button*/
 .task-wrapper {
     position: relative;
@@ -2550,7 +2547,6 @@ ol.list-checkbox li:before{
     width: 100%;
 }
 /*end popup thumbnail button*/
-/*---end page task with text for exercise---*/
 
 /*---page task with select words in text---*/
 .task-column-not-full {
@@ -2578,7 +2574,7 @@ ol.list-checkbox li:before{
 
 .ul-circle-style li:before {
     content: "• ";
-    font-size: .7777em;
+    font-size: 14px;
     line-height: 1.43em;
 }
 
@@ -2591,10 +2587,7 @@ ol.list-checkbox li:before{
     margin: 30px 0 50px;
 }
 
-.task-choose-select li {
-    margin-bottom: 5px;
-}
-
+.task-choose-select li,
 .task-choose-select li:before {
     margin-bottom: 5px;
 }
@@ -2645,7 +2638,7 @@ ol.list-checkbox li:before{
     position: relative;
     display: inherit;
     margin: 30px 0 50px;
-    font-size: .7777em;
+    font-size: 14px;
     line-height: 1.43em;
     counter-increment: recCounter;
 }
@@ -3122,6 +3115,15 @@ ol.list-checkbox li:before{
 
 .phrase-column li:last-child{
     margin: 0;
+}
+
+.vertical-centered {
+    display: table;
+}
+
+.vertical-centered .phrase-column{
+    display: table-cell;
+    vertical-align: middle;
 }
 /*end list with two columns on paper like sort phrases, but without sort*/
 /*---end page width task drag and drop phrases---*/
@@ -3640,10 +3642,7 @@ ol.list-checkbox li:before{
 /*---end page game with timer---*/
 
 /*show hints if user has mistake in text-insert task*/
-.hints-if-mistake {
-    display: none;
-}
-
+.hints-if-mistake,
 .hints-if-mistake ul li{
     display: none;
 }
@@ -4165,6 +4164,10 @@ p.text-small {
 .width-full{
     max-width: none;
     width: 100%;
+}
+
+.width-720{
+    width: 720px;
 }
 
 .no-list-style {
