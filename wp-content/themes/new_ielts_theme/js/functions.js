@@ -237,6 +237,30 @@ $(document).ready(function() {
         $el_hint.addClass("open").css("padding-left", el_pos_left );
     }
 
+    function findHint(input){
+        var el = $('#'+input.attr("name")+'-hint');
+        if( el.length == 0 ){
+            var str = input.attr("name").split("-part")[0];
+            el = $('#'+str+'-hint');
+        }
+        return el;
+    }
+
+    function showHint($checkBtn, sumWrongAnswers){
+        if( sumWrongAnswers ){
+            var $parentList = ( $checkBtn.parents(".nav-exercise").is('[for]') ) ? $('#'+$checkBtn.parents(".nav-exercise").attr("for")) : $(".list-questions-ol");
+            var $hintsList = ( $checkBtn.parents(".nav-exercise").is('[for]') ) ? $('.hints-if-mistake[for='+$checkBtn.parents(".nav-exercise").attr("for")+']') : $(".hints-if-mistake");
+            $parentList.find(".empty").addClass("help-cl");
+            $parentList.find(".wrong").addClass("help-cl");
+            $parentList.find(".help-cl").each( function(){
+                var el = findHint($(this).find("input"));
+                el.addClass("open");
+            });
+            $parentList.find(".help-cl").removeClass("help-cl");
+            $hintsList.addClass("open");
+        }
+    }
+
     function showMessage($checkBtn, sumWrongAnswers){
         if ( sumWrongAnswers ) {
             $checkBtn.parents(".nav-exercise").addClass("has-wrong");
@@ -445,6 +469,7 @@ $(document).ready(function() {
                     default:
                 }
                 showMessage( $checkBtn, ( $(this).find(".wrong").length + $(this).find(".empty").length ) );
+                showHint( $checkBtn, ( $(this).find(".wrong").length + $(this).find(".empty").length ) );
             });
             $(".show-after-check").removeClass("hide");
         }
@@ -944,14 +969,14 @@ $(document).ready(function() {
         }
     }
 
-    $(document).on( "click", ".btn-show-hints", function(){
+    $(document).on("click", ".btn-show-hints", function(){
         //show hints
         $(this).hide();
         $(".hints").show();
         $(".game-content").addClass("last-try");
     });
 
-    $(document).on( "click", ".btn-try-again", function(){
+    $(document).on("click", ".btn-try-again", function(){
         //clear all
         startGameSettings();
         makeTimer();
@@ -961,7 +986,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on( "click", ".load-one-by-one .game-question input", function(){
+    $(document).on("click", ".load-one-by-one .game-question input", function(){
         if( !( $(".btn-start-time").hasClass("btn-stop-time") ) ){
             //if user forgot to click button start timer
             makeTimer();
@@ -1027,6 +1052,11 @@ $(document).ready(function() {
         }
         if( $(this).parents(".wrong").length ){
             $(this).parents(".wrong").removeClass("wrong");
+        }
+        if( $(".hints-if-mistake").length ){
+            var el = findHint($(this));
+            el.parents(".hints-if-mistake").removeClass("open");
+            el.parents(".hints-if-mistake").find(".open").removeClass("open");
         }
     });
 

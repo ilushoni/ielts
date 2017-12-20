@@ -380,6 +380,41 @@ input[type="phone"]::-webkit-input-placeholder{
 }
 /*---end text field styles---*/
 
+/*---textarea styles---*/
+textarea{
+    display: block;
+    padding: 40px 60px 30px 41px;
+    width: 760px;
+    min-height: 126px;
+    border-radius: 3px;
+    border: solid 1px #e7e7e7;
+    background-color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    line-height: 1.2em;
+    text-align: left;
+    color: #000;
+    overflow: hidden;
+}
+
+.textarea-middle{
+    position: relative;
+    margin-bottom: 37px;
+}
+
+.textarea-middle.wrong{
+    border-color: #e61130;
+}
+
+div.textarea-middle{
+    display: none;
+}
+
+div.textarea-middle.open{
+    display: block;
+}
+/*---end textarea styles---*/
+
 /*---select option field---*/
 .select-field-group {
     position: relative;
@@ -728,7 +763,6 @@ input[type="radio"]+br{
     display: inline-block;
     padding: 5px 10px 5px;
     font-weight: 600;
-    /*text-transform: capitalize;*/
     font-size: .83333333em;
     line-height: 1.2em;
 }
@@ -917,7 +951,6 @@ input[type="radio"]+br{
     background-position: center center;
     background-color: rgba(255, 36, 68, 1);
     background-repeat: no-repeat;
-    /*transition: background-image .1s;*/
 }
 
 .btn-video:hover{
@@ -1040,54 +1073,6 @@ input[type="radio"]+br{
     margin: 22px 0 132px;
     width: 379px;
     height: auto;
-}
-
-.list-on-paper {
-    position: relative;
-    padding: 40px 100px 70px;
-    margin-bottom: 102px;
-    width: 960px;
-    background-color: #fff;
-    box-shadow: 0 2px 40px 0 #e9e9e9;
-}
-
-.list-on-paper h5 {
-    position: relative;
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.list-on-paper ol {
-    position: relative;
-}
-
-.list-on-paper ol li {
-    margin-bottom: 13px;
-}
-
-.list-on-paper ol li:last-child{
-    margin-bottom: 0;
-}
-
-.list-on-paper ol li:before{
-    content:counter(myCounter) ".";
-    width: 23px;
-}
-
-.list-on-paper .h5-large {
-    text-align: center;
-}
-
-.list-on-paper ul li{
-    margin-bottom: 12px;
-}
-
-.list-on-paper ul li:last-child{
-    margin-bottom: 0;
-}
-
-.list-on-paper *:last-child{
-    margin-bottom: 0;
 }
 /*end video in tasks section speaking*/
 
@@ -2288,8 +2273,7 @@ ol.list-checkbox li:before{
     padding: 10px;
     border-radius: 3px;
     border: solid 1px #e7e7e7;
-    /*border: solid 1px #979797;*/
-    font-size: .7777em;
+    font-size: 14px;
     line-height: 1.43em;
 }
 
@@ -2583,19 +2567,6 @@ ol.list-checkbox li:before{
     grid-template-columns: 92px 1fr;
 }
 
-.text-small {
-    font-size: .7777em;
-    line-height: 1.43em;
-}
-
-p.text-small {
-    margin-bottom: 10px;
-}
-
-p.no-margin {
-    margin: 0;
-}
-
 .ul-circle-style {
     list-style: none;
 }
@@ -2658,7 +2629,6 @@ p.no-margin {
 
 .record-list:not(:empty):before {
     content: "Listen the Recorded Answer";
-    /*content: "6. Listen the Recorded Answer";*/
     position: relative;
     display: block;
     margin-bottom: 50px;
@@ -3090,7 +3060,6 @@ p.no-margin {
     text-align: center;
 }
 
-
 .phrase-column h5,
 .sort-phrase-column h5 {
     position: relative;
@@ -3157,17 +3126,17 @@ p.no-margin {
 /*end list with two columns on paper like sort phrases, but without sort*/
 /*---end page width task drag and drop phrases---*/
 
-/*---page with questions on page like sheet---*/
-.sheet-of-paper {
+/*---elements on paper with shadow---*/
+.sheet-of-paper,
+.list-on-paper{
     position: relative;
-    padding: 54px 163px 69px 123px;
     width: 960px;
     box-shadow: 0 2px 40px 0 #e9e9e9;
     background: #fff;
 }
 
-.sheet-of-paper *:last-child{
-    margin-bottom: 0;
+.sheet-of-paper {
+    padding: 54px 163px 69px 123px;
 }
 
 .sheet-of-paper.width-half{
@@ -3196,34 +3165,51 @@ p.no-margin {
     margin: 0 0 20px;
 }
 
-.questions-wrap {
+.list-on-paper {
+    padding: 40px 100px 70px;
+    margin-bottom: 102px;
+}
+
+.list-on-paper.questions-wrap {
     margin: 27px 0 41px;
 }
 
-.questions-wrap ol {
-    margin: 0;
+.list-on-paper h5 {
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center;
 }
 
-.questions-wrap ol li {
-    display: grid;
-    grid-template-columns: 24px 1fr;
+.list-on-paper ol {
+    position: relative;
+}
+
+.list-on-paper ol li {
+    margin-bottom: 13px;
+}
+
+.list-on-paper ol li:before{
+    content:counter(myCounter) ".";
+    width: 23px;
+}
+
+.list-on-paper .h5-large {
+    text-align: center;
+}
+
+.list-on-paper ul li{
     margin-bottom: 12px;
-    font-size: 18px;
-    line-height: 26px;
 }
 
-.questions-wrap ol li:last-child {
-    margin: 0;
+.sheet-of-paper *:last-child,
+.list-on-paper ol li:last-child,
+.list-on-paper ul li:last-child,
+.list-on-paper *:last-child{
+    margin-bottom: 0;
 }
+/*---end elements on paper with shadow---*/
 
-.questions-wrap ol li:before{
-    content: counter(myCounter)" ";
-    display: block;
-    margin: 0;
-    font-size: 18px;
-    line-height: 26px;
-}
-
+/*---page with questions on page like sheet---*/
 .show-checklist-link:hover,
 .show-checklist-link:focus,
 .show-checklist-link:active{
@@ -3255,8 +3241,6 @@ p.no-margin {
 
 .show-checklist ol {
     position: relative;
-    /*margin: 0;*/
-    /*padding: 0;*/
 }
 
 .show-checklist ol li{
@@ -3655,18 +3639,35 @@ p.no-margin {
 }
 /*---end page game with timer---*/
 
+/*show hints if user has mistake in text-insert task*/
+.hints-if-mistake {
+    display: none;
+}
+
+.hints-if-mistake ul li{
+    display: none;
+}
+
+.hints-if-mistake ol li{
+    position: absolute;
+    opacity: 0;
+}
+
+.hints-if-mistake.open{
+    display: block;
+}
+
+.hints-if-mistake ol li.open{
+    position: relative;
+    opacity: 1;
+}
+
+.hints-if-mistake ul li.open{
+    display: list-item;
+}
+/*end show hints if user has mistake in text-insert task*/
+
 /*---text styles for speaking section---*/
-.strong-large {
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.5;
-}
-
-.width-large {
-    max-width: none;
-    width: 100%;
-}
-
 .fieldset-large .select-field-group ul {
     margin: 0;
 }
@@ -3713,82 +3714,6 @@ ol.font-smaller li:before{
     font-weight: normal;
 }
 /*---end text styles for speaking section---*/
-
-/*---textarea styles---*/
-.textarea-middle{
-    position: relative;
-    display: block;
-    margin-bottom: 37px;
-    padding: 40px 60px 30px 41px;
-    border-radius: 3px;
-    border: solid 1px #e7e7e7;
-    width: 760px;
-    min-height: 126px;
-    background-color: #fff;
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
-    line-height: 1.2em;
-    text-align: left;
-    color: #000;
-    overflow:hidden;
-}
-
-.textarea-middle.wrong{
-    border-color: #e61130;
-}
-
-div.textarea-middle{
-    display: none;
-}
-
-div.textarea-middle.open{
-    display: block;
-}
-/*---end textarea styles---*/
-
-/*---popup window with video---*/
-.popup-window{
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
-    padding: 150px 0;
-    width: 100%;
-    min-height: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 100;
-    cursor: pointer;
-    box-sizing: border-box;
-    overflow-y: scroll;
-    text-align: center;
-}
-
-.popup-body{
-    position: relative;
-    display: inline-block;
-}
-
-.popup-body .icon-close + p,
-.popup-body p:empty{
-    display: none;
-}
-
-.popup-window .video-iframe-wrapper {
-    width: 580px;
-}
-
-.popup-window .icon-close{
-    position: absolute;
-    right: 0;
-    margin-top: -41px;
-    margin-right: -46px;
-}
-
-.popup-window.open {
-    display: block;
-}
-/*---end popup window with video---*/
 
 /*---sort elements just from text---*/
 .paste-sort-words-columns {
@@ -4102,7 +4027,49 @@ h3.ui-kit-part-name{
 }
 /*---end ui kit page---*/
 
-/*popup text*/
+/*---popup window---*/
+.popup-window{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    padding: 150px 0;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    cursor: pointer;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+.popup-body{
+    position: relative;
+    display: inline-block;
+}
+
+.popup-body .icon-close + p,
+.popup-body p:empty{
+    display: none;
+}
+
+.popup-window .video-iframe-wrapper {
+    width: 580px;
+}
+
+.popup-window .icon-close{
+    position: absolute;
+    right: 0;
+    margin-top: -41px;
+    margin-right: -46px;
+}
+
+.popup-window.open {
+    display: block;
+}
+
 .popup-text {
     position: fixed;
     top: 0;
@@ -4164,11 +4131,22 @@ h3.ui-kit-part-name{
 .no-scroll {
     overflow: hidden;
 }
-/*end popup text*/
+/*---end popup window---*/
 
 /*---general classes---*/
-.margin-none {
-    margin: 0;
+.text-small {
+    font-size: 14px;
+    line-height: 1.43em;
+}
+
+.strong-large {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+p.text-small {
+    margin-bottom: 10px;
 }
 
 .inline{
@@ -4183,7 +4161,9 @@ h3.ui-kit-part-name{
     width: 50%;
 }
 
+.width-large,
 .width-full{
+    max-width: none;
     width: 100%;
 }
 
@@ -4196,6 +4176,8 @@ h3.ui-kit-part-name{
     display: none;
 }
 
+p.no-margin,
+.margin-none,
 .no-margin,
 .no-margin li{
     margin: 0;
