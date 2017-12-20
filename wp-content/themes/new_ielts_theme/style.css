@@ -138,6 +138,14 @@ ul{
     list-style-type: disc;
     padding: 0 0 0 18px;
 }
+
+ol li ul li{
+    display: list-item;
+}
+
+ol li ul li:before{
+    display: none;
+}
 /*---end lists styles---*/
 
 /*---button styles---*/
@@ -4184,6 +4192,14 @@ p.no-margin,
 .no-margin,
 .no-margin li{
     margin: 0;
+}
+
+.li-large-margin li{
+    margin-bottom: 25px;
+}
+
+.li-large-margin li:last-child{
+    margin-bottom: 0;
 }
 /*---end general classes---*/
 

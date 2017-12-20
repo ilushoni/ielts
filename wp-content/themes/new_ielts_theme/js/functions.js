@@ -1206,6 +1206,9 @@ function onPlayerStateChange(event) {
 //---end work with iframe video---
 
 function showChecklistLink(){
+    if($(".show-checklist-other").length){
+        $(".show-checklist-other").toggleClass("hide");
+    }
     if( $(".show-checklist").length ){
         $(".show-checklist").toggleClass("open");
     } else {
@@ -1221,7 +1224,12 @@ function showChecklistLink(){
 }
 
 $(document).on("click", ".show-checklist-link", function(){
-    showChecklistLink();
+    if( $(this).hasClass("show-more-link") ){
+        $(this).toggleClass("red");
+        $(this).parents("li").find(".show-more").toggleClass("hide");
+    }else{
+        showChecklistLink();
+    }
     return false;
 });
 
