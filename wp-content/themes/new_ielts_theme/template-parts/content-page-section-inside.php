@@ -81,17 +81,17 @@ if( $task_text_array ) {
     if ($speaking_part1_rule) $class = 'task-content';
 
     echo '<div class="entry-content '.$class.'" id="post-content-'. get_the_ID() .'">';
-        switch( $page_slug ):
-            case 'task-4':
-                $text = get_the_content();
-                echo(content_to_select_words( $text ));
+        $text = get_the_content();
+        preg_match_all("/(task-select-words)/", $text, $contains_select_words);
+        switch(true){
+            case(!empty($contains_select_words[0])):
+                echo(content_to_select_words($text));
                 break;
-            case 'task-5':
-                $text = get_the_content();
-                echo(content_to_drop_words( $text ));
+            case($page_slug == "task-5"):
+                echo(content_to_drop_words($text));
                 break;
             default:
                 the_content();
-        endswitch;
+        }
     echo '</div>';
 }

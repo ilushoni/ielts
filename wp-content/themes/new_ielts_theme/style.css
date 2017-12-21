@@ -2122,24 +2122,32 @@ ol.list-checkbox li:before{
    margin-top: 5px;
 }
 
+.btn-info{
+    display: inline-block;
+    padding: 3px 0 1px;
+    border: 1px solid #e7e7e7;
+    height: 30px;
+    width: 80px;
+    background: #e7e7e7;
+    border-radius: 3px;
+    color: #000;
+    font-style: italic;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    line-height: 1.43em;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 .task-text-insert .btn-info {
     position: absolute;
     right: 0;
     top: 0;
     display: block;
     padding: 2px 0 1px;
-    border: 1px solid #e7e7e7;
     width: 40px;
-    height: 30px;
-    background: #e7e7e7;
-    border-radius: 3px;
-    color: #000;
-    font-family: 'Lato', sans-serif;
-    font-weight: 600;
-    font-style: italic;
-    text-align: center;
-    cursor: pointer;
-    box-sizing: border-box;
+    line-height: inherit;
 }
 
 .task-text-insert .btn-explain {
@@ -4164,6 +4172,14 @@ p.text-small {
     margin-bottom: 40px;
 }
 
+.left-100{
+    margin-left: 100px;
+}
+
+.line-30{
+    line-height: 30px;
+}
+
 .width-half{
     width: 50%;
 }
@@ -4185,6 +4201,11 @@ p.text-small {
 .show-after-record.hide,
 .hide{
     display: none;
+}
+
+p.margin-large,
+.margin-large{
+    margin: 75px 0;
 }
 
 p.no-margin,

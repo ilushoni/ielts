@@ -763,13 +763,15 @@ function content_to_select_words ( $content ) {
         $result .= $li_tag[0]; //open tag <li>
 
         preg_match('#<\s*?fieldset\b[^>]*>(.*?)</fieldset\b[^>]*>#s', $li_el[1], $text_field); //put text field in $text_field
-        $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
-
-        //all right if there is only ONE text field in <li>
-        $result .= select_words_wrap($li_text_path[0]);//text before text_field
-        $result .= $text_field[0];
-        $result .= " ".select_words_wrap($li_text_path[1]);//text after text_field
-
+        if( !empty($text_field[0]) ){
+            $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
+            //all right if there is only ONE text field in <li>
+            $result .= select_words_wrap($li_text_path[0]);//text before text_field
+            $result .= $text_field[0];
+            $result .= " ".select_words_wrap($li_text_path[1]);//text after text_field
+        } else{
+            $result .= select_words_wrap($li_el[1]);
+        }
         $result .= $li_tag[1];  //close tag </li>
     }
 

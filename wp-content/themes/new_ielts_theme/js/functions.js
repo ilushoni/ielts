@@ -75,6 +75,8 @@ $(document).ready(function() {
         return false;
     });
 
+    $(".task-select-words li.example a").click(function(){return false;});
+
     $(document).on("click", ".show-popup-btn", function(){
         $(".popup-text").addClass("open");
         $("body").addClass("no-scroll");
