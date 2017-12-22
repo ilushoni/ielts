@@ -254,17 +254,16 @@ add_action( 'wp_enqueue_scripts', 'ielts_scripts' );
 
 function show_my_recorder_func($atts) {
     $add = "";
+    $field = '';
     extract(shortcode_atts(array(
         'add' => 'no-default',
+        'field' => 'no-default',
     ), $atts));
 
     $recorder = '<div class="recorder">';
         $recorder .= '<button class="btn btn-record">Record Myself</button>';
         $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
         $recorder .= '<div class="record-duration"></div>';
-//        if( $add != "add-after" ){
-//            $recorder .= '<ul class="record-list"></ul>';
-//        }
         $recorder .= '<pre class="log"></pre>';
         $recorder .= '</div>';
 
@@ -273,24 +272,29 @@ function show_my_recorder_func($atts) {
             $table_name = 'user_audio';
             $user_id = get_current_user_id();
             $page_id = $post->ID;
-
             global $wpdb;
-            $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
-
-            $recorder .= '<ul class="record-list">';
+            if( $field ){
+                echo $field;
+                $field -=1;
+                $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id." AND page_question_number = ".$field);
+            } else{
+                $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
+            }
+            $id = $datum->{"page_question_number"};
+            $recorder .= '<ul class="record-list'.$id.'">';
             if(count($datum)>0){
                 foreach( $datum as $data ){
                     $id = $data->page_question_number;
                     $recorder .= '<li id="record-play-item-'.$id.'">';
-                        $recorder .= '<audio id="music'.$id.'" class="audio-el" src="'.wp_upload_dir()["baseurl"].$data->audio_link.'"></audio>';
-                        $recorder .= '<div id="audioplayer'.$id.'" class="audioplayer">';
-                            $recorder .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
-                            $recorder .= '<p class="audio-text">';
-                                $recorder .= '<span class="audio-name">'.$data->question_text_short.'</span>';
-                                $recorder .= '<span class="duration"></span>';
-                            $recorder .= '</p>';
-                            $recorder .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
-                        $recorder .= '</div>';
+                    $recorder .= '<audio id="music'.$id.'" class="audio-el" src="'.wp_upload_dir()["baseurl"].$data->audio_link.'"></audio>';
+                    $recorder .= '<div id="audioplayer'.$id.'" class="audioplayer">';
+                    $recorder .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
+                    $recorder .= '<p class="audio-text">';
+                    $recorder .= '<span class="audio-name">'.$data->question_text_short.'</span>';
+                    $recorder .= '<span class="duration"></span>';
+                    $recorder .= '</p>';
+                    $recorder .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
+                    $recorder .= '</div>';
                     $recorder .= '</li>';
                 }
             }

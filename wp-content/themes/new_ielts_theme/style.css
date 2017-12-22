@@ -2847,17 +2847,20 @@ ol.list-checkbox li:before{
     list-style-type: none;
 }
 
+.record-questions-wrapper .show-record-audio,
 .record-questions-list li {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /*display: table;*/
+    padding: 11px 54px 11px 40px;
+    /*display: grid;*/
+    /*grid-template-columns: repeat(2, 1fr);*/
     margin-bottom: 18px;
-    padding: 11px 0 11px 40px;
+    /*padding: 11px 0 11px 40px;*/
     width: 100%;
     border: solid 1px #eaeaea;
-    box-sizing: border-box;
 }
 
+.record-questions-wrapper .show-record-audio br,
 .record-questions-list li br {
     display: none;
 }
@@ -2865,6 +2868,7 @@ ol.list-checkbox li:before{
 .record-questions-list li span {
     font-size: 14px;
     line-height: 1.43;
+    /*vertical-align: middle;*/
 }
 
 .record-questions-list li span br {
@@ -2896,6 +2900,54 @@ ol.list-checkbox li:before{
 
 .record-questions-list .record-list {
     display: none;
+}
+
+.record-questions-wrapper .show-record-audio:after{
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.record-questions-wrapper .show-record-audio .caption{
+    display: inline-block;
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 1.43em;
+}
+
+.record-questions-wrapper .show-record-audio .recorder{
+    width: auto;
+    float: right;
+    clear: both;
+}
+
+.record-questions-wrapper .show-record-audio .recorder .btn{
+    margin: 0;
+}
+
+.record-questions-wrapper .show-record-audio .recorder .record-duration{
+    position: absolute;
+    top: 9px;
+}
+
+.record-questions-wrapper .show-record-audio .record-list:not(:empty) {
+    margin: 0;
+    float: left;
+    clear: both;
+    display: block;
+}
+
+.record-questions-wrapper .show-record-audio .record-list:before {
+    display: none;
+}
+
+.record-questions-wrapper .show-record-audio .record-list li {
+    display: none;
+    margin: 10px 0 0;
+}
+
+.record-questions-wrapper .show-record-audio .record-list li:last-child{
+    display: list-item;
 }
 /*---end page task width list recorder---*/
 
@@ -4194,8 +4246,13 @@ p.text-small {
     width: 720px;
 }
 
+.list-style-none,
 .no-list-style {
     list-style-type: none;
+}
+
+ul.list-style-none{
+    padding: 0;
 }
 
 .show-after-record.hide,
@@ -4206,6 +4263,11 @@ p.text-small {
 p.margin-large,
 .margin-large{
     margin: 75px 0;
+}
+
+p.margin-top-large,
+.margin-top-large{
+    margin-top: 40px;
 }
 
 p.no-margin,
@@ -4221,6 +4283,16 @@ p.no-margin,
 
 .li-large-margin li:last-child{
     margin-bottom: 0;
+}
+
+.clear-both{
+    clear: both;
+    display: block;
+}
+
+.left{
+    float: left;
+    clear: both;
 }
 /*---end general classes---*/
 

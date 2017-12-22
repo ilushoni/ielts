@@ -1226,6 +1226,10 @@ function showChecklistLink(){
 }
 
 $(document).on("click", ".show-checklist-link", function(){
+    if( $(this).hasClass("show-table-link") ){
+        $(this).toggleClass("red");
+        $(".show-table").toggleClass("hide");
+    }
     if( $(this).hasClass("show-more-link") ){
         $(this).toggleClass("red");
         $(this).parents("li").find(".show-more").toggleClass("hide");

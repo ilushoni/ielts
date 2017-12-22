@@ -37,8 +37,6 @@ function init() {
 }
 
 $(document).ready(init());
-// $(window).on("load", init());
-
 
 function startRecording(button) {
     recorder && recorder.record();
@@ -51,7 +49,6 @@ function startRecording(button) {
 function formatDuration(seconds) {
     var sec = Math.floor( seconds );
     var min = Math.floor( sec / 60 );
-    // min = min >= 10 ? min : '0' + min;
     sec = Math.floor( sec % 60 );
     sec = sec >= 10 ? sec : '0' + sec;
     return min + ':' + sec;
@@ -107,9 +104,10 @@ function stopRecording(button) {
         if( button.parents(".one-line-recorder").length ){
             createDownloadLink( button.parents(".recorder") );
         }
-        // else {
-            SaveAudioFile( button.parents("li").index(), el_text , el_text_short);
-        // }
+        if( button.parents(".show-record-audio").length ){
+            createDownloadLink( button.parents(".recorder") );
+        }
+        SaveAudioFile( button.parents("li").index(), el_text , el_text_short);
     }else {
         createDownloadLink( button.parents(".recorder") );
     }
@@ -149,16 +147,19 @@ function createDownloadLink(parent_el, text, index) {
     recorder && recorder.exportWAV(function(blob) {
         var url = URL.createObjectURL(blob);
         record_i++;
-
+        console.log(blob);
         if( parent_el.hasClass("recorder") ) {
             if( parent_el.parents(".one-line-recorder").length ){
                 parent_el.parents(".one-line-recorder").find('.record-list').attr("id","record-list-"+record_i);
             } else {
-                parent_el.find('.record-list').attr("id","record-list-"+record_i);
+                if(parent_el.parents(".show-record-audio").length){
+                    parent_el.parents(".show-record-audio").find('.record-list').attr("id","record-list-"+record_i);
+                }else{
+                    parent_el.find('.record-list').attr("id","record-list-"+record_i);
+                }
             }
-
             $('#record-list-'+record_i).append(
-                '<li>'+
+                '<li id="record-play-item-'+record_i+'">'+
                 '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
                 '<div id="audioplayer'+record_i+'" class="audioplayer">' +
                     '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
@@ -213,28 +214,21 @@ function createDownloadLink(parent_el, text, index) {
 }
 
 //audio handler
-function returnMusic(el){
-    var $this = el.parents("li");
-    var music_id = $this.find("audio").attr("id");
-    var music = document.getElementById(music_id);
-    return music;
-}
-
 function audioHandler(){
     $('audio').on("canplay", function () {
         var d = formatDuration(this.duration);
-        $(this).parents("li").find(".duration").text(d);
+        $(this).closest("li").find(".duration").text(d);
         durations.push(d);
     });
 
     $("audio").on('timeupdate', function(){
-        $(this).parents("li").find('.duration').text( formatDuration( Math.floor(this.currentTime) ) );
+        $(this).closest("li").find('.duration').text( formatDuration( Math.floor(this.currentTime) ) );
     });
 
     $('audio').on('ended', function() {
         var music = returnMusic( $(this) );
-        $(this).parents("li").find('.btn-play').removeClass("pause").addClass("play");
-        $(this).parents("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
+        $(this).closest("li").find('.btn-play').removeClass("pause").addClass("play");
+        $(this).closest("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
     });
 }
 
@@ -246,11 +240,18 @@ function pauseAudio(music, $this){
     $this.removeClass("pause").addClass("play");
 }
 
+function returnMusic(el){
+    var $this = el.closest("li");
+    var music_id = $this.find("audio").attr("id");
+    var music = document.getElementById(music_id);
+    return music;
+}
+
 $(document).on('click', '.btn-play', function(){
     if( $(this).parents(".disabled").length == 0 ){
         var music = returnMusic( $(this) );
         var duration = music.duration;
-        var timeline_id = $(this).parents("li").find(".timeline").attr("id");
+        var timeline_id = $(this).closest("li").find(".timeline").attr("id");
         var timeline = document.getElementById(timeline_id);
 
         if( ( $(".recorder").length ) && ( $(".record-duration").text() !== "" ) ){
@@ -264,15 +265,15 @@ $(document).on('click', '.btn-play', function(){
                 pauseAudio( $el_music , $el );
             }
             music.play();
-            switch( $(this).parents("li").find(".playhead").width() ){
-                case $(this).parents("li").find(".timeline").width() :
-                    $(this).parents("li").find(".playhead").width(3);
+            switch( $(this).closest("li").find(".playhead").width() ){
+                case $(this).closest("li").find(".timeline").width() :
+                    $(this).closest("li").find(".playhead").width(3);
                     break;
                 default:
-                    var w = $(this).parents("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
+                    var w = $(this).closest("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
                     duration -= w;
             }
-            $(this).parents("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
+            $(this).closest("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
             $(this).removeClass("play").addClass("pause");
         }else {
             pauseAudio(music, $(this));
