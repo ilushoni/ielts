@@ -274,7 +274,6 @@ function show_my_recorder_func($atts) {
             $page_id = $post->ID;
             global $wpdb;
             if( $field ){
-                echo $field;
                 $field -=1;
                 $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id." AND page_question_number = ".$field);
             } else{

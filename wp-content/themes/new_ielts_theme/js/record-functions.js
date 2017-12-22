@@ -147,7 +147,6 @@ function createDownloadLink(parent_el, text, index) {
     recorder && recorder.exportWAV(function(blob) {
         var url = URL.createObjectURL(blob);
         record_i++;
-        console.log(blob);
         if( parent_el.hasClass("recorder") ) {
             if( parent_el.parents(".one-line-recorder").length ){
                 parent_el.parents(".one-line-recorder").find('.record-list').attr("id","record-list-"+record_i);
