@@ -4262,12 +4262,22 @@ ul.list-style-none{
 
 p.margin-large,
 .margin-large{
-    margin: 75px 0;
+    margin-top: 75px;
+    margin-bottom: 75px;
 }
 
 p.margin-top-large,
 .margin-top-large{
     margin-top: 40px;
+}
+
+.margin-top-25{
+    margin-top: 25px;
+}
+
+.margin-both-25{
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 p.no-margin,
@@ -4292,6 +4302,11 @@ p.no-margin,
 
 .left{
     float: left;
+    clear: both;
+}
+
+.to-right{
+    float: right;
     clear: both;
 }
 /*---end general classes---*/

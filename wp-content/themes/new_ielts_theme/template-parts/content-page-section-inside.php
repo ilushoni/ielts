@@ -5,7 +5,6 @@
 
 global $post;
 $page_slug = $post->post_name;
-
 $ancestors = get_post_ancestors($post->ID);
 $root = count($ancestors)-1;
 $parent_id = $ancestors[$root];
@@ -37,9 +36,7 @@ $args = array(
 );
 $task_text_array = get_posts($args);
 
-if( $task_text_array ) {
-    //if there is text for task
-
+if( $task_text_array ) {   //if there is text for task
     echo '<div class="popup-text">';
         foreach ($task_text_array as $task_text) : setup_postdata($task_text);
             echo '<div class="sheet-of-paper column-2">';
@@ -64,23 +61,28 @@ if( $task_text_array ) {
         echo '</div>';
     echo '</div>';
 
-} else {
-    //there is no text for task
+} else {    //there is no text for task
     $class = ($speaking_part1_rule) ? 'task-speaking' : '';
     if( get_the_title() ) {
         if( strpos( $page_slug, 'task-' ) !== false ){
             the_title( '<h3 class="task-name '.$class.'">', '</h3>' );
         } else {
-            echo '<header class="entry-header">';
-                the_title( '<h1 class="entry-title">', '</h1>' );
-            echo '</header>';
+            the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header>' );
         }
     }
 
-    $class = ( ($page_slug == 'task-4') or ($page_slug == 'task-5') or ($page_slug == 'task-voice-record') or ($page_slug == 'types-of-questions-for-ielts-online')) ? $class = "task-column-not-full" : $class ='';
-    if ($speaking_part1_rule) $class = 'task-content';
+    switch(true){
+        case(($page_slug=='task-4')or($page_slug=='task-5')or($page_slug=='task-voice-record')or($page_slug=='types-of-questions-for-ielts-online')):
+            $class = " task-column-not-full";
+            break;
+        case($speaking_part1_rule):
+            $class = " task-content";
+            break;
+        default:
+            $class = "";
+    }
 
-    echo '<div class="entry-content '.$class.'" id="post-content-'. get_the_ID() .'">';
+    echo '<div class="entry-content'.$class.'" id="post-content-'. get_the_ID() .'">';
         $text = get_the_content();
         preg_match_all("/(task-select-words)/", $text, $contains_select_words);
         switch(true){

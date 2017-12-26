@@ -577,21 +577,21 @@ $(document).ready(function() {
         }
     });
 
-    function moveMenuCarousel(next){
-        var x = 0;
-        if(next){
-            x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").width()+8;
-            x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(3)").width()+8;
-            x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(4)").width()+8;
-            x += 5;//TODO why 5px? because inline-block?
-        }
-        $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").css("margin-left", x );
-    }
-
-    if( $(".section-menu.top-line.column-8.active-6, .section-menu.top-line.column-8.active-7,.section-menu.top-line.column-8.active-8").length){
-        $(".section-menu.top-line.column-8").addClass("visible_6-8");
-        moveMenuCarousel('next');
-    }
+    // function moveMenuCarousel(next){
+    //     var x = 0;
+    //     if(next){
+    //         x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").width()+8;
+    //         x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(3)").width()+8;
+    //         x -= $(".section-menu.top-line.column-8 .menu-item:nth-child(4)").width()+8;
+    //         x += 5;//TODO why 5px? because inline-block?
+    //     }
+    //     $(".section-menu.top-line.column-8 .menu-item:nth-child(2)").css("margin-left", x );
+    // }
+    //
+    // if( $(".section-menu.top-line.column-8.active-6, .section-menu.top-line.column-8.active-7,.section-menu.top-line.column-8.active-8").length){
+    //     $(".section-menu.top-line.column-8").addClass("visible_6-8");
+    //     moveMenuCarousel('next');
+    // }
 
     $(".section-menu.top-line.column-8 .show-more").click(function(){
         var $elParent = $(this).parents(".section-menu");

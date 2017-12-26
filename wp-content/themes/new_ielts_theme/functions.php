@@ -259,14 +259,12 @@ function show_my_recorder_func($atts) {
         'add' => 'no-default',
         'field' => 'no-default',
     ), $atts));
-
     $recorder = '<div class="recorder">';
         $recorder .= '<button class="btn btn-record">Record Myself</button>';
         $recorder .= '<button class="btn btn-stop" disabled>Stop</button>';
         $recorder .= '<div class="record-duration"></div>';
         $recorder .= '<pre class="log"></pre>';
         $recorder .= '</div>';
-
         if( $add == "add-after" ){
             global $post;
             $table_name = 'user_audio';
@@ -279,7 +277,11 @@ function show_my_recorder_func($atts) {
             } else{
                 $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
             }
-            $id = $datum->{"page_question_number"};
+            if(count($datum)>0){
+                $id = $datum->{"page_question_number"};
+            } else{
+                $id = '';
+            }
             $recorder .= '<ul class="record-list'.$id.'">';
             if(count($datum)>0){
                 foreach( $datum as $data ){
@@ -1103,4 +1105,13 @@ function my_action_section_progress_callback() {
 //    // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 //    wp_die();
 //}
+
+function page_nav($prev, $prev_rel, $next, $next_rel, $class){
+    $class = ($class) ? "page-nav-wrapper ".$class : "page-nav-wrapper";
+    $nav = '<nav class="'.$class.'">';
+    if( $prev ) $nav .= '<a href="'.$prev.'" class="page-prev" rel="'.$prev_rel.'">'._("Back").'</a>';
+    if( $next ) $nav .= '<a href="'.$next.'" class="page-next" rel="'.$next_rel.'">'._("Next").'</a>';
+    $nav .= '</nav>';
+    return $nav;
+}
 /*---end added by ira.che---*/
