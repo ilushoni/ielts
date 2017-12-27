@@ -91,15 +91,24 @@ function stopRecording(button) {
     button.parents(".recorder").find(".btn-record").removeAttr('disabled');
     __log('Stopped recording.');
     if( $(".task-name.task-speaking").length ) {
-        var $el = button.parents("li").find(".short").parent("span").clone();
-        var el_text = "Your Recording";
-        var el_text_short = "Your Recording";
-        if( $el.length ) {
-            el_text = $el.text();
-            if( $el.find(".short").length ){
-                $el.find(".short").text("...");
-            }
-            el_text_short = $el.text();
+        if( button.closest("li").find(".caption").length ){
+            var el_text, el_text_short;
+            button.closest("li").find(".caption").each(function(){
+                switch(true) {
+                    case ($(this).attr('class').indexOf("full") >= 0):
+                        el_text = $(this).text();
+                        break;
+                    case ($(this).attr('class').indexOf("short") >= 0):
+                        el_text_short = $(this).text();
+                        break;
+                    default:
+                        el_text = $(this).text();
+                        el_text_short = $(this).text();
+                }
+            });
+        }else{
+            el_text = "Your Recording";
+            el_text_short = "Your Recording";
         }
         if( button.parents(".one-line-recorder").length ){
             createDownloadLink( button.parents(".recorder") );

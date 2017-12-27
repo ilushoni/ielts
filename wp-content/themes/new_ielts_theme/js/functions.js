@@ -529,7 +529,7 @@ $(document).ready(function() {
     //     }
     // };
 
-    $(document).on('click', ".check-answers-now input", function(){
+    $(document).on('click', ".check-answers-now input[type!='text']", function(){
         var $parent_el = $(this).parents(".list-questions-ul");
         switch( true ) {
             case ( $parent_el.hasClass("list-checkbox") ):
@@ -561,19 +561,34 @@ $(document).ready(function() {
         $('*[class=""]').removeAttr('class');
     });
 
-    $(document).on( "change paste keyup", ".check-answers-now input.one-character", function(){
-        if( ( ! ($(this).val())) || ( $(this).val().toLowerCase() == $(this).attr("correct_answer").toLowerCase() ) ){
-            $(this).parents("li").removeClass("wrong");
-        }else {
-            $(this).parents("li").addClass("wrong");
-        }
-    });
-
-    $(document).on( "change paste keyup", ".check-answers-now input.text-field", function(){
-        if( (!($(this).val())) || ( $(this).val().toLowerCase() == $(this).attr("correct_answer").toLowerCase() ) ){
-            $(this).parents(".text-field-group").removeClass("wrong");
-        }else {
-            $(this).parents(".text-field-group").addClass("wrong");
+    $(document).on( "change paste keyup", "input[type=text], textarea", function(){
+        var el;
+        if($(this).parents(".check-answers-now").length){
+            switch(true){
+                case($(this).hasClass("one-character")):
+                    el = $(this).parents("li");
+                    break;
+                case($(this).hasClass("text-field")):
+                    el = $(this).closest(".text-field-group");
+                    break;
+            }
+            ((!$(this).val()) || ($(this).val().toLowerCase() == $(this).attr("correct_answer").toLowerCase())) ? el.removeClass("wrong") : el.addClass("wrong");
+        }else{
+            var $name = ($(this).attr("name")) ? $(this).attr("name") : $(this).parents(".list-questions-ol").attr("id");
+            if( $(".save-field").is(":disabled") && ($name.indexOf($(".save-field").attr("for") >= 0) )){
+                $(".save-field").removeAttr("disabled");
+            }
+            if( $(".check-btn.disabled").length && ($name.indexOf($(".check-btn").parents(".nav-exercise").attr("for") >= 0) )){
+                $(".check-btn.disabled").removeClass("disabled");
+            }
+            if( $(this).parents(".wrong").length ){
+                $(this).parents(".wrong").removeClass("wrong");
+            }
+            if( $(".hints-if-mistake").length ){
+                el = findHint($(this));
+                el.parents(".hints-if-mistake").removeClass("open");
+                el.parents(".hints-if-mistake").find(".open").removeClass("open");
+            }
         }
     });
 
@@ -1050,24 +1065,6 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on( "change paste keyup", "input[type=text], textarea", function(){
-        var $name = ($(this).attr("name")) ? $(this).attr("name") : $(this).parents(".list-questions-ol").attr("id");
-        if( $(".save-field").is(":disabled") && ($name.indexOf( $(".save-field").attr("for") >= 0) )){
-            $(".save-field").removeAttr("disabled");
-        }
-        if( $(".check-btn.disabled").length && ($name.indexOf( $(".check-btn").parents(".nav-exercise").attr("for") >= 0) )){
-            $(".check-btn.disabled").removeClass("disabled");
-        }
-        if( $(this).parents(".wrong").length ){
-            $(this).parents(".wrong").removeClass("wrong");
-        }
-        if( $(".hints-if-mistake").length ){
-            var el = findHint($(this));
-            el.parents(".hints-if-mistake").removeClass("open");
-            el.parents(".hints-if-mistake").find(".open").removeClass("open");
-        }
-    });
-
     //sort words from text
     $(document).on('mousedown', ".sort-words li", function(){
         $(this).addClass("focus");
@@ -1150,7 +1147,6 @@ $(document).ready(function() {
             }
         });
     }
-
 });
 
 //---work with iframe video---
