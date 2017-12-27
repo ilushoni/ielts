@@ -3129,6 +3129,7 @@ ol.list-checkbox li:before{
     text-align: center;
 }
 
+h5.phrase-column-h5,
 .phrase-column h5,
 .sort-phrase-column h5 {
     position: relative;
@@ -3791,7 +3792,7 @@ ol.font-smaller li:before{
 /*---end text styles for speaking section---*/
 
 /*---sort elements just from text---*/
-.paste-sort-words-columns {
+.paste-sort-words-columns:not(.equal-columns) {
     grid-template-columns: 258px 1fr;
 }
 
@@ -3904,6 +3905,15 @@ ol.font-smaller li:before{
     cursor: pointer;
 }
 
+.height-auto.row-underlined .sort-words li{
+    height: auto;
+    line-height: 1.43em;
+}
+
+.text-centered .row-underlined .sort-words li{
+    text-align: center;
+}
+
 .sort-in-text {
     position: relative;
     width: 100%;
@@ -3990,6 +4000,10 @@ ol.font-smaller li:before{
 
 .sort-words li.wrong{
     color: #e61130;
+}
+
+.only-one-paste .sort-words li{
+    margin-bottom: 0;
 }
 /*---end sort elements just from text---*/
 
@@ -4261,8 +4275,17 @@ p.text-small {
     width: 100%;
 }
 
+.width-960{
+    max-width: 960px;
+    width: 960px;
+}
+
 .width-720{
     width: 720px;
+}
+
+.height-auto{
+    height: auto;
 }
 
 .padding-right-54{
@@ -4344,6 +4367,15 @@ p.no-margin,
 .to-right{
     float: right;
     clear: both;
+}
+
+.pos-absolute-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 /*---end general classes---*/
 

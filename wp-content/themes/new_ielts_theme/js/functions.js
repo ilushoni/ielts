@@ -1134,10 +1134,20 @@ $(document).ready(function() {
                 //$(this) where element stopped (it's new area)
                 if( $(this).parents(".only-one-paste").length ){
                     $(ui.item["0"]).removeClass("old");
-                    if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
+                    console.log(".only-one-paste");
+                    console.log($(this).find("li.old"));
+                    console.dir($(ui.sender["0"]));
+                    if( ($(this).find("li.old").length) && (!$(this).hasClass(".drop-list")) ) {
                         var $elem = $(this).find("li.old");
-                        $( "#"+ $elem.attr('id')+"-clone").after($elem);
-                        $( "#"+ $elem.attr('id')+"-clone").remove();
+                        console.log(".old");
+                        console.log($( "#"+ $elem.attr('id')));
+                        console.log($( "#"+ $elem.attr('id')+"-clone"));
+                        if( $(this).parents(".re-sort").length ){
+                            $(ui.sender["0"]).append($elem);
+                        }else{
+                            $( "#"+ $elem.attr('id')+"-clone").after($elem);
+                            $( "#"+ $elem.attr('id')+"-clone").remove();
+                        }
                         $( "#"+ $elem.attr('id')).removeAttr("style");
                         $( "#"+ $elem.attr('id')).removeClass("wrong");
                         $(".sort-words.drop-list li.old").removeClass("old");
@@ -1148,6 +1158,8 @@ $(document).ready(function() {
         });
     }
 });
+
+$(".re-sort .sort-words.paste-list li").addClass("old");
 
 //---work with iframe video---
 //make css for YouTube video iframe

@@ -14,8 +14,8 @@
       <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="581" column="65" lean-forward="true" selection-start-line="581" selection-start-column="65" selection-end-line="581" selection-end-column="65" />
+            <state relative-caret-position="582">
+              <caret line="1145" column="57" lean-forward="false" selection-start-line="1145" selection-start-column="57" selection-end-line="1145" selection-end-column="57" />
               <folding>
                 <element signature="e#98#354#0" expanded="false" />
                 <element signature="e#426#511#0" expanded="false" />
@@ -82,12 +82,11 @@
                 <element signature="e#45840#45882#0" expanded="false" />
                 <element signature="e#45942#46278#0" expanded="false" />
                 <element signature="e#46340#46385#0" expanded="false" />
-                <element signature="e#46461#49474#0" expanded="false" />
                 <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
                 <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
                 <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
                 <element signature="n#!!block;n#showChecklistLink#0" expanded="false" />
-                <element signature="e#51966#52320#0" expanded="false" />
+                <element signature="e#52551#52905#0" expanded="false" />
                 <element signature="n#!!block;n#saveUserAnswers#0" expanded="false" />
               </folding>
             </state>
@@ -97,8 +96,18 @@
       <file leaf-file-name="page-focus6.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus6.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="706">
-              <caret line="44" column="6" lean-forward="true" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
+            <state relative-caret-position="556">
+              <caret line="66" column="53" lean-forward="true" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page-focus3.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus3.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2454">
+              <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -107,10 +116,10 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="3999" column="1" lean-forward="true" selection-start-line="3999" selection-start-column="1" selection-end-line="3999" selection-end-column="1" />
+            <state relative-caret-position="501">
+              <caret line="4005" column="21" lean-forward="false" selection-start-line="4005" selection-start-column="21" selection-end-line="4005" selection-end-column="21" />
               <folding>
-                <marker date="1514391120527" expanded="false" signature="95738:131454" ph="..." />
+                <marker date="1514398395662" expanded="false" signature="96215:131931" ph="..." />
               </folding>
             </state>
           </provider>
@@ -128,13 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>timel</find>
-      <find>.no-list-style</find>
-      <find>textarea-middle</find>
-      <find>record_i</find>
-      <find>IELTS Speaking Checklist</find>
-      <find>h4</find>
-      <find>check a</find>
       <find>one-w</find>
       <find>in-t</find>
       <find>$show_color</find>
@@ -158,6 +160,13 @@
       <find>check-answers-now</find>
       <find>list-checkbox</find>
       <find>change paste keyup</find>
+      <find>phr</find>
+      <find>.width</find>
+      <find>old</find>
+      <find>only-one-paste</find>
+      <find>.old</find>
+      <find>.width-96</find>
+      <find>ans</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -222,7 +231,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1378" />
@@ -345,15 +354,15 @@
       <workItem from="1513601696845" duration="44512000" />
       <workItem from="1513767348901" duration="61735000" />
       <workItem from="1514286430560" duration="80000" />
-      <workItem from="1514286575959" duration="26489000" />
+      <workItem from="1514286575959" duration="32664000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="889659000" />
+    <option name="totallyTimeSpent" value="895834000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22864583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -732,14 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus3.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -756,18 +757,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus4.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="581" column="65" lean-forward="true" selection-start-line="581" selection-start-column="65" selection-end-line="581" selection-end-column="65" />
+        <state relative-caret-position="582">
+          <caret line="1145" column="57" lean-forward="false" selection-start-line="1145" selection-start-column="57" selection-end-line="1145" selection-end-column="57" />
           <folding>
             <element signature="e#98#354#0" expanded="false" />
             <element signature="e#426#511#0" expanded="false" />
@@ -834,12 +827,11 @@
             <element signature="e#45840#45882#0" expanded="false" />
             <element signature="e#45942#46278#0" expanded="false" />
             <element signature="e#46340#46385#0" expanded="false" />
-            <element signature="e#46461#49474#0" expanded="false" />
             <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
             <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
             <element signature="n#!!block;n#showChecklistLink#0" expanded="false" />
-            <element signature="e#51966#52320#0" expanded="false" />
+            <element signature="e#52551#52905#0" expanded="false" />
             <element signature="n#!!block;n#saveUserAnswers#0" expanded="false" />
           </folding>
         </state>
@@ -847,18 +839,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="3999" column="1" lean-forward="true" selection-start-line="3999" selection-start-column="1" selection-end-line="3999" selection-end-column="1" />
+        <state relative-caret-position="501">
+          <caret line="4005" column="21" lean-forward="false" selection-start-line="4005" selection-start-column="21" selection-end-line="4005" selection-end-column="21" />
           <folding>
-            <marker date="1514391120527" expanded="false" signature="95738:131454" ph="..." />
+            <marker date="1514398395662" expanded="false" signature="96215:131931" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus4.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="41" column="73" lean-forward="false" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2454">
+          <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus6.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="44" column="6" lean-forward="true" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
+        <state relative-caret-position="556">
+          <caret line="66" column="53" lean-forward="true" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
           <folding />
         </state>
       </provider>
