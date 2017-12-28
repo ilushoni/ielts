@@ -14,8 +14,8 @@
       <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="1145" column="57" lean-forward="false" selection-start-line="1145" selection-start-column="57" selection-end-line="1145" selection-end-column="57" />
+            <state relative-caret-position="330">
+              <caret line="1133" column="43" lean-forward="false" selection-start-line="1133" selection-start-column="43" selection-end-line="1133" selection-end-column="43" />
               <folding>
                 <element signature="e#98#354#0" expanded="false" />
                 <element signature="e#426#511#0" expanded="false" />
@@ -96,18 +96,8 @@
       <file leaf-file-name="page-focus6.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus6.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="66" column="53" lean-forward="true" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page-focus3.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus3.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2454">
-              <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+            <state relative-caret-position="178">
+              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="152" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -116,10 +106,10 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="4005" column="21" lean-forward="false" selection-start-line="4005" selection-start-column="21" selection-end-line="4005" selection-end-column="21" />
+            <state relative-caret-position="477">
+              <caret line="4261" column="1" lean-forward="false" selection-start-line="4261" selection-start-column="1" selection-end-line="4261" selection-end-column="10" />
               <folding>
-                <marker date="1514398395662" expanded="false" signature="96215:131931" ph="..." />
+                <marker date="1514461605322" expanded="false" signature="96408:132124" ph="..." />
               </folding>
             </state>
           </provider>
@@ -137,8 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>one-w</find>
-      <find>in-t</find>
       <find>$show_color</find>
       <find>page-sentence-completion-inner</find>
       <find>rel</find>
@@ -167,6 +155,8 @@
       <find>.old</find>
       <find>.width-96</find>
       <find>ans</find>
+      <find>no-list</find>
+      <find>no-mar</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -231,7 +221,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1378" />
@@ -354,15 +344,15 @@
       <workItem from="1513601696845" duration="44512000" />
       <workItem from="1513767348901" duration="61735000" />
       <workItem from="1514286430560" duration="80000" />
-      <workItem from="1514286575959" duration="32664000" />
+      <workItem from="1514286575959" duration="35672000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="895834000" />
+    <option name="totallyTimeSpent" value="898842000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22864583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -728,19 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus5.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2113">
-          <caret line="521" column="0" lean-forward="true" selection-start-line="521" selection-start-column="0" selection-end-line="521" selection-end-column="0" />
-          <folding>
-            <element signature="n#li#0;n#ul#0;n#div#23;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#23;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#23;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#23;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -757,10 +734,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus4.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="41" column="73" lean-forward="false" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2454">
+          <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="520" column="6" lean-forward="true" selection-start-line="483" selection-start-column="0" selection-end-line="520" selection-end-column="6" />
+          <folding>
+            <element signature="n#li#0;n#ul#0;n#div#23;n#!!top" expanded="false" />
+            <element signature="n#li#1;n#ul#0;n#div#23;n#!!top" expanded="false" />
+            <element signature="n#li#2;n#ul#0;n#div#23;n#!!top" expanded="false" />
+            <element signature="n#li#3;n#ul#0;n#div#23;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="1145" column="57" lean-forward="false" selection-start-line="1145" selection-start-column="57" selection-end-line="1145" selection-end-column="57" />
+        <state relative-caret-position="330">
+          <caret line="1133" column="43" lean-forward="false" selection-start-line="1133" selection-start-column="43" selection-end-line="1133" selection-end-column="43" />
           <folding>
             <element signature="e#98#354#0" expanded="false" />
             <element signature="e#426#511#0" expanded="false" />
@@ -839,34 +845,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="4005" column="21" lean-forward="false" selection-start-line="4005" selection-start-column="21" selection-end-line="4005" selection-end-column="21" />
+        <state relative-caret-position="477">
+          <caret line="4261" column="1" lean-forward="false" selection-start-line="4261" selection-start-column="1" selection-end-line="4261" selection-end-column="10" />
           <folding>
-            <marker date="1514398395662" expanded="false" signature="96215:131931" ph="..." />
+            <marker date="1514461605322" expanded="false" signature="96408:132124" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus4.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="41" column="73" lean-forward="false" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus3.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2454">
-          <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus6.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="66" column="53" lean-forward="true" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
+        <state relative-caret-position="178">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="152" selection-end-column="6" />
           <folding />
         </state>
       </provider>

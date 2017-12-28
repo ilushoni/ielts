@@ -2859,6 +2859,16 @@ ol.list-checkbox li:before{
     line-height: 1.43;
 }
 
+.record-questions-list ul li{
+    border: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.record-questions-list ul.list-style-none li:last-child{
+    margin: 0;
+}
+
 .record-questions-list br {
     display: none;
 }
@@ -4301,6 +4311,7 @@ p.text-small {
     list-style-type: none;
 }
 
+ul.no-list-style,
 ul.list-style-none{
     padding: 0;
 }
@@ -4338,7 +4349,7 @@ p.no-margin,
 .margin-none,
 .no-margin,
 .no-margin li{
-    margin: 0;
+    margin: 0 !important;
 }
 
 .li-large-margin li{
