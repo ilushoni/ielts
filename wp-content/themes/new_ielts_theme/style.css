@@ -4336,9 +4336,20 @@ p.margin-top-25,
     margin-top: 25px;
 }
 
+p.margin-both-25,
 .margin-both-25{
     margin-top: 25px;
     margin-bottom: 25px;
+}
+
+p.margin-both-17,
+.margin-both-17{
+    margin-top: 17px;
+    margin-bottom: 17px;
+}
+
+.margin-bottom-10{
+    margin-bottom: 10px;
 }
 
 .no-margin-bottom{
@@ -4387,6 +4398,14 @@ p.no-margin,
     width: 100%;
     height: 100%;
     z-index: -1;
+}
+
+ul.list-style-disc{
+    list-style-type: disc;
+}
+
+ul.list-style-disc li {
+    list-style: inherit;
 }
 /*---end general classes---*/
 

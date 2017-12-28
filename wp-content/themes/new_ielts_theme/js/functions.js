@@ -37,9 +37,9 @@ $(document).ready(function() {
             event.preventDefault();
     });
 
-    if( $(".nav-exercise").length ) {
-        $(".page-nav-wrapper .page-next").addClass("disabled");
-    }
+    // if( $(".nav-exercise").length ) { //TODO add only in some tasks
+    //     $(".page-nav-wrapper .page-next").addClass("disabled");
+    // }
 
     $(".task-text-insert li").not(".example").find(".btn-info").click(function() {
         var $el = ( $(this).hasClass("btn-hint") ) ?  $(this).parents("li").find(".hint") : $(this).parents("li").find(".explain");
@@ -394,8 +394,8 @@ $(document).ready(function() {
         }
     }
 
-    // $(document).on('click', ".list-questions-ul li", function(){
-    $(".list-questions-ul li").click(function(){
+    $(document).on('click', ".list-questions-ul li", function(){
+    // $(".list-questions-ul li").click(function(){
         if( $(".nav-exercise").hasClass("disabled") )  {
             $('.sort').sortable('disable');
             return false;
@@ -480,6 +480,9 @@ $(document).ready(function() {
                 showHint( $checkBtn, ( $(this).find(".wrong").length + $(this).find(".empty").length ) );
             });
             $(".show-after-check").removeClass("hide");
+            if( $checkBtn.hasClass("show-more-link") ){
+                $checkBtn.closest("li").find(".show-more.hide").removeClass("hide");
+            }
         }
     }
 
@@ -617,12 +620,10 @@ $(document).ready(function() {
 
     //sort phrases to two columns
     $(document).on('mousedown', ".sort-phrase li", function(){
-    // $(".sort-phrase li").mousedown(function(){
         $(this).addClass("focus");
     });
 
     $(document).on('click', ".sort-phrase li", function(){
-    // $(".sort-phrase li") .click(function(){
         if(!( $(this).parents(".sort-phrase").hasClass('drop-list') )) {
             $( "#"+ $(this).attr('id')+"-clone").after($(this));
             $( "#"+ $(this).attr('id')+"-clone").remove();
@@ -632,7 +633,6 @@ $(document).ready(function() {
     });
 
     $(document).on('mouseup', ".sort-phrase li", function(){
-    // $(".sort-phrase li").mouseup(function(){
         $(this).removeClass("focus");
     });
 
@@ -698,7 +698,6 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".video-checkbox", function(){
-    // $(".video-checkbox").click(function(){
         $(this).parents(".list-video-checkbox").find(".video-checkbox").each(function(){
             $(this).removeClass("wrong");
         });
@@ -708,7 +707,6 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".choose-one-checkbox input[type='checkbox']", function(){
-    // $(".choose-one-checkbox input[type='checkbox']").click(function(){
         var $this = $(this);
         if( $this.is(":checked") ) {
             $(this).parents(".choose-one-checkbox").find("input[type='checkbox']").each(function(){
@@ -871,8 +869,7 @@ $(document).ready(function() {
             clearTimeout(timerId); //cancel the previous timer.
             timerId = null;
         }
-        if( (time == 0)||(stop) ){
-            //it is the end of time
+        if( (time == 0)||(stop) ){//it is the end of time
             checkGameQuestions();
         }
         time_parts = time_original.split(":");
@@ -901,8 +898,7 @@ $(document).ready(function() {
 
     $(document).on("click", ".btn-start-time", function(){
         if( $(this).hasClass("btn-stop-time") ){
-            if( $(".game-question input:checked").length == 0 ){
-                //user can stop time if not started to answer
+            if( $(".game-question input:checked").length == 0 ){ //user can stop time if not started to answer
                 stopTimer();
             }
         } else {
@@ -916,25 +912,21 @@ $(document).ready(function() {
             time_parts = time_original.split(":");
             time = parseInt(time_parts[0]*60) + parseInt(time_parts[1]);
         }
-
         $(".game-question input").prop('checked', false);
         $(".load-one-by-one .game-question:first-child").addClass("visible");
         $(".game-results").hide();
         $(".game-results").attr("class", "game-results");
         if( $(".load-one-by-one .game-question").length > 0 ) {
             $(".page-next").addClass("disabled");
-            // $(".page-next").hide();
         }
-        $(".game-rules").show();
-        $(".timer-wrapper").show();
+        $(".game-rules, .timer-wrapper").show();
     }
 
     startGameSettings();
 
     function chooseShowHints(){
-        var c;
         $(".game-question input[correct_answer]").not(":checked").each(function(){
-            c = $(this).parents("li").attr("class");
+            var c = $(this).parents("li").attr("class");
             $(".hints li." + c).addClass("visible");
         });
         $(".hint-item").each(function(){
@@ -950,8 +942,7 @@ $(document).ready(function() {
     function checkGameQuestions(){
         $(".game-question.visible").removeClass("visible");
         $(".game-results").show();
-        $(".game-rules").hide();
-        $(".timer-wrapper").hide();
+        $(".game-rules, .timer-wrapper").hide();
         //count correct answers
         if( $(".game-question li").length == $(".game-question input:checked").length ){
             //user click all answers
@@ -966,7 +957,6 @@ $(document).ready(function() {
                 $(".show-count-answers").text(el_correct+"/"+count);
                 $(".game-results").addClass("done");
                 $(".page-next").removeClass("disabled");
-                // $(".page-next").removeAttr("style");
             } else {
                 //not all answers is correct
                 $(".show-count-answers").text(el_correct+"/"+count);
@@ -975,7 +965,6 @@ $(document).ready(function() {
                     $(".game-question").addClass("visible");
                     $(".game-question input").prop( "disabled", true );
                     $(".page-next").removeClass("disabled");
-                    // $(".page-next").removeAttr("style");
                     $(".game-question input:checked").each(function(){
                         if( $(this).attr("correct_answer") != 1 ){
                             $(this).parents(".label").addClass("wrong");
@@ -985,27 +974,23 @@ $(document).ready(function() {
                     chooseShowHints();
                 }
             }
-
         } else {
             //time is over, but user give not all answers
             $(".game-results").addClass("late");
         }
     }
 
-    $(document).on("click", ".btn-show-hints", function(){
-        //show hints
+    $(document).on("click", ".btn-show-hints", function(){//show hints
         $(this).hide();
         $(".hints").show();
         $(".game-content").addClass("last-try");
     });
 
-    $(document).on("click", ".btn-try-again", function(){
-        //clear all
+    $(document).on("click", ".btn-try-again", function(){//clear all
         startGameSettings();
         makeTimer();
         if( $(".last-try").length ){
-            $(".hints").hide();
-            $(".exercise-nav").hide();
+            $(".hints, .exercise-nav").hide();
         }
     });
 

@@ -52,7 +52,11 @@ if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($p
 
     switch( count($children_order) ):
         case(1):
-            $page_nav_class = 'load item-is-first';
+            if( count($children) == 1 ){
+                $page_nav_class = 'load item-is-last';
+            }else{
+                $page_nav_class = 'load item-is-first';
+            }
             break;
         case(count($children)):
             $page_nav_class = 'load item-is-last';
