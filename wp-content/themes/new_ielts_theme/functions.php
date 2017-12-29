@@ -370,11 +370,27 @@ function show_my_video_func( $atts) {
 }
 add_shortcode('my_video', 'show_my_video_func');
 
+//function changeContent($content){
+//    $content = preg_replace('\'<ul class=\"(?:.*?)has-suggested_answers(?:.*?)\"(?:.*?)for=\"832\">(.*?)</ul>\'si', "", $content);
+////    var_dump($content);
+//    return $content;
+//}
+
 function show_my_audio_func( $atts) {
     $get_audio_from_page_id = '';
+    $suggested_answers = '';
     extract(shortcode_atts(array(
         'get_audio_from_page_id' => 'no-default',
+        'suggested_answers' => 'no-default',
     ), $atts));
+
+    if($suggested_answers){
+        global $post;
+        $content_post = get_post($post->ID);
+        $content = $content_post->post_content;
+        preg_match('\'<ul class=\"(?:.*?)has-suggested_answers(?:.*?)\"(?:.*?)for=\"'.$get_audio_from_page_id.'\">(.*?)</ul>\'si', $content, $ul_list);
+        preg_match_all('\'<li(?:.*?)>(.*?)</li>\'si', $ul_list[1], $li);
+    }
 
     $table_name = 'user_audio';
     $user_id = get_current_user_id();
@@ -397,6 +413,9 @@ function show_my_audio_func( $atts) {
                     $audio .= '</p>';
                     $audio .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
                 $audio .= '</div>';
+                if($suggested_answers){
+                    $audio .= '<p class="text-small margin-top-25 width-480"><em>'.$li[1][$id].'</em></p>';
+                }
             $audio .= '</li>';
         }
         $audio .= '</ul>';

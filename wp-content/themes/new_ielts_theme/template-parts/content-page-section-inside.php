@@ -92,6 +92,9 @@ if( $task_text_array ) {   //if there is text for task
             case($page_slug == "task-5"):
                 echo(content_to_drop_words($text));
                 break;
+//            case(has_shortcode($text, 'my_audio')):
+//                echo changeContent($text);
+//                break;
             default:
                 the_content();
         }

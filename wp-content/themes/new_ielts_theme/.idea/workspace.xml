@@ -11,74 +11,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/functions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="727" column="28" lean-forward="true" selection-start-line="727" selection-start-column="16" selection-end-line="727" selection-end-column="28" />
-              <folding>
-                <element signature="e#4055#4934#0" expanded="false" />
-                <element signature="e#5033#5488#0" expanded="false" />
-                <element signature="e#5731#6373#0" expanded="false" />
-                <element signature="e#6470#6687#0" expanded="false" />
-                <element signature="e#6715#9137#0" expanded="false" />
-                <element signature="e#13007#13524#0" expanded="false" />
-                <element signature="e#13611#14134#0" expanded="false" />
-                <element signature="e#14199#14436#0" expanded="false" />
-                <element signature="e#14507#15893#0" expanded="false" />
-                <element signature="e#15999#16660#0" expanded="false" />
-                <element signature="e#16703#17309#0" expanded="false" />
-                <element signature="e#17799#22482#0" expanded="false" />
-                <element signature="e#22519#22834#0" expanded="false" />
-                <element signature="e#22890#22934#0" expanded="false" />
-                <element signature="e#23011#23067#0" expanded="false" />
-                <element signature="e#23101#23464#0" expanded="false" />
-                <element signature="e#24127#25639#0" expanded="false" />
-                <element signature="e#25725#27202#0" expanded="false" />
-                <element signature="e#28087#28338#0" expanded="false" />
-                <element signature="e#28540#28877#0" expanded="false" />
-                <element signature="e#28940#28985#0" expanded="false" />
-                <element signature="e#29049#30973#0" expanded="false" />
-                <element signature="e#31000#31099#0" expanded="false" />
-                <element signature="e#31168#31197#0" expanded="false" />
-                <element signature="e#31257#31363#0" expanded="false" />
-                <element signature="e#31424#31678#0" expanded="false" />
-                <element signature="e#31767#32083#0" expanded="false" />
-                <element signature="e#32137#32185#0" expanded="false" />
-                <element signature="e#32715#33664#0" expanded="false" />
-                <element signature="e#33741#35731#0" expanded="false" />
-                <element signature="e#35810#37830#0" expanded="false" />
-                <element signature="e#37963#38538#0" expanded="false" />
-                <element signature="e#38564#39114#0" expanded="false" />
-                <element signature="e#39173#39435#0" expanded="false" />
-                <element signature="e#39471#40128#0" expanded="false" />
-                <element signature="e#40186#40696#0" expanded="false" />
-                <element signature="e#40731#42458#0" expanded="false" />
-                <element signature="e#42517#42637#0" expanded="false" />
-                <element signature="e#42697#42859#0" expanded="false" />
-                <element signature="e#42942#43762#0" expanded="false" />
-                <element signature="e#43819#45399#0" expanded="false" />
-                <element signature="e#45490#45532#0" expanded="false" />
-                <element signature="e#45592#45928#0" expanded="false" />
-                <element signature="e#45990#46035#0" expanded="false" />
-                <element signature="e#46111#49651#0" expanded="false" />
-                <element signature="n#!!block;n#onYouTubePlayerAPIReady#0" expanded="false" />
-                <element signature="n#!!block;n#onPlayerReady#0" expanded="false" />
-                <element signature="n#!!block;n#onPlayerStateChange#0" expanded="false" />
-                <element signature="n#!!block;n#showChecklistLink#0" expanded="false" />
-                <element signature="e#52201#52555#0" expanded="false" />
-                <element signature="n#!!block;n#saveUserAnswers#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page-focus7.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="page-focus7.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus7.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="601">
+              <caret line="133" column="75" lean-forward="true" selection-start-line="133" selection-start-column="72" selection-end-line="133" selection-end-column="75" />
+              <folding>
+                <element signature="n#ol#1;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,11 +26,46 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="4328" column="2" lean-forward="false" selection-start-line="4328" selection-start-column="2" selection-end-line="4328" selection-end-column="18" />
+            <state relative-caret-position="619">
+              <caret line="4350" column="17" lean-forward="false" selection-start-line="4350" selection-start-column="1" selection-end-line="4350" selection-end-column="17" />
               <folding>
-                <marker date="1514475393877" expanded="false" signature="96660:132376" ph="..." />
+                <marker date="1514481044369" expanded="false" signature="96707:132423" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="387" column="57" lean-forward="false" selection-start-line="387" selection-start-column="57" selection-end-line="387" selection-end-column="57" />
+              <folding>
+                <element signature="e#12355#13090#0#PHP" expanded="false" />
+                <element signature="e#13135#14057#0#PHP" expanded="false" />
+                <marker date="1514495868847" expanded="true" signature="9890:10003" ph="SELECT * FRO... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="10079:10152" ph="SELECT * FRO... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="12191:12308" ph="SELECT field... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="15150:15223" ph="SELECT * FRO... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="16658:16705" ph="SELECT ID FR... $" />
+                <marker date="1514495868847" expanded="true" signature="23707:23714" ph="»" />
+                <marker date="1514495868847" expanded="true" signature="26074:26159" ph="SELECT curre... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="27385:27391" ph=" " />
+                <marker date="1514495868847" expanded="true" signature="34710:34795" ph="SELECT curre... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="36611:36731" ph="SELECT audio... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="37977:38104" ph="SELECT field... ${$table_name}" />
+                <marker date="1514495868847" expanded="true" signature="39820:39897" ph="SELECT id FR... ${$table_name}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content-page-section-inside.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="86" column="28" lean-forward="true" selection-start-line="86" selection-start-column="28" selection-end-line="86" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -107,11 +82,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>show-record-audio</find>
-      <find>...</find>
-      <find>.short</find>
-      <find>record-questions-wrapper</find>
-      <find>short</find>
       <find>cap</find>
       <find>4041</find>
       <find>ifra</find>
@@ -137,6 +107,11 @@
       <find>page-next</find>
       <find>item-is-last</find>
       <find>.page-next&quot;).te</find>
+      <find>my_audio</find>
+      <find>li</find>
+      <find>preg_match('#&lt;\s*?ol\b[^&gt;]*&gt;(.*?)&lt;/ol\b[^&gt;]*&gt;#s', $text, $ol_list);</find>
+      <find>content</find>
+      <find>sugg</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -183,7 +158,6 @@
         <option value="$PROJECT_DIR$/template-parts/content-page-sentence-completion-inner.php" />
         <option value="$PROJECT_DIR$/template-parts/content-page-menu.php" />
         <option value="$PROJECT_DIR$/template-parts/content-page-section-inside.php" />
-        <option value="$PROJECT_DIR$/functions.php" />
         <option value="$PROJECT_DIR$/draft_mockups/page-focus1.html" />
         <option value="$PROJECT_DIR$/js/record-functions.js" />
         <option value="$PROJECT_DIR$/draft_mockups/page-focus5.html" />
@@ -192,6 +166,7 @@
         <option value="$PROJECT_DIR$/template-parts/content-page.php" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/draft_mockups/page-focus7.html" />
+        <option value="$PROJECT_DIR$/functions.php" />
       </list>
     </option>
   </component>
@@ -325,16 +300,15 @@
       <workItem from="1513601696845" duration="44512000" />
       <workItem from="1513767348901" duration="61735000" />
       <workItem from="1514286430560" duration="80000" />
-      <workItem from="1514286575959" duration="43292000" />
+      <workItem from="1514286575959" duration="53186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="906462000" />
+    <option name="totallyTimeSpent" value="916356000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22864583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -584,14 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="69" column="30" lean-forward="false" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/functions - Copy.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -628,14 +594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="11" column="37" lean-forward="true" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="661">
-          <caret line="1112" column="75" lean-forward="false" selection-start-line="1112" selection-start-column="75" selection-end-line="1112" selection-end-column="75" />
           <folding />
         </state>
       </provider>
@@ -707,29 +665,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus6.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="149" column="36" lean-forward="false" selection-start-line="149" selection-start-column="7" selection-end-line="149" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/template-parts/content-page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="481">
           <caret line="63" column="16" lean-forward="true" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="4328" column="2" lean-forward="false" selection-start-line="4328" selection-start-column="2" selection-end-line="4328" selection-end-column="18" />
-          <folding>
-            <marker date="1514475393877" expanded="false" signature="96660:132376" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -793,11 +733,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus6.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="661">
+          <caret line="167" column="0" lean-forward="false" selection-start-line="167" selection-start-column="0" selection-end-line="170" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="4350" column="17" lean-forward="false" selection-start-line="4350" selection-start-column="1" selection-end-line="4350" selection-end-column="17" />
+          <folding>
+            <marker date="1514481044369" expanded="false" signature="96707:132423" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/draft_mockups/page-focus7.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="601">
+          <caret line="133" column="75" lean-forward="true" selection-start-line="133" selection-start-column="72" selection-end-line="133" selection-end-column="75" />
+          <folding>
+            <element signature="n#ol#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template-parts/content-page-section-inside.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="86" column="28" lean-forward="true" selection-start-line="86" selection-start-column="28" selection-end-line="86" selection-end-column="28" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="387" column="57" lean-forward="false" selection-start-line="387" selection-start-column="57" selection-end-line="387" selection-end-column="57" />
+          <folding>
+            <element signature="e#12355#13090#0#PHP" expanded="false" />
+            <element signature="e#13135#14057#0#PHP" expanded="false" />
+            <marker date="1514495868847" expanded="true" signature="9890:10003" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="10079:10152" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="12191:12308" ph="SELECT field... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="15150:15223" ph="SELECT * FRO... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="16658:16705" ph="SELECT ID FR... $" />
+            <marker date="1514495868847" expanded="true" signature="23707:23714" ph="»" />
+            <marker date="1514495868847" expanded="true" signature="26074:26159" ph="SELECT curre... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="27385:27391" ph=" " />
+            <marker date="1514495868847" expanded="true" signature="34710:34795" ph="SELECT curre... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="36611:36731" ph="SELECT audio... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="37977:38104" ph="SELECT field... ${$table_name}" />
+            <marker date="1514495868847" expanded="true" signature="39820:39897" ph="SELECT id FR... ${$table_name}" />
+          </folding>
         </state>
       </provider>
     </entry>
