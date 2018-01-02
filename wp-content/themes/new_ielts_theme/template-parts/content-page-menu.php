@@ -20,8 +20,17 @@ if( ( $parent_section_slug == "reading-question-types") || ( $parent_section_slu
             $menu_name = "reading_section_completion";
             break;
         case("speaking"):    //task pages menu for SPEAKING section ONLY
-            $parent_page = get_page_by_path("/speaking/speaking-part1/");
-            $menu_name = "speaking_part1";
+            $post_data = get_post($post->post_parent);
+            switch($post_data->post_name){
+                case(in_array(get_id_by_slug("/speaking/speaking-part1"),$ancestors)):
+                    $parent_page = get_page_by_path("/speaking/speaking-part1/");
+                    $menu_name = "speaking-part1";
+                    break;
+                case(in_array(get_id_by_slug("/speaking/speaking-part2"),$ancestors)):
+                    $parent_page = get_page_by_path("/speaking/speaking-part2/");
+                    $menu_name = "speaking-part2";
+                    break;
+            }
             $class .= " speaking-part";
             $postlist = mytheme_list_pages('title_li=&sort_column=menu_order');
             $children_order = array();
@@ -47,7 +56,7 @@ if($page_nav) {
 
             $class = ( ( $menu_item->object_id == $direct_parent ) or ( $menu_item->object_id == $post->ID ) ) ? 'active' : '';
 
-            if( $menu_name == 'speaking_part1' ) {
+            if( ($menu_name == 'speaking_part1')or($menu_name == 'speaking_part2') ) {
 
                 if( $class ){
                     $class_menu = $class.'-'.$active_index;
@@ -101,7 +110,7 @@ if($page_nav) {
             $menu_list .= '</a>';
             $active_index++;
         }
-        if( $menu_name == 'speaking_part1' ){
+        if( ($menu_name == 'speaking_part1')or($menu_name == 'speaking_part2') ){
             $menu_list = '<a href="#" class="show-more prev"></a>'.$menu_list.'<a href="#" class="show-more next"></a></nav>';
         }else {
             $menu_list .= '</nav>';
