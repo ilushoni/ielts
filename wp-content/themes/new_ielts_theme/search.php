@@ -5,7 +5,6 @@
 
 get_header();
 
-
     if ( have_posts() ) {
 
         echo '<main class="container page search-results" id="page-' . get_the_ID() . '" role="search">';
@@ -23,10 +22,6 @@ get_header();
             echo '</div>';
 
             if ((get_previous_posts_link()) or (get_next_posts_link())) {
-//                echo '<div class="btn-wrapper">';
-//                    previous_posts_link('Back');
-//                    next_posts_link('Next');
-//                echo '</div>';
                 echo '<div class="page-nav-wrapper">';
                     previous_posts_link('Back');
                     next_posts_link('Next');

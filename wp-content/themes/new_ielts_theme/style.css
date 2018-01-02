@@ -2222,7 +2222,8 @@ ol.list-checkbox li:before{
     margin: -5px 0 0 0;
 }
 
-.task-select-words .word-select {
+.word-select{
+/*.task-select-words .word-select {*/
     position: relative;
     display: inline-block;
     padding: 0 2px;
@@ -2240,24 +2241,30 @@ ol.list-checkbox li:before{
     margin-top: 6px;
 }
 
-.task-select-words .word-select:hover,
-.task-select-words .word-select:active,
-.task-select-words .word-select:focus {
+.word-select:hover,
+.word-select:active,
+.word-select:focus {
+/*.task-select-words .word-select:hover,*/
+/*.task-select-words .word-select:active,*/
+/*.task-select-words .word-select:focus {*/
     border-color: #d8d8d8;
     color: #000;
 }
 
-.task-select-words .word-select.selected {
+.word-select.selected {
+/*.task-select-words .word-select.selected {*/
     background: #d8d8d8;
 }
 
-.task-select-words .word-select.wrong {
+.word-select.wrong {
+/*.task-select-words .word-select.wrong {*/
     border-color: #e61130;
     background: #e61130;
     color: #fff;
 }
 
-.task-select-words .word-select.empty {
+.word-select.empty {
+/*.task-select-words .word-select.empty {*/
     border-color: #e61130;
     border-style: dashed;
 }
@@ -4352,8 +4359,9 @@ p.margin-both-17,
     margin-bottom: 17px;
 }
 
+.no-margin.margin-bottom-18,
 .margin-bottom-18{
-    margin-bottom: 18px;
+    margin-bottom: 18px !important;
 }
 
 .margin-bottom-10{
@@ -4414,6 +4422,23 @@ ul.list-style-disc{
 
 ul.list-style-disc li {
     list-style: inherit;
+}
+
+ul.list-style-dash{
+    list-style-type: none;
+}
+
+ul.list-style-dash li {
+    list-style: none;
+}
+
+ul.list-style-dash li:before{
+    content: "- ";
+    display: inline;
+}
+
+.green{
+    color: darkgreen;
 }
 /*---end general classes---*/
 

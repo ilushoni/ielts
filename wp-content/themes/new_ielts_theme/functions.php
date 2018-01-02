@@ -64,6 +64,7 @@ function ielts_setup() {
 		'reading_section_completion' => __( 'Reading: Sentence  Completion Menu', 'ielts' ),
 		'action_points' => __( 'Action Points Menu', 'ielts' ),
         'speaking-part1' => __( 'Speaking: Part 1 Menu', 'ielts' ),
+        'speaking-part2' => __( 'Speaking: Part 2 Menu', 'ielts' ),
 		'social'  => __( 'Social Links Menu', 'ielts' ),
 	) );
 
@@ -1125,6 +1126,90 @@ function my_action_section_progress_callback() {
 //    wp_die();
 //}
 
+function make_page_nav_links(){
+    global $post;
+    $direct_parent = $post->post_parent;
+    //get prev and next post url
+    $postlist = mytheme_list_pages('title_li=&sort_column=menu_order');
+    $key = array_search ($post->ID, $postlist);
+    if( $postlist[ $key-1 ] ){
+        $prev_rel = ($postlist[ $key-1 ]) ? $postlist[ $key-1 ] : false;
+        $prev = get_permalink( $postlist[ $key-1 ] ); //Возвращает Строку/false. URL или false, если не удалось получить URL.
+    }
+    if( $postlist[ $key+1 ] ){
+        $next_rel = ($postlist[ $key+1 ]) ? $postlist[ $key+1 ] : false;
+        $next = get_permalink( $postlist[ $key+1 ] ); //Возвращает Строку/false. URL или false, если не удалось получить URL.
+    }
+    if(!(isset($prev))) $prev = false;
+    if(!(isset($prev_rel))) $prev_rel = false;
+    if(!(isset($next))) $next = false;
+    if(!(isset($next_rel))) $next_rel = false;
+
+    $ancestors = get_post_ancestors($post->ID);
+    $root = count($ancestors)-1;
+    $parent_id = $ancestors[$root];
+    $parents = get_post_ancestors( $post->ID );
+
+    $page_nav_class = '';
+    if( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ){
+        //page tasks only for Focuses on Part on SPEAKING
+        unset($children_order);
+        $children_order = array();
+        $arg = array(
+            'child_of' => wp_get_post_parent_id( $post->ID ),
+            'sort_order'   => 'ASC',
+            'sort_column'  => 'menu_order'
+        );
+        $children = get_pages($arg);
+        if( count($children) > 0 ) {
+            foreach ( $children as $child ) {
+                array_push($children_order, array_search ( $child->ID, $postlist  ));
+                if( $child->ID == $post->ID )
+                    break;
+            }
+        }
+        switch( count($children_order) ):
+            case(1):
+                if( count($children) == 1 ){
+                    $page_nav_class = 'load item-is-last';
+                }else{
+                    $page_nav_class = 'load item-is-first';
+                }
+                break;
+            case(count($children)):
+                $page_nav_class = 'load item-is-last';
+                break;
+            default:
+                $page_nav_class = 'load';
+        endswitch;
+    }
+    $links = array(
+        "prev" => $prev,
+        "prev_rel" => $prev_rel,
+        "next" => $next,
+        "next_rel" => $next_rel,
+        "page_nav_class" => $page_nav_class,
+        "direct_parent" => $direct_parent
+    );
+    return $links;
+}
+
+function show_menu_by_location($menu_name){
+    $locations = get_nav_menu_locations();
+    if( $locations && isset($locations[ $menu_name ]) ){
+        $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
+        $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
+        $menu_list = '<ul id="menu-' . $menu_name . '">';
+        foreach ( $menu_items as $key => $menu_item ){
+            $menu_list .= '<li><a href="' . $menu_item->url . '">' . $menu_item->title . '</a></li>';
+        }
+        $menu_list .= '</ul>';
+        return $menu_list;
+    }else{
+        return false;
+    }
+}
+
 function page_nav($prev, $prev_rel, $next, $next_rel, $class){
     $class = ($class) ? "page-nav-wrapper ".$class : "page-nav-wrapper";
     $nav = '<nav class="'.$class.'">';
@@ -1132,5 +1217,10 @@ function page_nav($prev, $prev_rel, $next, $next_rel, $class){
     if( $next ) $nav .= '<a href="'.$next.'" class="page-next" rel="'.$next_rel.'">'._("Next").'</a>';
     $nav .= '</nav>';
     return $nav;
+}
+
+function show_next_only_btn($link){
+    $show = '<nav class="page-nav-wrapper"><a class="page-next" href="'.$link.'">'._("Next").'</a></nav>';
+    return $show;
 }
 /*---end added by ira.che---*/

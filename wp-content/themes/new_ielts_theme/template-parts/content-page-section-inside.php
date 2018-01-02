@@ -71,8 +71,9 @@ if( $task_text_array ) {   //if there is text for task
         }
     }
 
+    preg_match("/(\btask\b-[45])|(\btask-voice-record\b)|(\btypes-of-questions-for-ielts-online\b)/", $page_slug, $result);
     switch(true){
-        case(($page_slug=='task-4')or($page_slug=='task-5')or($page_slug=='task-voice-record')or($page_slug=='types-of-questions-for-ielts-online')):
+        case(!empty($result)):
             $class = " task-column-not-full";
             break;
         case($speaking_part1_rule):
