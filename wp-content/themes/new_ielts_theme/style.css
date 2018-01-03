@@ -670,7 +670,7 @@ input[type="radio"]+br{
     position: relative;
     display: inline-block;
     padding: 14px 15px 13px 33px;
-    background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/logo.svg") 0 15px no-repeat;
+    background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/logo.svg") 0 15px no-repeat;
     font-weight: 900;
     letter-spacing: 2px;
 }
@@ -692,7 +692,7 @@ input[type="radio"]+br{
     display: none;
     width: 49px;
     height: 53px;
-    background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon_menu.svg") center center no-repeat;
+    background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon_menu.svg") center center no-repeat;
 }
 
 .header-section-parent,
@@ -1043,7 +1043,7 @@ input[type="radio"]+br{
     display: inline-block;
     width: 57px;
     height: 100%;
-    background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/triangle.svg") center center no-repeat;
+    background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/triangle.svg") center center no-repeat;
     background-size: 51px 58px;
     transition-duration: .3s;
 }
@@ -4576,10 +4576,10 @@ ul.list-style-dash li:before{
     height: 30px;
 }
 
-.soc-icons-menu .item.fc { background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-fc.svg") 0 0 no-repeat;}
-.soc-icons-menu .item.insta { background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-insta.svg") 0 0 no-repeat;}
-.soc-icons-menu .item.gplus { background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-gpl.svg") 0 0 no-repeat;}
-.soc-icons-menu .item.twit { background: url("http://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-tw.svg") 0 0 no-repeat;}
+.soc-icons-menu .item.fc { background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-fc.svg") 0 0 no-repeat;}
+.soc-icons-menu .item.insta { background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-insta.svg") 0 0 no-repeat;}
+.soc-icons-menu .item.gplus { background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-gpl.svg") 0 0 no-repeat;}
+.soc-icons-menu .item.twit { background: url("https://grade.fireflydevelop.com/wp-content/themes/new_ielts_theme/images/icon-tw.svg") 0 0 no-repeat;}
 
 .footer-bottom {
     position: relative;
