@@ -922,11 +922,11 @@ $(document).ready(function() {
     });
 
     $(document).on('click', ".sort-words li", function(){
-        if(!( $(this).parents(".sort-words").hasClass('drop-list') )) {
+        if(!( $(this).closest(".sort-words").hasClass('drop-list') )) {
             $( "#"+ $(this).attr('id')+"-clone").after($(this));
             $( "#"+ $(this).attr('id')+"-clone").remove();
-            $( "#"+ $(this).attr('id')).removeAttr("style");
-            $( "#"+ $(this).attr('id')).removeClass("wrong");
+            $(this).removeAttr("style");
+            $(this).removeClass("wrong");
         }
     });
 
