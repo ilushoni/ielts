@@ -84,20 +84,6 @@ if( $task_text_array ) {   //if there is text for task
     }
 
     echo '<div class="entry-content'.$class.'" id="post-content-'. get_the_ID() .'">';
-        $text = get_the_content();
-        preg_match_all("/(task-select-words)/", $text, $contains_select_words);
-        switch(true){
-            case(!empty($contains_select_words[0])):
-                echo(content_to_select_words($text));
-                break;
-            case($page_slug == "task-5"):
-                echo(content_to_drop_words($text));
-                break;
-//            case(has_shortcode($text, 'my_audio')):
-//                echo changeContent($text);
-//                break;
-            default:
-                the_content();
-        }
+        echo my_the_content( get_the_content() );
     echo '</div>';
 }

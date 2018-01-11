@@ -41,25 +41,24 @@ $(document).ready(function() {
     //     $(".page-nav-wrapper .page-next").addClass("disabled");
     // }
 
-    $(".task-text-insert li").not(".example").find(".btn-info").click(function() {
-        var $el = ( $(this).hasClass("btn-hint") ) ?  $(this).parents("li").find(".hint") : $(this).parents("li").find(".explain");
+    $(document).on("click", ".task-text-insert li:not(.example) .btn-info", function(){
+        var $el = ( $(this).hasClass("btn-hint") ) ?  $(this).closest("li").find(".hint") : $(this).parents("li").find(".explain");
         var el_post_left = $(this).parent(".text-field-group").position().left;
-        $(this).toggleClass("open");
         $el.toggleClass("open").css("padding-left", el_post_left );
     });
 
-    $(".task-text-insert li").not(".example").find(".text-field").on('focus',function(){
-        if( (!($(".nav-exercise").hasClass("disabled"))) && ($(this).parents(".text-field-group").find(".btn-explain").is(":visible")) ) {
+    $(document).on("focus", ".task-text-insert li:not(.example) .text-field", function(){
+        if( (!($(".nav-exercise").hasClass("disabled"))) && ($(this).closest("li").find(".btn-explain").is(":visible")) ) {
             var $field = $(this);
+            var $li = $(this).closest("li");
             $field.data('oldVal', $field.val());
-            $field.bind("propertychange change click keyup input paste", function(){
-                if ($field.data('oldVal') != $field.val()) {      // If value has changed...
+            $(document).on("change paste keyup", this, function(){
+                if($field.data('oldVal') !== $field.val()) {      // If value has changed...
                     $field.data('oldVal', $field.val());          // Updated stored value
                     $(".check-btn.disabled").removeClass("disabled");      // Do action
-                    $(this).parents("li").find(".text-field-group" ).attr( "class", "text-field-group" );
-                    $(this).parents("li").find(".btn-explain" ).hide();
-                    $(this).parents("li").find(".open" ).removeClass("open");
-                    $(this).parents("li").find(".btn-hint" ).show();
+                    $li.find(".text-field-group").attr("class","text-field-group");
+                    $li.find(".open").removeClass("open");
+                    $li.find(".btn-hint").addClass("open");
                 }
             });
         } else {
@@ -67,15 +66,16 @@ $(document).ready(function() {
         }
     });
 
-    $(".task-select-words li").not(".example").find(".word-select").click(function(){
-        if( !( $(".nav-exercise").hasClass("disabled" )) ) {
-            $(".check-btn").removeClass("disabled");
-            $(this).toggleClass("selected").removeClass("wrong").removeClass("empty")
+    $(".task-select-words li .word-select").click(function(){
+        var id = $(this).closest(".task-select-words").attr("id");
+        if(($(".nav-exercise[for="+id+"]").length)&&(($(".nav-exercise[for="+id+"] .check-btn").hasClass("disabled")))&&(!$(".nav-exercise[for="+id+"] .success-text").is(":visible"))){
+            $(".nav-exercise[for="+id+"] .check-btn.disabled").removeClass("disabled");
+        }
+        if(($(this).closest("li.example").length == 0)&&(!$(".nav-exercise[for="+id+"] .success-text").is(":visible"))){
+            $(this).toggleClass("selected").removeClass("wrong").removeClass("empty");
         }
         return false;
     });
-
-    $(".task-select-words li.example a").click(function(){return false;});
 
     $(document).on("click", ".show-popup-btn", function(){
         $(".popup-text").addClass("open");
@@ -97,146 +97,39 @@ $(document).ready(function() {
         }
     });
 
-    function sortItemSize() {
-        $(".word-drop").removeClass('make-ul-smaller');
-        $(".word-drop").removeClass('make-out-of-ul');
-        $(".word-drop.has-li").each(function(){
-            var $el = $(this).find("li.ui-sortable-handle.old");
-            if( $el.length ) {
-                $el.addClass('no-width');
-                var w_parent = Math.round( $(this).outerWidth() );
-                var w_el =  Math.round( $el.outerWidth() );
-                var sum = w_parent - w_el;
-                if( sum > 5 ) {
-                    $(this).addClass('make-ul-smaller');
-                } else {
-                    if( ( sum + 3 ) < 0 ) {
-                        //parent ul wrapper with smaller than element width
-                        $(this).addClass('make-out-of-ul');
-                    }
-                }
-                $el.removeClass('no-width');
-            }
-        });
+    function closePopup(){
+        $(".popup-window").removeClass("open");
+        $("body").removeClass("no-scroll");
     }
 
-    // $(document).on('mousedown', ".sort li", function(){
-    $(".sort li").mousedown(function(){
-        if( $(".nav-exercise").hasClass("disabled") )  {
-            $('.sort').sortable('disable');
-            return false;
-        } else {
-            $(".check-btn.disabled").removeClass("disabled");
-            $(this).parents('.word-drop').addClass('focus-wrapper');
-            $(this).addClass("focus");
-            $(".word-drop").not(".has-li").addClass("show-place");
-            $(".task-drop-words > li").addClass("open");
-        }
+    $(document).on("click", ".popup-window .icon-close", function(){
+        closePopup();
     });
 
-    function openLi(){
-        $(".task-drop-words > li").removeClass("open");
-        $(".word-drop.has-li").parents("li").addClass("open");
-    }
-
-    // $(document).on('click', ".sort li", function(){
-    $(".sort li") .click(function(){
-        if( $(".nav-exercise").hasClass("disabled") )  {
-            return false;
-        } else {
-            if(!( $(this).parents(".sort").hasClass('drop-list') )) {
-
-                $(this).parents(".word-drop.has-li").removeClass("has-li");
-                $(this).parents(".word-drop.wrong").removeClass("wrong");
-                $(this).removeClass("old");
-                $( "#"+ $(this).attr('id')+"-clone").after($(this));
-                $( "#"+ $(this).attr('id')+"-clone").remove();
-                $( "#"+ $(this).attr('id')).attr("style","");
-
-            }
-            sortItemSize();
-            openLi();
-        }
-
-    });
-
-    // $(document).on('mouseup', ".sort li", function(){
-    $(".sort li").mouseup(function(){
-        $(this).parents('.word-drop').removeClass("focus-wrapper");
-        $(this).removeClass("focus");
-        $(".word-drop.show-place").removeClass("show-place");
-        openLi();
-        sortItemSize();
-    });
-
-    $('.sort').sortable({
-        placeholder: 'placeholder',
-        connectWith: '.sort',
-        items: "li:not(.in-use)",
-        start: function(event, ui) {
-            if( $(this).hasClass("drop-list") ) {  //ul-parent list
-                var id = ui.item[0]["id"]; //get moved element id
-                var $elem = ui.item.clone();
-                $elem.attr("style","");
-                $elem[0]["id"] = id + "-clone";
-                $elem.addClass("in-use");
-                $(this).find(".focus").after( $elem );
-            }
-        },
-        stop: function(event, ui) {
-            //$parentUl where element stopped (it's new area)
-            //$droppedEl element moved
-            //$(this) where element from
-            var $parentUl = $(ui.item["0"].offsetParent);
-            var $droppedEl = $(ui.item["0"]);
-            $(this).parents(".word-drop.wrong").removeClass("wrong");
-            $parentUl.parents(".word-drop.wrong").removeClass("wrong");
-            if( !( $(this).parents(".word-drop li").length ) ) {
-                $(this).parents(".word-drop").removeClass("has-li");
-            }
-            $parentUl.parents(".word-drop").addClass("has-li");
-            if( $parentUl.hasClass("drop-list") ) {
-                $droppedEl.removeClass("old");
-                $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
-                $( "#"+ ui.item[0]["id"]+"-clone").remove();
-                $( "#"+ ui.item[0]["id"]).attr("style","");
-            } else {
-                $droppedEl.addClass("old");
-            }
-            openLi();
-            $(".word-drop.focus-wrapper").removeClass(".focus-wrapper");
-            $("li.focus").removeClass("focus");
-            sortItemSize();
-        },
-
-        receive: function(event, ui) {
-            //if target list not empty, change old element to new and return old element to main list
-            //$(this) where element stopped (it's new area)
-            $(ui.item["0"]).removeClass("old");
-            if( ( $(this).find("li.old").length ) && ( !( $(this).hasClass(".drop-list") ) ) ) {
-                var $elem = $(this).find("li.old");
-                $( "#"+ $elem.attr('id')+"-clone").after($elem);
-                $( "#"+ $elem.attr('id')+"-clone").remove();
-                $( "#"+ $elem.attr('id')).attr("style","");
-                $(".sort.drop-list li.old").removeClass("old");
-                sortItemSize();
-            }
+    $(document).on("click", ".popup-window", function(e){
+        if( $(e.target).closest('.popup-body').length == 0 ) {
+            closePopup();
         }
     });
 
     function showHintForExample($checkTask){
-        var id = ( $checkTask == undefined ) ? $(".list-questions-ol").attr("id") : $checkTask;
+        var id = ( typeof $checkTask === 'undefined') ? $(".hint").closest(".list-questions-ol").attr("id") : $checkTask;
         var $listTask = $("#"+id);
-        var el_pos_left = $listTask.find("li.example").find(".text-field-group").position().left;
-        var $el_btn = $listTask.find("li.example").find(".btn-hint");
-        var $el_hint = $listTask.find("li.example").find(".hint");
-        var $btn = ( $(".nav-exercise[for='"+id+"']").length ) ? $(".nav-exercise[for='"+id+"']").find(".check-btn") : $(".check-btn");
-        if( $btn.hasClass("disabled") ) {
-            $el_btn = $listTask.find("li.example").find(".btn-explain");
-            $el_hint = $listTask.find("li.example").find(".explain");
+        var $li = $listTask.find("li.example");
+        if($li.find(".text-field-group").length){
+            var el_pos_left = $li.find(".text-field-group").position().left;
+            var $el_btn = $li.find(".btn-hint");
+            var $el_hint = $li.find(".hint");
+            if($el_btn.length && $el_hint.length){
+                var $btn = ( $(".nav-exercise[for='"+id+"']").length ) ? $(".nav-exercise[for='"+id+"']").find(".check-btn") : $(".check-btn");
+                if( $btn.hasClass("disabled") ) {
+                    $el_btn = $li.find(".btn-explain");
+                    $el_hint = $li.find(".explain");
+                }
+                $el_btn.addClass("open");
+                $el_hint.addClass("open").css("padding-left", el_pos_left );
+            }
         }
-        $el_btn.addClass("open");
-        $el_hint.addClass("open").css("padding-left", el_pos_left );
     }
 
     function findHint(input){
@@ -317,47 +210,39 @@ $(document).ready(function() {
                 });
             });
             $(document).on("click", ".select-field-group .choose-result", function(){
-                if( $(".nav-exercise").hasClass("disabled") )  {
+                var $el = $(this).closest(".select-field-group");
+                if( ($(".nav-exercise").hasClass("disabled"))||($el.hasClass("disabled")) )  {
                     return false;
                 } else {
-                    if( $(this).parents(".select-field-group").hasClass('open') ) {
+                    if( ! $el.hasClass('open') ) {
                         $(".select-field-group.open").removeClass('open');
-                    } else {
+                        $el.addClass('open');
+                    }else{
                         $(".select-field-group.open").removeClass('open');
-                        $(this).parents(".select-field-group").addClass('open');
                     }
                 }
             });
-            $(document).on("click", ".select-menu", function(){
-                if( $(".nav-exercise").hasClass("disabled") )  {
-                    return false;
-                } else {
-                    $(this).parents(".select-field-group").removeClass("open");
-                }
+            $(document).on("click", ".select-field-group .select-menu", function(){
+                $(this).closest(".select-field-group").removeClass("open");
             });
             $(document).on("click", ".select-menu .item", function(){
-                if( $(".nav-exercise").hasClass("disabled") )  {
-                    return false;
-                } else {
-                    var var_numb = $(this).attr('var');
-                    if( $(".check-btn").length ){
-                        $(".check-btn.disabled").removeClass("disabled");
-                        $(this).parents(".select-field-group").removeClass('wrong');
-                    }else{
-                        if( $(this).parents(".check-answers-now").length ){
-                            if( $(this).attr("correct_answer") == "1" ) {
-                                $(this).parents(".select-field-group").removeClass("wrong");
-                            } else {
-                                $(this).parents(".select-field-group").addClass("wrong");
-                            }
-                        }
-                    }
-                    $(this).parents(".select-field-group").find(".selected").removeClass("selected");
-                    $(this).addClass('selected');
-                    $(this).parents(".select-field-group").find('*[selected="selected"]').removeAttr("selected");
-                    $(this).parents(".select-field-group").find('[var="'+var_numb+'"]').attr('selected','selected');
-                    $(this).parents(".select-field-group").find(".choose-result").text( $(this).text() );
+                $(this).closest(".select-field-group").removeClass('wrong correct-answer');
+                if( $(".check-btn").length ){
+                    $(".check-btn.disabled").removeClass("disabled");
                 }
+                if( $(this).parents(".check-answers-now").length ){
+                    if( $(this).attr("correct_answer") == "1" ) {
+                        $(this).closest(".select-field-group").removeClass("wrong").addClass("correct-answer");
+                    } else {
+                        $(this).closest(".select-field-group").removeClass("correct-answer").addClass("wrong");
+                    }
+                }
+                var var_numb = $(this).attr('var');
+                $(this).parents(".select-field-group").find(".selected").removeClass("selected");
+                $(this).addClass('selected');
+                $(this).parents(".select-field-group").find('*[selected="selected"]').removeAttr("selected");
+                $(this).parents(".select-field-group").find('[var="'+var_numb+'"]').attr('selected','selected');
+                $(this).parents(".select-field-group").find(".choose-result").text( $(this).text() );
             });
         }
         closeIfClickOutside($(".select-menu"));
@@ -394,18 +279,17 @@ $(document).ready(function() {
         }
     }
 
-    $(document).on('click', ".list-questions-ul li", function(){
-    // $(".list-questions-ul li").click(function(){
-        if( $(".nav-exercise").hasClass("disabled") )  {
-            $('.sort').sortable('disable');
-            return false;
-        } else {
-            $(".check-btn.disabled").removeClass("disabled");
-            if( $(this).hasClass("wrong") ) {
-                $(this).removeClass("wrong");
-            }
-        }
-    });
+    // $(document).on('click', ".list-questions-ul li", function(){
+    //     if( $(".nav-exercise").hasClass("disabled") )  {
+    //         $('.sort').sortable('disable');
+    //         return false;
+    //     } else {
+    //         $(".check-btn.disabled").removeClass("disabled");
+    //         if( $(this).hasClass("wrong") ) {
+    //             $(this).removeClass("wrong");
+    //         }
+    //     }
+    // });
 
     function checkButtonClick($checkBtn){
         if( $checkBtn.hasClass("disabled") ) {
@@ -419,8 +303,7 @@ $(document).ready(function() {
                         $(this).find(".text-field-group").attr("class", "text-field-group"); //remove all classes
                         if( $(this).find(".hint").length ){ //if task has hints and explain fields for user
                             $(this).find(".open").removeClass("open");
-                            $(this).find(".btn-info").hide();
-                            $(this).find(".btn-explain").show();
+                            $(this).find(".btn-explain").addClass("open");
                             showHintForExample($(this).attr("id"));
                         }
                         $(this).find( ".text-field-group").each(function(){
@@ -532,8 +415,8 @@ $(document).ready(function() {
     //     }
     // };
 
-    $(document).on('click', ".check-answers-now input[type!='text']", function(){
-        var $parent_el = $(this).parents(".list-questions-ul");
+    $(document).on("click", ".check-answers-now input[type!='text']", function(){
+        var $parent_el = $(this).closest(".list-questions-ul");
         switch( true ) {
             case ( $parent_el.hasClass("list-checkbox") ):
                 $parent_el.find("li").addClass("wrong");
@@ -556,8 +439,8 @@ $(document).ready(function() {
                 break;
             case ( $parent_el.hasClass("list-radio") ):
                 $parent_el.find("li.wrong").removeClass("wrong");
-                if(!( ( $(this).prop('checked') == true ) && ( $(this).is("[correct_answer]") ) && ( $(this).attr("correct_answer") == '1' ) )){
-                    $(this).parents("li").addClass("wrong");
+                if(!$(this).is("[correct_answer]")){
+                    $(this).closest("li").addClass("wrong");
                 }
                 break;
         }
@@ -595,6 +478,12 @@ $(document).ready(function() {
         }
     });
 
+    // $(document).on("click", ".check-answers-now .word-select", function(){
+    //     $(this).closest("li.example").find(".word-select.key-word").addClass("selected");
+    //     $(".word-select.selected").not(".key-word").addClass("wrong");
+    //     $(".word-select.key-word").not(".selected").addClass("empty");
+    // });
+
     // function moveMenuCarousel(next){
     //     var x = 0;
     //     if(next){
@@ -611,12 +500,12 @@ $(document).ready(function() {
     //     moveMenuCarousel('next');
     // }
 
-    $(".section-menu.top-line.column-8 .show-more").click(function(){
-        var $elParent = $(this).parents(".section-menu");
-        ( $(this).hasClass("next")) ? $elParent.addClass("visible_6-8") : $elParent.removeClass("visible_6-8");
-        moveMenuCarousel($(this).hasClass("next"));
-        return false;
-    });
+    // $(".section-menu.top-line.column-8 .show-more").click(function(){
+    //     var $elParent = $(this).parents(".section-menu");
+    //     ( $(this).hasClass("next")) ? $elParent.addClass("visible_6-8") : $elParent.removeClass("visible_6-8");
+    //     moveMenuCarousel($(this).hasClass("next"));
+    //     return false;
+    // });
 
     //sort phrases to two columns
     $(document).on('mousedown', ".sort-phrase li", function(){
@@ -625,10 +514,9 @@ $(document).ready(function() {
 
     $(document).on('click', ".sort-phrase li", function(){
         if(!( $(this).parents(".sort-phrase").hasClass('drop-list') )) {
-            $( "#"+ $(this).attr('id')+"-clone").after($(this));
-            $( "#"+ $(this).attr('id')+"-clone").remove();
-            $( "#"+ $(this).attr('id')).removeAttr("style");
-            $( "#"+ $(this).attr('id')).removeClass("wrong");
+            $(this).appendTo($( ".sort-phrase.drop-list")).show('slow');
+            $(this).removeAttr("style");
+            $(this).removeClass("wrong");
         }
     });
 
@@ -644,14 +532,8 @@ $(document).ready(function() {
             connectWith: '.sort-phrase',
             items: "li:not(.in-use)",
             start: function(event, ui) {
-                if( $(this).hasClass("drop-list") ) {  //ul-parent list
-                    var id = ui.item[0]["id"]; //get moved element id
-                    var $elem = ui.item.clone();
-                    $elem.attr("style","");
-                    $elem[0]["id"] = id + "-clone";
-                    $elem.addClass("in-use");
-                    $(this).find(".focus").after( $elem );
-                } else {
+                if( ! $(this).hasClass("drop-list") ) {  //ul-parent list
+                    // var id = ui.item[0]["id"]; //get moved element id
                     $('#'+ui.item[0]["id"]).removeClass("wrong");
                 }
             },
@@ -668,7 +550,6 @@ $(document).ready(function() {
                     $( "#"+ ui.item[0]["id"]).attr("style","");
                 } else {
                     var correctAns = $parentUl.attr("answers_correct").split(",");
-                    // console.log( $.inArray( $droppedEl.attr("id"), correctAns ));
                     if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
                         $droppedEl.addClass("wrong");
                     } else {
@@ -681,21 +562,6 @@ $(document).ready(function() {
             }
         });
     }
-
-    function closePopup(){
-        $(".popup-window").removeClass("open");
-        $("body").removeClass("no-scroll");
-    }
-
-    $(document).on("click", ".popup-window .icon-close", function(){
-        closePopup();
-    });
-
-    $(document).on("click", ".popup-window", function(e){
-        if( $(e.target).closest('.popup-body').length == 0 ) {
-            closePopup();
-        }
-    });
 
     $(document).on("click", ".video-checkbox", function(){
         $(this).parents(".list-video-checkbox").find(".video-checkbox").each(function(){
@@ -1119,14 +985,8 @@ $(document).ready(function() {
                 //$(this) where element stopped (it's new area)
                 if( $(this).parents(".only-one-paste").length ){
                     $(ui.item["0"]).removeClass("old");
-                    console.log(".only-one-paste");
-                    console.log($(this).find("li.old"));
-                    console.dir($(ui.sender["0"]));
                     if( ($(this).find("li.old").length) && (!$(this).hasClass(".drop-list")) ) {
                         var $elem = $(this).find("li.old");
-                        console.log(".old");
-                        console.log($( "#"+ $elem.attr('id')));
-                        console.log($( "#"+ $elem.attr('id')+"-clone"));
                         if( $(this).parents(".re-sort").length ){
                             $(ui.sender["0"]).append($elem);
                         }else{
@@ -1161,7 +1021,6 @@ function onYouTubePlayerAPIReady() {
     // create the global player from the specific iframe (#video)
     $(".video-iframe-wrapper iframe").each(function(){
         var frameId = this.id;
-        // console.log(this.id);
         if( frameId ){
             player = new YT.Player( frameId, {
                 events: {

@@ -216,9 +216,7 @@ function ielts_scripts() {
 
 	// Theme stylesheet.
     wp_enqueue_style( 'ielts-normalize', get_template_directory_uri() . '/css/normalize.css', array(), '7.0.0' );
-
 	wp_enqueue_style( 'ielts-style', get_stylesheet_uri());
-
 	wp_enqueue_script( 'ielts-jquery', get_template_directory_uri() . '/js/jquery-3.2.1.js', array('jquery'), '3.2.1');
 	wp_enqueue_script( 'ielts-jqueryui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery'), '1.12.1');
 	wp_enqueue_script( 'ielts-jqueryuitouch', get_template_directory_uri() . '/js/jquery.ui.touch-punch.min.js', array('jquery'));
@@ -245,13 +243,31 @@ function ielts_scripts() {
         $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
         wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
     }
-
+    wp_enqueue_script( 'ielts-jquerysort', get_template_directory_uri() . '/js/sort-functions.js', array('jquery'), '1.0', 'in_footer');
 	wp_localize_script( 'ielts-script', 'screenReaderText', array(
 		'expand'   => __( 'expand child menu', 'ielts' ),
 		'collapse' => __( 'collapse child menu', 'ielts' ),
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'ielts_scripts' );
+
+function show_audio_li($id, $link, $text, $suggested_answers, $text_ans){
+    $li = '<li id="record-play-item-'.$id.'">';
+    $li .= '<audio id="music'.$id.'" class="audio-el" src="'.$link.'"></audio>';
+    $li .= '<div id="audioplayer'.$id.'" class="audioplayer">';
+    $li .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
+    $li .= '<p class="audio-text">';
+    $li .= '<span class="audio-name">'.$text.'</span>';
+    $li .= '<span class="duration"></span>';
+    $li .= '</p>';
+    $li .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
+    $li .= '</div>';
+    if($suggested_answers){
+        $li .= '<p class="text-small margin-top-25 width-480"><em>'.$text_ans.'</em></p>';
+    }
+    $li .= '</li>';
+    return $li;
+}
 
 function show_my_recorder_func($atts) {
     $add = "";
@@ -272,32 +288,17 @@ function show_my_recorder_func($atts) {
             $user_id = get_current_user_id();
             $page_id = $post->ID;
             global $wpdb;
+            $query = "SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id;
             if( $field ){
                 $field -=1;
-                $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id." AND page_question_number = ".$field);
-            } else{
-                $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
+                $query .= " AND page_question_number = ".$field;
             }
-            if(count($datum)>0){
-                $id = $datum->{"page_question_number"};
-            } else{
-                $id = '';
-            }
+            $datum = $wpdb->get_results($query);
+            $id = (count($datum)>0) ? $datum->{"page_question_number"} : '';
             $recorder .= '<ul class="record-list'.$id.'">';
             if(count($datum)>0){
                 foreach( $datum as $data ){
-                    $id = $data->page_question_number;
-                    $recorder .= '<li id="record-play-item-'.$id.'">';
-                    $recorder .= '<audio id="music'.$id.'" class="audio-el" src="'.wp_upload_dir()["baseurl"].$data->audio_link.'"></audio>';
-                    $recorder .= '<div id="audioplayer'.$id.'" class="audioplayer">';
-                    $recorder .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
-                    $recorder .= '<p class="audio-text">';
-                    $recorder .= '<span class="audio-name">'.$data->question_text_short.'</span>';
-                    $recorder .= '<span class="duration"></span>';
-                    $recorder .= '</p>';
-                    $recorder .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
-                    $recorder .= '</div>';
-                    $recorder .= '</li>';
+                    $recorder .= show_audio_li($data->page_question_number, wp_upload_dir()["baseurl"].$data->audio_link, $data->question_text_short, false, false);
                 }
             }
             $recorder .= '</ul>';
@@ -305,6 +306,62 @@ function show_my_recorder_func($atts) {
     return $recorder;
 }
 add_shortcode('my_recorder', 'show_my_recorder_func');
+
+function show_my_audio_func( $atts) {
+    $get_audio_from_page_id = '';
+    $suggested_answers = '';
+    extract(shortcode_atts(array(
+        'get_audio_from_page_id' => 'no-default',
+        'suggested_answers' => 'no-default',
+    ), $atts));
+
+    if($suggested_answers){
+        global $post;
+        $content_post = get_post($post->ID);
+        $content = $content_post->post_content;
+        preg_match('\'<ul class=\"(?:.*?)has-suggested_answers(?:.*?)\"(?:.*?)for=\"'.$get_audio_from_page_id.'\">(.*?)</ul>\'si', $content, $ul_list);
+        preg_match_all('\'<li(?:.*?)>(.*?)</li>\'si', $ul_list[1], $li);
+    }
+
+    $table_name = 'user_audio';
+    $user_id = get_current_user_id();
+    $page_id = $get_audio_from_page_id;
+
+    global $wpdb;
+    $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
+
+    if(count($datum)>0){
+        $audio = '<ul class="insert-record-questions-list">';
+        foreach( $datum as $data ){
+            $audio .= show_audio_li($data->page_question_number, wp_upload_dir()["baseurl"].$data->audio_link, $data->question_text_short, $suggested_answers, $li[1][$data->page_question_number]);
+        }
+        $audio .= '</ul>';
+    }else {
+        $audio = 'no records';
+    }
+    return $audio;
+}
+add_shortcode('my_audio', 'show_my_audio_func');
+
+function show_audio_func( $atts) {
+    $mp3 = '';
+    $name = '';
+    $disabled = '';
+    extract(shortcode_atts(array(
+        'mp3' => 'no-default',
+        'name' => 'no-default',
+        'disabled' => 'no-default'
+    ), $atts));
+    global $wpdb;
+    $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$mp3'";
+    $id = $wpdb->get_var($query);
+    if( !($id) ) $disabled = "disabled";
+    $audio = '<ul class="insert-record-questions-list '.$disabled.'">';
+    $audio .= show_audio_li($id, $mp3, $name,false, false);
+    $audio .= '</ul>';
+    return $audio;
+}
+add_shortcode('audio', 'show_audio_func');
 
 function show_check_btn_func($atts) {
     $class = '';
@@ -371,92 +428,6 @@ function show_my_video_func( $atts) {
 }
 add_shortcode('my_video', 'show_my_video_func');
 
-//function changeContent($content){
-//    $content = preg_replace('\'<ul class=\"(?:.*?)has-suggested_answers(?:.*?)\"(?:.*?)for=\"832\">(.*?)</ul>\'si', "", $content);
-////    var_dump($content);
-//    return $content;
-//}
-
-function show_my_audio_func( $atts) {
-    $get_audio_from_page_id = '';
-    $suggested_answers = '';
-    extract(shortcode_atts(array(
-        'get_audio_from_page_id' => 'no-default',
-        'suggested_answers' => 'no-default',
-    ), $atts));
-
-    if($suggested_answers){
-        global $post;
-        $content_post = get_post($post->ID);
-        $content = $content_post->post_content;
-        preg_match('\'<ul class=\"(?:.*?)has-suggested_answers(?:.*?)\"(?:.*?)for=\"'.$get_audio_from_page_id.'\">(.*?)</ul>\'si', $content, $ul_list);
-        preg_match_all('\'<li(?:.*?)>(.*?)</li>\'si', $ul_list[1], $li);
-    }
-
-    $table_name = 'user_audio';
-    $user_id = get_current_user_id();
-    $page_id = $get_audio_from_page_id;
-
-    global $wpdb;
-    $datum = $wpdb->get_results("SELECT * FROM ".$table_name." WHERE user_id = ".$user_id." AND page_id = ".$page_id);
-
-    if(count($datum)>0){
-        $audio = '<ul class="insert-record-questions-list">';
-        foreach( $datum as $data ){
-            $id = $data->page_question_number;
-            $audio .= '<li id="record-play-item-'.$id.'">';
-                $audio .= '<audio id="music'.$id.'" class="audio-el" src="'.wp_upload_dir()["baseurl"].$data->audio_link.'"></audio>';
-                $audio .= '<div id="audioplayer'.$id.'" class="audioplayer">';
-                    $audio .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
-                    $audio .= '<p class="audio-text">';
-                        $audio .= '<span class="audio-name">'.$data->question_text_short.'</span>';
-                        $audio .= '<span class="duration"></span>';
-                    $audio .= '</p>';
-                    $audio .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
-                $audio .= '</div>';
-                if($suggested_answers){
-                    $audio .= '<p class="text-small margin-top-25 width-480"><em>'.$li[1][$id].'</em></p>';
-                }
-            $audio .= '</li>';
-        }
-        $audio .= '</ul>';
-    }else {
-        $audio = 'no records';
-    }
-    return $audio;
-}
-add_shortcode('my_audio', 'show_my_audio_func');
-
-function show_audio_func( $atts) {
-    $mp3 = '';
-    $name = '';
-    $disabled = '';
-    extract(shortcode_atts(array(
-        'mp3' => 'no-default',
-        'name' => 'no-default',
-        'disabled' => 'no-default'
-    ), $atts));
-    global $wpdb;
-    $query = "SELECT ID FROM {$wpdb->posts} WHERE guid='$mp3'";
-    $id = $wpdb->get_var($query);
-    if( !($id) ) $disabled = "disabled";
-    $audio = '<ul class="insert-record-questions-list '.$disabled.'">';
-        $audio .= '<li id="record-play-item-'.$id.'">';
-        $audio .= '<audio id="music'.$id.'" class="audio-el" src="'.$mp3.'"></audio>';
-        $audio .= '<div id="audioplayer'.$id.'" class="audioplayer">';
-        $audio .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
-        $audio .= '<p class="audio-text">';
-        $audio .= '<span class="audio-name">'.$name.'</span>';
-        $audio .= '<span class="duration"></span>';
-        $audio .= '</p>';
-        $audio .= '<div id="timeline'.$id.'" class="timeline"><div id="playhead'.$id.'" class="playhead"></div></div>';
-        $audio .= '</div>';
-        $audio .= '</li>';
-    $audio .= '</ul>';
-    return $audio;
-}
-add_shortcode('audio', 'show_audio_func');
-
 function show_timer( $atts ) {
     $duration = '';
     extract(shortcode_atts(array(
@@ -509,7 +480,6 @@ add_filter( 'body_class', 'ielts_body_classes' );
  */
 function ielts_hex2rgb( $color ) {
 	$color = trim( $color, '#' );
-
 	if ( strlen( $color ) === 3 ) {
 		$r = hexdec( substr( $color, 0, 1 ).substr( $color, 0, 1 ) );
 		$g = hexdec( substr( $color, 1, 1 ).substr( $color, 1, 1 ) );
@@ -521,7 +491,6 @@ function ielts_hex2rgb( $color ) {
 	} else {
 		return array();
 	}
-
 	return array( 'red' => $r, 'green' => $g, 'blue' => $b );
 }
 
@@ -764,118 +733,93 @@ function select_words_wrap($sentence){
     return $result;
 }
 
-function content_to_select_words ( $content ) {
-    $text = $content;
-    $result = '';
-
-    preg_match('#<\s*?ol\b[^>]*>(.*?)</ol\b[^>]*>#s', $text, $ol_list);
-
-    $text_path = explode($ol_list[0], $text);
-    $result .= $text_path[0]; //content before <ol>
-
-    //мастерим со списком
-    preg_match_all('#<\s*?ol\b[^>]*>(.*?)</ol\b[^>]*>#s', $ol_list[0], $li_elements); //for separate ol tags, $li_elements[0] with tags ol, $li_elements[1] without ol
-    $ol_tag = explode( $li_elements[1][0], $li_elements[0][0] );
-
-    $result .= $ol_tag[0]; //tag <ol>
-
-    preg_match_all('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li_elements[1][0], $li_all); //find all li
-
-    foreach( $li_all[0] as $li ) {
-
-        preg_match('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li, $li_el); //for separate li tags, $li_el[0] has tag <li>, $li_el[1] has no tag <li>
-        $li_tag = explode($li_el[1], $li_el[0]);
-        $result .= $li_tag[0]; //open tag <li>
-
-        preg_match('#<\s*?fieldset\b[^>]*>(.*?)</fieldset\b[^>]*>#s', $li_el[1], $text_field); //put text field in $text_field
-        if( !empty($text_field[0]) ){
-            $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
-            //all right if there is only ONE text field in <li>
-            $result .= select_words_wrap($li_text_path[0]);//text before text_field
-            $result .= $text_field[0];
-            $result .= " ".select_words_wrap($li_text_path[1]);//text after text_field
-        } else{
-            $result .= select_words_wrap($li_el[1]);
-        }
-        $result .= $li_tag[1];  //close tag </li>
-    }
-
-    $result .= $ol_tag[1]; //close tag </ol>
-    $result .= $text_path[1]; //content after <ol>
-
-    return $result;
-}
-
 //task with select key words in text
 function drop_words_wrap($sentence){
-    $result="";
-
+    $result = "";
     $text = trim($sentence); //clear all extra spaces and symbols
-
     preg_match_all('#<\s*?span\b[^>]*>(.*?)</span\b[^>]*>#s', $sentence, $key_words);
-
     foreach( $key_words[0] as $key_el ) {
-
         $text_part = explode( $key_el, $text ); //get text before key word
-
         preg_match_all('/(correct_answer)=("[^"]*")/i',$key_el, $key_attr ); //get attribute correct_answer="" from tag <span> in $key_attr[0]
         preg_match('#<\s*?span\b[^>]*>(.*?)</span\b[^>]*>#s', $key_el, $key_word); //get just word here on $key_word[1]
-//        var_dump($key_attr[0][0]);
         $word = "<div class='word-drop'><span>".$key_word[1]."</span><ul class='sort' ".$key_attr[0][0]."></ul></div>";
         if($text_part[0]) {
             $text_part[0] = "<span>".$text_part[0]."</span>";
         }
         $result .= $text_part[0].$word; //put content part processed to result
-
         $text = $text_part[1]; //put rest of text in $text. This part exclude $key_el el and content before it
     }
-
     return $result;
 }
 
-function content_to_drop_words ( $content ) {
+function break_the_list($content, $pattern, $class){
     $text = $content;
     $result = '';
-
-    preg_match('#<\s*?ol\b[^>]*>(.*?)</ol\b[^>]*>#s', $text, $ol_list);
-
-    $text_path = explode($ol_list[0], $text);
-    $result .= $text_path[0]; //content before <ol>
-
-    //мастерим со списком
-    preg_match_all('#<\s*?ol\b[^>]*>(.*?)</ol\b[^>]*>#s', $ol_list[0], $li_elements); //for separate ol tags, $li_elements[0] with tags ol, $li_elements[1] without ol
-    $ol_tag = explode( $li_elements[1][0], $li_elements[0][0] );
-
-    $result .= $ol_tag[0]; //tag <ol>
-
-    preg_match_all('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li_elements[1][0], $li_all); //find all li
-
-    foreach( $li_all[0] as $li ) {
-
-        preg_match('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li, $li_el); //for separate li tags, $li_el[0] has tag <li>, $li_el[1] has no tag <li>
-        $li_tag = explode($li_el[1], $li_el[0]);
-        $result .= $li_tag[0]; //open tag <li>
-
-        preg_match('#<\s*?fieldset\b[^>]*>(.*?)</fieldset\b[^>]*>#s', $li_el[1], $text_field); //put text field in $text_field
-        $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
-
-        //all right if there is only ONE text field in <li>
-        $result .= drop_words_wrap($li_text_path[0]);//text before text_field
-
-        if(drop_words_wrap($li_text_path[0])) {
-            $result .= " ";
+    preg_match_all($pattern, $text, $ol_list);
+    if(!empty($ol_list[0][0])){
+        $text_path = preg_split($pattern, $text);
+        $result .= $text_path[0]; //content before <ol>
+        //мастерим со списком
+        preg_match_all('#<\s*?ol\b[^>]*>(.*?)</ol\b[^>]*>#s', $ol_list[0][0], $li_elements); //for separate ol tags, $li_elements[0] with tags ol, $li_elements[1] without ol
+        $ol_tag = explode( $li_elements[1][0], $li_elements[0][0] );
+        $result .= $ol_tag[0]; //tag <ol>
+        preg_match_all('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li_elements[1][0], $li_all); //find all li
+        foreach( $li_all[0] as $li ) {
+            preg_match('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li, $li_el); //for separate li tags, $li_el[0] has tag <li>, $li_el[1] has no tag <li>
+            $li_tag = explode($li_el[1], $li_el[0]);
+            $result .= $li_tag[0]; //open tag <li>
+            preg_match('#<\s*?fieldset\b[^>]*>(.*?)</fieldset\b[^>]*>#s', $li_el[1], $text_field); //put text field in $text_field
+            switch($class){
+                case('task-drop-words'):
+                    if(empty($text_field[0])){
+                        $li_text_path[0] = $li_el[1]; //get part of li content before and after $text_field
+                    }else{
+                        $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
+                    }
+                    //all right if there is only ONE text field in <li>
+                    $result .= drop_words_wrap($li_text_path[0]);//text before text_field
+                    if(drop_words_wrap($li_text_path[0])) {
+                        $result .= " ";
+                    }
+                    $result .= $text_field[0];
+                    if( !empty($text_field[0]) ) {
+                        $result .= " " . drop_words_wrap($li_text_path[1]);//text after text_field
+                    }
+                    break;
+                case('task-select-words'):
+                    if(empty($text_field[0])){
+                        $result .= select_words_wrap($li_el[1]);
+                    } else{
+                        $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
+                        //all right if there is only ONE text field in <li>
+                        $result .= select_words_wrap($li_text_path[0]);//text before text_field
+                        $result .= $text_field[0];
+                        $result .= " ".select_words_wrap($li_text_path[1]);//text after text_field
+                    }
+                    break;
+            }
+            $result .= $li_tag[1];  //close tag </li>
         }
-
-        $result .= $text_field[0];
-        $result .= " ".drop_words_wrap($li_text_path[1]);//text after text_field
-
-        $result .= $li_tag[1];  //close tag </li>
+        $result .= $ol_tag[1]; //close tag </ol>
+        $result .= $text_path[1]; //content after <ol>
     }
-
-    $result .= $ol_tag[1]; //close tag </ol>
-    $result .= $text_path[1]; //content after <ol>
-
     return $result;
+}
+
+//content modification
+add_filter('the_content', 'my_the_content');
+function my_the_content( $content ) {
+    $classes = array('task-drop-words', 'task-select-words');
+    foreach($classes as $class){
+        preg_match_all('/\b('.$class.')\b/', $content, $result );
+        if(!empty($result[0])){
+            $pattern = "/<ol\sclass=\"(?:[^<]*?".$class.".*?)\"[^>]*>[^~]*?<\/ol>/s";
+            $content = break_the_list($content, $pattern, $class);
+            $content = do_shortcode($content);
+        }
+    }
+    $content = do_shortcode($content);
+    return $content;
 }
 
 //task with select modification
@@ -973,7 +917,6 @@ add_action('wp_ajax_nopriv_my_save_audio_file', 'my_save_audio_file_callback');
 function my_save_audio_file_callback() {
     // Do your processing here (save to database etc.)
     // All WP API functions are available for you here
-    echo "here";
     $table_name = 'user_audio';
     $user_id = get_current_user_id();
     $page_id = intval( $_POST['page_id'] );

@@ -24,7 +24,6 @@ function init() {
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
         window.URL = window.URL || window.webkitURL;
-
         audio_context = new AudioContext;
         __log('Audio context set up.');
         __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
@@ -34,6 +33,17 @@ function init() {
     navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
         __log('No live audio input: ' + e);
     });
+
+    // var constraints = { audio: true, video: false };
+    //     navigator.mediaDevices.getUserMedia(constraints)
+    //     .then(function(mediaStream) {
+    //         var video = document.querySelector('video');
+    //         video.srcObject = mediaStream;
+    //         video.onloadedmetadata = function(e) {
+    //             video.play();
+    //         };
+    //     })
+    //     .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
 }
 
 $(document).ready(init());
