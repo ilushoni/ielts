@@ -2131,10 +2131,6 @@ ol.list-checkbox li:before{
     margin-bottom: 14px;
 }
 
-.task-text-insert .text-field{
-    border-radius: 3px 7px 7px 3px;
-}
-
 .task-text-insert .text-field:not([readonly]):hover,
 .task-text-insert .text-field:not([readonly]):focus{
     border-color: #ffc9d1;
@@ -4337,6 +4333,11 @@ ul.list-style-dash li:before{
     bottom: 0;
     height: 4px;
     background: #e61130;
+}
+
+.section-completion-menu .menu-item.active.fill-part div,
+.section-completion-menu .menu-item .fill-part-first{
+    background: #ffc9d1;
 }
 
 .section-completion-menu .menu-item .red-line{

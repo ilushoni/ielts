@@ -38,23 +38,20 @@ switch ( $post->post_name ):
         echo '</main>';
         break;
     default:
-        $post_parent = get_post($link['direct_parent']);
-        $parent_page_slug = $post_parent->post_name;
+        $ancestors = array_reverse(get_post_ancestors($post->ID));
+        $count = count($ancestors);
+        $post_parent = get_post($ancestors[0])->post_name;
         switch(true):
-            case($parent_page_slug == "speaking"):
+            case(($count==1)&&($post_parent == "speaking")):
                 echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
                     get_template_part('template-parts/content', 'page-speaking-partpage');
                     echo page_nav(get_home_url(), get_option( "page_on_front" ), $link['next'], $link['next_rel'], false);
                 echo '</article>';
                 break;
-            case(($parent_page_slug == "sentence-completion") or ($parent_page_slug == "speaking-part1") or ($parent_page_slug == "speaking-part2") or (!($link['direct_parent']))):
+            case((!$count)||(($count==2)&&(preg_match("/^reading-question-types|speaking$/", $post_parent, $matches)))):
                 echo '<main class="container page section-front-page" id="page-' . get_the_ID() . '" role="main">';
-                    if($parent_page_slug == "speaking-part1"){
-                        get_template_part('template-parts/content', 'page-menu');
-                        get_template_part('template-parts/content', 'page-section-inside');
-                    }else{
-                        get_template_part('template-parts/content', 'page-section-inside');
-                    }
+                    get_template_part('template-parts/content', 'page-menu');
+                    get_template_part('template-parts/content', 'page-section-inside');
                     if($post->post_name == "action-points") $link['next'] = false;
                     echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], false);
                 echo '</main>';
@@ -65,7 +62,7 @@ switch ( $post->post_name ):
                     get_template_part('template-parts/content', 'page-menu');
                     get_template_part('template-parts/content', 'page-section-inside');
                     preg_match("/(\btask\b-[3456])|(\btypes-of-questions-for-ielts-online\b)/", $post->post_name, $result);
-                    if(!empty($result)){
+                    if((!empty($result))&&(get_post($ancestors[0])->post_name=="reading-question-types")){
                         echo '<div class="nav-exercise">';
                         echo '<div class="wrong-text"></div>';
                         echo '<div class="success-text">'._("All correct, well done!").'</div>';
