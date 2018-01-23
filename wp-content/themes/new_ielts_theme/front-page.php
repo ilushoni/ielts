@@ -67,7 +67,7 @@ if(is_user_logged_in()) {
             if( $locations && isset($locations[ $menu_name ]) ){
                 $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
                 $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
-                $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-four">';
+                $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-4">';
                 foreach ( $menu_items as $key => $menu_item ){
                     $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item">' . $menu_item->title;
                         if($user_success[ $menu_item->title ]) {
@@ -91,7 +91,7 @@ if(is_user_logged_in()) {
                     echo '</header>';
                 }
 
-                echo '<div class="column-four">';
+                echo '<div class="column-4">';
                     global $post;
                     $args = array(
                         'posts_per_page' => 12,
@@ -190,7 +190,7 @@ if(is_user_logged_in()) {
             'suppress_filters' => true
         );
         $posts_array = get_posts($args);
-            echo '<div class="column-three">';
+            echo '<div class="column-3">';
                 foreach ($posts_array as $post) : setup_postdata($post);
                     echo '<div class="column" id="' . $post->post_name . '" style="background-image: url(' . get_the_post_thumbnail_url() . ')">';
                         the_title('<h3 class="entry-title">', '</h3>');
@@ -232,7 +232,7 @@ if(is_user_logged_in()) {
             'suppress_filters' => true
         );
         $posts_array = get_posts($args);
-        echo '<div class="column-three">';
+        echo '<div class="column-3">';
         foreach ($posts_array as $post) : setup_postdata($post);
             echo '<div class="column">';
                 the_content();

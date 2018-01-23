@@ -49,7 +49,7 @@ if( $task_text_array ) {   //if there is text for task
     echo '</div>';
     wp_reset_postdata();
 
-    echo '<div class="task-wrapper column-two">';
+    echo '<div class="task-wrapper column-2">';
         echo '<div class="entry-content">';
             if(get_the_title()) {
                 the_title( '<h3 class="task-name">', '</h3>' );

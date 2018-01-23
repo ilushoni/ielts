@@ -21,7 +21,7 @@ if( $locations && isset($locations[ $menu_name ]) ){
     $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
     $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
 
-    $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-four collapse section-completion-menu">';
+    $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-4 collapse section-completion-menu">';
     foreach ( $menu_items as $key => $menu_item ){
 
         $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$user_success[ $menu_item->title ].'">' . $menu_item->title;

@@ -15,7 +15,7 @@ get_header();
                 echo '</h1>';
             echo '</header>';
 
-            echo '<div class="entry-content column-three search-results-list">';
+            echo '<div class="entry-content column-3 search-results-list">';
                 while (have_posts()) : the_post();
                     get_template_part('template-parts/content', 'search');
                 endwhile;

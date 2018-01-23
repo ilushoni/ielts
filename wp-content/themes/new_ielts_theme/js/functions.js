@@ -1108,6 +1108,16 @@ $(document).on("click", ".show-checklist-link", function(){
     return false;
 });
 
+
+$(document).on("click", ".open-block", function(){
+    var id = $(this).attr("href");
+    $(id).addClass("open");
+    $('html, body').animate({
+        scrollTop: (parseInt($(id).offset().top)-60)
+    }, 1000);
+    return false;
+});
+
 //save all user answers in database for show user progress in main page
 function saveUserAnswers(){
     $.ajax({
