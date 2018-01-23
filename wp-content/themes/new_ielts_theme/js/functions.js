@@ -526,7 +526,7 @@ $(document).ready(function() {
 
     startSortOfPhrases();
 
-    $('.disabled .sort, .disabled .sort-phrase, .disabled .sort-words').sortable('disable');
+    $('.disabled .sort, .disabled .sort-phrase, .disabled .sort-words, .sort.disabled, .sort-phrase.disabled, .sort-words.disabled').sortable('disable');
 
     function startSortOfPhrases(){
         $('.sort-phrase').sortable({
@@ -610,7 +610,8 @@ $(document).ready(function() {
         if( $(".item-is-last").length ){
             $(".page-next").text("Next");
         } else {
-            var text = $(".task-name").text().replace(/(\d+)+/g, function(match, number) {
+            var text = $(".task-name").text();
+            text = /(.+\d)/.exec(text)[1].replace(/(\d+)+/g, function(match, number) {
                 return parseInt(number)+1;
             });
             $(".page-next").text(text);

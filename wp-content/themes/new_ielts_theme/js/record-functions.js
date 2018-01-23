@@ -31,7 +31,6 @@ function toggleBTtn(btn, show){
 }
 
 function startRecord(wrapEl){
-    console.log("start");
     mediaRecorder.start();
     stopAllAudio();
     toggleBTtn(wrapEl.find(".btn-stop"), 1);
@@ -40,7 +39,6 @@ function startRecord(wrapEl){
 }
 
 function stopRecord(wrapEl){
-    console.log("stop");
     mediaRecorder.stop();
     toggleBTtn(wrapEl.find(".btn-stop"), 0);
     toggleBTtn(wrapEl.find(".btn-record"), 1);
@@ -103,7 +101,7 @@ function loadMusic(url, id, list) {
     req.onload = function() {
         ctx.decodeAudioData(req.response, function(buffer) {
             // console.log(buffer);
-            console.log(buffer.duration);
+            // console.log(buffer.duration);
             list.append(
                 '<li id="record-play-item-'+id+'">'+
                 '<audio id="music'+id+'" class="audio-el" src="'+url+'"></audio>' +
@@ -140,7 +138,6 @@ function stopAllRecord(){
     $(".recorder.supported .btn-stop:visible").each(function(){
         stopRecord($(this).closest(".recorder"));
         parentLi = $(this).closest(".recorder").parent();
-        console.dir(parentLi);
     });
 }
 
@@ -177,18 +174,15 @@ function init(){
             $(document).on("click", ".recorder.supported .btn-stop", function(){
                 stopRecord($(this).closest(".recorder"));
                 parentLi = $(this).closest(".recorder").parent();
-                console.dir(parentLi);
             });
 
             mediaRecorder.onstop = function(e) {
-                console.log("onstop: data available after MediaRecorder.stop() called.");
                 var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
                 chunks = [];
                 saveAudio(parentLi, blob);
             };
 
             mediaRecorder.ondataavailable = function(e){
-                console.log("ondataavailable");
                 chunks.push(e.data);
             };
             mediaRecorder.onerror = function(err){
@@ -256,15 +250,14 @@ function timeLine(seconds, wrapEl){
     }else{
         var duration = Math.ceil(wrapEl.find(".duration").attr("duration")*1000);
         var interval = duration  / wrapEl.find(".timeline").width();
-        var w = 1;
+        var pxInterval = 1;
         if(isFloat(interval)){
             while(isFloat(interval)){
-                w ++;
-                interval = duration * w  / wrapEl.find(".timeline").width();
+                pxInterval ++;
+                interval = duration * pxInterval  / wrapEl.find(".timeline").width();
             }
         }
-        console.log("interval "+interval+" w "+w);
-        changeWidth(wrapEl.find(".playhead"), wrapEl.find(".playhead").width(), wrapEl.find(".timeline").width(), interval, w);
+        changeWidth(wrapEl.find(".playhead"), wrapEl.find(".playhead").width(), wrapEl.find(".timeline").width(), interval, pxInterval);
     }
 }
 

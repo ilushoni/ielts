@@ -315,7 +315,9 @@ function show_my_audio_func( $atts) {
         'suggested_answers' => 'no-default',
     ), $atts));
 
-    if($suggested_answers){
+    if($suggested_answers == 'no-default'){
+        $suggested_answers = false;
+    }else{
         global $post;
         $content_post = get_post($post->ID);
         $content = $content_post->post_content;
