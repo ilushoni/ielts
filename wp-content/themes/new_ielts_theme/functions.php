@@ -956,6 +956,9 @@ function my_save_audio_file_callback() {
         );
         $wpdb -> insert( $table_name, $query );
     }
+    if(intval($_POST['showAudio'])){
+        echo wp_upload_dir()["baseurl"].$audio_link;
+    }
     // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
     wp_die();
 }

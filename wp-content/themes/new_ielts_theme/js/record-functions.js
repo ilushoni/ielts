@@ -1,300 +1,307 @@
 $.ajaxSetup({cache:false});
-//section SPEAK - load task by task on page
+//script for settings RECORD
 
-var durations = [];
-var timerId = null;
-var audio_context;
-var recorder;
-var record_i = 0;
-
-function __log(e, data) {
-    console.log(e + " " + (data || ''));
-}
-
-function startUserMedia(stream) {
-    var input = audio_context.createMediaStreamSource(stream);
-    __log('Media stream created.');
-    recorder = new Recorder(input);
-    __log('Recorder initialised.');
-}
-
-function init() {
-    try {
-        // webkit shim
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-        window.URL = window.URL || window.webkitURL;
-        audio_context = new AudioContext;
-        __log('Audio context set up.');
-        __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-    } catch (e) {
-        __log('No web audio support in this browser!');
-    }
-    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-        __log('No live audio input: ' + e);
-    });
-
-    // var constraints = { audio: true, video: false };
-    //     navigator.mediaDevices.getUserMedia(constraints)
-    //     .then(function(mediaStream) {
-    //         var video = document.querySelector('video');
-    //         video.srcObject = mediaStream;
-    //         video.onloadedmetadata = function(e) {
-    //             video.play();
-    //         };
-    //     })
-    //     .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
-}
-
-$(document).ready(init());
-
-function startRecording(button) {
-    recorder && recorder.record();
-    button.attr("disabled","disabled");
-    var $el = button.parents(".recorder").find(".btn-stop");
-    $el.removeAttr('disabled');
-    __log('Recording...');
-}
+var mediaRecorder;
 
 function formatDuration(seconds) {
-    var sec = Math.floor( seconds );
+    var sec = Math.ceil( seconds );
     var min = Math.floor( sec / 60 );
-    sec = Math.floor( sec % 60 );
+    sec = Math.ceil( sec % 60 );
     sec = sec >= 10 ? sec : '0' + sec;
     return min + ':' + sec;
 }
 
-$(document).on('click', '.btn-record', function(){
-    $('.btn-stop:visible').click();
-    startRecording($(this)); //TODO: problem
-    var $el = $(this).parents(".recorder").find(".record-duration");
-    var i=0;
-    $el.text(formatDuration(i));
-    timerId = null;
-    timerId = setTimeout(function tick() {
-        i++;
-        $el.text(formatDuration(i));
-        timerId = setTimeout(tick, 1000);
-    }, 1000);
-});
+var timerId;
 
-$(document).on("click", ".btn-stop", function(){
-    stopRecording($(this));
-    var $el = $(this).parents(".recorder").find(".btn-record");
-    if( $el.text() == "Record Myself" ) {
-        $el.text("Re-record");
-        $el.addClass("btn-re-record");
+function timer(seconds, el){
+    if(seconds == -1){
+        clearInterval(timerId);
+    }else{
+        el.text(formatDuration(seconds));
+        seconds++;
+        timerId = setInterval(function() {
+            el.text(formatDuration(seconds));
+            seconds++;
+        }, 1000);
     }
-    if (timerId) {
-        clearTimeout(timerId); //cancel the previous timer.
-        timerId = null;
-    }
-
-    if( $(".show-after-record.hide").length ){
-        $(".show-after-record.hide").removeClass("hide");
-    }
-});
-
-function stopRecording(button) {
-    recorder && recorder.stop();
-    button.attr("disabled","disabled");
-    button.parents(".recorder").find(".btn-record").removeAttr('disabled');
-    __log('Stopped recording.');
-    if( $(".task-name.task-speaking").length ) {
-        if( button.closest("li").find(".caption").length ){
-            var el_text, el_text_short;
-            button.closest("li").find(".caption").each(function(){
-                switch(true) {
-                    case ($(this).attr('class').indexOf("full") >= 0):
-                        el_text = $(this).text();
-                        break;
-                    case ($(this).attr('class').indexOf("short") >= 0):
-                        el_text_short = $(this).text();
-                        break;
-                    default:
-                        el_text = $(this).text();
-                        el_text_short = $(this).text();
-                }
-            });
-        }else{
-            el_text = "Your Recording";
-            el_text_short = "Your Recording";
-        }
-        if( button.parents(".one-line-recorder").length ){
-            createDownloadLink( button.parents(".recorder") );
-        }
-        if( button.parents(".show-record-audio").length ){
-            createDownloadLink( button.parents(".recorder") );
-        }
-        SaveAudioFile( button.parents("li").index(), el_text , el_text_short);
-    }else {
-        createDownloadLink( button.parents(".recorder") );
-    }
-    recorder.clear();
 }
 
-function SaveAudioFile(page_question_number, question_text, question_text_short){
-    recorder && recorder.exportWAV(function(blob) {
-        var page_id = $("article.container").attr('id').replace('post-', '');
-        var formData = new FormData();
-        formData.append('action', 'my_save_audio_file');
-        formData.append('page_id', page_id);
-        formData.append('page_question_number', page_question_number);
-        formData.append('question_text', question_text);
-        formData.append('question_text_short', question_text_short);
-        formData.append('file', blob);
-        $.ajax({
-            url: myVars.ajaxUrl, // Notice the AJAX URL here!
-            type: 'post',
-            data: formData, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function ( response ) {
-                console.log( "success" );
-                console.dir( response );
-            },
-            error: function ( response ) {
-                console.log( "ERROR" );
-                console.dir( response );
+function toggleBTtn(btn, show){
+    (show) ? btn.removeAttr("disabled") : btn.attr("disabled", "true");
+}
+
+function startRecord(wrapEl){
+    console.log("start");
+    mediaRecorder.start();
+    stopAllAudio();
+    toggleBTtn(wrapEl.find(".btn-stop"), 1);
+    toggleBTtn(wrapEl.find(".btn-record"), 0);
+    timer(0, wrapEl.find(".record-duration"));
+}
+
+function stopRecord(wrapEl){
+    console.log("stop");
+    mediaRecorder.stop();
+    toggleBTtn(wrapEl.find(".btn-stop"), 0);
+    toggleBTtn(wrapEl.find(".btn-record"), 1);
+    timer(-1, wrapEl.find(".record-duration"));
+}
+
+function sendData(formData, parentLi){
+    $.ajax({
+        url: myVars.ajaxUrl, // Notice the AJAX URL here!
+        type: 'post',
+        data: formData, // Notice the action name here! This is the basis on which WP calls your process_my_ajax_call() function.
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log("success "+response);
+            if(response){
+                showRecordAudio(response, parentLi);
             }
-        });
+        },
+        error: function (response) {
+            console.log("ERROR");
+            console.dir(response);
+        }
     });
 }
 
-function createDownloadLink(parent_el, text, index) {
-    recorder && recorder.exportWAV(function(blob) {
-        var url = URL.createObjectURL(blob);
-        record_i++;
-        if( parent_el.hasClass("recorder") ) {
-            if( parent_el.parents(".one-line-recorder").length ){
-                parent_el.parents(".one-line-recorder").find('.record-list').attr("id","record-list-"+record_i);
-            } else {
-                if(parent_el.parents(".show-record-audio").length){
-                    parent_el.parents(".show-record-audio").find('.record-list').attr("id","record-list-"+record_i);
-                }else{
-                    parent_el.find('.record-list').attr("id","record-list-"+record_i);
-                }
-            }
-            $('#record-list-'+record_i).append(
-                '<li id="record-play-item-'+record_i+'">'+
-                '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                    '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                    '<p class="audio-text">'+
-                        '<span class="audio-name">Your answer to the question '+record_i+'</span>' +
-                        '<span class="duration"></span>' +
-                    '</p>'+
-                    '<div id="timeline'+record_i+'" class="timeline">' +
-                        '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                    '</div>' +
+function createData(blob, page_question_number, question_text, question_text_short, showAudio, parentLi){
+    var page_id = $("article.container").attr('id').replace('post-', '');
+    var formData = new FormData();
+    formData.append('action', 'my_save_audio_file');
+    formData.append('page_id', page_id);
+    formData.append('page_question_number', page_question_number);
+    formData.append('question_text', question_text);
+    formData.append('question_text_short', question_text_short);
+    formData.append('showAudio', showAudio);
+    formData.append('file', blob);
+    sendData(formData, parentLi);
+}
+
+function saveAudio(parentLi, blob){
+    var el_text = "Your Recording";
+    var el_text_short = "Your Recording";
+    parentLi.find(".caption").each(function(){
+        el_text = $(this).text();
+        el_text_short = $(this).text();
+        if($(this).hasClass("full"))
+            el_text = $(this).text();
+        if($(this).hasClass("short"))
+            el_text_short = $(this).text();
+    });
+    var showAudio = ((parentLi.hasClass("one-line-recorder"))||(parentLi.hasClass("show-record-audio"))) ? 1 : 0;
+    createData(blob, parentLi.index(), el_text , el_text_short, showAudio, parentLi);
+}
+
+function loadMusic(url, id, list) {
+    var req = new XMLHttpRequest();
+    req.open('GET', url, true);
+    req.responseType = 'arraybuffer';
+    req.onload = function() {
+        ctx.decodeAudioData(req.response, function(buffer) {
+            // console.log(buffer);
+            console.log(buffer.duration);
+            list.append(
+                '<li id="record-play-item-'+id+'">'+
+                '<audio id="music'+id+'" class="audio-el" src="'+url+'"></audio>' +
+                '<div id="audioplayer'+id+'" class="audioplayer">' +
+                '<button id="pButton'+id+'" class="btn-play play"></button>' +
+                '<p class="audio-text">'+
+                '<span class="audio-name">Your answer to the question '+id+'</span>' +
+                '<span class="duration" duration="'+buffer.duration+'">'+formatDuration(buffer.duration)+'</span>' +
+                '</p>'+
+                '<div id="timeline'+id+'" class="timeline">' +
+                '<div id="playhead'+id+'" class="playhead"></div>' +
+                '</div>' +
                 '</div>'+
                 '</li>'
             );
-        } else {
-            if( $('#record-play-item-'+index).length ) {
+        })
+    };
+    req.send();
+}
 
-                $('#record-play-item-'+index).html('');
-                $('#record-play-item-'+index).append(
-                    '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                    '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                    '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                    '<p class="audio-text">'+
-                    '<span class="audio-name">'+text+'</span>' +
-                    '<span class="duration"></span>' +
-                    '</p>'+
-                    '<div id="timeline'+record_i+'" class="timeline">' +
-                    '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                    '</div>' +
-                    '</div>'
-                );
+function showRecordAudio(audioUrl, parentLi) {
+    var list = parentLi.find(".record-list");
+    var record_i = ($(".audioplayer").length) ? ($(".audioplayer").length + 1) : 1;
+    // var record_i = (list.find("li").length) ? (parseInt(list.find("li").attr("id").match(/\d+/)) + 1) : 1;
+    if(parentLi.hasClass("one-line-recorder")){
+        list.empty();
+    }
+    loadMusic(audioUrl, record_i, list);
+}
 
-            } else {
-                parent_el.append(
-                    '<li id="record-play-item-'+index+'">'+
-                    '<audio id="music'+record_i+'" class="audio-el" src="'+url+'"></audio>' +
-                    '<div id="audioplayer'+record_i+'" class="audioplayer">' +
-                    '<button id="pButton'+record_i+'" class="btn-play play"></button>' +
-                    '<p class="audio-text">'+
-                    '<span class="audio-name">'+text+'</span>' +
-                    '<span class="duration"></span>' +
-                    '</p>'+
-                    '<div id="timeline'+record_i+'" class="timeline">' +
-                    '<div id="playhead'+record_i+'" class="playhead"></div>' +
-                    '</div>' +
-                    '</div>'+
-                    '</li>'
-                );
+var parentLi;
+
+function stopAllRecord(){
+    $(".recorder.supported .btn-stop:visible").each(function(){
+        stopRecord($(this).closest(".recorder"));
+        parentLi = $(this).closest(".recorder").parent();
+        console.dir(parentLi);
+    });
+}
+
+function stopAllAudio(){
+    $(".btn-play.pause").each(function(){
+        var wrapEl = $(this).closest(".audioplayer").parent();
+        pauseAudio(wrapEl);
+    });
+}
+
+function init(){
+    // disable stop button while not recording
+    $(".recorder .btn-stop").disabled = true;
+
+    //main block for doing the audio recording
+    //метод запрашивает у пользователя разрешение на использование мультимедийного ввода,
+    //который создает MediaStream с дорожками, содержащими запрошенные типы носителей
+    if (navigator.mediaDevices.getUserMedia) {
+        console.log('getUserMedia supported.');
+
+        var constraints = { audio: true }; //ограничения
+        var chunks = [];
+
+        var onSuccess = function(stream) {
+            //получил разрешение и доступ к потоку
+            mediaRecorder = new MediaRecorder(stream);
+
+            $(".recorder").addClass("supported");
+
+            $(document).on("click", ".recorder.supported .btn-record", function(){
+                stopAllRecord();
+                startRecord($(this).closest(".recorder"));
+            });
+            $(document).on("click", ".recorder.supported .btn-stop", function(){
+                stopRecord($(this).closest(".recorder"));
+                parentLi = $(this).closest(".recorder").parent();
+                console.dir(parentLi);
+            });
+
+            mediaRecorder.onstop = function(e) {
+                console.log("onstop: data available after MediaRecorder.stop() called.");
+                var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+                chunks = [];
+                saveAudio(parentLi, blob);
+            };
+
+            mediaRecorder.ondataavailable = function(e){
+                console.log("ondataavailable");
+                chunks.push(e.data);
+            };
+            mediaRecorder.onerror = function(err){
+                console.log("ERROR: something goes wrong during recording. "+err);
+            };
+        };
+
+        var onError = function(err){
+            console.log('ERROR: The following error occured: ' + err);
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+    } else {
+        console.log('ERROR: getUserMedia not supported on your browser!');
+        $(".recorder").addClass("not-supported");
+        $(".recorder.not-supported .btn-record, .recorder.not-supported .insert-record-questions-list").addClass("disabled");
+    }
+}
+
+init();
+
+var ctx = new AudioContext();
+
+function showDuration(){
+    $("audio").each(function(){
+        var url = $(this).attr("src");
+        var durationEl = $(this).closest("li").find(".duration");
+        var req = new XMLHttpRequest();
+        req.open('GET', url, true);
+        req.responseType = 'arraybuffer';
+        req.onload = function() {
+            ctx.decodeAudioData(req.response, function(buffer) {
+                durationEl.attr("duration", buffer.duration);
+                durationEl.text(formatDuration(buffer.duration));
+            })
+        };
+        req.send();
+    });
+}
+
+showDuration();
+
+var animateTimeLine;
+
+function isFloat(n) {
+    return n === +n && n !== (n|0);
+}
+
+function isInteger(n) {
+    return n === +n && n === (n|0);
+}
+
+function changeWidth(el, startWidth, endWidth, interval, w){
+    el.width(startWidth);
+    startWidth +=w;
+    animateTimeLine = setInterval(function() {
+        el.width(startWidth);
+        startWidth += w;
+    }, interval);
+}
+
+function timeLine(seconds, wrapEl){
+    if(seconds == -1){
+        clearInterval(animateTimeLine);
+    }else{
+        var duration = Math.ceil(wrapEl.find(".duration").attr("duration")*1000);
+        var interval = duration  / wrapEl.find(".timeline").width();
+        var w = 1;
+        if(isFloat(interval)){
+            while(isFloat(interval)){
+                w ++;
+                interval = duration * w  / wrapEl.find(".timeline").width();
             }
         }
-        audioHandler();
-    });
+        console.log("interval "+interval+" w "+w);
+        changeWidth(wrapEl.find(".playhead"), wrapEl.find(".playhead").width(), wrapEl.find(".timeline").width(), interval, w);
+    }
 }
 
-//audio handler
-function audioHandler(){
-    $('audio').on("canplay", function () {
-        var d = formatDuration(this.duration);
-        $(this).closest("li").find(".duration").text(d);
-        durations.push(d);
-    });
-
-    $("audio").on('timeupdate', function(){
-        $(this).closest("li").find('.duration').text( formatDuration( Math.floor(this.currentTime) ) );
-    });
-
-    $('audio').on('ended', function() {
-        var music = returnMusic( $(this) );
-        $(this).closest("li").find('.btn-play').removeClass("pause").addClass("play");
-        $(this).closest("li").find('.duration').text( formatDuration( Math.floor(music.duration) ) );
-    });
-}
-
-audioHandler();
-
-function pauseAudio(music, $this){
-    music.pause();
-    $this.parents("li").find(".playhead").stop();
-    $this.removeClass("pause").addClass("play");
-}
-
-function returnMusic(el){
-    var $this = el.closest("li");
-    var music_id = $this.find("audio").attr("id");
-    var music = document.getElementById(music_id);
-    return music;
+function pauseAudio(wrapEl){
+    wrapEl.find("audio").get(0).pause();
+    wrapEl.find(".playhead").stop();
+    wrapEl.find(".btn-play").attr("class", "btn-play play");
+    timer(-1, wrapEl.find(".duration"));
+    timeLine(-1, wrapEl);
 }
 
 $(document).on('click', '.btn-play', function(){
     if( $(this).parents(".disabled").length == 0 ){
-        var music = returnMusic( $(this) );
-        var duration = music.duration;
-        var timeline_id = $(this).closest("li").find(".timeline").attr("id");
-        var timeline = document.getElementById(timeline_id);
+        stopAllRecord();
+        var wrapEl = $(this).closest(".audioplayer").parent();
+        music = wrapEl.find("audio").get(0);
+        duration = parseFloat(wrapEl.find(".duration").attr("duration"));
+        timeline = wrapEl.find(".timeline").get(0);
+        playhead = wrapEl.find(".playhead").get(0);
 
-        if( ( $(".recorder").length ) && ( $(".record-duration").text() !== "" ) ){
-            $(".record-duration").empty();
-        }
-
-        if( music.paused ) {
-            if( $(".btn-play.pause").length ){
-                var $el = $(".btn-play.pause:not(.this)");
-                var $el_music = returnMusic( $el );
-                pauseAudio( $el_music , $el );
-            }
+        if(music.paused) {
+            stopAllAudio();
             music.play();
-            switch( $(this).closest("li").find(".playhead").width() ){
-                case $(this).closest("li").find(".timeline").width() :
-                    $(this).closest("li").find(".playhead").width(3);
-                    break;
-                default:
-                    var w = $(this).closest("li").find(".playhead").width() / $(this).parents("li").find(".timeline").width();
-                    duration -= w;
+            // music.addEventListener("timeupdate", function(){timeUpdate(wrapEl);});
+            if(wrapEl.hasClass("ended")){
+                wrapEl.removeClass("ended");
+                wrapEl.find(".playhead").width(3);
             }
-            $(this).closest("li").find(".playhead").animate({ width: timeline.offsetWidth + "px" }, ( duration * 1000), 'linear' );
-            $(this).removeClass("play").addClass("pause");
+            timer(Math.ceil(music.currentTime), wrapEl.find(".duration"));
+            timeLine(Math.ceil(music.currentTime), wrapEl);
+            music.addEventListener("ended", function(){
+                wrapEl.addClass("ended");
+                pauseAudio(wrapEl);
+            });
+            $(this).attr("class", "btn-play pause");
         }else {
-            pauseAudio(music, $(this));
+            pauseAudio(wrapEl);
         }
     }
 });

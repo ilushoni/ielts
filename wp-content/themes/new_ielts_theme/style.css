@@ -1775,7 +1775,8 @@ ol.list-checkbox li:before{
 .list-checkbox .checkbox:checked + label:before {
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#9b9b9b" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>') 0 0 no-repeat;
     background-size: 15px 15px;
-    background-position: left center;
+    background-position: left 5px;
+    /*background-position: left center;*/
 }
 
 .list-checkbox li.wrong .checkbox:checked + br + label,
@@ -2416,11 +2417,20 @@ ul.sort{
     color: #ffc9d1;
 }
 
+.sort-phrase .textarea-middle{
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    min-height: 56px;
+    width: 100%;
+}
+
 .phrase-wrap,
 .sort-phrase-wrap {
     position: relative;
     max-width: 960px;
 }
+
+.sort-phrase-wrap
 /*end drop sort phrases*/
 
 /*---task with drop words---*/
@@ -2628,15 +2638,15 @@ ul.sort{
     margin: 80px 0 135px;
 }
 
-.record-list:not(:empty):before {
-    content: "Listen the Recorded Answer";
-    position: relative;
-    display: block;
-    margin-bottom: 50px;
-    font-size: 1.666666em;
-    font-weight: 600;
-    color: #e61130;
-}
+/*.record-list:not(:empty):before {*/
+    /*content: "Listen the Recorded Answer";*/
+    /*position: relative;*/
+    /*display: block;*/
+    /*margin-bottom: 50px;*/
+    /*font-size: 1.666666em;*/
+    /*font-weight: 600;*/
+    /*color: #e61130;*/
+/*}*/
 
 .record-list.audio-only:not(:empty):before {
     display: none;
@@ -2754,6 +2764,7 @@ ul.sort{
     width: 420px;
     height: 3px;
     background: #fee7eb;
+    overflow: hidden;
 }
 
 .playhead {
@@ -2764,13 +2775,17 @@ ul.sort{
 
 .audio-text {
     position: relative;
+    display: flex;
     margin: 0;
     padding: 0 13px 0 23px;
     width: 100%;
+    height: 36px;
     box-sizing: border-box;
+    align-items: center;
     font-size: 14px;
-    line-height: 36px;
+    line-height: 20px;
     font-weight: bold;
+    justify-content: space-between;
 }
 
 .audio-name {
@@ -2904,8 +2919,14 @@ ul.sort{
     margin-bottom: 0;
 }
 
-.record-questions-list .record-list {
+.record-questions-list *:not(.show-record-audio) .record-list {
     display: none;
+}
+
+.show-record-audio .record-list{
+    float: left;
+    clear: both;
+    margin: 0;
 }
 /*---end page task width list recorder---*/
 
@@ -3032,17 +3053,23 @@ h5.phrase-column-h5,
     text-transform: uppercase;
 }
 
-.sort-phrase-drop {
+.sort-phrase.paste-list {
     position: relative;
     padding: 23px 20px 33px;
     margin: 0;
-    min-height: 180px;
+    min-height: 167px;
+    /*min-height: 180px;*/
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.sort-phrase-drop li {
+.row-underlined .sort-phrase.paste-list{
+    min-height: 100%;
+    padding: 0 20px;
+}
+
+.sort-phrase.paste-list li {
     display: block;
     margin-bottom: 10px;
     width: 100%;
@@ -3051,17 +3078,18 @@ h5.phrase-column-h5,
     white-space: nowrap;
 }
 
-.sort-phrase-drop > li.placeholder:nth-child(1) + li:last-child,
-.sort-phrase-drop > li:nth-child(1) + li.placeholder:last-child,
-.sort-phrase-drop > li:nth-child(1):last-child {
+.only-one-paste .sort-phrase.paste-list li,
+.sort-phrase.paste-list > li.placeholder:nth-child(1) + li:last-child,
+.sort-phrase.paste-list > li:nth-child(1) + li.placeholder:last-child,
+.sort-phrase.paste-list > li:nth-child(1):last-child {
     margin: 0;
 }
 
-.sort-phrase-drop li:last-child{
+.sort-phrase.paste-list li:last-child{
     margin-bottom: 0;
 }
 
-.sort-phrase-drop li.focus{
+.sort-phrase.paste-list li.focus{
     background: none;
 }
 
@@ -3681,11 +3709,13 @@ ol.font-smaller li:before{
 
 /*---sort elements just from text---*/
 .paste-sort-words-columns:not(.equal-columns) {
-    grid-template-columns: 258px 1fr;
+    grid-template-columns: 258px 512px;
+    /*grid-template-columns: 258px 1fr;*/
 }
 
 .paste-sort-words-columns.revert {
-    grid-template-columns: 1fr 258px;
+    grid-template-columns: 512px 258px;
+    /*grid-template-columns: 1fr 258px;*/
 }
 
 .paste-sort-words-columns.margin-large {
@@ -3758,10 +3788,20 @@ ol.font-smaller li:before{
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
+.row-underlined.height-auto{
+    padding: 10px 0;
+    height: auto;
+}
+
+.row-underlined *:last-child{
+    margin-bottom: 0;
+}
+
 .list-underlined li:last-child{
     border: 0;
 }
 
+.row-underlined ul,
 .row-underlined .sort-words{
     position: relative;
     display: block;

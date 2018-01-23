@@ -526,6 +526,8 @@ $(document).ready(function() {
 
     startSortOfPhrases();
 
+    $('.disabled .sort, .disabled .sort-phrase, .disabled .sort-words').sortable('disable');
+
     function startSortOfPhrases(){
         $('.sort-phrase').sortable({
             placeholder: 'placeholder',
@@ -533,8 +535,7 @@ $(document).ready(function() {
             items: "li:not(.in-use)",
             start: function(event, ui) {
                 if( ! $(this).hasClass("drop-list") ) {  //ul-parent list
-                    // var id = ui.item[0]["id"]; //get moved element id
-                    $('#'+ui.item[0]["id"]).removeClass("wrong");
+                    $('#'+ui.item[0]["id"]).removeClass("wrong"); //get moved element id
                 }
             },
             stop: function(event, ui) {
@@ -545,10 +546,16 @@ $(document).ready(function() {
                 var $droppedEl = $(ui.item["0"]);
                 if( $parentUl.hasClass("drop-list") ) {
                     $droppedEl.removeClass("wrong");
+                    if( $(".only-one-paste").length ){
+                        $droppedEl.removeClass("old");
+                    }
                     $( "#"+ ui.item[0]["id"]+"-clone").after(ui.item);
                     $( "#"+ ui.item[0]["id"]+"-clone").remove();
                     $( "#"+ ui.item[0]["id"]).attr("style","");
                 } else {
+                    if( $parentUl.parents(".only-one-paste").length ){
+                        $droppedEl.addClass("old");
+                    }
                     var correctAns = $parentUl.attr("answers_correct").split(",");
                     if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
                         $droppedEl.addClass("wrong");
@@ -559,6 +566,15 @@ $(document).ready(function() {
                 $("li.focus").removeClass("focus");
             },
             receive: function(event, ui) {
+                if( $(this).parents(".only-one-paste").length ){
+                    $(ui.item["0"]).removeClass("old");
+                    if( $(this).find("li.old").length && (!$(this).hasClass(".drop-list")) ) {
+                        var $elem = $(this).find("li.old");
+                        $($elem).appendTo('.sort-phrase.drop-list').show('slow');
+                        $elem.removeAttr("style");
+                        $(".sort-phrase.drop-list li").removeClass("old wrong");
+                    }
+                }
             }
         });
     }
@@ -656,7 +672,7 @@ $(document).ready(function() {
                 }
                 if( $("audio").length || $(".recorder").length ){
                     init();
-                    audioHandler();
+                    showDuration();
                 }
                 if( $(".game-wrapper").length ){
                     time_original = $(".timer .time-left").attr("duration");
@@ -702,7 +718,7 @@ $(document).ready(function() {
                 }
                 if( $("audio").length || $(".recorder").length ){
                     init();
-                    audioHandler();
+                    showDuration();
                 }
                 if( $(".game-wrapper").length ){
                     time_original = $(".timer .time-left").attr("duration");
