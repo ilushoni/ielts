@@ -37,10 +37,10 @@ $args = array(
 $task_text_array = get_posts($args);
 
 if( $task_text_array ) {   //if there is text for task
-    echo '<div class="popup-text">';
+    echo '<div class="popup-text" id="popup1">';
         foreach ($task_text_array as $task_text) : setup_postdata($task_text);
-            echo '<div class="sheet-of-paper column-2">';
-                echo '<input type="button" name="close-button" class="icon-close" value="" />';
+            echo '<div class="paper column-2">';
+                echo '<input type="button" class="close-popup"/>';
                 echo '<h3>'.get_the_title($task_text->ID).'</h3>';
                 the_content();
             echo '</div>';
@@ -57,7 +57,7 @@ if( $task_text_array ) {   //if there is text for task
             the_content();
         echo '</div>';
         echo '<div class="task-text">';
-            echo '<a href="#" class="show-popup-btn text-thumbnail-btn"><img src="'.$task_text_thumbnail.'" alt="'.get_the_title().'" /></a>';
+            echo '<a href="#popup1" class="text-thumbnail-btn open-popup"><img src="'.$task_text_thumbnail.'" alt="'.get_the_title().'" /></a>';
         echo '</div>';
     echo '</div>';
 

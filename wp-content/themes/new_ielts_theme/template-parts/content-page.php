@@ -4,6 +4,7 @@
  */
 
 $link = make_page_nav_links();
+$next_class = false;
 
 switch ( $post->post_name ):
     case "reading-question-types":
@@ -15,13 +16,13 @@ switch ( $post->post_name ):
     case "sentence-completion":
         echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
             get_template_part( 'template-parts/content', 'page-sentence-completion' );
-            echo page_nav( get_home_url(), get_option( "page_on_front" ), $link['next'], $link['next_rel'], false);
+            echo page_nav( get_home_url(), get_option( "page_on_front" ), $link['next'], $link['next_rel'], false, $next_class);
         echo '</article>';
         break;
     case "ui-kit":
         echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
             get_template_part( 'template-parts/content', 'page-section-inside' );
-            echo page_nav( get_home_url(), get_option( "page_on_front" ), false, false, false);
+            echo page_nav( get_home_url(), get_option( "page_on_front" ), false, false, false, $next_class);
         echo '</article>';
         break;
     case "action-points":
@@ -34,7 +35,7 @@ switch ( $post->post_name ):
                 echo show_menu_by_location('action_points');
             echo '</div>';
             if( $post->post_name == "action-points" ) $link['next'] = false;
-            echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], false);
+            echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], false, $next_class);
         echo '</main>';
         break;
     default:
@@ -45,7 +46,7 @@ switch ( $post->post_name ):
             case(($count==1)&&($post_parent == "speaking")):
                 echo '<article id="post-' . get_the_ID() . '" class="container page page-task">';
                     get_template_part('template-parts/content', 'page-speaking-partpage');
-                    echo page_nav(get_home_url(), get_option( "page_on_front" ), $link['next'], $link['next_rel'], false);
+                    echo page_nav(get_home_url(), get_option( "page_on_front" ), $link['next'], $link['next_rel'], false, $next_class);
                 echo '</article>';
                 break;
             case((!$count)||(($count==2)&&(preg_match("/^reading-question-types|speaking$/", $post_parent, $matches)))):
@@ -53,7 +54,7 @@ switch ( $post->post_name ):
                     get_template_part('template-parts/content', 'page-menu');
                     get_template_part('template-parts/content', 'page-section-inside');
                     if($post->post_name == "action-points") $link['next'] = false;
-                    echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], false);
+                    echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], false, $next_class);
                 echo '</main>';
                 break;
             default:
@@ -63,13 +64,14 @@ switch ( $post->post_name ):
                     get_template_part('template-parts/content', 'page-section-inside');
                     preg_match("/(\btask\b-[3456])|(\btypes-of-questions-for-ielts-online\b)/", $post->post_name, $result);
                     if((!empty($result))&&(get_post($ancestors[0])->post_name=="reading-question-types")){
-                        echo '<div class="nav-exercise">';
+                        echo '<div class="nav-exercise" for="'.$result[0].'">';
                         echo '<div class="wrong-text"></div>';
                         echo '<div class="success-text">'._("All correct, well done!").'</div>';
                         echo '<input type="button" class="check-btn" value="'._("Check answers").'" />';
                         echo '</div>';
+                        $next_class = 'disabled';
                     }
-                    echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], $link['page_nav_class']);
+                    echo page_nav($link['prev'], $link['prev_rel'], $link['next'], $link['next_rel'], $link['page_nav_class'], $next_class);
                 echo '</article>';
         endswitch;
 endswitch;

@@ -115,7 +115,7 @@ if(is_user_logged_in()) {
                     );
                     $posts_array = get_posts($args);
                     foreach ($posts_array as $post) : setup_postdata($post);
-                        echo '<a href="'.get_permalink().'" class="column">';
+                        echo '<a href="'.get_permalink($post).'" class="column">';
                             the_title("<h3 class='entry-title'>","</h3>");
                             the_content();
                         echo '</a>';

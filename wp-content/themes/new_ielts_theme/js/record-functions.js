@@ -3,24 +3,15 @@ $.ajaxSetup({cache:false});
 
 var mediaRecorder;
 
-function formatDuration(seconds) {
-    var sec = Math.ceil( seconds );
-    var min = Math.floor( sec / 60 );
-    sec = Math.ceil( sec % 60 );
-    sec = sec >= 10 ? sec : '0' + sec;
-    return min + ':' + sec;
-}
-
 var timerId;
-
 function timer(seconds, el){
     if(seconds == -1){
         clearInterval(timerId);
     }else{
-        el.text(formatDuration(seconds));
+        el.text(formatDuration(seconds, false));
         seconds++;
         timerId = setInterval(function() {
-            el.text(formatDuration(seconds));
+            el.text(formatDuration(seconds, false));
             seconds++;
         }, 1000);
     }
@@ -54,7 +45,7 @@ function sendData(formData, parentLi){
         processData: false,
         contentType: false,
         success: function (response) {
-            console.log("success "+response);
+            // console.log("success "+response);
             if(response){
                 showRecordAudio(response, parentLi);
             }
@@ -94,6 +85,16 @@ function saveAudio(parentLi, blob){
     createData(blob, parentLi.index(), el_text , el_text_short, showAudio, parentLi);
 }
 
+function showRecordAudio(audioUrl, parentLi) {
+    var list = parentLi.find(".record-list");
+    var record_i = ($(".audioplayer").length) ? ($(".audioplayer").length + 1) : 1;
+    // var record_i = (list.find("li").length) ? (parseInt(list.find("li").attr("id").match(/\d+/)) + 1) : 1;
+    if(parentLi.hasClass("one-line-recorder")){
+        list.empty();
+    }
+    loadMusic(audioUrl, record_i, list);
+}
+
 function loadMusic(url, id, list) {
     var req = new XMLHttpRequest();
     req.open('GET', url, true);
@@ -109,7 +110,7 @@ function loadMusic(url, id, list) {
                 '<button id="pButton'+id+'" class="btn-play play"></button>' +
                 '<p class="audio-text">'+
                 '<span class="audio-name">Your answer to the question '+id+'</span>' +
-                '<span class="duration" duration="'+buffer.duration+'">'+formatDuration(buffer.duration)+'</span>' +
+                '<span class="duration" duration="'+buffer.duration+'">'+formatDuration(buffer.duration, false)+'</span>' +
                 '</p>'+
                 '<div id="timeline'+id+'" class="timeline">' +
                 '<div id="playhead'+id+'" class="playhead"></div>' +
@@ -120,16 +121,6 @@ function loadMusic(url, id, list) {
         })
     };
     req.send();
-}
-
-function showRecordAudio(audioUrl, parentLi) {
-    var list = parentLi.find(".record-list");
-    var record_i = ($(".audioplayer").length) ? ($(".audioplayer").length + 1) : 1;
-    // var record_i = (list.find("li").length) ? (parseInt(list.find("li").attr("id").match(/\d+/)) + 1) : 1;
-    if(parentLi.hasClass("one-line-recorder")){
-        list.empty();
-    }
-    loadMusic(audioUrl, record_i, list);
 }
 
 var parentLi;
@@ -209,6 +200,7 @@ var ctx = new AudioContext();
 function showDuration(){
     $("audio").each(function(){
         var url = $(this).attr("src");
+        var li = $(this).closest("li");
         var durationEl = $(this).closest("li").find(".duration");
         var req = new XMLHttpRequest();
         req.open('GET', url, true);
@@ -216,7 +208,8 @@ function showDuration(){
         req.onload = function() {
             ctx.decodeAudioData(req.response, function(buffer) {
                 durationEl.attr("duration", buffer.duration);
-                durationEl.text(formatDuration(buffer.duration));
+                durationEl.text(formatDuration(buffer.duration, false));
+                li.removeAttr("disabled");
             })
         };
         req.send();
@@ -225,69 +218,34 @@ function showDuration(){
 
 showDuration();
 
-var animateTimeLine;
-
-function isFloat(n) {
-    return n === +n && n !== (n|0);
-}
-
-function isInteger(n) {
-    return n === +n && n === (n|0);
-}
-
-function changeWidth(el, startWidth, endWidth, interval, w){
-    el.width(startWidth);
-    startWidth +=w;
-    animateTimeLine = setInterval(function() {
-        el.width(startWidth);
-        startWidth += w;
-    }, interval);
-}
-
-function timeLine(seconds, wrapEl){
-    if(seconds == -1){
-        clearInterval(animateTimeLine);
-    }else{
-        var duration = Math.ceil(wrapEl.find(".duration").attr("duration")*1000);
-        var interval = duration  / wrapEl.find(".timeline").width();
-        var pxInterval = 1;
-        if(isFloat(interval)){
-            while(isFloat(interval)){
-                pxInterval ++;
-                interval = duration * pxInterval  / wrapEl.find(".timeline").width();
-            }
-        }
-        changeWidth(wrapEl.find(".playhead"), wrapEl.find(".playhead").width(), wrapEl.find(".timeline").width(), interval, pxInterval);
-    }
-}
-
 function pauseAudio(wrapEl){
     wrapEl.find("audio").get(0).pause();
     wrapEl.find(".playhead").stop();
     wrapEl.find(".btn-play").attr("class", "btn-play play");
     timer(-1, wrapEl.find(".duration"));
-    timeLine(-1, wrapEl);
 }
 
 $(document).on('click', '.btn-play', function(){
-    if( $(this).parents(".disabled").length == 0 ){
+    if(($(this).parents(".disabled").length==0)&&($(this).parents("[disabled]").length==0)){
         stopAllRecord();
         var wrapEl = $(this).closest(".audioplayer").parent();
-        music = wrapEl.find("audio").get(0);
-        duration = parseFloat(wrapEl.find(".duration").attr("duration"));
-        timeline = wrapEl.find(".timeline").get(0);
-        playhead = wrapEl.find(".playhead").get(0);
+        var music = wrapEl.find("audio").get(0);
+        var duration = parseFloat(wrapEl.find(".duration").attr("duration"));
+        var timeline = wrapEl.find(".timeline").get(0);
+        var playhead = wrapEl.find(".playhead").get(0);
 
         if(music.paused) {
             stopAllAudio();
             music.play();
-            // music.addEventListener("timeupdate", function(){timeUpdate(wrapEl);});
             if(wrapEl.hasClass("ended")){
                 wrapEl.removeClass("ended");
                 wrapEl.find(".playhead").width(3);
             }
             timer(Math.ceil(music.currentTime), wrapEl.find(".duration"));
-            timeLine(Math.ceil(music.currentTime), wrapEl);
+            music.addEventListener("timeupdate", function() {
+                var currentTime = music.currentTime;
+                wrapEl.find(".playhead").stop(true,true).animate({'width':(currentTime +.25)/duration*100+'%'},250,'linear');
+            });
             music.addEventListener("ended", function(){
                 wrapEl.addClass("ended");
                 pauseAudio(wrapEl);

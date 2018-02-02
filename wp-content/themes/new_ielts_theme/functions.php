@@ -226,7 +226,11 @@ function ielts_scripts() {
     $root = count($ancestors)-1;
     $parent_id = $ancestors[$root];
     $parents = get_post_ancestors( $post->ID );
-    if( ( ( count($parents) == 3 ) && ( in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking") ) ) || ( $post->post_name == "ui-kit" ) ){
+    if(((count($parents)==3) && (in_array($parent_id,$parents) && ( get_post($parent_id)->post_name == "speaking")) ) || ($post->post_name == "ui-kit") ){
+        wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '1.0', 'in_footer');
+        $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
+        wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
+
         wp_enqueue_script( 'ielts-jqueryrecorderjs', get_template_directory_uri() . '/js/recorder.js', array('jquery'), '1.0', 'in_footer');
         $wnm_custom = array( 'template_url' => get_bloginfo('template_url') );
         wp_localize_script( 'ielts-jqueryrecorderjs', 'wnm_custom', $wnm_custom );
@@ -234,10 +238,6 @@ function ielts_scripts() {
         wp_enqueue_script( 'ielts-jqueryrecordfunctions', get_template_directory_uri() . '/js/record-functions.js', 'ielts-jqueryrecorderjs', '1.0', 'in_footer');
         $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
         wp_localize_script( 'ielts-jqueryrecordfunctions', 'myVars', $localizations );
-
-        wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', 'ielts-jqueryrecordfunctions', '1.0', 'in_footer');
-        $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
-        wp_localize_script( 'ielts-jqueryfunctions', 'myVars', $localizations );
     } else {
         wp_enqueue_script( 'ielts-jqueryfunctions', get_template_directory_uri() . '/js/functions.js', array('jquery'), '1.0', 'in_footer');
         $localizations = array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ));
@@ -252,7 +252,7 @@ function ielts_scripts() {
 add_action( 'wp_enqueue_scripts', 'ielts_scripts' );
 
 function show_audio_li($id, $link, $text, $suggested_answers, $text_ans){
-    $li = '<li id="record-play-item-'.$id.'">';
+    $li = '<li id="record-play-item-'.$id.'" disabled="disabled">';
     $li .= '<audio id="music'.$id.'" class="audio-el" src="'.$link.'"></audio>';
     $li .= '<div id="audioplayer'.$id.'" class="audioplayer">';
     $li .= '<button id="pButton'.$id.'" class="btn-play play"></button>';
@@ -379,27 +379,62 @@ function show_check_btn_func($atts) {
 }
 add_shortcode('check-btn', 'show_check_btn_func');
 
-function find_field_in_db($table_name, $user_id, $show_field){
+//function find_field_in_db($table_name, $user_id, $show_field){
+//    global $wpdb;
+//    $query = "SELECT field_name, field_text FROM ".$table_name." WHERE user_id=".$user_id." AND field_name LIKE '%".$show_field."%'";
+//    return $wpdb->get_results( $query );
+//}
+//
+//function show_field_func($atts) {
+//    $show_field = '';
+//    $wrap_tag = '';
+//    $field = '';
+//    extract(shortcode_atts(array(
+//        'show_field' => 'no-default',
+//        'wrap_tag' => 'no-default',
+//    ), $atts));
+//    $datum = find_field_in_db('user_task_fields', get_current_user_id(), $show_field);
+//    foreach($datum as $data){
+//        $field_name = $data->{"field_name"};
+//        $field_text = $data->{"field_text"};
+//        $field .= '<'.$wrap_tag.'><fieldset class="text-field-group width-full">';
+//            $field .= '<input type="text" class="text-field width-full" id="'.$field_name.'" name="'.$field_name.'" value="'.$field_text.'" readonly/>';
+//        $field .= '</fieldset></'.$wrap_tag.'>';
+//    }
+//    return $field;
+//}
+//add_shortcode('field', 'show_field_func');
+
+function find_field_in_db($table_name, $user_id, $page_id, $id){
+    $select = "WHERE user_id=".$user_id." AND page_id=".$page_id;
+    if($id){
+        $select .= " AND field_name=".$id;
+    }
     global $wpdb;
-    $query = "SELECT field_name, field_text FROM ".$table_name." WHERE user_id=".$user_id." AND field_name LIKE '%".$show_field."%'";
+    $query = "SELECT field_name, field_text FROM ".$table_name." ".$select;
     return $wpdb->get_results( $query );
 }
 
 function show_field_func($atts) {
-    $show_field = '';
-    $wrap_tag = '';
+    $page_id = '';
+    $id = '';
     $field = '';
+    $wrap_before = '';
+    $wrap_after = '';
     extract(shortcode_atts(array(
-        'show_field' => 'no-default',
-        'wrap_tag' => 'no-default',
+        'page_id' => 'no-default',
+        'id' => 'no-default',
+        'wrap_before' => 'no-default',
+        'wrap_after' => 'no-default',
     ), $atts));
-    $datum = find_field_in_db('user_task_fields', get_current_user_id(), $show_field);
+    if($id=='no-default')
+        $id = false;
+    $datum = find_field_in_db('user_task_fields', get_current_user_id(), $page_id, $id);
     foreach($datum as $data){
-        $field_name = $data->{"field_name"};
-        $field_text = $data->{"field_text"};
-        $field .= '<'.$wrap_tag.'><fieldset class="text-field-group width-full">';
-            $field .= '<input type="text" class="text-field width-full" id="'.$field_name.'" name="'.$field_name.'" value="'.$field_text.'" readonly/>';
-        $field .= '</fieldset></'.$wrap_tag.'>';
+        $key = $data->{"field_name"};
+        $value = $data->{"field_text"};
+//        $field[$key] = $value;
+        $field .= $wrap_before.$value.$wrap_after;
     }
     return $field;
 }
@@ -1158,11 +1193,12 @@ function show_menu_by_location($menu_name){
     }
 }
 
-function page_nav($prev, $prev_rel, $next, $next_rel, $class){
-    $class = ($class) ? "page-nav-wrapper ".$class : "page-nav-wrapper";
+function page_nav($prev, $prev_rel, $next, $next_rel, $class, $next_class){
+    $next_class = ($next_class) ? " ".$next_class : "";
+    $class = (isset($class)) ? "page-nav-wrapper ".$class : "page-nav-wrapper";
     $nav = '<nav class="'.$class.'">';
     if( $prev ) $nav .= '<a href="'.$prev.'" class="page-prev" rel="'.$prev_rel.'">'._("Back").'</a>';
-    if( $next ) $nav .= '<a href="'.$next.'" class="page-next" rel="'.$next_rel.'">'._("Next").'</a>';
+    if( $next ) $nav .= '<a href="'.$next.'" class="page-next'.$next_class.'" rel="'.$next_rel.'">'._("Next").'</a>';
     $nav .= '</nav>';
     return $nav;
 }
