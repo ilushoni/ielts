@@ -789,70 +789,79 @@ function drop_words_wrap($sentence){
     return $result;
 }
 
-function break_the_list($content, $pattern, $class){
+function content_handler($content, $tag, $class){
     $text = $content;
     $result = '';
-    preg_match_all($pattern, $text, $ol_list);
-    if(!empty($ol_list[0][0])){
+    $child_tag = ($tag == "div") ? "p" : "li";
+    $pattern = "/<".$tag."\sclass=\"(?:[^<]*?".$class.".*?)\"[^>]*>[^~]*?<\/".$tag.">/s";
+    preg_match_all($pattern, $text, $element);
+    if(!empty($element[0][0])){
         $text_path = preg_split($pattern, $text);
-        $result .= $text_path[0]; //content before <ol>
-        //мастерим со списком
-        preg_match_all('#<\s*?ol\b[^>]*>(.*?)</ol\b[^>]*>#s', $ol_list[0][0], $li_elements); //for separate ol tags, $li_elements[0] with tags ol, $li_elements[1] without ol
-        $ol_tag = explode( $li_elements[1][0], $li_elements[0][0] );
-        $result .= $ol_tag[0]; //tag <ol>
-        preg_match_all('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li_elements[1][0], $li_all); //find all li
-        foreach( $li_all[0] as $li ) {
-            preg_match('#<\s*?li\b[^>]*>(.*?)</li\b[^>]*>#s', $li, $li_el); //for separate li tags, $li_el[0] has tag <li>, $li_el[1] has no tag <li>
-            $li_tag = explode($li_el[1], $li_el[0]);
-            $result .= $li_tag[0]; //open tag <li>
-            preg_match('#<\s*?fieldset\b[^>]*>(.*?)</fieldset\b[^>]*>#s', $li_el[1], $text_field); //put text field in $text_field
+        $result .= $text_path[0]; //content before Element
+        preg_match_all('#<\s*?'.$tag.'\b[^>]*>(.*?)</'.$tag.'\b[^>]*>#s', $element[0][0], $child_elements); //separate tag with attributes from element
+        $tag_wrapper = explode($child_elements[1][0], $child_elements[0][0]);
+        $result .= $tag_wrapper[0];//open tag with attributes
+        preg_match_all('#<\s*?'.$child_tag.'\b[^>]*>(.*?)</'.$child_tag.'\b[^>]*>#s', $child_elements[1][0], $child_all); //find all child elements
+        foreach( $child_all[0] as $child ) {
+            $pattern = '#<\s*?'.$child_tag.'\b[^>]*>(.*?)</'.$child_tag.'\b[^>]*>#s';
+            preg_match($pattern, $child, $child_el); //for separate child tags, $child_el[0] has tag <tag>, $child_el[1] has no tag <tag>
+            $pattern = "(<".$child_tag."[^>]*>)";
+            preg_match($pattern, $child, $child_wrap);
+            $result .= $child_wrap[0];
+            preg_match('#<\s*?fieldset\b[^>]*>(.*?)</fieldset\b[^>]*>#s', $child_el[1], $text_field); //put text field in $text_field
             switch($class){
                 case('task-drop-words'):
-                    if(empty($text_field[0])){
-                        $li_text_path[0] = $li_el[1]; //get part of li content before and after $text_field
+                    if((empty($text_field[0]))or($text_field[0]===NULL)){
+                        $child_text_path[0] = $child_el[1]; //get part of li content before and after $text_field
                     }else{
-                        $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
+                        $child_text_path = explode($text_field[0], $child_el[1]); //get part of li content before and after $text_field
                     }
                     //all right if there is only ONE text field in <li>
-                    $result .= drop_words_wrap($li_text_path[0]);//text before text_field
-                    if(drop_words_wrap($li_text_path[0])) {
+                    $result .= drop_words_wrap($child_text_path[0]);//text before text_field
+                    $result .= (drop_words_wrap($child_text_path[0])) ? " " : "";
+                    if(drop_words_wrap($child_text_path[0])) {
                         $result .= " ";
                     }
                     $result .= $text_field[0];
-                    if( !empty($text_field[0]) ) {
-                        $result .= " " . drop_words_wrap($li_text_path[1]);//text after text_field
+                    if((!empty($text_field[0]))or($text_field[0]!==NULL)) {
+                        $result .= " " . drop_words_wrap($child_text_path[1]);//text after text_field
                     }
                     break;
                 case('task-select-words'):
-                    if(empty($text_field[0])){
-                        $result .= select_words_wrap($li_el[1]);
+                    if((empty($text_field[0]))or($text_field[0] === NULL)){
+                        $result .= select_words_wrap($child_el[1]);
                     } else{
-                        $li_text_path = explode($text_field[0], $li_el[1]); //get part of li content before and after $text_field
+                        $child_text_path = explode($text_field[0], $child_el[1]); //get part of li content before and after $text_field
                         //all right if there is only ONE text field in <li>
-                        $result .= select_words_wrap($li_text_path[0]);//text before text_field
+                        $result .= select_words_wrap($child_text_path[0]);//text before text_field
                         $result .= $text_field[0];
-                        $result .= " ".select_words_wrap($li_text_path[1]);//text after text_field
+                        $result .= " ".select_words_wrap($child_text_path[1]);//text after text_field
                     }
                     break;
             }
-            $result .= $li_tag[1];  //close tag </li>
+            $result .= "</".$child_tag.">";
         }
-        $result .= $ol_tag[1]; //close tag </ol>
-        $result .= $text_path[1]; //content after <ol>
+
+        $result .= $tag_wrapper[1];//close tag with attributes
+        $result .= $text_path[1]; //content after Element
     }
     return $result;
 }
 
 //content modification
 add_filter('the_content', 'my_the_content');
-function my_the_content( $content ) {
+function my_the_content($content) {
+    $dom = new \DOMDocument('1.0', 'UTF-8');
+    $internalErrors = libxml_use_internal_errors(true);
+    $dom->loadHTML($content);
+    libxml_use_internal_errors($internalErrors);
+    $xpath = new DOMXPath($dom);
     $classes = array('task-drop-words', 'task-select-words');
-    foreach($classes as $class){
-        preg_match_all('/\b('.$class.')\b/', $content, $result );
-        if(!empty($result[0])){
-            $pattern = "/<ol\sclass=\"(?:[^<]*?".$class.".*?)\"[^>]*>[^~]*?<\/ol>/s";
-            $content = break_the_list($content, $pattern, $class);
-            $content = do_shortcode($content);
+    foreach($classes as $classname){
+        $nodes = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
+        if($nodes->length){
+            $tag = $nodes->item(0)->nodeName;
+            $content = content_handler($content, $tag, $classname);
         }
     }
     $content = do_shortcode($content);

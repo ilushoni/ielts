@@ -976,6 +976,15 @@ ul.multiple-choice .checkbox-label:before{
     margin-left: auto;
     margin-right: auto;
 }
+
+.clear-both{
+    clear: both;
+}
+.clear-both:after{
+    content: "";
+    display: block;
+    clear: both;
+}
 /*---end of align div classes---*/
 
 /*---wp image size classes---*/
@@ -1681,6 +1690,10 @@ image.size-medium {
 .entry-content p {
     margin-top: 0;
 }
+
+.p-margin-both p{
+    margin-top: 1em;
+}
 /*end page content elements*/
 
 /*section main page*/
@@ -2210,6 +2223,16 @@ image.size-medium {
 /*---task with select words---*/
 .task-select-words:not(.has-textfields) li{
     line-height: 26px;
+}
+
+
+div.task-select-words p{
+    display: block;
+    margin-bottom: 10px;
+}
+
+div.task-select-words p:last-child{
+    margin-bottom: 0;
 }
 
 .key-example {
@@ -2862,7 +2885,7 @@ ul.sort{
 }
 
 .record-questions-list br {
-    display: none;
+    /*display: none;*/
 }
 
 .record-questions-list li:after{
@@ -2910,6 +2933,10 @@ ul.sort{
 
 .record-questions-list *:not(.show-record-audio) .record-list {
     display: none;
+}
+
+.record-questions-list .clear-both{
+    width: 100%;
 }
 
 .show-record-audio .record-list{
@@ -3231,6 +3258,11 @@ ul.sort{
 
 .show-checklist ol {
     position: relative;
+}
+
+.show-checklist ol:not(:last-child),
+.show-checklist ul:not(:last-child){
+    margin-bottom: 24px;
 }
 
 .show-checklist ol li:before{
