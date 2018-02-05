@@ -128,8 +128,13 @@ var parentLi;
 function stopAllRecord(){
     $(".recorder.supported .btn-stop:visible").each(function(){
         stopRecord($(this).closest(".recorder"));
-        parentLi = $(this).closest(".recorder").parent();
+        setRecordParentWrap($(this));
     });
+}
+
+function setRecordParentWrap(btn){
+    var rec = btn.closest(".recorder");
+    parentLi = (btn.parents(".record-questions-list").length) ? rec.closest("li") : rec.parent();
 }
 
 function stopAllAudio(){
@@ -164,7 +169,7 @@ function init(){
             });
             $(document).on("click", ".recorder.supported .btn-stop", function(){
                 stopRecord($(this).closest(".recorder"));
-                parentLi = $(this).closest(".recorder").parent();
+                setRecordParentWrap($(this));
             });
 
             mediaRecorder.onstop = function(e) {

@@ -69,6 +69,7 @@ $(document).ready(function() {
 
     /*open blocks by click links*/
     $(document).on("click", ".open-block", function(){
+        closeAllOpenBlock($(this));
         var id = $(this).attr("href");
         $(id).removeClass("hide");
         $(id).addClass("open");
@@ -81,6 +82,13 @@ $(document).ready(function() {
         $('html, body').animate({
             scrollTop: (parseInt(el.offset().top)-60)
         }, 1000);
+    }
+    function closeAllOpenBlock(el){
+        if((el.is("label"))&&(el.closest(".single-choice").length)){
+            el.closest(".single-choice").find("label.open-block").each(function(){
+                $($(this).attr("href")).removeClass("open").addClass("hide");
+            });
+        }
     }
     /*end open blocks by click links*/
 

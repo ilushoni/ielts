@@ -102,6 +102,10 @@ a.red:active{
     font-size: 14px;
     line-height: 1.43;
 }
+
+.font-italic{
+    font-style: italic;
+}
 /*---end text styles---*/
 
 /*---lists styles---*/
@@ -3252,6 +3256,7 @@ ul.sort{
     text-align: center;
 }
 
+
 .show-checklist *:last-child {
     margin-bottom: 0;
 }
@@ -3268,6 +3273,11 @@ ul.sort{
 .show-checklist ol li:before{
     margin-right: 5px;
     width: 22px;
+}
+
+.show-checklist .has-popup .popup{
+    font-style: italic;
+    margin-bottom: 1em;
 }
 /*---end block with checklist---*/
 
