@@ -7,7 +7,7 @@ get_header();
 
     if ( have_posts() ) {
 
-        echo '<main class="container page search-results" id="page-' . get_the_ID() . '" role="search">';
+        echo '<main class="container search-results" id="page-' . get_the_ID() . '" role="search">';
 
             echo '<header class="entry-header">';
                 echo '<h1 class="entry-title">';
@@ -31,7 +31,7 @@ get_header();
         echo '</main>';
 
     } else {
-        echo '<main class="container page page-error-404" id="page-' . get_the_ID() . '" role="search">';
+        echo '<main class="container page-error-404" id="page-' . get_the_ID() . '" role="search">';
             get_template_part( 'template-parts/content', 'none' );
         echo '</main>';
     }

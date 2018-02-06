@@ -6,7 +6,7 @@
 get_header();
 
 while ( have_posts() ) : the_post();
-    echo '<main class="container page page-under-construction" id="page-' . get_the_ID() . '">';
+    echo '<main class="container page-under-construction" id="page-' . get_the_ID() . '">';
         the_content();
         echo '<nav class="page-nav-wrapper">';
         echo '<a href="'.get_home_url().'" class="page-prev">'._("Back").'</a>';

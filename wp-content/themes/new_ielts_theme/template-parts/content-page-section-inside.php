@@ -36,12 +36,12 @@ $args = array(
 );
 $task_text_array = get_posts($args);
 
-if( $task_text_array ) {   //if there is text for task
+//if there is text for task
+if( $task_text_array ) {
     echo '<div class="popup-text" id="popup1">';
         foreach ($task_text_array as $task_text) : setup_postdata($task_text);
             echo '<div class="paper column-2">';
-                echo '<input type="button" class="close-popup"/>';
-                echo '<h3>'.get_the_title($task_text->ID).'</h3>';
+                echo '<input type="button" class="close-popup"/><h3>'.get_the_title($task_text->ID).'</h3>';
                 the_content();
             echo '</div>';
             $task_text_thumbnail = get_the_post_thumbnail_url($task_text->ID);
@@ -49,14 +49,14 @@ if( $task_text_array ) {   //if there is text for task
     echo '</div>';
     wp_reset_postdata();
 
-    echo '<div class="task-wrapper column-2">';
-        echo '<div class="entry-content">';
+    echo '<div class="entry-content column-2">';
+        echo '<div class="column-content">';
             if(get_the_title()) {
                 the_title( '<h3 class="task-name">', '</h3>' );
             }
             the_content();
         echo '</div>';
-        echo '<div class="task-text">';
+        echo '<div class="column-thumbnail">';
             echo '<a href="#popup1" class="text-thumbnail-btn open-popup"><img src="'.$task_text_thumbnail.'" alt="'.get_the_title().'" /></a>';
         echo '</div>';
     echo '</div>';
@@ -71,19 +71,35 @@ if( $task_text_array ) {   //if there is text for task
         }
     }
 
-    preg_match("/(\btask\b-[45])|(\btask-voice-record\b)|(\btypes-of-questions-for-ielts-online\b)/", $page_slug, $result);
-    switch(true){
-        case(!empty($result)):
-            $class = " task-column-not-full";
-            break;
-        case($speaking_part1_rule):
-            $class = " task-content";
-            break;
-        default:
-            $class = "";
-    }
+//    preg_match("/(\btask\b-[45])|(\btask-voice-record\b)|(\btypes-of-questions-for-ielts-online\b)/", $page_slug, $result);
+//    switch(true){
+//        case(!empty($result)):
+//            $class = " task-column-not-full";
+//            break;
+//        case($speaking_part1_rule):
+//            $class = " task-content";
+//            break;
+//        default:
+//            $class = "";
+//    }
 
     echo '<div class="entry-content'.$class.'" id="post-content-'. get_the_ID() .'">';
         echo my_the_content( get_the_content() );
+        switch($post->post_name):
+            case("action-points"):
+                echo show_menu_by_location('action_points');
+                break;
+            case("sentence-completion"):
+                $user_success = array(
+                    'Preparation' => "active",
+                    'Answering Exam Questions' => "",
+                    'Analysing Answers' => "",
+                    'Action Points' => ""
+                );
+                echo show_section_navigation_menu('reading_section_completion', $user_success);
+                echo '<div class="section-completion-plan">'. _("Starting with the next page this Table is in the left upper corner of each page (like a plan)") .'</div>';
+                break;
+            endswitch;
+
     echo '</div>';
 }

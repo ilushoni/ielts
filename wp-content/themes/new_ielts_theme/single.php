@@ -5,7 +5,7 @@
 
 get_header();
 
-echo '<article class="container page single-post" id="post-' . get_the_ID() . '">';
+echo '<article class="container single-post" id="post-' . get_the_ID() . '">';
     while ( have_posts() ) : the_post();
         if(get_the_title()) {
             echo '<header class="entry-header">';

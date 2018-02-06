@@ -13,12 +13,10 @@ if(is_user_logged_in()) {
     //registered user
     while ( have_posts() ) :
         the_post();
-        echo '<main class="container page"  id="post-'.get_the_ID().'" role="main">';
+        echo '<main class="container"  id="post-'.get_the_ID().'" role="main">';
 
             if(get_the_title()) {
-                echo '<header class="entry-header">';
-                    the_title( '<h1 class="entry-title">', '</h1>' );
-                echo '</header>';
+                the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header>' );
             }
 
             $table_name = 'section_progress';
@@ -86,9 +84,7 @@ if(is_user_logged_in()) {
             echo '<div class="container">';
 
                 if(get_the_title()) {
-                    echo '<header class="entry-header">';
-                        echo '<h2 class="entry-title">'._("Recent blog items").'</h2>';
-                    echo '</header>';
+                    echo '<header class="entry-header"><h2 class="entry-title">'._("Recent blog items").'</h2></header>';
                 }
 
                 echo '<div class="column-4">';
@@ -98,7 +94,6 @@ if(is_user_logged_in()) {
                         'offset' => 0,
                         'category' => '',
                         'category_name' => 'ielts-test-sections', //here can be category named "ielts-test-sections"
-//                        'category_name' => '', //here can be category named "ielts-test-sections"
                         'orderby' => 'date',
                         'order' => 'DESC',
                         'include' => '',

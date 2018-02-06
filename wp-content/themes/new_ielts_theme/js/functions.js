@@ -46,6 +46,7 @@ $(document).ready(function() {
             event.preventDefault();
     });
     /*end accordion*/
+});
 
     /*popup*/
     $(document).on("click", ".open-popup", function(){
@@ -270,9 +271,11 @@ $(document).ready(function() {
     /*end text fields handler*/
 
     /*hints*/
+$(document).ready(function() {
     if($(".hint").length){
         hintForExample($(".hint").closest(".hint-wrapper"));
     }
+});
     function hintForExample($task){
         var $li = $task.find("li.example");
         var $checkBtn = findCheckBtn($task, "check-btn");
@@ -358,6 +361,9 @@ $(document).ready(function() {
                     break;
                 case($task.hasClass("list-text-fields")):
                     checkTextFieldArray($task);
+                    break;
+                case($task.hasClass("sort-phrase-wrap")):
+                    checkSortPhrases($task);
                     break;
             }
             showMessage(btn,($task.find(".wrong").length + $task.find(".empty").length));
@@ -523,9 +529,11 @@ $(document).ready(function() {
     /*end save button functionality*/
 
     /*game with timer*/
+$(document).ready(function() {
     if($(".game-wrapper").length){
         startGameSettings();
     }
+});
     function startGameSettings(){
         var time_parts = $(".timer .time-left").attr("duration").split(":");
         $(".timer .time-left").attr("duration", (parseInt(time_parts[0]*60)+parseInt(time_parts[1])));
@@ -560,7 +568,21 @@ $(document).ready(function() {
         }
     }
     /*end game with timer*/
-});
+
+    /*sort phrases check*/
+    function checkSortPhrases($task){
+        $task.find(".wrong, .empty").removeClass("wrong empty");
+        $task.find(".sort-phrase").each(function(){
+            var correctAns = $(this).attr("answers_correct").split(",");
+            $(this).find("li").each(function(){
+                if($.inArray( $(this).attr("id"), correctAns ) == -1){
+                    $(this).addClass("wrong");
+                }
+            });
+        });
+    }
+    /*end sort phrases check*/
+
 
 /*data to time format*/
 function formatDuration(seconds, addNull) {

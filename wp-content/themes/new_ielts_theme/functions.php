@@ -851,20 +851,22 @@ function content_handler($content, $tag, $class){
 //content modification
 add_filter('the_content', 'my_the_content');
 function my_the_content($content) {
-    $dom = new \DOMDocument('1.0', 'UTF-8');
-    $internalErrors = libxml_use_internal_errors(true);
-    $dom->loadHTML($content);
-    libxml_use_internal_errors($internalErrors);
-    $xpath = new DOMXPath($dom);
-    $classes = array('task-drop-words', 'task-select-words');
-    foreach($classes as $classname){
-        $nodes = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
-        if($nodes->length){
-            $tag = $nodes->item(0)->nodeName;
-            $content = content_handler($content, $tag, $classname);
+    if(!empty($content)){
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $internalErrors = libxml_use_internal_errors(true);
+        $dom->loadHTML($content);
+        libxml_use_internal_errors($internalErrors);
+        $xpath = new DOMXPath($dom);
+        $classes = array('task-drop-words', 'task-select-words');
+        foreach($classes as $classname){
+            $nodes = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
+            if($nodes->length){
+                $tag = $nodes->item(0)->nodeName;
+                $content = content_handler($content, $tag, $classname);
+            }
         }
+        $content = do_shortcode($content);
     }
-    $content = do_shortcode($content);
     return $content;
 }
 
@@ -1215,5 +1217,22 @@ function page_nav($prev, $prev_rel, $next, $next_rel, $class, $next_class){
 function show_next_only_btn($link){
     $show = '<nav class="page-nav-wrapper"><a class="page-next" href="'.$link.'">'._("Next").'</a></nav>';
     return $show;
+}
+
+function show_section_navigation_menu($menu_name, $user_success){
+    $locations = get_nav_menu_locations();
+    if( $locations && isset($locations[ $menu_name ]) ){
+        $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
+        $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
+        $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-4 collapse section-completion-menu">';
+        foreach ( $menu_items as $key => $menu_item ){
+            $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item '.$user_success[ $menu_item->title ].'">' . $menu_item->title;
+            $menu_list .= '</a>';
+        }
+        $menu_list .= '</nav>';
+        return $menu_list;
+    }else{
+        return false;
+    }
 }
 /*---end added by ira.che---*/

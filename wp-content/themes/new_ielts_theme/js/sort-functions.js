@@ -138,10 +138,16 @@ $(document).ready(function(){
                         $droppedEl.addClass("old");
                     }
                     var correctAns = $parentUl.attr("answers_correct").split(",");
-                    if( $.inArray( $droppedEl.attr("id"), correctAns ) == -1 ){
+                    if(($(this).parents(".check-now").length)&&($.inArray( $droppedEl.attr("id"), correctAns ) == -1)){
                         $droppedEl.addClass("wrong");
                     } else {
                         $droppedEl.removeClass("wrong");
+                    }
+                    if($(".check-btn.disabled").length){
+                        var $checkBtn = findCheckBtn($(this).parents(".sort-phrase-wrap"), "check-btn");
+                        if(typeof $checkBtn !== "undefined"){
+                            activateCheckBtn($checkBtn);
+                        }
                     }
                 }
                 $("li.focus").removeClass("focus");
@@ -152,6 +158,9 @@ $(document).ready(function(){
                     if( $(this).find("li.old").length && (!$(this).hasClass("drop-list")) ) {
                         var $elem = $(this).find("li.old");
                         var $dropList = findDropList($(this));
+                        if($dropList.length==0){
+                            $dropList = $(ui.sender["0"]);
+                        }
                         if($dropList.hasClass("show-used-el")){
                             $("#"+ $elem.attr('id')+"-clone").after($elem);
                             $("#"+ $elem.attr('id')+"-clone").remove();

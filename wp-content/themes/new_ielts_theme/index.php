@@ -15,7 +15,7 @@
  */
 
 get_header(); ?>
-<main id="index" class="container page" role="main">
+<main id="index" class="container" role="main">
     <?php if ( have_posts() ) : ?>
         <?php if ( is_home() && ! is_front_page() ) : ?>
             <header class="entry-header">
