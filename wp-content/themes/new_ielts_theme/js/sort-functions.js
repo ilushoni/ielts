@@ -118,6 +118,8 @@ $(document).ready(function(){
                 if(! $(this).hasClass("drop-list")) {  //ul-parent list
                     $('#'+ui.item[0]["id"]).removeClass("wrong"); //get moved element id
                 }
+                // console.dir($(ui.placeholder).parent());
+                // $(ui.placeholder).parent().addClass("has-placeholder");
             },
             stop: function(event, ui) {
                 //$parentUl where element stopped (it's new area)
@@ -151,6 +153,7 @@ $(document).ready(function(){
                     }
                 }
                 $("li.focus").removeClass("focus");
+                $(".has-placeholder").removeClass("has-placeholder");
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){
@@ -171,10 +174,13 @@ $(document).ready(function(){
                         $(".sort-phrase.drop-list li").removeClass("old wrong");
                     }
                 }
+            },
+            change: function(event, ui){
+                $(".has-placeholder").removeClass("has-placeholder");
+                $(ui.placeholder).parent().addClass("has-placeholder");
             }
         });
     }
-
     $(document).on('mousedown', ".sort-phrase:not(.disabled) li", function(){
         if($(this).parents(".disabled").length==0){
             $(this).addClass("focus");

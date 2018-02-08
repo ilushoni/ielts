@@ -17,10 +17,16 @@ $(document).ready(function() {
 
     /*fixed footer to the bottom if content is short*/
     footerFix();
+    $(document).resize(function(){
+        footerFix();
+    });
+    $(window).resize(function(){
+        footerFix();
+    });
     /*end fixed footer to the bottom if content is short*/
 
     /*frontpage only*/
-    $("#menu-primary .success-line").each( function(){
+    $(".all-sections-menu .success-line").each( function(){
         var w = $(this).attr("user_success");
         $(this).width( w+'%' );
     });

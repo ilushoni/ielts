@@ -65,11 +65,11 @@ if(is_user_logged_in()) {
             if( $locations && isset($locations[ $menu_name ]) ){
                 $menu = wp_get_nav_menu_object( $locations[ $menu_name ] ); // получаем объект меню
                 $menu_items = wp_get_nav_menu_items( $menu ); // получаем элементы меню
-                $menu_list = '<nav id="menu-' . $menu_name . '" class="section-menu column-4">';
+                $menu_list = '<nav id="menu-' . $menu_name . '" class="all-sections-menu column-4">';
                 foreach ( $menu_items as $key => $menu_item ){
                     $menu_list .= '<a href="' . $menu_item->url . '" class="menu-item">' . $menu_item->title;
                         if($user_success[ $menu_item->title ]) {
-                            $menu_list .= '<span class="success-text">'._("You have accomplished").' '.round($user_success[ $menu_item->title ],2).'%</span>';
+                            $menu_list .= '<span class="success-in-section">'._("You have accomplished").' '.round($user_success[ $menu_item->title ],2).'%</span>';
                             $menu_list .= '<span class="success-line" user_success="'. $user_success[ $menu_item->title ] .'"></span>';
                         }
                     $menu_list .= '</a>';
