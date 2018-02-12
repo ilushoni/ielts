@@ -202,11 +202,14 @@ init();
 
 // var ctx = new AudioContext();
 
-var AudioContext = window.AudioContext // Default
-    || window.webkitAudioContext // Safari and old versions of Chrome
-    || false;
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+// var ctx = new AudioContext();
 
-if (AudioContext) {
+// var AudioContext = window.AudioContext // Default
+//     || window.webkitAudioContext // Safari and old versions of Chrome
+//     || false;
+console.dir(AudioContext);
+if(AudioContext) {
     // Do whatever you want using the Web Audio API
     var ctx = new AudioContext;
 } else {
