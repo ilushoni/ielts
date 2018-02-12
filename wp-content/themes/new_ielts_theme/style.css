@@ -497,7 +497,9 @@ textarea,
     display: block;
     padding: 40px 60px 30px 41px;
     width: 760px;
-    min-height: 126px;
+    height: 126px;
+    max-height: 126px;
+    /*min-height: 126px;*/
     border-radius: 3px;
     border: solid 1px #e7e7e7;
     background-color: #fff;
@@ -507,7 +509,15 @@ textarea,
     text-align: left;
     color: #000;
     overflow: hidden;
+    overflow-y: auto;
     resize: vertical;
+}
+
+div.textarea{
+    height: auto;
+    min-height: 126px;
+    max-height: none;
+    overflow-y: hidden;
 }
 
 .textarea{
@@ -521,7 +531,9 @@ textarea,
 .textarea-small{
     margin-bottom: 24px;
     padding: 10px 20px;
-    min-height: 56px;
+    height: 56px;
+    max-height: 56px;
+    min-height: auto;
     width: 100%;
 }
 
@@ -3371,7 +3383,6 @@ ul.sort{
     text-align: center;
 }
 
-
 .show-checklist *:last-child {
     margin-bottom: 0;
 }
@@ -3393,6 +3404,10 @@ ul.sort{
 .show-checklist .has-popup .popup{
     font-style: italic;
     margin-bottom: 1em;
+}
+
+.nav-exercise + .show-checklist{
+    margin-top: 40px;
 }
 /*---end block with checklist---*/
 
@@ -3459,7 +3474,6 @@ ul.sort{
 
 .list-video-checkbox.column-2 li iframe{
     width: 100%;
-    /*height: 350px;*/
     height: 240px;
 }
 
@@ -3581,6 +3595,19 @@ ul.sort{
     letter-spacing: 4px;
 }
 
+.game-wrapper .giant-letters:after {
+    content:"";
+    position: relative;
+    margin-left: 31px;
+    width: 45px;
+    height: 46px;
+    display: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#E61130" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 .game-wrapper .nav-exercise *:first-child{
     margin-right: 50px;
 }
@@ -3615,54 +3642,106 @@ ul.sort{
     margin-bottom: 0;
 }
 
-.game-wrapper .game-result,
-.game-wrapper .game-hint-list,
-.game-wrapper .nav-exercise,
-.game-wrapper .questions-wrapper > *{
+.game-result,
+.game-hint-list,
+.game-wrapper .nav-exercise{
     display: none;
 }
 
-.game-wrapper .questions-wrapper .open{
+.game-rules{
     display: block;
 }
 
-.game-wrapper.done .count-answers:after {
-    content:"";
-    position: relative;
-    margin-left: 31px;
-    width: 45px;
-    height: 46px;
+.game-wrapper.game-over .game-rules,
+.game-wrapper.game-over .questions-wrapper,
+.game-wrapper.game-over .timer-wrapper{
+    display: none;
+}
+
+.game-wrapper.game-over .game-result,
+.game-wrapper.game-over .nav-exercise{
+    display: block;
+}
+
+.game-wrapper.game-over .game-result .text-success,
+.game-wrapper.game-over .game-result .time-is-over{
+    display: none;
+}
+
+.game-wrapper.game-over.success .game-result .text-success{
+    display: block;
+}
+
+.game-wrapper.game-over.success .game-result .count-answers,
+.game-wrapper.game-over.success .nav-exercise{
+    display: none;
+}
+
+.game-wrapper.game-over.success .game-result .giant-letters:after{
     display: inline-block;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#E61130" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
+}
+
+.game-wrapper.game-over.not-enough-time .game-result .count-answers{
+    display: none;
+}
+
+.game-wrapper.game-over.not-enough-time .game-result .time-is-over{
+    display: block;
+}
+
+.game-wrapper.game-over.not-enough-time .nav-exercise .show-hints-btn{
+    display: none;
+}
+
+.game-wrapper.game-over.show-hint-list .game-hint-list{
+    display: block;
+}
+
+.game-wrapper.game-over.show-hint-list .game-hint-list li[single]{
+    list-style-type: none;
+    margin-left: -18px;
+}
+
+.game-wrapper.game-over.show-hint-list .nav-exercise .show-hints-btn{
+    display: none;
+}
+
+.game-wrapper.game-over.show-wrong-answers .nav-exercise{
+    display: none;
+}
+
+.game-wrapper.game-over.show-wrong-answers .game-hint-list{
+    display: block;
+}
+
+.game-wrapper.game-over.show-wrong-answers .questions-wrapper{
+    display: block;
 }
 /*---end page game with timer---*/
 
 /*show hints if user has mistake in text-insert task*/
-.hints-if-mistake,
-.hints-if-mistake ul li{
-    display: none;
-}
+/*.hints-if-mistake,*/
+/*.hints-if-mistake ul li{*/
+    /*display: none;*/
+/*}*/
 
-.hints-if-mistake ol li{
-    position: absolute;
-    opacity: 0;
-}
+/*.hints-if-mistake ol li{*/
+    /*position: absolute;*/
+    /*opacity: 0;*/
+/*}*/
 
-.hints-if-mistake.open{
-    display: block;
-}
+/*.hints-if-mistake.open{*/
+    /*display: block;*/
+/*}*/
 
-.hints-if-mistake ol li.open{
-    position: relative;
-    opacity: 1;
-}
+/*.hints-if-mistake ol li.open{*/
+    /*position: relative;*/
+    /*opacity: 1;*/
+/*}*/
 
-.hints-if-mistake ul li.open{
-    display: list-item;
-}
+/*.hints-if-mistake ul li.open{*/
+    /*display: list-item;*/
+/*}*/
 /*end show hints if user has mistake in text-insert task*/
 
 /*insert text in list*/
@@ -3944,8 +4023,8 @@ h3.ui-kit-part-name{
 .footer-wrapper {
     position: relative;
     border-top: solid 2px #d8d8d8;
-    font-size: .777777em;
-    line-height: 1.43em;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .footer-wrapper.front-end {

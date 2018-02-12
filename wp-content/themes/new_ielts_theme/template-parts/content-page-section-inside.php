@@ -71,19 +71,7 @@ if( $task_text_array ) {
         }
     }
 
-//    preg_match("/(\btask\b-[45])|(\btask-voice-record\b)|(\btypes-of-questions-for-ielts-online\b)/", $page_slug, $result);
-//    switch(true){
-//        case(!empty($result)):
-//            $class = " task-column-not-full";
-//            break;
-//        case($speaking_part1_rule):
-//            $class = " task-content";
-//            break;
-//        default:
-//            $class = "";
-//    }
-
-    echo '<div class="entry-content'.$class.'" id="post-content-'. get_the_ID() .'">';
+    echo '<div class="entry-content" id="post-content-'. get_the_ID() .'">';
         echo my_the_content( get_the_content() );
         switch($post->post_name):
             case("action-points"):
