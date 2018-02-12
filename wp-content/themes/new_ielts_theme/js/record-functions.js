@@ -201,22 +201,25 @@ function init(){
 init();
 
 // var ctx = new AudioContext();
+var ctx = new webkitAudioContext();
 
-var AudioContext = window.AudioContext || window.webkitAudioContext;
+// var AudioContext = window.AudioContext || window.webkitAudioContext;
+// var AudioContext = window.AudioContext || window.webkitAudioContext;
 // var ctx = new AudioContext();
 
 // var AudioContext = window.AudioContext // Default
 //     || window.webkitAudioContext // Safari and old versions of Chrome
 //     || false;
-console.dir(AudioContext);
-if(AudioContext) {
-    // Do whatever you want using the Web Audio API
-    var ctx = new AudioContext;
-} else {
-    // Web Audio API is not supported
-    // Alert the user
-    console.log("Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
-}
+
+console.dir(ctx);
+// if(AudioContext) {
+//     // Do whatever you want using the Web Audio API
+//     var ctx = new AudioContext;
+// } else {
+//     // Web Audio API is not supported
+//     // Alert the user
+//     console.log("Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
+// }
 
 function showDuration(){
     $("audio").each(function(){
