@@ -545,9 +545,7 @@ $(document).ready(function() {
         var time_parts = $(".timer .time-left").attr("duration").split(":");
         $(".game-hint-list ul, .game-hint-list ul li").addClass("hide");
         $(".questions-wrapper input[type='radio']").prop('checked', false);
-
-        $(".timer .time-left").attr("duration", 3);
-        // $(".timer .time-left").attr("duration", (parseInt(time_parts[0]*60)+parseInt(time_parts[1])));
+        $(".timer .time-left").attr("duration", (parseInt(time_parts[0]*60)+parseInt(time_parts[1])));
 
         showNextGameQuestion(-1);
     }
