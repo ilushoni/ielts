@@ -550,9 +550,9 @@ $(document).ready(function() {
         }
         showNextGameQuestion(-1);
     }
-
     $(document).on("click", ".start-timer-btn", function(){
         startUntiTimer($(this));
+        $(this).parents(".game-wrapper").find(".questions-wrapper").removeClass("hide");
     });
     function startUntiTimer(btn){
         btn.attr("disabled", "disabled");
@@ -577,7 +577,6 @@ $(document).ready(function() {
             }
         }, 1000);
     }
-
     $(document).on("click", ".questions-wrapper input[type='radio']", function(){
         if(!$(".start-timer-btn").is("[disabled]")){
             startUntiTimer($(".start-timer-btn"));
@@ -684,13 +683,17 @@ $(document).ready(function() {
     /*sort phrases check*/
     function checkSortPhrases($task){
         $task.find(".wrong, .empty").removeClass("wrong empty");
-        $task.find(".sort-phrase").each(function(){
+        $task.find(".sort-phrase:not(.drop-list)").each(function(){
             var correctAns = $(this).attr("answers_correct").split(",");
-            $(this).find("li").each(function(){
-                if($.inArray( $(this).attr("id"), correctAns ) == -1){
-                    $(this).addClass("wrong");
-                }
-            });
+            if($(this).find("li").length==0){
+                $(this).addClass("empty");
+            }else{
+                $(this).find("li").each(function(){
+                    if($.inArray( $(this).attr("id"), correctAns ) == -1){
+                        $(this).addClass("wrong");
+                    }
+                });
+            }
         });
     }
     /*end sort phrases check*/

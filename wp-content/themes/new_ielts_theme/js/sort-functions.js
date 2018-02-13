@@ -107,19 +107,16 @@ $(document).ready(function(){
             connectWith: '.sort-phrase',
             items: "li:not(.in-use)",
             start: function(event, ui) {
-                if($(this).is(".drop-list.show-used-el")){
-                    var id = ui.item[0]["id"]; //get moved element id
-                    var $elem = ui.item.clone();
-                    $elem.removeAttr("style");
-                    $elem[0]["id"] = id + "-clone";
-                    $elem.addClass("in-use");
-                    $(this).find(".focus").after( $elem );
+                if($(this).is(".drop-list")){
+                    var itemClass = ($(this).is(".show-used-el")) ? "in-use" : "place-placeholder";
+                    leaveCloneItem(ui.item, itemClass);
                 }
-                if(! $(this).hasClass("drop-list")) {  //ul-parent list
+                if($(this).hasClass("drop-list")){
+                    var $task = ($(this).closest(".sort-phrase-wrap").length) ? $(this).closest(".sort-phrase-wrap") : $(this).closest(".sort-phrase").next(".sort-phrase-wrap");
+                    $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
+                }else{  //ul-parent list
                     $('#'+ui.item[0]["id"]).removeClass("wrong"); //get moved element id
                 }
-                // console.dir($(ui.placeholder).parent());
-                // $(ui.placeholder).parent().addClass("has-placeholder");
             },
             stop: function(event, ui) {
                 //$parentUl where element stopped (it's new area)
@@ -132,9 +129,13 @@ $(document).ready(function(){
                     if( $(".only-one-paste").length ){
                         $droppedEl.removeClass("old");
                     }
-                    $("#"+ ui.item[0]["id"]+"-clone").after(ui.item);
-                    $("#"+ ui.item[0]["id"]+"-clone").remove();
-                    $("#"+ ui.item[0]["id"]).removeAttr("style");
+                    // if(($(this).hasClass("drop-list"))&&($(this)!==$parentUl)){
+                    //     $("#"+ ui.item[0]["id"])
+                    // }else{
+                        $("#"+ ui.item[0]["id"]+"-clone").after(ui.item);
+                        $("#"+ ui.item[0]["id"]+"-clone").remove();
+                        $("#"+ ui.item[0]["id"]).removeAttr("style");
+                    // }
                 }else{
                     if($parentUl.parents(".only-one-paste").length){
                         $droppedEl.addClass("old");
@@ -154,6 +155,8 @@ $(document).ready(function(){
                 }
                 $("li.focus").removeClass("focus");
                 $(".has-placeholder").removeClass("has-placeholder");
+                $(".for-placeholders").removeClass("for-placeholders");
+                $(".place-placeholder").remove();
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){
@@ -177,13 +180,27 @@ $(document).ready(function(){
             },
             change: function(event, ui){
                 $(".has-placeholder").removeClass("has-placeholder");
-                $(ui.placeholder).parent().addClass("has-placeholder");
+                var $task = ($(ui.placeholder).closest(".sort-phrase-wrap").length) ? $(ui.placeholder).closest(".sort-phrase-wrap") : $(ui.placeholder).closest(".sort-phrase").next(".sort-phrase-wrap");
+                if($(ui.placeholder).parent().hasClass("drop-list")){
+                    $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
+                }else{
+                    $task.find(".for-placeholders").removeClass("for-placeholders");
+                    $(ui.placeholder).parent().addClass("has-placeholder");
+                }
             }
         });
     }
     $(document).on('mousedown', ".sort-phrase:not(.disabled) li", function(){
         if($(this).parents(".disabled").length==0){
             $(this).addClass("focus");
+            if($(this).parents(".check-now").length == 0){
+                var $task = $(this).closest(".sort-phrase-wrap");
+                $task = ($task.length) ? $task : $(this).closest(".sort-phrase").next(".sort-phrase-wrap");
+                var $checkBtn = findCheckBtn($task, "check-btn");
+                if(($checkBtn.hasClass("disabled"))&&(!$(this).closest(".sort").hasClass("disabled"))){
+                    activateCheckBtn($checkBtn);
+                }
+            }
         }
     });
     $(document).on('click', ".sort-phrase:not(.disabled) li", function(){
@@ -228,5 +245,14 @@ $(document).ready(function(){
     $(".has-popup-hints .sort-phrase li").mouseout(function(){
         $(".hover-popup, .hover-popup li").addClass("hide");
     });
+    function leaveCloneItem(item, itemClass){
+        var id = item[0]["id"]; //get moved element id
+        var $elem = item.clone();
+        $elem.removeAttr("style");
+        $elem[0]["id"] = id + "-clone";
+        $elem.addClass(itemClass);
+        $("#"+id).after( $elem );
+        // $(this).find(".focus").after( $elem );
+    }
     /*end sort phrases*/
 });
