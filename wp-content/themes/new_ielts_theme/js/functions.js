@@ -542,11 +542,12 @@ $(document).ready(function() {
     }
 });
     function startGameSettings(){
-        var time_parts = $(".timer .time-left").attr("duration").split(":");
         $(".game-hint-list ul, .game-hint-list ul li").addClass("hide");
         $(".questions-wrapper input[type='radio']").prop('checked', false);
-        $(".timer .time-left").attr("duration", (parseInt(time_parts[0]*60)+parseInt(time_parts[1])));
-
+        var time_parts = $(".timer .time-left").attr("duration").split(":");
+        if(time_parts.length > 1){
+            $(".timer .time-left").attr("duration", (parseInt(time_parts[0]*60)+parseInt(time_parts[1])));
+        }
         showNextGameQuestion(-1);
     }
 
@@ -578,7 +579,7 @@ $(document).ready(function() {
     }
 
     $(document).on("click", ".questions-wrapper input[type='radio']", function(){
-        if(!$(".start-timer-btn").is("disabled")){
+        if(!$(".start-timer-btn").is("[disabled]")){
             startUntiTimer($(".start-timer-btn"));
         }
         var $parentUl = $(this).closest(".single-choice");
@@ -675,6 +676,7 @@ $(document).ready(function() {
         }
         $wrapTask.removeClass("game-over not-enough-time show-hint-list");
         startGameSettings();
+        clearInterval(untiTimerId);
         untiTimer($(".timer .time-left").attr("duration"), $(".timer .time-left"));
     });
     /*end game with timer*/
