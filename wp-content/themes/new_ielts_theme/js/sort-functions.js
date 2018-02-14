@@ -1,9 +1,12 @@
 $(document).ready(function(){
 
     /*all sort settings*/
-    $(".disabled .sort, .disabled.sort, .disabled .sort-phrase, .disabled.sort-phrase").sortable({
-        disabled: true
-    });
+    function disableSortInit(){
+        $(".disabled .sort, .disabled.sort, .disabled .sort-phrase, .disabled.sort-phrase").sortable({
+            disabled: true
+        });
+    }
+    disableSortInit();
     /*end all sort settings*/
 
     /*sort words*/
@@ -107,12 +110,16 @@ $(document).ready(function(){
             connectWith: '.sort-phrase',
             items: "li:not(.in-use)",
             start: function(event, ui) {
+                var $task = returnTask($(this));
+                $task.attr("current-sort", "true");
+                $(".sort-phrase-wrap:not(.disabled)").not($task).each(function(){
+                    if($(this).find(".disabled").length == 0){
+                        $(this).find(".sort-phrase").attr("disable-while-sort","disabled");
+                    }
+                });
                 if($(this).is(".drop-list")){
                     var itemClass = ($(this).is(".show-used-el")) ? "in-use" : "place-placeholder";
                     leaveCloneItem(ui.item, itemClass);
-                }
-                if($(this).hasClass("drop-list")){
-                    var $task = ($(this).closest(".sort-phrase-wrap").length) ? $(this).closest(".sort-phrase-wrap") : $(this).closest(".sort-phrase").next(".sort-phrase-wrap");
                     $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
                 }else{  //ul-parent list
                     $('#'+ui.item[0]["id"]).removeClass("wrong"); //get moved element id
@@ -122,20 +129,20 @@ $(document).ready(function(){
                 //$parentUl where element stopped (it's new area)
                 //$droppedEl element moved
                 //$(this) where element from
-                var $parentUl = $(ui.item["0"].offsetParent);
+                var $parentUl = ui.item.parent();
                 var $droppedEl = $(ui.item["0"]);
+                if($parentUl.is("[disable-while-sort]")){
+                    $(this).sortable("cancel");
+                    $parentUl = $(this);
+                }
                 if($parentUl.hasClass("drop-list")) {
                     $droppedEl.removeClass("wrong");
                     if( $(".only-one-paste").length ){
                         $droppedEl.removeClass("old");
                     }
-                    // if(($(this).hasClass("drop-list"))&&($(this)!==$parentUl)){
-                    //     $("#"+ ui.item[0]["id"])
-                    // }else{
-                        $("#"+ ui.item[0]["id"]+"-clone").after(ui.item);
-                        $("#"+ ui.item[0]["id"]+"-clone").remove();
-                        $("#"+ ui.item[0]["id"]).removeAttr("style");
-                    // }
+                    $("#"+ ui.item[0]["id"]+"-clone").after(ui.item);
+                    $("#"+ ui.item[0]["id"]+"-clone").remove();
+                    $("#"+ ui.item[0]["id"]).removeAttr("style");
                 }else{
                     if($parentUl.parents(".only-one-paste").length){
                         $droppedEl.addClass("old");
@@ -157,6 +164,8 @@ $(document).ready(function(){
                 $(".has-placeholder").removeClass("has-placeholder");
                 $(".for-placeholders").removeClass("for-placeholders");
                 $(".place-placeholder").remove();
+                $("*[current-sort]").removeAttr("current-sort");
+                $("*[disable-while-sort]").removeAttr("disable-while-sort");
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){
@@ -179,13 +188,13 @@ $(document).ready(function(){
                 }
             },
             change: function(event, ui){
+                var newUl = $(ui.placeholder).parent();
+                var $task = $(".sort-phrase-wrap[current-sort]");
                 $(".has-placeholder").removeClass("has-placeholder");
-                var $task = ($(ui.placeholder).closest(".sort-phrase-wrap").length) ? $(ui.placeholder).closest(".sort-phrase-wrap") : $(ui.placeholder).closest(".sort-phrase").next(".sort-phrase-wrap");
-                if($(ui.placeholder).parent().hasClass("drop-list")){
-                    $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
-                }else{
-                    $task.find(".for-placeholders").removeClass("for-placeholders");
-                    $(ui.placeholder).parent().addClass("has-placeholder");
+                $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
+                if((newUl.is(":not(.drop-list)"))&&(newUl.parents(".sort-phrase-wrap[current-sort]").length)){
+                    newUl.addClass("has-placeholder");
+                    $(".for-placeholders").removeClass("for-placeholders");
                 }
             }
         });
@@ -252,7 +261,11 @@ $(document).ready(function(){
         $elem[0]["id"] = id + "-clone";
         $elem.addClass(itemClass);
         $("#"+id).after( $elem );
-        // $(this).find(".focus").after( $elem );
+    }
+    function returnTask(el){
+        var ul = (el.is("li")) ? el.closest(".sort-phrase") : el;
+        var $task = (ul.closest(".sort-phrase-wrap").length) ? ul.closest(".sort-phrase-wrap") : ul.next(".sort-phrase-wrap");
+        return $task;
     }
     /*end sort phrases*/
 });
