@@ -112,6 +112,7 @@ $(document).ready(function(){
             start: function(event, ui) {
                 var $task = returnTask($(this));
                 $task.attr("sort-current", "true");
+                $(".sort-phrase-wrap").not($task).find(".sort-phrase").attr("sort-disabled","true");
                 if($(this).is(".drop-list")){
                     var itemClass = ($(this).is(".show-used-el")) ? "in-use" : "place-placeholder";
                     leaveCloneItem(ui.item, itemClass);
@@ -126,7 +127,7 @@ $(document).ready(function(){
                 //$(this) where element from
                 var $parentUl = ui.item.parent();
                 var $droppedEl = $(ui.item["0"]);
-                if($parentUl.is("[sort-item-disabled]")){
+                if($parentUl.is("[sort-disabled]")){
                     $(this).sortable("cancel");
                     $parentUl = $(this);
                 }
@@ -158,7 +159,10 @@ $(document).ready(function(){
                 }
                 $("li.focus, .has-placeholder, .for-placeholders").removeClass("focus has-placeholder for-placeholders");
                 $(".place-placeholder").remove();
-                $("[sort-current]").removeAttr("sort-current");
+                var atts = ["sort-current", "sort-disabled"];
+                $.each(atts, function(index, value){
+                    $("["+value+"]").removeAttr(value);
+                });
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){
