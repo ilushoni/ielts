@@ -2592,8 +2592,8 @@ ul.sort{
     color: #e61130;
 }
 
-.sort-phrase:not(.disabled):not(.drop-list) li:not(.focus):not(.wrong):not(:focus):hover{
-    /*color: #ffc9d1;*/
+.sort-phrase:not(.disabled):not(.drop-list) li:not(.focus):not(.wrong):not(.no-hover):not(:focus):hover{
+    color: #ffc9d1;
 }
 
 .sort-phrase-wrap .text-wrapper .sort-phrase.paste-list,

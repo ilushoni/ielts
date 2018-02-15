@@ -111,12 +111,7 @@ $(document).ready(function(){
             items: "li:not(.in-use)",
             start: function(event, ui) {
                 var $task = returnTask($(this));
-                $task.attr("current-sort", "true");
-                $(".sort-phrase-wrap:not(.disabled)").not($task).each(function(){
-                    if($(this).find(".disabled").length == 0){
-                        $(this).find(".sort-phrase").attr("disable-while-sort","disabled");
-                    }
-                });
+                $task.attr("sort-current", "true");
                 if($(this).is(".drop-list")){
                     var itemClass = ($(this).is(".show-used-el")) ? "in-use" : "place-placeholder";
                     leaveCloneItem(ui.item, itemClass);
@@ -131,7 +126,7 @@ $(document).ready(function(){
                 //$(this) where element from
                 var $parentUl = ui.item.parent();
                 var $droppedEl = $(ui.item["0"]);
-                if($parentUl.is("[disable-while-sort]")){
+                if($parentUl.is("[sort-item-disabled]")){
                     $(this).sortable("cancel");
                     $parentUl = $(this);
                 }
@@ -159,13 +154,11 @@ $(document).ready(function(){
                             activateCheckBtn($checkBtn);
                         }
                     }
+                    $droppedEl.addClass("no-hover");
                 }
-                $("li.focus").removeClass("focus");
-                $(".has-placeholder").removeClass("has-placeholder");
-                $(".for-placeholders").removeClass("for-placeholders");
+                $("li.focus, .has-placeholder, .for-placeholders").removeClass("focus has-placeholder for-placeholders");
                 $(".place-placeholder").remove();
-                $("*[current-sort]").removeAttr("current-sort");
-                $("*[disable-while-sort]").removeAttr("disable-while-sort");
+                $("[sort-current]").removeAttr("sort-current");
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){
@@ -189,10 +182,10 @@ $(document).ready(function(){
             },
             change: function(event, ui){
                 var newUl = $(ui.placeholder).parent();
-                var $task = $(".sort-phrase-wrap[current-sort]");
+                var $task = $(".sort-phrase-wrap[sort-current]");
                 $(".has-placeholder").removeClass("has-placeholder");
                 $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
-                if((newUl.is(":not(.drop-list)"))&&(newUl.parents(".sort-phrase-wrap[current-sort]").length)){
+                if((newUl.is(":not(.drop-list)"))&&(newUl.parents("[sort-current]").length)){
                     newUl.addClass("has-placeholder");
                     $(".for-placeholders").removeClass("for-placeholders");
                 }
@@ -230,6 +223,9 @@ $(document).ready(function(){
         if($(this).parents(".disabled").length==0){
             $(this).removeClass("focus");
         }
+    });
+    $(document).on('mouseleave', ".sort-phrase:not(.disabled) li.no-hover", function(){
+        $(this).removeClass("no-hover");
     });
     function findDropList(sort){
         var $dropList = $('.sort-phrase.drop-list');
