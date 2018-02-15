@@ -2496,9 +2496,17 @@ div.task-select-words p:last-child{
 .sort.drop-list li,
 .sort-phrase.drop-list li,
 .sort-phrase.paste-list li.focus,
-.sort-phrase.paste-list li:focus{
+.sort-phrase.paste-list li:focus,
+.sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li{
     display: inline-block;
     border-radius: 4px;
+}
+
+.sort-phrase-wrap .text-wrapper .sort-phrase.paste-list li,
+.sort.drop-list li,
+.sort-phrase.drop-list li,
+.sort-phrase.paste-list li.focus,
+.sort-phrase.paste-list li:focus{
     border: solid 1px #ffc9d1;
 }
 
@@ -2517,6 +2525,7 @@ div.task-select-words p:last-child{
     margin: 5px 4px 5px 0;
 }
 
+.sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li,
 .sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-phrase.paste-list li,
 .sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li,
 .sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-phrase.paste-list li.focus,
@@ -2534,6 +2543,7 @@ div.task-select-words p:last-child{
 
 .sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li{
     margin-bottom: 0;
+    margin-right: 10px;
 }
 
 .sort.drop-list.sort-el-smaller li,
@@ -2541,6 +2551,8 @@ div.task-select-words p:last-child{
     margin: 4px 4px 4px 0;
 }
 
+.sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li.focus,
+.sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li:focus,
 .sort.drop-list:not(.disabled) li:hover,
 .word-drop .sort li.focus,
 .word-drop .sort li:focus,
@@ -2596,6 +2608,7 @@ ul.sort{
     color: #ffc9d1;
 }
 
+.sort-phrase.sort-el-smaller + .sort-phrase-wrap .sort-items-one-line .sort-phrase.paste-list li,
 .sort-phrase-wrap .text-wrapper .sort-phrase.paste-list,
 .sort-phrase li.in-use:hover,
 .sort-phrase li.in-use.focus,
