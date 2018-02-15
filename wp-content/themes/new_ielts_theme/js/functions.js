@@ -17,12 +17,24 @@ $(document).ready(function() {
 
     /*fixed footer to the bottom if content is short*/
     footerFix();
-    $(document).resize(function(){
-        footerFix();
-    });
     $(window).resize(function(){
         footerFix();
     });
+    onElementHeightChange(document.body, function(){
+        footerFix();
+    });
+    function onElementHeightChange(elm, callback){
+        var lastHeight = elm.clientHeight, newHeight;
+        (function run(){
+            newHeight = elm.clientHeight;
+            if( lastHeight != newHeight )
+                callback();
+            lastHeight = newHeight;
+            if( elm.onElementHeightChangeTimer )
+                clearTimeout(elm.onElementHeightChangeTimer);
+            elm.onElementHeightChangeTimer = setTimeout(run, 200);
+        })();
+    }
     /*end fixed footer to the bottom if content is short*/
 
     /*frontpage only*/
