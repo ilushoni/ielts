@@ -385,7 +385,9 @@ $(document).ready(function() {
                     checkSortPhrases($task);
                     break;
             }
-            showMessage(btn,($task.find(".wrong").length + $task.find(".empty").length));
+            var sum = ($task.find(".wrong").length + $task.find(".empty").length);
+            sum += (($task.hasClass("sort-phrase-wrap"))&&($task.find(findDropList($task)).length == 0)) ? (findDropList($task).find(".empty").length) : 0;
+            showMessage(btn, sum);
         });
     }
 
@@ -694,19 +696,24 @@ $(document).ready(function() {
 
     /*sort phrases check*/
     function checkSortPhrases($task){
+        var dropList = findDropList($task);
+        dropList.find(".empty").removeClass("empty");
         $task.find(".wrong, .empty").removeClass("wrong empty");
         $task.find(".sort-phrase:not(.drop-list)").each(function(){
             var correctAns = $(this).attr("answers_correct").split(",");
-            if($(this).find("li").length==0){
-                $(this).addClass("empty");
-            }else{
-                $(this).find("li").each(function(){
-                    if($.inArray( $(this).attr("id"), correctAns ) == -1){
-                        $(this).addClass("wrong");
-                    }
-                });
-            }
+            $(this).find("li").each(function(){
+                if($.inArray( $(this).attr("id"), correctAns ) == -1){
+                    $(this).addClass("wrong");
+                }
+            });
         });
+        if(dropList.find("li:not(.in-use)").length){
+            dropList.find("li:not(.in-use)").addClass("empty");
+        }
+    }
+    function findDropList($task){
+        var dropList = ($task.find(".drop-list").length) ? $task.find(".drop-list") : $task.prev(".drop-list");
+        return dropList;
     }
     /*end sort phrases check*/
 

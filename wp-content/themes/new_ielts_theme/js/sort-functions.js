@@ -120,6 +120,10 @@ $(document).ready(function(){
                 }else{  //ul-parent list
                     $('#'+ui.item[0]["id"]).removeClass("wrong"); //get moved element id
                 }
+                console.log(ui.item);
+                if(ui.item.closest(".has-popup-hints").length){
+                    $(".hover-popup, .hover-popup li").addClass("hide");
+                }
             },
             stop: function(event, ui) {
                 //$parentUl where element stopped (it's new area)
@@ -228,7 +232,7 @@ $(document).ready(function(){
             $(this).removeClass("focus");
         }
     });
-    $(document).on('mouseleave', ".sort-phrase:not(.disabled) li.no-hover", function(){
+    $(document).on('mouseout', ".sort-phrase:not(.disabled) li.no-hover", function(){
         $(this).removeClass("no-hover");
     });
     function findDropList(sort){
@@ -242,16 +246,16 @@ $(document).ready(function(){
         }
         return $dropList;
     }
-    $(".has-popup-hints .sort-phrase li").mousemove(function(e){
-        var id = $(this).attr("id");
-        if($(".hover-popup li[for='"+id+"']").is(":not(:visible)")){
+    $(document).on("mouseover", ".has-popup-hints .sort-phrase li:not(.ui-sortable-helper)", function(){
+        if($(".has-popup-hints .sort-phrase li.ui-sortable-helper").length == 0){
+            var id = $(this).attr("id").replace("-clone","");
             var x = $(this).offset().left - $("body > article.container").offset().left;
-            var y = $(this).offset().top - $("body > article.container").offset().top + $(this).outerHeight() + 10;
+            var y = $(this).offset().top - $(".has-popup-hints").offset().top + $(this).outerHeight() + 10;
             $(".hover-popup").css({top: y+"px",left: x+"px"});
             $(".hover-popup, .hover-popup li[for='"+id+"']").removeClass("hide");
         }
     });
-    $(".has-popup-hints .sort-phrase li").mouseout(function(){
+    $(document).on("mouseout",".has-popup-hints .sort-phrase li:not(.ui-sortable-helper)", function(){
         $(".hover-popup, .hover-popup li").addClass("hide");
     });
     function leaveCloneItem(item, itemClass){

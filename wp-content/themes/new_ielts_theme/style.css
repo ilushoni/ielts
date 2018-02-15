@@ -4027,6 +4027,10 @@ h3.ui-kit-part-name{
     overflow: hidden;
 }
 
+.has-popup-hints{
+    position: relative;
+}
+
 .hover-popup{
     position: absolute;
     z-index: 1000;
