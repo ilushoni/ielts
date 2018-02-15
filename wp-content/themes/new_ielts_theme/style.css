@@ -3267,6 +3267,7 @@ ul.sort{
 
 .vertical-center > .sort-phrase.paste-list:only-child{
     height: 100%;
+    border: 1px solid transparent;
 }
 
 .sort-phrase.paste-list.height-full{
