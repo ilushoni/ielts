@@ -111,19 +111,26 @@ $(document).ready(function(){
             items: "li:not(.in-use)",
             start: function(event, ui) {
                 var $task = returnTask($(this));
+
                 $task.attr("sort-current", "true");
                 $(".sort-phrase-wrap").not($task).find(".sort-phrase").attr("sort-disabled","true");
+
+                ($(this).is(".drop-list.show-used-el")) ? leaveCloneItem(ui.item, "in-use") : leaveCloneItem(ui.item, "invisible-clone");
+
                 if($(this).is(".drop-list")){
-                    var itemClass = ($(this).is(".show-used-el")) ? "in-use" : "place-placeholder";
-                    leaveCloneItem(ui.item, itemClass);
                     $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
                 }else{  //ul-parent list
                     $('#'+ui.item[0]["id"]).removeClass("wrong"); //get moved element id
                 }
-                console.log(ui.item);
+
                 if(ui.item.closest(".has-popup-hints").length){
                     $(".hover-popup, .hover-popup li").addClass("hide");
                 }
+
+                if(ui.placeholder.index()){
+                    $(this).find("li:nth-child("+ui.placeholder.index()+")").addClass("before-placeholder");
+                }
+
             },
             stop: function(event, ui) {
                 //$parentUl where element stopped (it's new area)
@@ -131,19 +138,24 @@ $(document).ready(function(){
                 //$(this) where element from
                 var $parentUl = ui.item.parent();
                 var $droppedEl = $(ui.item["0"]);
+
                 if($parentUl.is("[sort-disabled]")){
                     $(this).sortable("cancel");
                     $parentUl = $(this);
                 }
+
                 if($parentUl.hasClass("drop-list")) {
                     $droppedEl.removeClass("wrong");
                     if( $(".only-one-paste").length ){
                         $droppedEl.removeClass("old");
                     }
-                    $("#"+ ui.item[0]["id"]+"-clone").after(ui.item);
-                    $("#"+ ui.item[0]["id"]+"-clone").remove();
-                    $("#"+ ui.item[0]["id"]).removeAttr("style");
-                }else{
+                    if($parentUl.is(".show-used-el")){
+                        $("#"+ ui.item[0]["id"]+"-clone").after(ui.item);
+                        $("#"+ ui.item[0]["id"]+"-clone").remove();
+                        $("#"+ ui.item[0]["id"]).removeAttr("style");
+                    }
+                }
+                else{
                     if($parentUl.parents(".only-one-paste").length){
                         $droppedEl.addClass("old");
                     }
@@ -161,20 +173,24 @@ $(document).ready(function(){
                     }
                     $droppedEl.addClass("no-hover");
                 }
-                $("li.focus, .has-placeholder, .for-placeholders").removeClass("focus has-placeholder for-placeholders");
-                $(".place-placeholder").remove();
+
+                $("li.focus, .has-placeholder, .for-placeholders, .before-placeholder").removeClass("focus has-placeholder for-placeholders before-placeholder");
+                $(".invisible-clone").remove();
+
                 var atts = ["sort-current", "sort-disabled"];
                 $.each(atts, function(index, value){
                     $("["+value+"]").removeAttr(value);
                 });
+
+                // $droppedEl.removeAttr("style");
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){
                     $(ui.item["0"]).removeClass("old");
-                    if( $(this).find("li.old").length && (!$(this).hasClass("drop-list")) ) {
+                    if( $(this).find("li.old").length && $(this).is(":not(.drop-list):not([sort-disabled])") ) {
                         var $elem = $(this).find("li.old");
                         var $dropList = findDropList($(this));
-                        if($dropList.length==0){
+                        if($dropList.length == 0){
                             $dropList = $(ui.sender["0"]);
                         }
                         if($dropList.hasClass("show-used-el")){
@@ -191,8 +207,14 @@ $(document).ready(function(){
             change: function(event, ui){
                 var newUl = $(ui.placeholder).parent();
                 var $task = $(".sort-phrase-wrap[sort-current]");
-                $(".has-placeholder").removeClass("has-placeholder");
+
+                $(".has-placeholder, .before-placeholder").removeClass("has-placeholder before-placeholder");
                 $task.find(".sort-phrase:not(.drop-list)").addClass("for-placeholders");
+
+                if(ui.placeholder.index()){
+                    newUl.find("li:nth-child("+ui.placeholder.index()+")").addClass("before-placeholder");
+                }
+
                 if((newUl.is(":not(.drop-list)"))&&(newUl.parents("[sort-current]").length)){
                     newUl.addClass("has-placeholder");
                     $(".for-placeholders").removeClass("for-placeholders");
