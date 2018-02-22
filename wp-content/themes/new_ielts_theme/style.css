@@ -135,6 +135,7 @@ ul li{
 
 ol li:last-child,
 ul li:last-child{
+/*ul:not(.drop-list) li:last-child{*/
     margin-bottom: 0;
 }
 
@@ -2547,6 +2548,10 @@ div.task-select-words p:last-child{
     border-radius: 4px;
 }
 
+.text-wrapper .sort-phrase.paste-list{
+    height: auto;
+}
+
 .sort.drop-list li,
 .sort-phrase li{
     padding: 5px 11px 3px;
@@ -2563,9 +2568,27 @@ div.task-select-words p:last-child{
 }
 
 .sort.drop-list li,
-*:not(.sort-phrase-wrap) > * > * > .sort-phrase.drop-list li{
-    margin: 5px 4px 5px 0;
+.sort-phrase.drop-list li,
+.text-centered .sort-phrase li{
+    margin-right: 4px;
 }
+
+.text-centered .sort-phrase li{
+    margin-left: 4px;
+}
+
+.sort.drop-list li,
+.sort-phrase.drop-list li{
+    margin-left: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/*.sort.drop-list li,*/
+/*.sort-phrase.drop-list li{*/
+/*!**:not(.sort-phrase-wrap) > * > * > .sort-phrase.drop-list li{*!*/
+    /*margin: 5px 4px 5px 0;*/
+/*}*/
 
 .sort.drop-list.sort-el-smaller li,
 .sort-el-smaller .sort-phrase li,
@@ -2756,11 +2779,6 @@ ul.sort{
     width: 100%;
 }
 
-.text-centered .sort-phrase li{
-    margin-left: 4px;
-    margin-right: 4px;
-}
-
 .sort-phrase-wrap .sort-wrapper,
 .sort-phrase-wrap .text-wrapper,
 .sort-phrase-wrap .inner-wrap {
@@ -2866,7 +2884,6 @@ ul.sort{
     min-height: 180px;
 }
 
-
 .sort-phrase-wrap .height-full .sort-phrase.paste-list.for-placeholders:before,
 .sort-phrase-wrap .height-full .sort-phrase.paste-list.has-placeholder:before,
 .sort-phrase-wrap .height-full.sort-phrase.paste-list.for-placeholders:before,
@@ -2886,39 +2903,6 @@ ul.sort{
 .phrase-column-h5 > *{
     height: 100%;
 }
-    /*.row-underlined,*/
-/*.row-underlined .sort-phrase.paste-list{*/
-/*min-height: 56px;*/
-/*}*/
-
-/*.row-underlined.height-auto{*/
-/*padding: 10px 0;*/
-/*height: auto;*/
-/*}*/
-
-/*.row-underlined *:last-child{*/
-/*margin-bottom: 0;*/
-/*}*/
-
-/*.row-underlined ul{*/
-/*position: relative;*/
-/*display: block;*/
-/*padding: 0;*/
-/*margin: 0;*/
-/*height: 100%;*/
-/*width: 100%;*/
-/*list-style-type: none;*/
-/*}*/
-
-/*.sort-phrase-wrap .light-printed.vertical-center,*/
-/*.sort-phrase-wrap .light-printed .row-underlined{*/
-/*padding-left: 30px;*/
-/*justify-content: left;*/
-/*}*/
-
-/*.row-underlined.align-left li{*/
-/*margin-right: 10px;*/
-/*}*/
 /*---end sort with underlined elements---*/
 
 /*---elements on paper with shadow---*/
