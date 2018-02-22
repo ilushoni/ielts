@@ -441,12 +441,14 @@ $(document).ready(function() {
         }
     });
     function checkMultipleChoice($task){
-        $task.find(".wrong, .empty").removeClass("wrong empty");
+        $task.find(".wrong, .empty").removeClass("wrong empty correct");
         $task.find("input").each(function(){
             var $parent = $(this).closest("li");
             var id = $(this).attr("id");
             if($(this).is(":checked")){
-                if(!$(this).is("[correct_answer]")){
+                if($(this).is("[correct_answer]")){
+                    $parent.addClass("correct");
+                }else{
                     $parent.addClass("wrong");
                 }
             }else{

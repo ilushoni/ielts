@@ -816,45 +816,53 @@ div.textarea{
     content: "B";
 }
 
-.checkbox:checked + br + label,
-.checkbox:checked + label,
 .checkbox:checked + br + label:before,
-.checkbox:checked + label:before{
+.checkbox:checked + label:before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#000000" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
+    background-position: left 5px;
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+}
+
+.correct > .checkbox:checked + br + label,
+.correct > .checkbox:checked + label,
+.correct > .checkbox:checked + br + label:before,
+.correct > .checkbox:checked + label:before{
     color: #9b9b9b;
 }
 
-.checkbox:checked + br + label:before,
-.checkbox:checked + label:before {
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#9b9b9b" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>') 0 0 no-repeat;
-    background-size: 15px 15px;
-    background-position: left 5px;
+.correct > .checkbox:checked + br + label:before,
+.correct > .checkbox:checked + label:before{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#9b9b9b" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
 }
 
-.empty .checkbox + br + label,
-.empty .checkbox + label,
-.empty .checkbox + br + label:before,
-.empty .checkbox + label:before,
-.wrong .checkbox:checked + br + label,
-.wrong .checkbox:checked + label,
-.wrong .checkbox:checked + br + label:before,
-.wrong .checkbox:checked + label:before{
+.empty > .checkbox:not(:checked) + br + label,
+.empty > .checkbox:not(:checked) + label,
+.empty > .checkbox:not(:checked) + br + label:before,
+.empty > .checkbox:not(:checked) + label:before{
     color: #e61130;
 }
 
-*:hover > .checkbox:checked + br + label,
-*:hover > .checkbox:checked + label,
-*:hover > .checkbox:checked + br + label:before,
-*:hover > .checkbox:checked + label:before {
-    color: #ff91a1 !important;
+.empty > .checkbox + br + label:before,
+.empty > .checkbox + label:before{
+    background-image: none;
 }
 
-.empty .checkbox + br + label:before,
-.empty .checkbox + label:before,
-.wrong .checkbox:checked + br + label:before,
-.wrong .checkbox:checked + label:before,
-*:hover > .checkbox:checked + br + label:before,
-*:hover > .checkbox:checked + label:before{
-    background: none;
+.wrong > .checkbox:checked + br + label,
+.wrong > .checkbox:checked + label,
+.wrong > .checkbox:checked + br + label:before,
+.wrong > .checkbox:checked + label:before{
+    color: #e61130;
+}
+
+.wrong > .checkbox:checked + br + label:before,
+.wrong > .checkbox:checked + label:before{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="none" fill-rule="evenodd" stroke="#e61130" stroke-width="2" d="M1 7.61l4.9 5.26L14 2.037"/></svg>');
+}
+
+*:hover > .checkbox-label,
+.checkbox-label:hover{
+    color: #ff91a1 !important;
 }
 /*---end multiple choice checkbox fields---*/
 
@@ -3789,7 +3797,7 @@ div.list-text-fields{
 
 /*single or multiple choice with audio*/
 .single-choice .insert-record-questions-list li,
-.multiple-chilce .insert-record-questions-list li{
+.multiple-choice .insert-record-questions-list li{
     border: 0;
     padding: 0;
     margin: 0;
