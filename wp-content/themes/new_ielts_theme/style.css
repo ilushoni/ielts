@@ -861,7 +861,9 @@ div.textarea{
 }
 
 *:hover > .checkbox-label,
-.checkbox-label:hover{
+*:hover > .checkbox-label:before,
+.checkbox-label:hover,
+.checkbox-label:hover *{
     color: #ff91a1 !important;
 }
 /*---end multiple choice checkbox fields---*/

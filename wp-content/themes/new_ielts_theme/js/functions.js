@@ -436,7 +436,7 @@ $(document).ready(function() {
         if($checkBtn.closest(".nav-exercise").hasClass("has-success")){
             return false;
         }else{
-            $(this).closest("li").removeClass("wrong empty");
+            $(this).closest("li").removeClass("wrong empty correct");
             activateCheckBtn($checkBtn);
         }
     });
