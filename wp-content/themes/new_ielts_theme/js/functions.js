@@ -385,7 +385,8 @@ $(document).ready(function() {
                 case($task.hasClass("sort-phrase-wrap")):
                     checkSortPhrases($task);
                     break;
-                case($task.hasClass("list-radio")):
+                case(($task.hasClass("list-radio"))||($task.hasClass("list-video-checkbox"))):
+                    console.log("list-video-checkbox");
                     checkRadioBtnsTask($task);
                     break;
             }
@@ -466,13 +467,16 @@ $(document).ready(function() {
 
     /*single choice*/
     function checkRadioBtnsTask($task){
+        console.log($task);
         $task.removeClass("wrong");
         $task.find(".wrong").removeClass("wrong");
         if($task.find("input:checked").length){
             $task.find("input:checked").each(function(){
                 var $parent = $(this).closest("li");
                 var id = $(this).attr("id");
-                if(!$(this).is("[correct_answer]")){
+                if($(this).is("[correct_answer]")){
+                    $parent.addClass("correct");
+                }else{
                     $parent.addClass("wrong");
                 }
             });
@@ -484,9 +488,9 @@ $(document).ready(function() {
             $task.addClass("wrong");
         }
     }
-    $(document).on("click", ".list-radio .radio", function(){
+    $(document).on("click", ".list-radio .radio, .list-video-checkbox .video-checkbox", function(){
         if($(this).parents(".check-now").length == 0){
-            var $task = $(this).closest(".list-radio");
+            var $task = ($(this).closest(".list-radio").length) ? $(this).closest(".list-radio") : $(this).closest(".list-video-checkbox");
             $task.removeClass("wrong");
             $task.find(".wrong").removeClass("wrong");
             var $checkBtn = findCheckBtn($task, "check-btn");
