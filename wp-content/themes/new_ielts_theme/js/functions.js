@@ -350,16 +350,17 @@ $(document).ready(function() {
             return false;
         }else{
             disableCheckBtn($(this));
-            var id = $(this).closest(".nav-exercise").attr("for").split(",");
+            var $taskArray = $(this).closest(".nav-exercise").attr("for").split(",");
             if($(this).hasClass("check-btn")){
-                checkAnswers(id, $(this));
+                checkAnswers($taskArray, $(this));
             }
             if($(this).hasClass("save-btn")){
-                saveAnswers(id, $(this));
+                saveAnswers($taskArray, $(this));
             }
         }
     });
     function checkAnswers($taskArray, btn){
+        var sum = 0;
         $.each($taskArray, function(index, value){
             var $task = $("#"+$.trim(value));
             switch(true){
@@ -384,11 +385,14 @@ $(document).ready(function() {
                 case($task.hasClass("sort-phrase-wrap")):
                     checkSortPhrases($task);
                     break;
+                case($task.hasClass("list-radio")):
+                    checkRadioBtnsTask($task);
+                    break;
             }
-            var sum = ($task.find(".wrong").length + $task.find(".empty").length);
+            sum += ($task.find(".wrong").length + $task.find(".empty").length);
             sum += (($task.hasClass("sort-phrase-wrap"))&&($task.find(findDropList($task)).length == 0)) ? (findDropList($task).find(".empty").length) : 0;
-            showMessage(btn, sum);
         });
+        showMessage(btn, sum);
     }
 
     function disableCheckBtn(btn){
@@ -409,7 +413,7 @@ $(document).ready(function() {
     function showMessage($checkBtn, sumWrongAnswers){
         var $class = ($checkBtn.closest(".nav-exercise").hasClass("align-left")) ? "nav-exercise align-left ": "nav-exercise ";
         if(sumWrongAnswers) {
-            var text = 'You’ve got '+ sumWrongAnswers +' mistakes. Correct them before continuing.';
+            var text = (sumWrongAnswers === 1) ? 'You’ve got '+ sumWrongAnswers +' mistake. Correct it before continuing.' : 'You’ve got '+ sumWrongAnswers +' mistakes. Correct them before continuing.';
             $checkBtn.closest(".nav-exercise").find(".wrong-text").text(text);
             $checkBtn.closest(".nav-exercise").attr("class", $class+"has-wrong");
         }else{
@@ -459,6 +463,39 @@ $(document).ready(function() {
         });
     }
     /*end multiple choice*/
+
+    /*single choice*/
+    function checkRadioBtnsTask($task){
+        $task.removeClass("wrong");
+        $task.find(".wrong").removeClass("wrong");
+        if($task.find("input:checked").length){
+            $task.find("input:checked").each(function(){
+                var $parent = $(this).closest("li");
+                var id = $(this).attr("id");
+                if(!$(this).is("[correct_answer]")){
+                    $parent.addClass("wrong");
+                }
+            });
+            if($task.find(".wrong").length == 0){
+                $task.find("input").attr("disabled", "true");
+            }
+        }else{
+            $task.find("input[correct_answer]").closest("li").addClass("wrong");
+            $task.addClass("wrong");
+        }
+    }
+    $(document).on("click", ".list-radio .radio", function(){
+        if($(this).parents(".check-now").length == 0){
+            var $task = $(this).closest(".list-radio");
+            $task.removeClass("wrong");
+            $task.find(".wrong").removeClass("wrong");
+            var $checkBtn = findCheckBtn($task, "check-btn");
+            if((typeof $checkBtn !== "undefined")&&($checkBtn.hasClass("disabled"))){
+                activateCheckBtn($checkBtn);
+            }
+        }
+    });
+    /*end single choice*/
 
     /*sort words check*/
     function checkSortWords($task){
