@@ -64,6 +64,10 @@ $(document).ready(function() {
             event.preventDefault();
     });
     /*end accordion*/
+
+    /*fix elements in parent block*/
+    $(".stick-block").stick_in_parent();
+    /*end fix elements in parent block*/
 });
 
     /*popup*/

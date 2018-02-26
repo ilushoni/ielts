@@ -1147,7 +1147,7 @@ ul.multiple-choice .checkbox-label:before{
 }
 
 .inner-wrap{
-    padding: 30px 20px 60px;
+    padding: 40px 30px 60px;
 }
 /*end general wrappers*/
 
@@ -4185,9 +4185,9 @@ h3.ui-kit-part-name{
 /*---end popup window---*/
 
 /*---general classes---*/
-.width-1140{
-    max-width: 1140px;
-    width: 1140px;
+.width-1060{
+    max-width: 1060px;
+    width: 1060px;
 }
 
 .width-960{

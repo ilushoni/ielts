@@ -220,6 +220,7 @@ function ielts_scripts() {
 	wp_enqueue_script( 'ielts-jquery', get_template_directory_uri() . '/js/jquery-3.2.1.js', array('jquery'), '3.2.1');
 	wp_enqueue_script( 'ielts-jqueryui', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery'), '1.12.1');
 	wp_enqueue_script( 'ielts-jqueryuitouch', get_template_directory_uri() . '/js/jquery.ui.touch-punch.min.js', array('jquery'));
+	wp_enqueue_script( 'ielts-jquerysticky', get_template_directory_uri() . '/js/jquery.sticky-kit.js', array('jquery'));
 
     global $post;
     $ancestors = get_post_ancestors($post->ID);
