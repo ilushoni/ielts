@@ -137,7 +137,6 @@ $(document).ready(function() {
         });
         dropdownHandler();
     }
-
     function dropdownChangePosition(){
         $(".select-field-group").each(function(){
             var el_pos_left = $(this).parents("li").find("strong").position().left;
@@ -309,7 +308,6 @@ $(document).ready(function() {
             openHint($li.find(".hint"));
         }
     }
-
     $(document).on("click", ".hint-wrapper li:not(.example) .btn-info", function(){
         var $parent = $(this).closest("li");
         var $el =( $(this).hasClass("btn-hint") ) ?  $parent.find(".hint") : $parent.find(".explain");
@@ -399,7 +397,6 @@ $(document).ready(function() {
         });
         showMessage(btn, sum);
     }
-
     function disableCheckBtn(btn){
         btn.addClass("disabled");
     }
@@ -438,6 +435,30 @@ $(document).ready(function() {
         }
     }
     /*end check answers when all done*/
+
+    /*show answers btn*/
+    $(document).on("click", ".ans-btn", function(){
+        var $checkBtn = $(this).closest(".nav-exercise").find(".check-btn");
+        disableCheckBtn($checkBtn);
+        var $taskArray = $(this).closest(".nav-exercise").attr("for").split(",");
+        $.each($taskArray, function(index, value){
+            var $task = $("#"+$.trim(value));
+            switch(true){
+                case($task.hasClass("list-text-fields")):
+                    showTextFieldAnswers($task);
+                    break;
+            }
+        });
+        openBlockIfSuccess($checkBtn);
+    });
+    function showTextFieldAnswers($task){
+        var text;
+        $task.find(".text-field, .textarea").each(function(){
+            text = $(this).attr("correct_answer");
+            $(this).val(text);
+        });
+    }
+    /*end show answers btn*/
 
     /*multiple choice*/
     $(document).on("click", ".multiple-choice input", function(){

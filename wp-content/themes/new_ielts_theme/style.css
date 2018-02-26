@@ -2294,6 +2294,7 @@ image.size-medium {
 .nav-exercise.align-left .check-btn{
     display: inline-block;
     margin-right: 50px;
+    vertical-align: middle;
 }
 
 .nav-exercise.align-left.has-wrong .wrong-text,
