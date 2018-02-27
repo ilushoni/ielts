@@ -109,6 +109,8 @@ $(document).ready(function(){
             placeholder: 'placeholder',
             connectWith: '.sort-phrase',
             items: "li:not(.in-use)",
+            scroll: true,
+            'ui-floating': true,
             start: function(event, ui) {
                 var $task = returnTask($(this));
 
@@ -131,6 +133,13 @@ $(document).ready(function(){
                     $(this).find("li:nth-child("+ui.placeholder.index()+")").addClass("before-placeholder");
                 }
 
+            },
+            sort: function(event, ui) {
+                var $target = $(event.target);
+                if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
+                    var top = event.pageY - $target.offsetParent().offset().top - (ui.helper.outerHeight(true) / 2);
+                    ui.helper.css({'top' : top + 'px'});
+                }
             },
             stop: function(event, ui) {
                 //$parentUl where element stopped (it's new area)

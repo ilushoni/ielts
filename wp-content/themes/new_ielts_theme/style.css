@@ -2570,7 +2570,7 @@ div.task-select-words p:last-child{
 }
 
 .sort.drop-list,
-*:not(.sort-phrase-wrap) > * > * > .sort-phrase.drop-list {
+*:not(.sort-phrase-wrap) > * > * > .sort-phrase.drop-list:not(.text-wrapper) {
     padding: 5px 0 6px;
     max-width: 960px;
 }
@@ -2653,6 +2653,19 @@ div.task-select-words p:last-child{
     background-color: #fce7ea;
     color: #000;
 }
+
+.sort-phrase.fixed-height#f3t4{
+    height: 344px;
+}
+
+/*.sort-phrase-fixed,*/
+/*.sort-phrase-fixed .sort-phrase{*/
+    /*width: 280px !important;*/
+/*}*/
+
+.sort-phrase-fixed{
+    z-index: 10;
+}
 /*end sort general*/
 
 /*drop sort words*/
@@ -2675,6 +2688,7 @@ ul.sort{
     position: relative;
     width: 960px;
     margin-bottom: 40px;
+    max-width: 100%;
 }
 
 .sort-phrase-wrap * {
@@ -2780,11 +2794,20 @@ ul.sort{
     box-shadow: 0 2px 40px 0 #e9e9e9;
     background: #ffffff;
 }
+
+.sort-phrase-wrap .paper-bg{
+    width: 100%;
+    height: 100%;
+}
 /*end general sort phrases*/
 
 /*---page with task drag and drop phrases---*/
-.sort-phrase-wrap.column-2{
+.sort-phrase-wrap.column-2:not(.columns-with-checklist){
     grid-template-columns: 50% 50%;
+}
+
+.sort-phrase-wrap.width-720.columns-with-checklist{
+    width: calc(720px + 80px);
 }
 
 .sort-phrase-wrap.column-3{

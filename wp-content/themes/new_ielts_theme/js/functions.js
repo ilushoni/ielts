@@ -66,7 +66,7 @@ $(document).ready(function() {
     /*end accordion*/
 
     /*fix elements in parent block*/
-    $(".stick-block").stick_in_parent();
+    $(".is_stuck").stick_in_parent();
     /*end fix elements in parent block*/
 });
 
