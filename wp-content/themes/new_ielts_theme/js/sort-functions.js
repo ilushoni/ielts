@@ -134,13 +134,15 @@ $(document).ready(function(){
                 }
 
             },
-            sort: function(event, ui) {
-                var $target = $(event.target);
-                if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
-                    var top = event.pageY - $target.offsetParent().offset().top - (ui.helper.outerHeight(true) / 2);
-                    ui.helper.css({'top' : top + 'px'});
-                }
-            },
+            // sort: function(event, ui) {
+            //     $(window).on("scroll", function(){
+            //         var $target = $(event.target);
+            //         if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
+            //             var top = event.pageY - $target.offsetParent().offset().top - (ui.helper.outerHeight(true) / 2);
+            //             ui.helper.css({'top' : top + 'px'});
+            //         }
+            //     });
+            // },
             stop: function(event, ui) {
                 //$parentUl where element stopped (it's new area)
                 //$droppedEl element moved
