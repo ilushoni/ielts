@@ -441,21 +441,103 @@ $(document).ready(function() {
         var $checkBtn = $(this).closest(".nav-exercise").find(".check-btn");
         disableCheckBtn($checkBtn);
         var $taskArray = $(this).closest(".nav-exercise").attr("for").split(",");
+        showAnswers($taskArray);
+        openBlockIfSuccess($checkBtn);
+    });
+    function showAnswers($taskArray){
         $.each($taskArray, function(index, value){
             var $task = $("#"+$.trim(value));
             switch(true){
                 case($task.hasClass("list-text-fields")):
-                    showTextFieldAnswers($task);
+                    showAnswersTextField($task);
+                    break;
+                case($task.hasClass("sort-phrase-wrap")):
+                    showAnswersSortPhrase($task);
                     break;
             }
         });
-        openBlockIfSuccess($checkBtn);
-    });
-    function showTextFieldAnswers($task){
+    }
+    function showAnswersTextField($task){
         var text;
         $task.find(".text-field, .textarea").each(function(){
             text = $(this).attr("correct_answer");
             $(this).val(text);
+        });
+    }
+    function showAnswersSortPhrase($task){
+        var dropList = findDropList($task);
+        var id, li, liClone, correctAns, onlyOne, newUl, oldUl;
+        //there is empty elements. Let's move it to right places
+        $task.find("[taken], [wrong_li]").removeAttr("taken wrong_li");
+        $task.find(".sort-phrase:not(.drop-list)").each(function(){
+            var correctAns = $(this).attr("answers_correct").split(",");
+            $(this).find("li").each(function(){
+                if($.inArray( $(this).attr("id"), correctAns ) == -1){
+                    $(this).attr("wrong_li", "true");
+                    $(this).closest(".sort-phrase").attr("taken", "true");
+                }
+            });
+        });
+
+        $task.find("li[wrong_li]").each(function(){
+            id = $(this).attr("id");
+            li = $(this);
+            oldUl = li.closest(".sort-phrase");
+            $task.find(".sort-phrase:not(.drop-list)").each(function(){
+                correctAns = $(this).attr("answers_correct").split(",");
+                if($.inArray( id, correctAns) !== -1){
+                    onlyOne = $(this).parents(".only-one-paste").length;
+                    if( (onlyOne == 0) || (onlyOne && ($(this).find("li").length == 0)) ){
+                        newUl = $(this);
+                        return false;
+                    }
+                }
+            });
+            animateMoveItemSortPhrase(li, newUl);
+        });
+        $task.find("[wrong_li]").removeAttr("wrong_li");
+
+        dropList.find("li").each(function(){
+            id = $(this).attr("id");
+            li = $(this);
+            $task.find(".sort-phrase:not(.drop-list)").each(function(){
+                correctAns = $(this).attr("answers_correct").split(",");
+                if($.inArray( id, correctAns) !== -1){
+                    onlyOne = $(this).parents(".only-one-paste").length;
+                    // if( (onlyOne==0) || (onlyOne && $(this).is(":not([taken])")) ){
+                    if( (onlyOne==0) || (onlyOne && ( $(this).is(":not([taken])") || $(this).find("[wrong_li]").length )) ){
+                        $(this).attr("taken", "true");
+                        newUl = $(this);
+                        return false;
+                    }
+                }
+            });
+            animateMoveItemSortPhrase(li, newUl);
+        });
+    }
+    function animateMoveItemSortPhrase(li, newUl){
+        var posOld = li.position();
+        var posNewLeft = newUl.offset().left - li.offset().left + posOld.left;
+        var posNewTop = newUl.offset().top - li.offset().top + posOld.top;
+        var liClone = li.clone();
+        liClone.css({display: "none"});
+        // newUl.append("<li class='ui-sortable-placeholder placeholder'></li>");
+        li.css({
+            position: "absolute",
+            top: posOld.top,
+            left: posOld.left,
+            "z-index": 100
+        });
+        li.animate({
+            top: posNewTop,
+            left: posNewLeft
+        }, 300, function(){
+            $(this).remove();
+            liClone.appendTo(newUl);
+            liClone.css({display: ""});
+            // newUl.find(".placeholder").remove();
+            console.log(liClone);
+            console.log(newUl);
         });
     }
     /*end show answers btn*/
