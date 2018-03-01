@@ -4261,6 +4261,10 @@ h3.ui-kit-part-name{
 .hide{
     display: none !important;
 }
+
+.margin-bottom-5{
+    margin-bottom: 5px;
+}
 /*---end general classes---*/
 
 /*---footer---*/
