@@ -440,6 +440,7 @@ $(document).ready(function() {
     $(document).on("click", ".ans-btn", function(){
         var $checkBtn = $(this).closest(".nav-exercise").find(".check-btn");
         disableCheckBtn($checkBtn);
+        $(this).closest(".nav-exercise").removeClass("has-wrong");
         var $taskArray = $(this).closest(".nav-exercise").attr("for").split(",");
         showAnswers($taskArray);
         openBlockIfSuccess($checkBtn);
@@ -468,6 +469,7 @@ $(document).ready(function() {
         var dropList = findDropList($task);
         var id, li, correctAns, onlyOne, newUl, oldUl, t;
         //there is empty elements. Let's move it to right places
+        $task.find(".wrong, .empty").removeClass("wrong empty");
         $task.find("[taken], [wrong_li]").removeAttr("taken wrong_li");
         $task.find(".sort-phrase:not(.drop-list)").each(function(){
             var correctAns = $(this).attr("answers_correct").split(",");
@@ -542,9 +544,6 @@ $(document).ready(function() {
             $(this).remove();
             liClone.appendTo(newUl);
             liClone.css({display: ""});
-        }).promise().done(function(){
-            // alert("1")
-            console.log("done");
         });
     }
     /*end show answers btn*/
