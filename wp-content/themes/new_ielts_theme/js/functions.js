@@ -869,7 +869,11 @@ $(document).ready(function() {
         }
     }
     function findDropList($task){
-        var dropList = ($task.find(".drop-list").length) ? $task.find(".drop-list") : $task.prev(".drop-list");
+        var dropList = ($task.find(".drop-list").length) ? $task.find(".drop-list") : $task.prevAll('.drop-list').first();
+        // var dropList = ($task.find(".drop-list").length) ? $task.find(".drop-list") : $task.prev(".drop-list");
+        // if(dropList.length == 0) {
+        //     dropList = $task.prevAll('.drop-list').first();
+        // }
         return dropList;
     }
     /*end sort phrases check*/

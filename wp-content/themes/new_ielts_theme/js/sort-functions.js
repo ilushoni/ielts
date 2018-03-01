@@ -238,9 +238,13 @@ $(document).ready(function(){
             $(this).addClass("focus");
             if($(this).parents(".check-now").length == 0){
                 var $task = $(this).closest(".sort-phrase-wrap");
-                $task = ($task.length) ? $task : $(this).closest(".sort-phrase").next(".sort-phrase-wrap");
+                $task = ($task.length) ? $task : $(this).closest(".sort-phrase").nextAll('.sort-phrase-wrap').first();
+                // $task = ($task.length) ? $task : $(this).closest(".sort-phrase").next(".sort-phrase-wrap");
+                // if($task.length == 0) {
+                //     $task = $(this).closest(".sort-phrase").nextAll('.sort-phrase-wrap').first();
+                // }
                 var $checkBtn = findCheckBtn($task, "check-btn");
-                if(($checkBtn.hasClass("disabled"))&&(!$(this).closest(".sort").hasClass("disabled"))){
+                if($checkBtn.is(".disabled")&& $(this).closest(".sort-phrase").is(":not(.disabled)")){
                     activateCheckBtn($checkBtn);
                 }
             }
@@ -268,17 +272,17 @@ $(document).ready(function(){
     $(document).on('mouseout', ".sort-phrase:not(.disabled) li.no-hover", function(){
         $(this).removeClass("no-hover");
     });
-    function findDropList(sort){
-        var $dropList = $('.sort-phrase.drop-list');
-        if(sort.parents(".sort-phrase-wrap").prev().hasClass("drop-list")){
-            $dropList = sort.parents(".sort-phrase-wrap").prev();
-        }else{
-            if(sort.parents(".sort-phrase-wrap").find(".drop-list").length){
-                $dropList = sort.parents(".sort-phrase-wrap").find(".drop-list");
-            }
-        }
-        return $dropList;
-    }
+    // function findDropList(sort){
+    //     var $dropList = $('.sort-phrase.drop-list');
+    //     if(sort.parents(".sort-phrase-wrap").prev().hasClass("drop-list")){
+    //         $dropList = sort.parents(".sort-phrase-wrap").prev();
+    //     }else{
+    //         if(sort.parents(".sort-phrase-wrap").find(".drop-list").length){
+    //             $dropList = sort.parents(".sort-phrase-wrap").find(".drop-list");
+    //         }
+    //     }
+    //     return $dropList;
+    // }
     $(document).on("mouseover", ".has-popup-hints .sort-phrase li:not(.ui-sortable-helper)", function(){
         if($(".has-popup-hints .sort-phrase li.ui-sortable-helper").length == 0){
             var id = $(this).attr("id").replace("-clone","");
@@ -301,7 +305,7 @@ $(document).ready(function(){
     }
     function returnTask(el){
         var ul = (el.is("li")) ? el.closest(".sort-phrase") : el;
-        var $task = (ul.closest(".sort-phrase-wrap").length) ? ul.closest(".sort-phrase-wrap") : ul.next(".sort-phrase-wrap");
+        var $task = (ul.closest(".sort-phrase-wrap").length) ? ul.closest(".sort-phrase-wrap") : ul.nextAll(".sort-phrase-wrap").first();
         return $task;
     }
     /*end sort phrases*/
