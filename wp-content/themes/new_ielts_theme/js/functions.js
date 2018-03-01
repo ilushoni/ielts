@@ -466,54 +466,62 @@ $(document).ready(function() {
     }
     function showAnswersSortPhrase($task){
         var dropList = findDropList($task);
-        var id, li, liClone, correctAns, onlyOne, newUl, oldUl;
+        var id, li, correctAns, onlyOne, newUl, oldUl, t;
         //there is empty elements. Let's move it to right places
         $task.find("[taken], [wrong_li]").removeAttr("taken wrong_li");
         $task.find(".sort-phrase:not(.drop-list)").each(function(){
             var correctAns = $(this).attr("answers_correct").split(",");
+            if($(this).find("li").length){
+                $(this).closest(".sort-phrase").attr("taken", "true");
+            }
             $(this).find("li").each(function(){
                 if($.inArray( $(this).attr("id"), correctAns ) == -1){
                     $(this).attr("wrong_li", "true");
-                    $(this).closest(".sort-phrase").attr("taken", "true");
                 }
             });
         });
-
-        $task.find("li[wrong_li]").each(function(){
-            id = $(this).attr("id");
-            li = $(this);
-            oldUl = li.closest(".sort-phrase");
-            $task.find(".sort-phrase:not(.drop-list)").each(function(){
-                correctAns = $(this).attr("answers_correct").split(",");
-                if($.inArray( id, correctAns) !== -1){
-                    onlyOne = $(this).parents(".only-one-paste").length;
-                    if( (onlyOne == 0) || (onlyOne && ($(this).find("li").length == 0)) ){
-                        newUl = $(this);
-                        return false;
+        $task.find("[wrong_li]").each(function(index){
+            (function(that, i) {
+                t = setTimeout(function() {
+                    id = $(that).attr("id");
+                    li = $(that);
+                    oldUl = li.closest(".sort-phrase");
+                    oldUl.removeAttr("taken");
+                    newUl = false;
+                    $task.find(".sort-phrase:not(.drop-list)").each(function(){
+                        correctAns = $(this).attr("answers_correct").split(",");
+                        if($.inArray( id, correctAns) !== -1){
+                            onlyOne = $(this).parents(".only-one-paste").length;
+                            if( (onlyOne == 0) || (onlyOne && $(this).is(":not([taken])")) ){
+                                newUl = $(this);
+                                return false;
+                            }
+                        }
+                    });
+                    ((typeof newUl === "undefined") || (newUl === false)) ? newUl = dropList : newUl.attr("taken", "true");
+                    animateMoveItemSortPhrase(li, newUl);
+                }, 500 * i);
+            })(this, index);
+        });
+        t = setTimeout(function() {
+            dropList.find("li").each(function(){
+                id = $(this).attr("id");
+                li = $(this);
+                oldUl = li.closest(".sort-phrase");
+                $task.find(".sort-phrase:not(.drop-list)").each(function(){
+                    correctAns = $(this).attr("answers_correct").split(",");
+                    if($.inArray( id, correctAns) !== -1){
+                        onlyOne = $(this).parents(".only-one-paste").length;
+                        if( (onlyOne==0) || (onlyOne && $(this).is(":not([taken])")) ){
+                            $(this).attr("taken", "true");
+                            newUl = $(this);
+                            return false;
+                        }
                     }
-                }
+                });
+                animateMoveItemSortPhrase(li, newUl);
             });
-            animateMoveItemSortPhrase(li, newUl);
-        });
-        $task.find("[wrong_li]").removeAttr("wrong_li");
-
-        dropList.find("li").each(function(){
-            id = $(this).attr("id");
-            li = $(this);
-            $task.find(".sort-phrase:not(.drop-list)").each(function(){
-                correctAns = $(this).attr("answers_correct").split(",");
-                if($.inArray( id, correctAns) !== -1){
-                    onlyOne = $(this).parents(".only-one-paste").length;
-                    // if( (onlyOne==0) || (onlyOne && $(this).is(":not([taken])")) ){
-                    if( (onlyOne==0) || (onlyOne && ( $(this).is(":not([taken])") || $(this).find("[wrong_li]").length )) ){
-                        $(this).attr("taken", "true");
-                        newUl = $(this);
-                        return false;
-                    }
-                }
-            });
-            animateMoveItemSortPhrase(li, newUl);
-        });
+        }, 500 * (1 + $task.find("[wrong_li]").length) );
     }
     function animateMoveItemSortPhrase(li, newUl){
         var posOld = li.position();
@@ -521,7 +529,6 @@ $(document).ready(function() {
         var posNewTop = newUl.offset().top - li.offset().top + posOld.top;
         var liClone = li.clone();
         liClone.css({display: "none"});
-        // newUl.append("<li class='ui-sortable-placeholder placeholder'></li>");
         li.css({
             position: "absolute",
             top: posOld.top,
@@ -535,9 +542,9 @@ $(document).ready(function() {
             $(this).remove();
             liClone.appendTo(newUl);
             liClone.css({display: ""});
-            // newUl.find(".placeholder").remove();
-            console.log(liClone);
-            console.log(newUl);
+        }).promise().done(function(){
+            // alert("1")
+            console.log("done");
         });
     }
     /*end show answers btn*/
