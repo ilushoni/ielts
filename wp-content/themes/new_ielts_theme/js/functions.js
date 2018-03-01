@@ -460,6 +460,7 @@ $(document).ready(function() {
     }
     function showAnswersTextField($task){
         var text;
+        $task.find(".wrong, .empty").removeClass("wrong empty");
         $task.find(".text-field, .textarea").each(function(){
             text = $(this).attr("correct_answer");
             $(this).val(text);
