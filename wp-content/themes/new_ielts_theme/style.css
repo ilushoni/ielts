@@ -158,7 +158,8 @@ ol li:before {
 
 ul{
     list-style-type: disc;
-    padding: 0 0 0 18px;
+    padding: 0 0 0 20px;
+    /*padding: 0 0 0 18px;*/
 }
 
 ol li ul li{
@@ -739,23 +740,54 @@ div.textarea{
 /*---end single choice radio button field---*/
 
 /*---single choice yes-no-not given---*/
-.radio-puzzles li {
-    display: table;
+.radio-puzzles:last-child{
+    margin-bottom: 0;
+}
+
+.radio-puzzles li{
     margin-bottom: 15px;
+    width: 100%;
 }
 
-.radio-puzzles li > div,
-.radio-puzzles li > span{
-    display: table-cell;
+ol.radio-puzzles.height-change > li:before{
+    vertical-align: top;
 }
 
-.radio-puzzles li > div{
+.radio-puzzles.one-line li,
+.radio-puzzles li > .label-wrap{
+    display: flex;
+    width: 100%;
+}
+
+.radio-puzzles.one-line.align-right li,
+.radio-puzzles.align-right li > .label-wrap{
+    justify-content: space-between;
+}
+
+.radio-puzzles.one-line:not(.align-right) > li > *:first-child,
+.radio-puzzles:not(.align-right) > li > .label-wrap > *:first-child{
+    justify-content: flex-start;
+}
+
+.radio-puzzles.one-line.align-right  > li > *:last-child,
+.radio-puzzles.align-right > li > .label-wrap > *:last-child{
+    justify-content: flex-end;
+}
+
+.radio-puzzles.one-line li > div,
+.radio-puzzles li > .label-wrap > div{
     white-space: nowrap;
     letter-spacing: -.36em;
 }
 
-.radio-puzzles li > div * {
+.radio-puzzles.one-line li > div *,
+.radio-puzzles li > .label-wrap > div * {
     letter-spacing: normal;
+}
+
+.radio-puzzles.one-line:not(.el-smaller) li > span,
+.radio-puzzles:not(.el-smaller) li > .label-wrap > span {
+    line-height: 30px;
 }
 
 .radio-puzzles label {
@@ -767,7 +799,7 @@ div.textarea{
     height: 30px;
     border: solid 1px #c8c7c9;
     font-size: 14px;
-    line-height: 18px;
+    line-height: 20px;
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
@@ -775,14 +807,27 @@ div.textarea{
     cursor: pointer;
 }
 
+.radio-puzzles.el-smaller label{
+    padding: 3px 5px 0;
+    height: 26px;
+    width: auto;
+}
+
 .radio-puzzles label:first-of-type{
     border-radius: 4px 0 0 4px;
     margin-left: 0;
 }
 
+.radio-puzzles.align-right label:first-of-type{
+    margin-left: 14px;
+}
+
 .radio-puzzles label:last-of-type {
-    margin-right: 14px;
     border-radius: 0 4px 4px 0;
+}
+
+.radio-puzzles:not(.align-right) label:last-of-type{
+    margin-right: 14px;
 }
 
 .radio-puzzles input:not([correct_answer]):checked + br + label, /*all wrong if no correct*/
@@ -800,6 +845,9 @@ div.textarea{
     color: #000;
 }
 
+.radio-puzzles input[type="radio"]:checked + br + label,
+.radio-puzzles input[type="radio"]:checked + label,
+.radio-puzzles label.checked,
 .radio-puzzles label:hover{
     border-color: #c8c7c9 !important;
     background: #fde7ea !important;
@@ -1040,7 +1088,6 @@ ul.multiple-choice .checkbox-label:before{
 /*}*/
 
 .flex-start{
-    /*vertical-align: top;*/
     align-self: flex-start;
 }
 
@@ -1102,6 +1149,14 @@ ul.multiple-choice .checkbox-label:before{
     content: "";
     display: block;
     clear: both;
+}
+
+.columns-with-checklist .is_stuck{
+    z-index: 10;
+}
+
+.columns-with-checklist .is_stuck + div:empty{
+    z-index: 0;
 }
 /*---end of align div classes---*/
 
@@ -3796,13 +3851,6 @@ div.list-text-fields{
     margin: 47px auto 53px;
 }
 
-/*.record-questions-wrapper.in-column{*/
-   /**/
-/*}*/
-/*.record-questions-wrapper.in-column .record-list{*/
-    /*width: 100%;*/
-/*}*/
-
 .record-questions-wrapper h5 {
     margin-bottom: 18px;
     font-size: 1em;
@@ -3837,47 +3885,6 @@ div.list-text-fields{
 .record-questions-wrapper > ul > li:last-child{
     margin-bottom: 0;
 }
-
-/*.record-questions-list,*/
-/*.record-questions-list li{*/
-    /*position: relative;*/
-    /*width: 100%;*/
-
-/*}*/
-
-/*.record-questions-list > li{*/
-    /*max-width: 420px;*/
-/*}*/
-
-/*.record-questions-list {*/
-    /*padding: 0;*/
-    /*list-style-type: none;*/
-/*}*/
-
-/*.record-questions-list li {*/
-    /*position: relative;*/
-    /*width: 100%;*/
-    /*font-size: 14px;*/
-    /*line-height: 1.43;*/
-/*}*/
-
-/**:not(.in-column) > .record-questions-list li{*/
-    /*padding: 11px 50px 11px 40px;*/
-    /*!*padding: 11px 9px 11px 40px;*!*/
-    /*margin-bottom: 18px;*/
-    /*border: solid 1px #eaeaea;*/
-/*}*/
-
-/*.in-column > .record-questions-list li{*/
-    /*padding: 0;*/
-    /*margin-bottom: 40px;*/
-/*}*/
-
-/*.record-questions-list ol li,*/
-/*.record-questions-list ul li{*/
-    /*!*border: 0;*!*/
-    /*padding: 0;*/
-/*}*/
 
 .record-questions-list ol:not(.default-style) li,
 .record-questions-list ul:not(.default-style) li{
@@ -4046,10 +4053,12 @@ div.list-text-fields{
 .insert-record-questions-list li {
     position: relative;
     margin-bottom: 18px;
-    padding: 11px 0 11px 40px;
     width: 100%;
+}
+
+.record-questions-wrapper:not(.in-column) .insert-record-questions-list > li{
+    padding: 11px 0 11px 40px;
     border: solid 1px #eaeaea;
-    box-sizing: border-box;
 }
 
 .insert-record-questions-list li br {
@@ -4260,6 +4269,11 @@ h3.ui-kit-part-name{
 
 .hide{
     display: none !important;
+}
+
+.height-change,
+.height-change *{
+    vertical-align: top;
 }
 
 .margin-bottom-5{
