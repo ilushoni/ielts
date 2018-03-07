@@ -251,17 +251,16 @@ $(document).ready(function(){
         }
     });
     $(document).on('click', ".sort-phrase:not(.disabled) li", function(){
-        if($(this).parents(".disabled").length==0){
-            if(!( $(this).parents(".sort-phrase").hasClass('drop-list') )) {
-                if($(this).parents(".sort-phrase-wrap").prev().hasClass("show-used-el")){
-                    $("#"+ $(this).attr('id')+"-clone").after($(this));
-                    $("#"+ $(this).attr('id')+"-clone").remove();
-                }else{
-                    $(this).appendTo(findDropList($(this).closest(".sort-phrase"))).show('slow');
-                }
-                $(this).removeAttr("style");
-                $(this).removeClass("wrong");
+        if(($(this).parents(".disabled").length == 0) && $(this).parents(".sort-phrase").is(":not(.drop-list)") ){
+            var dropList = findDropList($(this).closest(".sort-phrase-wrap"));
+            if(dropList.hasClass("show-used-el")){
+                $("#"+ $(this).attr('id')+"-clone").after($(this));
+                $("#"+ $(this).attr('id')+"-clone").remove();
+            }else{
+                $(this).appendTo(dropList).show('slow');
             }
+            $(this).removeAttr("style");
+            $(this).removeClass("wrong");
         }
     });
     $(document).on('mouseup', ".sort-phrase:not(.disabled) li", function(){
