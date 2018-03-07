@@ -192,8 +192,8 @@ $(document).ready(function(){
                 $.each(atts, function(index, value){
                     $("["+value+"]").removeAttr(value);
                 });
-
-                // $droppedEl.removeAttr("style");
+                // $parentUl.css({display: "table-cell"});
+                // $parentUl.find("li").css({display: "inline-block"});
             },
             receive: function(event, ui) {
                 if($(this).parents(".only-one-paste").length){

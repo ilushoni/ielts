@@ -340,7 +340,8 @@ function show_my_audio_func( $atts) {
         }
         $audio .= '</ul>';
     }else {
-        $audio = 'no records';
+        preg_match('/Task ([0-9]+)/', get_the_title($page_id), $match);
+        $audio = '<div class="no-records paper-bg">Please record your answer in <a href="'.get_permalink($page_id).'">'.$match[0].'</a></div>';
     }
     return $audio;
 }

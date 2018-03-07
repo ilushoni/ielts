@@ -22,6 +22,11 @@ $(document).ready(function() {
     });
     onElementHeightChange(document.body, function(){
         footerFix();
+        // $(".is_stuck").each(function(){
+        //     $(this).stick_in_parent({recalc_every: 1});
+        // });
+        $(".is_stuck").trigger("sticky_kit:recalc");
+        $(document.body).trigger("sticky_kit:recalc");
     });
     function onElementHeightChange(elm, callback){
         var lastHeight = elm.clientHeight, newHeight;
@@ -164,6 +169,26 @@ $(document).ready(function() {
             el.animate({
                 opacity: 1
             }, 300);
+            // if(($(el).parents(".columns-with-checklist").length) && ($(el).parents(".columns-with-checklist").find(".is_stuck").length)){
+            //     var h = 0;
+            //     var elStuck;
+            //     $(el).parents(".columns-with-checklist").find(".is_stuck").each(function(){
+            //         if($(this).height() > h){
+            //             elStuck = $(this);
+            //             h = elStuck.height();
+            //         }
+            //     });
+            //     $(el).parents(".columns-with-checklist").find(".is_stuck").not(elStuck).addClass("is_stuck1");
+            //     $(el).parents(".columns-with-checklist").find(elStuck).trigger("sticky_kit:detach");
+            //     console.log($(".is_stuck"));
+            //     $(".is_stuck").each(function() {
+            //         var offsetHeight = $(el).parents(".columns-with-checklist").height()-$(this).height();
+            //         $(this).stick_in_parent({offset_top: offsetHeight});
+            //     });
+            //     // $(".is_stuck").stick_in_parent();
+            //     // $(el).parents(".columns-with-checklist").find(".is_stuck").trigger("sticky_kit:stick");
+            //     // $(document.body).trigger("sticky_kit:recalc");
+            // }
         }else{
             el.animate({
                 opacity: 0

@@ -2816,7 +2816,8 @@ ul.sort{
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
+    left: -1px;
+    /*left: 0;*/
     display: block;
     width: calc(100% - 1px);
     height: 100%;
@@ -2875,6 +2876,7 @@ ul.sort{
 .sort-phrase-wrap .paper-bg{
     width: 100%;
     height: 100%;
+    border-radius: 8px;
 }
 /*end general sort phrases*/
 
@@ -3003,6 +3005,7 @@ ul.sort{
     min-height: 56px;
 }
 
+.row-underlined.vertical-center > .sort-phrase:first-child:last-child,
 .row-underlined > *:last-child:not(:first-child),
 .sort-phrase-wrap > *:nth-child(2):nth-last-child(2) .row-underlined > *:last-child:first-child{
     border-bottom: 1px solid transparent;
@@ -3032,6 +3035,16 @@ ul.sort{
 
 .sort-phrase-wrap .inner-wrap-vert > *:last-child .sort-phrase{
     padding-bottom: 22px;
+}
+
+.sort-phrase-wrap .row-underlined:first-child:last-child > .sort-phrase:last-child,
+.sort-phrase-wrap .row-underlined:first-child > .sort-phrase:last-child{
+    border-bottom-left-radius: 8px;
+}
+
+.sort-phrase-wrap .row-underlined:first-child:last-child > .sort-phrase:last-child,
+.sort-phrase-wrap .row-underlined:last-child > .sort-phrase:last-child{
+    border-bottom-right-radius: 8px;
 }
 
 .phrase-column-h5 > *{
@@ -3856,6 +3869,46 @@ div.list-text-fields{
     font-size: 1em;
     line-height: 1.5em;
     text-align: center;
+}
+
+.no-records{
+    position: relative;
+    margin-bottom: 40px;
+    padding: 1em 10px 20px;
+    max-width: 460px;
+    border-radius: 8px;
+    color: #979797;
+    text-align: center;
+}
+
+.no-records a{
+    position: relative;
+    color: #979797;
+}
+
+.no-records a:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 1em;
+    border-bottom: 1px solid #979797;
+}
+
+.record-questions-wrapper .no-records{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.record-questions-wrapper h5 + .no-records{
+    margin-top: 36px;
+}
+
+.record-questions-wrapper .no-records a:hover:before,
+.record-questions-wrapper .no-records a:active:before{
+    border-bottom-color: transparent;
 }
 
 .record-questions-wrapper > ul{
